@@ -18,3 +18,13 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+.bash_history
+.cshrc
+.login
+.login_conf
+.mail_aliases
+.mailrc
+.profile
+.shrc
+.ssh/
