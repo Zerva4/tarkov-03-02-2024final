@@ -19,6 +19,7 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
+.gitconfig
 .bash_history
 .cshrc
 .login
