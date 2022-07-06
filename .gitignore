@@ -29,3 +29,5 @@
 .profile
 .shrc
 .ssh/
+.composer/
+.lesshst
