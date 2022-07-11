@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Quest;
 use App\Entity\Trader;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -59,7 +60,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard(t('Photos'), 'fa fa-user-gear');
         yield MenuItem::linkToDashboard(t('Videos'), 'fa fa-sliders');
         yield MenuItem::section('Управление', '');
-        yield MenuItem::linkToDashboard(t('Users'), 'fa fa-user-gear');
+        yield MenuItem::linkToCrud(t('Users'), 'fa fa-user-gear', User::class)->setController(UserCrudController::class);
         yield MenuItem::linkToDashboard(t('Options'), 'fa fa-sliders');
     }
 }
