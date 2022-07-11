@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TraderRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'Traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
 class Trader
 {
