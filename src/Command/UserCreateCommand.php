@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[AsCommand(
     name: 'app:admin:create',
-    description: 'Add a short description for your command',
+    description: 'This command allows you to create admin user with ROLE_ADMIN ...',
 )]
 class UserCreateCommand extends Command
 {
@@ -61,7 +61,7 @@ class UserCreateCommand extends Command
         $user = $this->checkUser($userLogin);
 
         if ($user instanceof User) {
-            $io->writeln('User \''.$userLogin.'\' or email \''.$userEmail.'\' already exists, exiting');
+            $io->error('User with login \''.$userLogin.'\' or e-mail \''.$userEmail.'\' already exists.');
 
             return 0;
         }
@@ -75,6 +75,8 @@ class UserCreateCommand extends Command
 
         $this->em->persist($user);
         $this->em->flush();
+
+        $io->success("User {$userLogin} was successfully " . ($isNew ? 'created.' : 'updated.'));
 
         return Command::SUCCESS;
     }
