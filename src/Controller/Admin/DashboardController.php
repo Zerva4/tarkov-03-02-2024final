@@ -52,7 +52,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard');
         yield MenuItem::section('Наполнение', '');
         yield MenuItem::linkToCrud(t('Quests'), 'fa fa-location-question', Quest::class)->setController(QuestCrudController::class);
-        yield MenuItem::linkToCrud(t('Traders'), '', Trader::class)->setController(TraderCrudController::class);
+        yield MenuItem::linkToCrud(t('Traders'), 'fa fa-trader', Trader::class)->setController(TraderCrudController::class);
         yield MenuItem::linkToDashboard(t('Updates'), 'fa fa-home');
         yield MenuItem::linkToDashboard(t('Tips'), 'fa fa-home');
         yield MenuItem::linkToDashboard(t('Items'), 'fa fa-home');
