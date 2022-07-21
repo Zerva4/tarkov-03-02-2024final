@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\QuestRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'Quests')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
 class Quest
 {
