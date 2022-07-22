@@ -29,19 +29,19 @@ class ArticleCrudController extends AbstractCrudController
         $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
         $title = TextField::new('title', t('Title', [], 'admin.articles'));
         $poster= ImageField::new('imagePoster', t('Poster', [], 'admin.articles'))
-            ->setUploadDir($this->getParameter('app.locations.images.path'));
+            ->setUploadDir($this->getParameter('app.articles.images.path'));
         $description  = TextEditorField::new('description', t('Description', [], 'admin.articles'));
         $body  = TextEditorField::new('body', t('Description', [], 'admin.articles'));
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
-                $published->setColumns(1)->setTextAlign('left'),
-                $createdAt,
-                $updatedAt,
-                $title,
-                $poster,
-                $description,
-                $body,
+                $published,
+                $createdAt->setColumns(6)->setTextAlign('left'),
+                $updatedAt->setColumns(6)->setTextAlign('left'),
+                $title->setColumns(6)->setTextAlign('left'),
+                $poster->setColumns(6)->setTextAlign('left'),
+                $description->setColumns(12)->setTextAlign('left'),
+                $body->setColumns(12)->setTextAlign('left'),
             ],
             default => [
                 $id->setColumns(1)->setTextAlign('left'),
