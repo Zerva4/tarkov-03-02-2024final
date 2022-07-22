@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Location;
 use App\Entity\Quest;
 use App\Entity\Trader;
 use App\Entity\User;
@@ -50,17 +51,18 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard');
-        yield MenuItem::section('Наполнение', '');
-        yield MenuItem::linkToCrud(t('Quests'), 'fa fa-location-question', Quest::class)->setController(QuestCrudController::class);
-        yield MenuItem::linkToCrud(t('Traders'), 'fa fa-trader', Trader::class)->setController(TraderCrudController::class);
-        yield MenuItem::linkToDashboard(t('Updates'), 'fa fa-home');
-        yield MenuItem::linkToDashboard(t('Tips'), 'fa fa-home');
-        yield MenuItem::linkToDashboard(t('Items'), 'fa fa-home');
-        yield MenuItem::section('Материалы', '');
-        yield MenuItem::linkToDashboard(t('Photos'), 'fa fa-user-gear');
-        yield MenuItem::linkToDashboard(t('Videos'), 'fa fa-sliders');
-        yield MenuItem::section('Управление', '');
-        yield MenuItem::linkToCrud(t('Users'), 'fa fa-user-gear', User::class)->setController(UserCrudController::class);
-        yield MenuItem::linkToDashboard(t('Options'), 'fa fa-sliders');
+        yield MenuItem::section(t('Content', [], 'menu'), '');
+        yield MenuItem::linkToCrud(t('Locations', [], 'menu'), 'fa fa-location', Location::class)->setController(LocationCrudController::class);
+        yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-location-question', Quest::class)->setController(QuestCrudController::class);
+        yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-trader', Trader::class)->setController(TraderCrudController::class);
+        yield MenuItem::linkToDashboard(t('Updates', [], 'menu'), 'fa fa-update');
+        yield MenuItem::linkToDashboard(t('Hints', [], 'menu'), 'fa fa-square');
+        yield MenuItem::linkToDashboard(t('Items', [], 'menu'), 'fa fa-items');
+        yield MenuItem::section(t('Materials', [], 'menu'), '');
+        yield MenuItem::linkToDashboard(t('Photos', [], 'menu'), 'fa fa-user-gear');
+        yield MenuItem::linkToDashboard(t('Videos', [], 'menu'), 'fa fa-sliders');
+        yield MenuItem::section(t('Management', [], 'menu'), '');
+        yield MenuItem::linkToCrud(t('Users', [], 'menu'), 'fa fa-user-gear', User::class)->setController(UserCrudController::class);
+        yield MenuItem::linkToDashboard(t('Options', [], 'menu'), 'fa fa-sliders');
     }
 }
