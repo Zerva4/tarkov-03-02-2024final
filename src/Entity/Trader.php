@@ -29,11 +29,8 @@ class Trader
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $uriName;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
-
-//    #[UploadableField(mapping: 'traders', fileNameProperty: 'image_name')]
-//    private ?File $fileName;
 
     public function getId(): ?int
     {
