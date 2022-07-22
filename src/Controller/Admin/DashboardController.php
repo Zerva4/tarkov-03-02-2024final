@@ -56,7 +56,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-location-question', Quest::class)->setController(QuestCrudController::class);
         yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-trader', Trader::class)->setController(TraderCrudController::class);
         yield MenuItem::linkToDashboard(t('Updates', [], 'menu'), 'fa fa-update');
-        yield MenuItem::linkToDashboard(t('Hints', [], 'menu'), 'fa fa-square');
+        yield MenuItem::linkToDashboard(t('Articles', [], 'menu'), 'fa fa-square');
         yield MenuItem::linkToDashboard(t('Items', [], 'menu'), 'fa fa-items');
         yield MenuItem::section(t('Materials', [], 'menu'), '');
         yield MenuItem::linkToDashboard(t('Photos', [], 'menu'), 'fa fa-user-gear');
