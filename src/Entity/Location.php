@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'Locations')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
+
 class Location
 {
     #[ORM\Id]
@@ -19,6 +20,9 @@ class Location
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $title;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $imageName;
 
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
     private ?string $numberOfPlayers;
@@ -92,5 +96,21 @@ class Location
         $this->description = $description;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param string|null $imageName
+     */
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
     }
 }
