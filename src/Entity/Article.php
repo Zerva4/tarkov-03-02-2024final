@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -31,6 +33,15 @@ class Article
 
     #[ORM\Column(type: 'text')]
     private string $body;
+
+    #[ORM\JoinTable(name: 'Articles_Tags')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
+    private ?Collection $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,5 +106,48 @@ class Article
         $this->body = $body;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getTags(): ?Collection
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     * @return Article
+     */
+    public function setTags(ArrayCollection $tags): self
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     * @return Article
+     */
+    public function addTag(ArrayCollection $tags): self
+    {
+        foreach ($tags as $tag) {
+            if (!$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return void
+     */
+    public function removeTag(Tag $tag): void
+    {
+        $this->tags->removeElement($tag);
     }
 }
