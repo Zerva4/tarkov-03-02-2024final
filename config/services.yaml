@@ -17,6 +17,10 @@ parameters:
     # Locations image config
     app.locations.images.path: '%app.storage.path%images/locations'
     app.locations.images.uri: '%app.storage.uri%images/locations'
+
+    # Locations image config
+    app.articles.images.path: '%app.storage.path%images/articles'
+    app.articles.images.uri: '%app.storage.uri%images/articles'
 services:
     # default configuration for services in *this* file
     _defaults:
