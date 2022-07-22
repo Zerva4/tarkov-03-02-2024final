@@ -4,7 +4,23 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app_dir: '%env(APP_DIR)%'
 
+    app.storage.path: '/public/storage/'
+    app.storage.uri: '%app_dir%storage/'
+    app.storage.cache_uri: 'storage/'
+
+    # Traders image config
+    app.traders.images.path: '%app.storage.path%images/traders'
+    app.traders.images.uri: '%app.storage.uri%images/traders'
+
+    # Locations image config
+    app.locations.images.path: '%app.storage.path%images/locations'
+    app.locations.images.uri: '%app.storage.uri%images/locations'
+
+    # Locations image config
+    app.articles.images.path: '%app.storage.path%images/articles'
+    app.articles.images.uri: '%app.storage.uri%images/articles'
 services:
     # default configuration for services in *this* file
     _defaults:

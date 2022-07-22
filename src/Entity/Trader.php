@@ -12,16 +12,22 @@ class Trader
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'boolean')]
-    private $published;
+    private bool $published;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $fullName;
+    private string $fullName;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $characterType;
+    private string $characterType;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $uriName;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $imageName;
 
     public function getId(): ?int
     {
@@ -60,6 +66,44 @@ class Trader
     public function setCharacterType(string $characterType): self
     {
         $this->characterType = $characterType;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUriName(): string
+    {
+        return $this->uriName;
+    }
+
+    /**
+     * @param string $uriName
+     * @return Trader
+     */
+    public function setUriName(string $uriName): self
+    {
+        $this->uriName = $uriName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param string|null $imageName
+     * @return Trader
+     */
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }

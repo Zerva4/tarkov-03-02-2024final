@@ -3,7 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Trader;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use function Symfony\Component\Translation\t;
 
 class TraderCrudController extends AbstractCrudController
 {
@@ -12,14 +18,25 @@ class TraderCrudController extends AbstractCrudController
         return Trader::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        $id = IntegerField::new('id', 'ID')->setColumns(0)->setTextAlign('left');
+        $published = BooleanField::new('published', t('Published', [], 'admin.traders'));
+        $fullName = TextField::new('fullName', t('Full name', [], 'admin.traders'));
+        $characterType = TextField::new('characterType', t('Character type', [], 'admin.traders'));
+        $uriName = TextField::new('uriName', t('URI-name', [], 'admin.traders'));
+        $avatar = ImageField::new('imageName', t('Photo', [], 'admin.traders'))
+            ->setUploadDir($this->getParameter('app.traders.images.path'));
+
+        return match ($pageName) {
+            Crud::PAGE_EDIT, Crud::PAGE_NEW => [
+                $published,
+                $fullName->setColumns(6)->setTextAlign('left'),
+                $characterType->setColumns(6)->setTextAlign('left'),
+                $uriName->setColumns(6)->setTextAlign('left'),
+                $avatar->setColumns(6)->setTextAlign('left')
+            ],
+            default => [$id, $published, $fullName, $characterType],
+        };
     }
-    */
 }
