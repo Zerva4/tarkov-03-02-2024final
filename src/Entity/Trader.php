@@ -4,9 +4,6 @@ namespace App\Entity;
 
 use App\Repository\TraderRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 #[ORM\Table(name: 'Traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
