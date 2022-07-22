@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Article;
 use App\Entity\Location;
 use App\Entity\Quest;
 use App\Entity\Trader;
@@ -52,15 +53,15 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard');
         yield MenuItem::section(t('Content', [], 'menu'), '');
-        yield MenuItem::linkToCrud(t('Locations', [], 'menu'), 'fa fa-location', Location::class)->setController(LocationCrudController::class);
-        yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-location-question', Quest::class)->setController(QuestCrudController::class);
-        yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-trader', Trader::class)->setController(TraderCrudController::class);
-        yield MenuItem::linkToDashboard(t('Updates', [], 'menu'), 'fa fa-update');
-        yield MenuItem::linkToDashboard(t('Articles', [], 'menu'), 'fa fa-square');
+        yield MenuItem::linkToCrud(t('Locations', [], 'menu'), 'fa fa-map', Location::class)->setController(LocationCrudController::class);
+        yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);
+        yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-money', Trader::class)->setController(TraderCrudController::class);
+        yield MenuItem::linkToDashboard(t('Updates', [], 'menu'), 'fa fa-upload');
+        yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);
         yield MenuItem::linkToDashboard(t('Items', [], 'menu'), 'fa fa-items');
         yield MenuItem::section(t('Materials', [], 'menu'), '');
-        yield MenuItem::linkToDashboard(t('Photos', [], 'menu'), 'fa fa-user-gear');
-        yield MenuItem::linkToDashboard(t('Videos', [], 'menu'), 'fa fa-sliders');
+        yield MenuItem::linkToDashboard(t('Photos', [], 'menu'), 'fa fa-camera');
+        yield MenuItem::linkToDashboard(t('Videos', [], 'menu'), 'fa fa-video-camera');
         yield MenuItem::section(t('Management', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Users', [], 'menu'), 'fa fa-user-gear', User::class)->setController(UserCrudController::class);
         yield MenuItem::linkToDashboard(t('Options', [], 'menu'), 'fa fa-sliders');
