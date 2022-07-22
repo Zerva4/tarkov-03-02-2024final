@@ -13,6 +13,10 @@ parameters:
     # Traders image config
     app.traders.images.path: '%app.storage.path%images/traders'
     app.traders.images.uri: '%app.storage.uri%images/traders'
+
+    # Locations image config
+    app.locations.images.path: '%app.storage.path%images/locations'
+    app.locations.images.uri: '%app.storage.uri%images/locations'
 services:
     # default configuration for services in *this* file
     _defaults:
