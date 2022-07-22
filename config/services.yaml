@@ -6,7 +6,7 @@
 parameters:
     app_dir: '%env(APP_DIR)%'
 
-    app.storage.path: '%kernel.project_dir%/public/storage/'
+    app.storage.path: '/public/storage/'
     app.storage.uri: '%app_dir%storage/'
     app.storage.cache_uri: 'storage/'
 
