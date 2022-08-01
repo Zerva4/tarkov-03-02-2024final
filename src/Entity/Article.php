@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Interfaces\TagInterface;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
-#[ORM\Table(name: 'Articles')]
+#[ORM\Table(name: 'articles')]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
 {
@@ -34,7 +35,7 @@ class Article
     #[ORM\Column(type: 'text')]
     private string $body;
 
-    #[ORM\JoinTable(name: 'Articles_Tags')]
+    #[ORM\JoinTable(name: 'articles_tags')]
     #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
     private ?Collection $tags;
 
@@ -109,7 +110,7 @@ class Article
     }
 
     /**
-     * @return Collection|null
+     * @return TagInterface[]|null
      */
     public function getTags(): ?Collection
     {

@@ -2,8 +2,6 @@
 
 namespace App\Interfaces;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 interface TagRepositoryInterface
 {
     /**
