@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
+use App\Form\Field\TagsInputField;
 use App\Form\Type\TagsType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -35,16 +36,16 @@ class ArticleCrudController extends AbstractCrudController
             ->setUploadDir($this->getParameter('app.articles.images.path'));
         $description  = TextEditorField::new('description', t('Description', [], 'admin.articles'));
         $body = TextEditorField::new('body', t('Description', [], 'admin.articles'));
-//        $tags = AssociationField::new('tags', 'Теги')
-//            ->autocomplete()->setFormTypeOption('by_reference', false);
-////            ->setFormType(TagsType::class)
-////            ->addCssFiles('assets/css/bootstrap-tagsinput.css')
-////            ->addJsFiles('assets/js/bootstrap-tagsinput.js')
-////            ->addJsFiles('assets/js/tags.js')
-////            ->setFormTypeOption('attr', [
-////                'data-role' => 'tagsinput',
-////            ])
-//        ;
+        $tags = TagsInputField::new('tags', 'Теги')
+            ->addCssFiles('assets/css/bootstrap-tagsinput.css')
+            ->addJsFiles('assets/js/bootstrap-tagsinput.js')
+            ->addJsFiles('assets/js/tags.js')
+            ->setProperty('tags')
+            ->setFormTypeOption('attr', [
+                'data-role' => 'tagsinput',
+            ])
+//            ->setFormType(TagsType::class)
+        ;
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
@@ -54,7 +55,8 @@ class ArticleCrudController extends AbstractCrudController
                 $title->setColumns(6)->setTextAlign('left'),
                 $poster->setColumns(6)->setTextAlign('left'),
                 $description->setColumns(12)->setTextAlign('left'),
-                $body->setColumns(12)->setTextAlign('left')
+                $body->setColumns(12)->setTextAlign('left'),
+                $tags
             ],
             default => [
                 $id->setColumns(1)->setTextAlign('left'),
