@@ -129,10 +129,10 @@ class Article
     }
 
     /**
-     * @param ArrayCollection $tags
+     * @param TagInterface ...$tags
      * @return Article
      */
-    public function addTag(ArrayCollection $tags): self
+    public function addTag(TagInterface ...$tags): self
     {
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {
@@ -147,7 +147,7 @@ class Article
      * @param Tag $tag
      * @return void
      */
-    public function removeTag(Tag $tag): void
+    public function removeTag(TagInterface $tag): void
     {
         $this->tags->removeElement($tag);
     }
