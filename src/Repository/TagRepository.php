@@ -3,7 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Tag;
+use App\Interfaces\TagInterface;
+use App\Interfaces\TagRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,7 +20,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Tag[]    findAll()
  * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TagRepository extends ServiceEntityRepository
+class TagRepository extends ServiceEntityRepository implements TagRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -39,28 +45,38 @@ class TagRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Tag[] Returns an array of Tag objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findTagById(int $id): ?TagInterface
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.id = :id');
 
-//    public function findOneBySomeField($value): ?Tag
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $query = $qb->getQuery();
+        $query->setParameter('id', $id);
+
+        try {
+            return $query->getOneOrNullResult(AbstractQuery::HYDRATE_OBJECT);
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
+    }
+
+    public function findTagByName($name): ?TagInterface
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.name = :name');
+
+        $query = $qb->getQuery();
+        $query->setParameter('name', $name);
+
+        try {
+            return $query->getOneOrNullResult(AbstractQuery::HYDRATE_OBJECT);
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
+    }
+
+    public function findAllTags(): array
+    {
+        return $this->findAll();
+    }
 }
