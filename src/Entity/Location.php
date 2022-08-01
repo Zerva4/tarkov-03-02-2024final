@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\LocationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Table(name: 'Locations')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
-
-class Location
+class Location implements Translatable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,6 +20,7 @@ class Location
     private bool $published;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Gedmo\Translatable]
     private string $title;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -31,7 +33,11 @@ class Location
     private ?float $raidDuration;
 
     #[ORM\Column(type: 'text')]
+    #[Gedmo\Translatable]
     private string $description;
+
+    #[Gedmo\Locale]
+    private string $locale;
 
     public function getId(): ?int
     {
@@ -112,5 +118,10 @@ class Location
     public function setImageName(?string $imageName): void
     {
         $this->imageName = $imageName;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
