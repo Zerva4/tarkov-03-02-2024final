@@ -6,6 +6,10 @@
 parameters:
     app_dir: '%env(APP_DIR)%'
 
+    # Locales
+    app.default_locale: ru
+    app.additional_locales: en
+
     app.storage.path: '/public/storage/'
     app.storage.uri: '%app_dir%storage/'
     app.storage.cache_uri: 'storage/'
@@ -38,3 +42,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    app.eventListeners.localeParamListener:
+        class: App\EventListener\LocaleParamListener
+        arguments: ["@router", "%app.default_locale%", "%app.additional_locales%"]
+        tags:
+            - { name: kernel.event_subscriber }
