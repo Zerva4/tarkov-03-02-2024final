@@ -45,8 +45,8 @@ class DashboardController extends AbstractDashboardController
             ->renderContentMaximized()
             ->disableUrlSignatures()
             ->generateRelativeUrls()
-            ->setTranslationDomain('admin');
-            ;
+            ->setTranslationDomain('admin')
+        ;
     }
 
     public function configureMenuItems(): iterable
