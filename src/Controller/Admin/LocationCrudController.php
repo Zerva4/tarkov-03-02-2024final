@@ -3,14 +3,21 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Location;
+use App\Form\Field\TranslationsFormField;
+use Doctrine\ORM\Query\FilterCollection;
+use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use function Symfony\Component\Translation\t;
 
 class LocationCrudController extends AbstractCrudController
@@ -31,19 +38,32 @@ class LocationCrudController extends AbstractCrudController
         $raidDuration = NumberField::new('raidDuration', t('Raid duration', [], 'admin.locations'));
         $description  = TextEditorField::new('description', t('Description', [], 'admin.locations'));
 
+        $translations = TranslationsFormField::new('translations', t('Localization', [], 'admin.locations'))
+//            ->setFormType(TranslationsType::class)
+            ->setTemplatePath('admin/fields/translation_form.html.twig')
+            ->setFormTypeOptions([
+                'translation_domain' => 'admin.locations',
+                'default_locale' => 'ru',
+                'fields' => [
+                    'title' => ['field_type' => TextType::class],
+                    'description' => ['field_type' => TextType::class],
+                ],
+                'excluded_fields' => ['lang']
+            ])
+        ;
+
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $published,
-                $title->setColumns(6),
                 $locationImage->setColumns(6),
                 $numberOfPlayers->setColumns(6),
                 $raidDuration->setColumns(6),
-                $description->setColumns(12)->setTextAlign('left')
+                $translations,
             ],
             default => [
                 $id->setColumns(1)->setTextAlign('left'),
+                $title,
                 $published->setColumns(1)->setTextAlign('left'),
-                $title->setColumns(6)->setTextAlign('left'),
                 $numberOfPlayers->setColumns(2)->setTextAlign('left'),
                 $raidDuration->setColumns(2)->setTextAlign('left')
             ]

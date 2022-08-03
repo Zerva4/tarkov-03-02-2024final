@@ -1,16 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\LocationRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Translatable\Translatable;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Table(name: 'Locations')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
-class Location implements Translatable
+class Location implements TranslatableInterface
 {
+    use TranslatableTrait;
+
+    private Container $container;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -18,10 +26,6 @@ class Location implements Translatable
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Gedmo\Translatable]
-    private string $title;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
@@ -32,12 +36,15 @@ class Location implements Translatable
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $raidDuration;
 
-    #[ORM\Column(type: 'text')]
-    #[Gedmo\Translatable]
-    private string $description;
+    public function __construct(string $defaultLocation = 'ru')
+    {
+        $this->defaultLocale = $defaultLocation;
+    }
 
-    #[Gedmo\Locale]
-    private string $locale;
+    public function __call($method, $arguments)
+    {
+        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $method);
+    }
 
     public function getId(): ?int
     {
@@ -52,18 +59,6 @@ class Location implements Translatable
     public function setPublished(bool $published): self
     {
         $this->published = $published;
-
-        return $this;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
 
         return $this;
     }
@@ -92,18 +87,6 @@ class Location implements Translatable
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
     /**
      * @return string|null
      */
@@ -118,10 +101,5 @@ class Location implements Translatable
     public function setImageName(?string $imageName): void
     {
         $this->imageName = $imageName;
-    }
-
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
     }
 }
