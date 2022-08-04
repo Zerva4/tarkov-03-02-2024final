@@ -6,9 +6,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Location;
 use App\Form\Field\TranslationField;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -16,7 +15,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
 
-class LocationCrudController extends AbstractCrudController
+class LocationCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {

@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Trader;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use function Symfony\Component\Translation\t;
 
-class TraderCrudController extends AbstractCrudController
+class TraderCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {

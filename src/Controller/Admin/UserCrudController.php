@@ -6,11 +6,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,7 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use function Symfony\Component\Translation\t;
 use Doctrine\ORM\EntityManagerInterface;
 
-class UserCrudController extends AbstractCrudController
+class UserCrudController extends BaseCrudController
 {
     private UserPasswordHasherInterface $passwordHasher;
 
