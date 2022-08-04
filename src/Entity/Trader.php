@@ -29,6 +29,11 @@ class Trader implements TranslatableInterface, TimestampableInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
 
+    public function __construct(string $defaultLocation = '%app.default_locale%')
+    {
+        $this->defaultLocale = $defaultLocation;
+    }
+
     public function isPublished(): ?bool
     {
         return $this->published;
