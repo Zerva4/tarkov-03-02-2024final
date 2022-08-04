@@ -8,57 +8,54 @@ use App\Repository\QuestRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'Quests')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
-class Quest implements TimestampableInterface
+class Quest implements TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
+    use TranslatableTrait;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title;
+    #[ORM\Column(type: 'boolean')]
+    private bool $published;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $description;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $imageName;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $howToComplete;
-
-    public function getTitle(): ?string
+    public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        return $this->title;
+        $this->defaultLocale = $defaultLocation;
     }
 
-    public function setTitle(string $title): self
+    public function isPublished(): ?bool
     {
-        $this->title = $title;
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
     {
-        return $this->description;
+        return $this->imageName;
     }
 
-    public function setDescription(string $description): self
+    /**
+     * @param string|null $imageName
+     */
+    public function setImageName(?string $imageName): void
     {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getHowToComplete(): ?string
-    {
-        return $this->howToComplete;
-    }
-
-    public function setHowToComplete(string $howToComplete): self
-    {
-        $this->howToComplete = $howToComplete;
-
-        return $this;
+        $this->imageName = $imageName;
     }
 }
