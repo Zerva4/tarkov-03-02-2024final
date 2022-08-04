@@ -9,11 +9,8 @@ use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -62,17 +59,16 @@ class LocationCrudController extends AbstractCrudController
             ->setUploadDir($this->getParameter('app.locations.images.path'));
         $numberOfPlayers = TextField::new('numberOfPlayers', t('Number of players', [], 'admin.locations'));
         $raidDuration = NumberField::new('raidDuration', t('Raid duration', [], 'admin.locations'));
-        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'),
-            [
-                'title' => ['field_type' => TextType::class],
-                'description' => [
-                    'attr' => [
-                        'class' => 'ckeditor'
-                    ],
-                    'field_type' => CKEditorType::class
+        $translationFields = [
+            'title' => ['field_type' => TextType::class],
+            'description' => [
+                'attr' => [
+                    'class' => 'ckeditor'
                 ],
-            ]
-        )
+                'field_type' => CKEditorType::class
+            ],
+        ];
+        $translations = TranslationField::new('translations', (string)t('Localization', [], 'admin.locations'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang']
             ])
