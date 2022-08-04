@@ -7,12 +7,15 @@ namespace App\Entity;
 use App\Repository\QuestRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
 #[ORM\Table(name: 'Quests')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
-class Quest
+class Quest implements TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $title;

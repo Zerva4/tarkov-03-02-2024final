@@ -8,6 +8,7 @@ use App\Entity\Location;
 use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -85,7 +86,9 @@ class LocationCrudController extends BaseCrudController
                 $title,
                 $published->setColumns(1)->setTextAlign('left'),
                 $numberOfPlayers->setColumns(2)->setTextAlign('left'),
-                $raidDuration->setColumns(2)->setTextAlign('left')
+                $raidDuration->setColumns(2)->setTextAlign('left'),
+                DateField::new('createdAt', 'Created'),
+                DateField::new('updatedAt', 'Updated'),
             ]
         };
     }

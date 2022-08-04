@@ -17,17 +17,6 @@ use function Symfony\Component\Translation\t;
 
 class ArticleCrudController extends BaseCrudController
 {
-    public function configureCrud(Crud $crud): Crud
-    {
-        return parent::configureCrud($crud)
-            ->setFormThemes([
-                'admin/field/translation.html.twig',
-                '@EasyAdmin/crud/form_theme.html.twig',
-                '@FOSCKEditor/Form/ckeditor_widget.html.twig',
-            ])
-            ;
-    }
-
     public static function getEntityFqcn(): string
     {
         return Article::class;

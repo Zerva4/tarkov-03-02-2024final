@@ -7,16 +7,19 @@ namespace App\Entity;
 use App\Repository\LocationTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'locations_translation')]
 #[ORM\Entity(repositoryClass: LocationTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class LocationTranslation implements TranslationInterface
+class LocationTranslation implements TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $title;

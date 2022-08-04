@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -74,6 +75,8 @@ class UserCrudController extends BaseCrudController
             ->setRequired(false)
             ->setLabel(t('Confirm password'))
         ;
+        $createdAt = DateField::new('createdAt', 'Created');
+        $updatedAt = DateField::new('updatedAt', 'Updated');
 
         return match ($pageName) {
             Crud::PAGE_EDIT => [
@@ -96,7 +99,7 @@ class UserCrudController extends BaseCrudController
                 $newPassword->setColumns(6)->setVirtual(true),
                 $confirmPassword->setColumns(6)->setVirtual(true),
             ],
-            default => [$login, $email, $title, $roles],
+            default => [$login, $email, $title, $roles, $createdAt, $updatedAt],
         };
     }
 

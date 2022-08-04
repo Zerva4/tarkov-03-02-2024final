@@ -10,16 +10,19 @@ use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'articles_translation')]
 #[ORM\Entity(repositoryClass: ArticleTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class ArticleTranslation implements TranslationInterface
+class ArticleTranslation implements TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $title;

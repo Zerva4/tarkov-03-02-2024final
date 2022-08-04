@@ -7,15 +7,18 @@ namespace App\Entity;
 use App\Repository\LocationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'Locations')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
-class Location implements TranslatableInterface
+class Location implements TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;

@@ -7,16 +7,17 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'articles')]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
-class Article implements TranslatableInterface
+class Article implements TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
-    use TimestampableEntity;
+    use TimestampableTrait;
     use TranslatableTrait;
 
     #[ORM\Column(type: 'boolean')]
