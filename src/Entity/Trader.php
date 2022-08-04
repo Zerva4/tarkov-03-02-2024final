@@ -7,24 +7,24 @@ namespace App\Entity;
 use App\Repository\TraderRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
-#[ORM\Table(name: 'Traders')]
+#[ORM\Table(name: 'traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
-class Trader
+class Trader implements TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
+    use TimestampableTrait;
+    use TranslatableTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $fullName;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $characterType;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $uriName;
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    private string $slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
@@ -41,47 +41,20 @@ class Trader
         return $this;
     }
 
-    public function getFullName(): ?string
-    {
-        return $this->fullName;
-    }
-
-    public function setFullName(string $fullName): self
-    {
-        $this->fullName = $fullName;
-
-        return $this;
-    }
-
-    public function getCharacterType(): ?string
-    {
-        return $this->characterType;
-    }
-
-    public function setCharacterType(string $characterType): self
-    {
-        $this->characterType = $characterType;
-
-        return $this;
-    }
-
     /**
      * @return string
      */
-    public function getUriName(): string
+    public function getSlug(): string
     {
-        return $this->uriName;
+        return $this->slug;
     }
 
     /**
-     * @param string $uriName
-     * @return Trader
+     * @param string $slug
      */
-    public function setUriName(string $uriName): self
+    public function setSlug(string $slug): void
     {
-        $this->uriName = $uriName;
-
-        return $this;
+        $this->slug = $slug;
     }
 
     /**

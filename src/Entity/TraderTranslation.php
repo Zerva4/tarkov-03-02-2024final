@@ -1,0 +1,75 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity;
+
+use App\Repository\TraderTranslationRepository;
+use App\Traits\UuidPrimaryKeyTrait;
+use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
+
+#[ORM\Table(name: 'traders_translation')]
+#[ORM\Entity(repositoryClass: TraderTranslationRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+class TraderTranslation implements TranslationInterface, TimestampableInterface
+{
+    use UuidPrimaryKeyTrait;
+    use TimestampableTrait;
+    use TranslationTrait;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $fullName;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $characterType;
+
+    #[ORM\Column(type: 'text')]
+    private string $description;
+
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
+    }
+
+    public function setFullName(string $fullName): self
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    public function getCharacterType(): ?string
+    {
+        return $this->characterType;
+    }
+
+    public function setCharacterType(string $characterType): self
+    {
+        $this->characterType = $characterType;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return TraderTranslation
+     */
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+}
