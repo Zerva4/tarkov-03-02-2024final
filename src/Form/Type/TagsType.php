@@ -24,15 +24,16 @@ class TagsType extends AbstractType implements DataTransformerInterface
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'entity_manager' => null,
-            'required' => false,
-            'label' => 'Tags',
-            'attr' => [
-                'placeholder' => 'разделить теги запятыми',
-                'data-ajax' => '/tags.json',
-            ],
-        ]);
+//        $resolver->setDefaults([
+//            'entity_manager' => null,
+//            'required' => false,
+//            'label' => 'Tags',
+//            'attr' => [
+//                'class' => 'field-tags',
+//                'placeholder' => 'разделить теги запятыми',
+//                'data-ajax' => '/tags.json',
+//            ],
+//        ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

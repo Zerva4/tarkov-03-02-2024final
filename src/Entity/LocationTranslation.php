@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\LocationLangsRepository;
+use App\Repository\LocationTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Table(name: 'locations_translation')]
-#[ORM\Entity(repositoryClass: LocationLangsRepository::class)]
+#[ORM\Entity(repositoryClass: LocationTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class LocationTranslation implements TranslationInterface
 {
