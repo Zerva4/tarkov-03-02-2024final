@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Quest;
@@ -19,7 +21,6 @@ class QuestCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $id = IdField::new('id', 'ID');
         $title = TextField::new('title', t('Title'));
         $description = TextEditorField::new('description', t('Description text'));
         $howToComplete = TextEditorField::new('howToComplete', t('How to complete text'));
@@ -28,7 +29,7 @@ class QuestCrudController extends AbstractCrudController
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $title, $description, $howToComplete
             ],
-            default => [$id, $title],
+            default => [$title],
         };
     }
 }

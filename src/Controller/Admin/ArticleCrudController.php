@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
@@ -27,7 +29,6 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $id = IntegerField::new('id', 'ID')->setColumns(0)->setTextAlign('left');
         $createdAt = DateField::new('createdAt', t('Created', [], 'admin.articles'));
         $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin.articles'));
         $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
@@ -59,7 +60,6 @@ class ArticleCrudController extends AbstractCrudController
                 $tags
             ],
             default => [
-                $id->setColumns(1)->setTextAlign('left'),
                 $published->setColumns(1)->setTextAlign('left'),
                 $createdAt,
                 $updatedAt,

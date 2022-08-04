@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces;
+
+use Ramsey\Uuid\UuidInterface;
 
 interface TagRepositoryInterface
 {
     /**
      * Finds the tag with the given ID.
      *
-     * @param int $id
+     * @param UuidInterface $id
      *
      * @return TagInterface|null
      */
-    public function findTagById(int $id): ?TagInterface;
+    public function findTagById(UuidInterface $id): ?TagInterface;
 
     /**
      * Finds the tag with the given name.

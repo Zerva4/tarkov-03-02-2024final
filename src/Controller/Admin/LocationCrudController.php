@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Location;
@@ -54,7 +56,6 @@ class LocationCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $id = IntegerField::new('id', 'ID')->setColumns(0)->setTextAlign('left');
         $published = BooleanField::new('published', t('Published', [], 'admin.locations'));
         $title = TextField::new('title', t('Title', [], 'admin.locations'));
         $locationImage= ImageField::new('imageName', t('Photo', [], 'admin.locations'))

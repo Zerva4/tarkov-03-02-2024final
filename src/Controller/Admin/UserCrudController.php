@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\User;
@@ -32,7 +34,6 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $id = IntegerField::new('id', 'ID')->setColumns(0)->setTextAlign('left');
         $login = TextField::new('login', t('Login'))
             ->setColumns(4)
             ->setTextAlign('left')
@@ -97,7 +98,7 @@ class UserCrudController extends AbstractCrudController
                 $newPassword->setColumns(6)->setVirtual(true),
                 $confirmPassword->setColumns(6)->setVirtual(true),
             ],
-            default => [$id, $login, $email, $title, $roles],
+            default => [$login, $email, $title, $roles],
         };
     }
 

@@ -5,21 +5,17 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\LocationRepository;
+use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Table(name: 'Locations')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 class Location implements TranslatableInterface
 {
+    use UuidPrimaryKeyTrait;
     use TranslatableTrait;
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -36,11 +32,6 @@ class Location implements TranslatableInterface
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         $this->defaultLocale = $defaultLocation;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function isPublished(): ?bool

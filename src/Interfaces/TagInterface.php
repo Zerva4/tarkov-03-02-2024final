@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces;
+
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Interface for tag entity.
@@ -10,15 +14,15 @@ interface TagInterface
     public const ENTITY_ID = 'tags';
 
     /**
-     * @return int|null
+     * @return UuidInterface
      */
-    public function getId(): ?int;
+    public function getId(): UuidInterface;
 
     /**
-     * @param int $id
-     * @return TagInterface
+     * @param UuidInterface $id
+     * @return void
      */
-    public function setId(int $id): TagInterface;
+    public function setId(UuidInterface $id): void;
 
     /**
      * @return string|null

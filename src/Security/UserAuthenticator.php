@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Security;
 
 use App\Repository\UserRepository;
@@ -23,12 +25,12 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
 
     private UrlGeneratorInterface $urlGenerator;
-    private UserRepository $userrepository;
+    private UserRepository $userRepository;
 
     public function __construct(UrlGeneratorInterface $urlGenerator, UserRepository $userRepository)
     {
         $this->urlGenerator = $urlGenerator;
-        $this->userrepository = $userRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function authenticate(Request $request): Passport
@@ -39,7 +41,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
 
         return new Passport(
             new UserBadge($loginOrEmail, function ($userIdentifier) {
-                return $this->userrepository->findByLoginOrEmail($userIdentifier);
+                return $this->userRepository->findByLoginOrEmail($userIdentifier);
             }),
             new PasswordCredentials($request->request->get('password', '')),
             [

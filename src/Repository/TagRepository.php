@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Tag;
@@ -11,6 +13,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<Tag>
@@ -45,7 +48,7 @@ class TagRepository extends ServiceEntityRepository implements TagRepositoryInte
         }
     }
 
-    public function findTagById(int $id): ?TagInterface
+    public function findTagById(UuidInterface $id): ?TagInterface
     {
         $qb = $this->createQueryBuilder('t')
             ->where('t.id = :id');

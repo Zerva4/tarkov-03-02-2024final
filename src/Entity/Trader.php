@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\TraderRepository;
+use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'Traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
 class Trader
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    use UuidPrimaryKeyTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -28,11 +28,6 @@ class Trader
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function isPublished(): ?bool
     {

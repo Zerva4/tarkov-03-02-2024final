@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Trader;
@@ -7,7 +9,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use function Symfony\Component\Translation\t;
 
@@ -20,7 +21,6 @@ class TraderCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $id = IntegerField::new('id', 'ID')->setColumns(0)->setTextAlign('left');
         $published = BooleanField::new('published', t('Published', [], 'admin.traders'));
         $fullName = TextField::new('fullName', t('Full name', [], 'admin.traders'));
         $characterType = TextField::new('characterType', t('Character type', [], 'admin.traders'));
@@ -36,7 +36,7 @@ class TraderCrudController extends AbstractCrudController
                 $uriName->setColumns(6)->setTextAlign('left'),
                 $avatar->setColumns(6)->setTextAlign('left')
             ],
-            default => [$id, $published, $fullName, $characterType],
+            default => [$characterType, $published, $fullName],
         };
     }
 }
