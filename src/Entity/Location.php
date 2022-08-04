@@ -8,7 +8,6 @@ use App\Repository\LocationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Table(name: 'Locations')]
@@ -16,8 +15,6 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 class Location implements TranslatableInterface
 {
     use TranslatableTrait;
-
-    private Container $container;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,14 +33,9 @@ class Location implements TranslatableInterface
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $raidDuration;
 
-    public function __construct(string $defaultLocation = 'ru')
+    public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         $this->defaultLocale = $defaultLocation;
-    }
-
-    public function __call($method, $arguments)
-    {
-        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $method);
     }
 
     public function getId(): ?int

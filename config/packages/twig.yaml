@@ -1,7 +1,7 @@
 twig:
+    strict_variables: true
     default_path: '%kernel.project_dir%/templates'
-    form_themes:
-        - 'translation_form'
+#    form_themes: [ 'admin/field/translation.html.twig', '@EasyAdmin/form/bootstrap_5.html.twig' ]
     globals:
         locales: [ ru, en ]
 

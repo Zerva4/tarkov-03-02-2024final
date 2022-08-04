@@ -1,5 +1,6 @@
 a2lix_translation_form:
-  locales: [ 'ru', 'en' ]
   locale_provider: default
-  default_locale: ru
-  templating: "admin/fields/translations_form.html.twig"
+  locales: ['ru', 'en']
+  default_locale: '%app.default_locale%'
+  required_locales: [ru]
+  templating: "@A2lixTranslationForm/bootstrap_5_layout.html.twig"

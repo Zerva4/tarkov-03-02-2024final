@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
-#[ORM\Table(name: 'locations_translations')]
+#[ORM\Table(name: 'locations_translation')]
 #[ORM\Entity(repositoryClass: LocationLangsRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class LocationTranslation implements TranslationInterface
