@@ -86,7 +86,6 @@ class LocationCrudController extends AbstractCrudController
                 $translations,
             ],
             default => [
-                $id->setColumns(1)->setTextAlign('left'),
                 $title,
                 $published->setColumns(1)->setTextAlign('left'),
                 $numberOfPlayers->setColumns(2)->setTextAlign('left'),
