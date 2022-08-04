@@ -30,6 +30,10 @@ parameters:
     app.articles.images.path: '%app.storage.path%images/articles'
     app.articles.images.uri: '%app.storage.uri%images/articles'
 
+    # Locations image config
+    app.quests.images.path: '%app.storage.path%images/quests'
+    app.quests.images.uri: '%app.storage.uri%images/quests'
+
 services:
     # default configuration for services in *this* file
     _defaults:
