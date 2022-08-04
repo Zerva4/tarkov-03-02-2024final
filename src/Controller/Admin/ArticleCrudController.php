@@ -93,10 +93,10 @@ class ArticleCrudController extends AbstractCrudController
                 $translations
             ],
             default => [
+                $title->setColumns(12),
                 $published->setColumns(1)->setTextAlign('left'),
                 $createdAt,
                 $updatedAt,
-                $title->setColumns(12)
             ]
         };
     }
