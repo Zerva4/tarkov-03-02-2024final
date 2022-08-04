@@ -9,13 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 trait UuidPrimaryKeyTrait
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid')]
+    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'Ramsey\Uuid\Doctrine\UuidGenerator')]
     private UuidInterface $id;
-
-    public function __construct()
-    {
-        $this->id = Uuid::uuid4();
-    }
 
     /**
      * @return UuidInterface
