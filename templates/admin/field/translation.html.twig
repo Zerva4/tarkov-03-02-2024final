@@ -1,0 +1,38 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+
+{% block a2lix_translations_widget %}
+    {{ form_errors(form) }}
+
+    <div class="nav-tabs-custom form-tabs">
+        <ul class="nav nav-tabs">
+            {% for translationsFields in form %}
+                {% set locale = translationsFields.vars.name %}
+
+                <li class="nav-item {% if app.request.locale == locale %}active{% endif %}">
+                    <a href="#{{ translationsFields.vars.id }}_translations-fields" class="nav-link {% if form.vars.default_locale == locale %}active{% endif %}" data-toggle="tab" data-target="" data-bs-toggle="tab">
+                        &nbsp{{ translationsFields.vars.label|default(locale|humanize)|trans|upper }}&nbsp
+{#                        {% if form.vars.default_locale == locale %}{{ '[Default]'|trans }}{% endif %}#}
+                        {% if translationsFields.vars.required %}*{% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="a2lix_translationsFields tab-content">
+            {% for translationsFields in form %}
+                {% set locale = translationsFields.vars.name %}
+
+                <div id="{{ translationsFields.vars.id }}_translations-fields" class="tab-pane {% if app.request.locale == locale %}show active{% endif %} {% if not form.vars.valid %}sonata-ba-field-error{% endif %}" role="tabpanel">
+                    {{ form_errors(translationsFields) }}
+                    {{ form_widget(translationsFields) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block a2lix_translationsForms_widget %}
+    {{ block('a2lix_translations_widget') }}
+{% endblock %}

@@ -7,6 +7,7 @@ use App\Entity\Location;
 use App\Entity\Quest;
 use App\Entity\Trader;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -45,8 +46,14 @@ class DashboardController extends AbstractDashboardController
             ->renderContentMaximized()
             ->disableUrlSignatures()
             ->generateRelativeUrls()
-            ->setTranslationDomain('admin');
-            ;
+            ->setTranslationDomain('admin')
+        ;
+    }
+
+    public function configureAssets(): Assets
+    {
+        return parent::configureAssets()
+            ->addWebpackEncoreEntry('admin');
     }
 
     public function configureMenuItems(): iterable

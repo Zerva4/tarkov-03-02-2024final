@@ -6,6 +6,13 @@
 parameters:
     app_dir: '%env(APP_DIR)%'
 
+    doctrine_behaviors_translatable_fetch_mode: 'LAZY'
+    doctrine_behaviors_translation_fetch_mode: 'LAZY'
+
+    # Locales
+    app.default_locale: 'ru'
+    app.additional_locales: 'en'
+
     app.storage.path: '/public/storage/'
     app.storage.uri: '%app_dir%storage/'
     app.storage.cache_uri: 'storage/'
@@ -21,6 +28,7 @@ parameters:
     # Locations image config
     app.articles.images.path: '%app.storage.path%images/articles'
     app.articles.images.uri: '%app.storage.uri%images/articles'
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -38,3 +46,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    app.eventListeners.localeParamListener:
+        class: App\EventListener\LocaleParamListener
+        arguments: ["@router", "%app.default_locale%", "%app.additional_locales%"]
+        tags:
+            - { name: kernel.event_subscriber }

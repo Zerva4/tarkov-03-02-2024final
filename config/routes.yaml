@@ -1,3 +1,15 @@
-controllers:
+default_routes:
     resource: ../src/Controller/
-    type: attribute
+    prefix: '/'
+    name_prefix: ''
+    defaults:
+        _locale: '%app.default_locale%'
+    type: annotation
+
+localized_routes:
+    resource: ../src/Controller/
+    prefix: /{_locale}
+    name_prefix: 'localized_'
+    requirements:
+        _locale: '%app.additional_locales%'
+    type: annotation
