@@ -70,7 +70,7 @@ class LocationCrudController extends BaseCrudController
         ];
         $translations = TranslationField::new('translations', (string)t('Localization', [], 'admin.locations'), $translationFields)
             ->setFormTypeOptions([
-                'excluded_fields' => ['lang']
+                'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
         ;
 
