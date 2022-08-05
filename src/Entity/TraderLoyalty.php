@@ -35,7 +35,7 @@ class TraderLoyalty implements TraderLoyaltyInterface, TimestampableInterface
 
     #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'loyalty')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
-    private ?TraderInterface $trader;
+    private TraderInterface $trader;
 
     public function getLevel(): int
     {
@@ -90,7 +90,7 @@ class TraderLoyalty implements TraderLoyaltyInterface, TimestampableInterface
         return $this->trader;
     }
 
-    public function setTrader(?TraderInterface $trader): TraderLoyaltyInterface
+    public function setTrader(TraderInterface $trader): TraderLoyaltyInterface
     {
         $this->trader = $trader;
 

@@ -36,7 +36,7 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
 
-    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLoyalty::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLoyalty::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $loyalty;
 
@@ -144,7 +144,6 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     {
         if ($this->loyalty->contains($loyalty)) {
             $this->loyalty->removeElement($loyalty);
-            $loyalty->setTrader(null);
         }
 
         return $this;

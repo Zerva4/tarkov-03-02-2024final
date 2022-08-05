@@ -73,8 +73,8 @@ interface TraderLoyaltyInterface
     public function getTrader(): TraderInterface;
 
     /**
-     * @param TraderInterface|null $trader
+     * @param TraderInterface $trader
      * @return TraderLoyaltyInterface
      */
-    public function setTrader(?TraderInterface $trader): TraderLoyaltyInterface;
+    public function setTrader(TraderInterface $trader): TraderLoyaltyInterface;
 }
