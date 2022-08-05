@@ -22,6 +22,9 @@ class BaseCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
+            ->setPageTitle(Crud::PAGE_INDEX, 'Просмотр')
+            ->setPageTitle(Crud::PAGE_NEW, 'Создание')
+            ->setPageTitle(Crud::PAGE_EDIT, 'Редактирование')
             ->setFormThemes([
                 'admin/field/translation.html.twig',
                 '@EasyAdmin/crud/form_theme.html.twig',
