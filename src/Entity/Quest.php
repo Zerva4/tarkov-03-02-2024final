@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\QuestRepository;
+use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -20,6 +21,7 @@ class Quest implements TranslatableInterface, TimestampableInterface
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
     use TranslatableTrait;
+    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -30,18 +32,6 @@ class Quest implements TranslatableInterface, TimestampableInterface
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         $this->defaultLocale = $defaultLocation;
-    }
-
-    public function __call($method, $arguments)
-    {
-        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $method);
-    }
-
-    public function __get($name)
-    {
-        $method = 'get'. ucfirst($name);
-        $arguments=[];
-        return $this->proxyCurrentLocaleTranslation($method, $arguments);
     }
 
     public function isPublished(): ?bool

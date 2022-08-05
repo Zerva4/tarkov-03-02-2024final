@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\TraderRepository;
+use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Table(name: 'traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
@@ -20,6 +20,7 @@ class Trader implements TranslatableInterface, TimestampableInterface
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
     use TranslatableTrait;
+    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -35,16 +36,15 @@ class Trader implements TranslatableInterface, TimestampableInterface
         $this->defaultLocale = $defaultLocation;
     }
 
-    public function __call($method, $arguments)
+    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
     {
-        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $method);
-    }
+        if (! method_exists(self::getTranslationEntityClass(), $method)) {
+            $method = 'get' . ucfirst($method);
+        }
 
-    public function __get($name)
-    {
-        $method = 'get'. ucfirst($name);
-        $arguments=[];
-        return $this->proxyCurrentLocaleTranslation($method, $arguments);
+        $translation = $this->translate($this->getCurrentLocale());
+
+        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
     }
 
     public function isPublished(): ?bool
