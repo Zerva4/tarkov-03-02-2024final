@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\LocationInterface;
+use App\Interfaces\QuestInterface;
 use App\Repository\LocationRepository;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
@@ -15,7 +18,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'Locations')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
-class Location implements TranslatableInterface, TimestampableInterface
+class Location implements LocationInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
@@ -33,6 +36,9 @@ class Location implements TranslatableInterface, TimestampableInterface
 
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $raidDuration;
+
+    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $quests;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -89,5 +95,54 @@ class Location implements TranslatableInterface, TimestampableInterface
     public function setImageName(?string $imageName): void
     {
         $this->imageName = $imageName;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getQuests(): Collection
+    {
+        return $this->quests;
+    }
+
+    /**
+     * @param Collection $quests
+     * @return LocationInterface
+     */
+    public function setQuests(Collection $quests): LocationInterface
+    {
+        $this->quests = $quests;
+
+        return $this;
+    }
+
+    /**
+     * @param QuestInterface ...$quests
+     * @return LocationInterface
+     */
+    public function addQuest(QuestInterface ...$quests): LocationInterface
+    {
+        foreach ($quests as $quest) {
+            if (!$this->quests->contains($quest)) {
+                $this->quests->add($quest);
+                $quest->setLocation($this);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param QuestInterface $quest
+     * @return LocationInterface
+     */
+    public function removeQuest(QuestInterface $quest): LocationInterface
+    {
+        if ($this->quests->contains($quest)) {
+            $this->quests->removeElement($quest);
+            $quest->setLocation(null);
+        }
+
+        return $this;
     }
 }

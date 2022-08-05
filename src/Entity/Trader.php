@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Interfaces\TraderLoyaltyInterface;
 use App\Repository\TraderRepository;
@@ -39,6 +40,9 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLoyalty::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $loyalty;
+
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $quests;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -79,10 +83,13 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
 
     /**
      * @param string $slug
+     * @return TraderInterface
      */
-    public function setSlug(string $slug): void
+    public function setSlug(string $slug): TraderInterface
     {
         $this->slug = $slug;
+
+        return $this;
     }
 
     /**
@@ -114,10 +121,13 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
 
     /**
      * @param Collection $loyalty
+     * @return TraderInterface
      */
-    public function setLoyalty(Collection $loyalty): void
+    public function setLoyalty(Collection $loyalty): TraderInterface
     {
         $this->loyalty = $loyalty;
+
+        return $this;
     }
 
     /**
@@ -144,6 +154,54 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     {
         if ($this->loyalty->contains($loyalty)) {
             $this->loyalty->removeElement($loyalty);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getQuests(): Collection
+    {
+        return $this->quests;
+    }
+
+    /**
+     * @param Collection $quests
+     */
+    public function setQuests(Collection $quests): TraderInterface
+    {
+        $this->quests = $quests;
+
+        return $this;
+    }
+
+    /**
+     * @param QuestInterface ...$quests
+     * @return Trader
+     */
+    public function addQuest(QuestInterface ...$quests): TraderInterface
+    {
+        foreach ($quests as $quest) {
+            if (!$this->quests->contains($quest)) {
+                $this->quests->add($quest);
+                $quest->setTrader($this);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param QuestInterface $quest
+     * @return TraderInterface
+     */
+    public function removeQuest(QuestInterface $quest): TraderInterface
+    {
+        if ($this->quests->contains($quest)) {
+            $this->quests->removeElement($quest);
+            $quest->setTrader(null);
         }
 
         return $this;
