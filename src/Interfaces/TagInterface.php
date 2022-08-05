@@ -7,12 +7,10 @@ namespace App\Interfaces;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Interface for tag entity.
+ * Interface for Tag entity.
  */
 interface TagInterface
 {
-    public const ENTITY_ID = 'tags';
-
     /**
      * @return UuidInterface
      */
