@@ -10,7 +10,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,21 +30,26 @@ class QuestCrudController extends BaseCrudController
             ->setUploadDir($this->getParameter('app.quests.images.path'));
 
         $translationFields = [
-            'title' => ['field_type' => TextType::class],
+            'title' => [
+                'field_type' => TextType::class,
+                'label' => t('Title', [], 'admin.quests')
+            ],
             'description' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
-                'field_type' => CKEditorType::class
+                'field_type' => CKEditorType::class,
+                'label' => t('Description', [], 'admin.quests')
             ],
             'howToComplete' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
-                'field_type' => CKEditorType::class
+                'field_type' => CKEditorType::class,
+                'label' => t('How to complete', [], 'admin.quests')
             ],
         ];
-        $translations = TranslationField::new('translations', (string)t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])

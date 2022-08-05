@@ -24,8 +24,8 @@ class ArticleCrudController extends BaseCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $createdAt = DateField::new('createdAt', t('Created', [], 'admin.articles'));
-        $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin.articles'));
+        $createdAt = DateField::new('createdAt', t('Created', [], 'admin'));
+        $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin'));
         $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
         $title = TextField::new('title', t('Title', [], 'admin.articles'));
         $poster= ImageField::new('imagePoster', t('Poster', [], 'admin.articles'))
@@ -45,43 +45,45 @@ class ArticleCrudController extends BaseCrudController
 
         $translationFields = [
             'title' => [
-                'field_type' => TextType::class
+                'field_type' => TextType::class,
+                'label' => t('Title', [], 'admin.articles')
             ],
             'description' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
-                'field_type' => CKEditorType::class
+                'field_type' => CKEditorType::class,
+                'label' => t('Description', [], 'admin.articles')
             ],
             'body' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
-                'field_type' => CKEditorType::class
+                'field_type' => CKEditorType::class,
+                'label' => t('Body', [], 'admin.articles')
             ],
 //            'tags' => [
+        //        'label' => t('Tags', [], 'admin.articles')
 //                'field_type' => TagsType::class
 //            ],
         ];
-        $translations = TranslationField::new('translations', (string)t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
             ->setFormTypeOptions([
-                'excluded_fields' => ['lang']
+                'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
         ;
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $published,
-                $createdAt->setColumns(6)->setTextAlign('left'),
-                $updatedAt->setColumns(6)->setTextAlign('left'),
                 $poster->setColumns(6)->setTextAlign('left'),
                 $translations
             ],
             default => [
-                $title->setColumns(12),
-                $published->setColumns(1)->setTextAlign('left'),
-                $createdAt,
-                $updatedAt,
+                $title->setColumns(12)->setTextAlign('left'),
+                $published->setColumns(1)->setTextAlign('center'),
+                $createdAt->setColumns(1)->setTextAlign('center'),
+                $updatedAt->setColumns(1)->setTextAlign('center'),
             ]
         };
     }

@@ -36,19 +36,22 @@ class TraderCrudController extends BaseCrudController
 
         $translationFields = [
             'characterType' => [
-                'field_type' => TextType::class
+                'field_type' => TextType::class,
+                'label' => t('Character type', [], 'admin.traders')
             ],
             'fullName' => [
-                'field_type' => TextType::class
+                'field_type' => TextType::class,
+                'label' => t('Full name', [], 'admin.traders')
             ],
             'description' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
-                'field_type' => CKEditorType::class
+                'field_type' => CKEditorType::class,
+                'label' => t('Description', [], 'admin.traders')
             ],
         ];
-        $translations = TranslationField::new('translations', (string)t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])

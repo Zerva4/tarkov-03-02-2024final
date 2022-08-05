@@ -5,7 +5,13 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Location;
+use App\Entity\LocationTranslation;
 use App\Form\Field\TranslationField;
+use Doctrine\ORM\EntityRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -14,6 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\ORM\QueryBuilder;
 use function Symfony\Component\Translation\t;
 
 class LocationCrudController extends BaseCrudController
@@ -34,23 +41,6 @@ class LocationCrudController extends BaseCrudController
         ;
     }
 
-//    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
-//    {
-//        $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
-//        $searchQuery = $searchDto->getQuery();
-//
-//        if ($searchQuery) {
-//            $qb
-//                ->leftJoin(UserTranslation::class, 'ut', 'WITH', 'ut.translatable = entity.id')
-//                ->orWhere(
-//                    'LOWER(ut.firstname) LIKE LOWER(:search) OR LOWER(ut.middlename) LIKE LOWER(:search) OR LOWER(ut.lastname) LIKE LOWER(:search) OR entity.id LIKE :search'
-//                )
-//                ->setParameter('search', "%$searchQuery%");
-//        }
-//
-//        return $qb;
-//    }
-
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.locations'));
@@ -60,15 +50,19 @@ class LocationCrudController extends BaseCrudController
         $numberOfPlayers = TextField::new('numberOfPlayers', t('Number of players', [], 'admin.locations'));
         $raidDuration = NumberField::new('raidDuration', t('Raid duration', [], 'admin.locations'));
         $translationFields = [
-            'title' => ['field_type' => TextType::class],
+            'title' => [
+                'field_type' => TextType::class,
+                'label' => t('Title', [], 'admin.locales')
+            ],
             'description' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
-                'field_type' => CKEditorType::class
+                'field_type' => CKEditorType::class,
+                'label' => t('Description', [], 'admin.locales')
             ],
         ];
-        $translations = TranslationField::new('translations', (string)t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
@@ -83,12 +77,12 @@ class LocationCrudController extends BaseCrudController
                 $translations,
             ],
             default => [
-                $title,
-                $published->setColumns(1)->setTextAlign('left'),
-                $numberOfPlayers->setColumns(2)->setTextAlign('left'),
-                $raidDuration->setColumns(2)->setTextAlign('left'),
-                DateField::new('createdAt', 'Created'),
-                DateField::new('updatedAt', 'Updated'),
+                $title->setColumns(12)->setTextAlign('left'),
+                $published->setColumns(1)->setTextAlign('center'),
+                $numberOfPlayers->setColumns(2)->setTextAlign('center'),
+                $raidDuration->setColumns(2)->setTextAlign('center'),
+                DateField::new('createdAt', t('Created', [], 'admin'))->setTextAlign('center'),
+                DateField::new('updatedAt', t('Updated', [], 'admin'))->setTextAlign('center'),
             ]
         };
     }
