@@ -11,7 +11,6 @@ use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use function Symfony\Component\Translation\t;
 
 #[ORM\Table(name: 'traders_loyalty')]
 #[ORM\Entity(repositoryClass: TraderLoyaltyRepository::class)]
