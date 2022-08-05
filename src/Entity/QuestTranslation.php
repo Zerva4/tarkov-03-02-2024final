@@ -28,6 +28,9 @@ class QuestTranslation implements TranslationInterface, TimestampableInterface
     #[ORM\Column(type: 'text')]
     private ?string $howToComplete;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $goals = null;
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -60,6 +63,24 @@ class QuestTranslation implements TranslationInterface, TimestampableInterface
     public function setHowToComplete(string $howToComplete): self
     {
         $this->howToComplete = $howToComplete;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGoals(): ?string
+    {
+        return $this->goals;
+    }
+
+    /**
+     * @param string|null $goals
+     */
+    public function setGoals(?string $goals): self
+    {
+        $this->goals = $goals;
 
         return $this;
     }

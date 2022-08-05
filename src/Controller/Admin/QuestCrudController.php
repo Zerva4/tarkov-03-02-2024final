@@ -48,6 +48,13 @@ class QuestCrudController extends BaseCrudController
                 'field_type' => CKEditorType::class,
                 'label' => t('How to complete', [], 'admin.quests')
             ],
+            'goals' => [
+                'attr' => [
+                    'class' => 'ckeditor'
+                ],
+                'field_type' => CKEditorType::class,
+                'label' => t('Goals', [], 'admin.quests')
+            ],
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
             ->setFormTypeOptions([
