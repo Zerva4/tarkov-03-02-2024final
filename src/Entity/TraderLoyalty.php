@@ -97,8 +97,8 @@ class TraderLoyalty implements TraderLoyaltyInterface, TimestampableInterface
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return t('Trader loyalty level', [], 'admin.traders') .' '.$this->getLevel();
+        return (string)$this->getLevel();
     }
 }
