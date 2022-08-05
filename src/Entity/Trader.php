@@ -11,6 +11,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Table(name: 'traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
@@ -32,6 +33,18 @@ class Trader implements TranslatableInterface, TimestampableInterface
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         $this->defaultLocale = $defaultLocation;
+    }
+
+    public function __call($method, $arguments)
+    {
+        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $method);
+    }
+
+    public function __get($name)
+    {
+        $method = 'get'. ucfirst($name);
+        $arguments=[];
+        return $this->proxyCurrentLocaleTranslation($method, $arguments);
     }
 
     public function isPublished(): ?bool
