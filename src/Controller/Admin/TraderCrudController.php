@@ -9,7 +9,7 @@ use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -28,7 +28,7 @@ class TraderCrudController extends BaseCrudController
         $published = BooleanField::new('published', t('Published', [], 'admin.traders'));
         $fullName = TextField::new('fullName', t('Full name', [], 'admin.traders'));
         $characterType = TextField::new('characterType', t('Character type', [], 'admin.traders'));
-        $slug = TextField::new('slug', t('URI-name', [], 'admin.traders'));
+        $slug = TextField::new('slug', t('Slug', [], 'admin.traders'));
         $avatar = ImageField::new('imageName', t('Photo', [], 'admin.traders'))
             ->setUploadDir($this->getParameter('app.traders.images.path'));
         $createdAt = DateField::new('createdAt', 'Created');
@@ -59,10 +59,12 @@ class TraderCrudController extends BaseCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
+                FormField::addTab('Основное'),
                 $published,
                 $avatar->setColumns(6)->setTextAlign('left'),
-                $slug,
-                $translations
+                $slug->setColumns(6)->setTextAlign('left'),
+                $translations,
+                FormField::addTab('Дополнительно'),
             ],
             default => [$characterType, $fullName, $published, $createdAt, $updatedAt],
         };
