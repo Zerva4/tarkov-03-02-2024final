@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Trader;
+use App\Entity\TraderLoyalty;
 use App\Form\Field\TranslationField;
+use App\Form\TraderLoyaltyForm;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -57,14 +60,23 @@ class TraderCrudController extends BaseCrudController
             ])
         ;
 
+        $loyalty = CollectionField::new('loyalty', t('Trader loyalty', [], 'admin.traders'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(TraderLoyaltyForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', false)
+        ;
+
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
-                FormField::addTab('Основное'),
+                FormField::addTab(t('Basic', [], 'admin.traders')),
                 $published,
                 $avatar->setColumns(6)->setTextAlign('left'),
                 $slug->setColumns(6)->setTextAlign('left'),
                 $translations,
-                FormField::addTab('Дополнительно'),
+                FormField::addTab(t('Additionally', [], 'admin.traders')),
+                $loyalty->setColumns(12)
             ],
             default => [$characterType, $fullName, $published, $createdAt, $updatedAt],
         };
