@@ -12,7 +12,6 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Table(name: 'Quests')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
