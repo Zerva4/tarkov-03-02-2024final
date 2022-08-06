@@ -7,7 +7,9 @@ namespace App\Controller\Admin;
 use App\Entity\Quest;
 use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -28,7 +30,16 @@ class QuestCrudController extends BaseCrudController
         $title = TextField::new('title', t('Title', [], 'admin.locations'));
         $locationImage= ImageField::new('imageName', t('Photo', [], 'admin.locations'))
             ->setUploadDir($this->getParameter('app.quests.images.path'));
-
+        $trader = AssociationField::new('trader', t('Trader', [], 'admin.quests'))
+            ->setQueryBuilder(function($queryBuilder) {
+                return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
+                    ->addSelect('lt')
+                    ->andWhere('lt.locale = :locale')
+                    ->setParameter('locale', $this->container->get('request_stack')->getCurrentRequest()->getLocale())
+                ;
+            })
+        ;
+        $location = AssociationField::new('location', t('Location', [], 'admin.quests'));
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,
@@ -62,9 +73,6 @@ class QuestCrudController extends BaseCrudController
             ])
         ;
 
-//        $description = TextEditorField::new('description', t('Description text'));
-//        $howToComplete = TextEditorField::new('howToComplete', t('How to complete text'));
-
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
 
@@ -72,9 +80,11 @@ class QuestCrudController extends BaseCrudController
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $published,
                 $locationImage->setColumns(6),
+                $trader->setColumns(6),
+                $location->setColumns(6),
                 $translations
             ],
-            default => [$title, $published, $createdAt, $updatedAt],
+            default => [$title, $trader, $location, $published, $createdAt, $updatedAt],
         };
     }
 }

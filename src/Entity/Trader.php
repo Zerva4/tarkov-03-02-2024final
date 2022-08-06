@@ -206,4 +206,9 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->__get('characterType');
+    }
 }

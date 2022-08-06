@@ -145,4 +145,9 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->__get('title');
+    }
 }
