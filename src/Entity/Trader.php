@@ -1,37 +1,64 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
+use App\Interfaces\QuestInterface;
+use App\Interfaces\TraderInterface;
+use App\Interfaces\TraderLoyaltyInterface;
 use App\Repository\TraderRepository;
+use App\Traits\TranslatableMagicMethodsTrait;
+use App\Traits\UuidPrimaryKeyTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
-#[ORM\Table(name: 'Traders')]
+#[ORM\Table(name: 'traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
-class Trader
+#[ORM\HasLifecycleCallbacks]
+class Trader implements TraderInterface, TranslatableInterface, TimestampableInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    use UuidPrimaryKeyTrait;
+    use TimestampableTrait;
+    use TranslatableTrait;
+    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $fullName;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $characterType;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $uriName;
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    private string $slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
 
-    public function getId(): ?int
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLoyalty::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OrderBy(['level' => 'ASC'])]
+    private Collection $loyalty;
+
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $quests;
+
+    public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        return $this->id;
+        $this->defaultLocale = $defaultLocation;
+        $this->loyalty = new ArrayCollection();
+    }
+
+    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
+    {
+        if (! method_exists(self::getTranslationEntityClass(), $method)) {
+            $method = 'get' . ucfirst($method);
+        }
+
+        $translation = $this->translate($this->getCurrentLocale());
+
+        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
     }
 
     public function isPublished(): ?bool
@@ -39,33 +66,9 @@ class Trader
         return $this->published;
     }
 
-    public function setPublished(bool $published): self
+    public function setPublished(bool $published): TraderInterface
     {
         $this->published = $published;
-
-        return $this;
-    }
-
-    public function getFullName(): ?string
-    {
-        return $this->fullName;
-    }
-
-    public function setFullName(string $fullName): self
-    {
-        $this->fullName = $fullName;
-
-        return $this;
-    }
-
-    public function getCharacterType(): ?string
-    {
-        return $this->characterType;
-    }
-
-    public function setCharacterType(string $characterType): self
-    {
-        $this->characterType = $characterType;
 
         return $this;
     }
@@ -73,18 +76,18 @@ class Trader
     /**
      * @return string
      */
-    public function getUriName(): string
+    public function getSlug(): string
     {
-        return $this->uriName;
+        return $this->slug;
     }
 
     /**
-     * @param string $uriName
-     * @return Trader
+     * @param string $slug
+     * @return TraderInterface
      */
-    public function setUriName(string $uriName): self
+    public function setSlug(string $slug): TraderInterface
     {
-        $this->uriName = $uriName;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -101,10 +104,111 @@ class Trader
      * @param string|null $imageName
      * @return Trader
      */
-    public function setImageName(?string $imageName): self
+    public function setImageName(?string $imageName): TraderInterface
     {
         $this->imageName = $imageName;
 
         return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLoyalty(): Collection
+    {
+        return $this->loyalty;
+    }
+
+    /**
+     * @param Collection $loyalty
+     * @return TraderInterface
+     */
+    public function setLoyalty(Collection $loyalty): TraderInterface
+    {
+        $this->loyalty = $loyalty;
+
+        return $this;
+    }
+
+    /**
+     * @param TraderLoyaltyInterface ...$loyalty
+     * @return Trader
+     */
+    public function addLoyalty(TraderLoyaltyInterface ...$loyalty): TraderInterface
+    {
+        foreach ($loyalty as $loyaltyItem) {
+            if (!$this->loyalty->contains($loyaltyItem)) {
+                $this->loyalty->add($loyaltyItem);
+                $loyaltyItem->setTrader($this);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param TraderLoyaltyInterface $loyalty
+     * @return TraderInterface
+     */
+    public function removeLoyalty(TraderLoyaltyInterface $loyalty): TraderInterface
+    {
+        if ($this->loyalty->contains($loyalty)) {
+            $this->loyalty->removeElement($loyalty);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getQuests(): Collection
+    {
+        return $this->quests;
+    }
+
+    /**
+     * @param Collection $quests
+     */
+    public function setQuests(Collection $quests): TraderInterface
+    {
+        $this->quests = $quests;
+
+        return $this;
+    }
+
+    /**
+     * @param QuestInterface ...$quests
+     * @return Trader
+     */
+    public function addQuest(QuestInterface ...$quests): TraderInterface
+    {
+        foreach ($quests as $quest) {
+            if (!$this->quests->contains($quest)) {
+                $this->quests->add($quest);
+                $quest->setTrader($this);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param QuestInterface $quest
+     * @return TraderInterface
+     */
+    public function removeQuest(QuestInterface $quest): TraderInterface
+    {
+        if ($this->quests->contains($quest)) {
+            $this->quests->removeElement($quest);
+            $quest->setTrader(null);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('characterType');
     }
 }

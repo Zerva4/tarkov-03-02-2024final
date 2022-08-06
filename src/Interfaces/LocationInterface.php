@@ -6,10 +6,7 @@ namespace App\Interfaces;
 
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * Interface for Tag entity.
- */
-interface TagInterface
+interface LocationInterface
 {
     /**
      * @return UuidInterface
@@ -21,14 +18,4 @@ interface TagInterface
      * @return void
      */
     public function setId(UuidInterface $id): void;
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string;
-    /**
-     * @param string $name
-     * @return TagInterface
-     */
-    public function setName(string $name): TagInterface;
 }

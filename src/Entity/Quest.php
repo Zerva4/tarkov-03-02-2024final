@@ -1,65 +1,112 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
+use App\Interfaces\LocationInterface;
+use App\Interfaces\QuestInterface;
+use App\Interfaces\TraderInterface;
 use App\Repository\QuestRepository;
+use App\Traits\TranslatableMagicMethodsTrait;
+use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'Quests')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
-class Quest
+class Quest implements QuestInterface, TranslatableInterface, TimestampableInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    use UuidPrimaryKeyTrait;
+    use TimestampableTrait;
+    use TranslatableTrait;
+    use TranslatableMagicMethodsTrait;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title;
+    #[ORM\Column(type: 'boolean')]
+    private bool $published;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $description;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $imageName;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $howToComplete;
+    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'quests')]
+    private ?TraderInterface $trader = null;
 
-    public function getId(): ?int
+    #[ORM\ManyToOne(targetEntity: Location::class, inversedBy: 'quests')]
+    private ?LocationInterface $location = null;
+
+    public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        return $this->id;
+        $this->defaultLocale = $defaultLocation;
     }
 
-    public function getTitle(): ?string
+    public function isPublished(): ?bool
     {
-        return $this->title;
+        return $this->published;
     }
 
-    public function setTitle(string $title): self
+    public function setPublished(bool $published): QuestInterface
     {
-        $this->title = $title;
+        $this->published = $published;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
     {
-        return $this->description;
+        return $this->imageName;
     }
 
-    public function setDescription(string $description): self
+    /**
+     * @param string|null $imageName
+     * @return QuestInterface
+     */
+    public function setImageName(?string $imageName): QuestInterface
     {
-        $this->description = $description;
+        $this->imageName = $imageName;
 
         return $this;
     }
 
-    public function getHowToComplete(): ?string
+    /**
+     * @return TraderInterface|null
+     */
+    public function getTrader(): ?TraderInterface
     {
-        return $this->howToComplete;
+        return $this->trader;
     }
 
-    public function setHowToComplete(string $howToComplete): self
+    /**
+     * @param TraderInterface|null $trader
+     * @return QuestInterface
+     */
+    public function setTrader(?TraderInterface $trader): QuestInterface
     {
-        $this->howToComplete = $howToComplete;
+        $this->trader = $trader;
+
+        return $this;
+    }
+
+    /**
+     * @return LocationInterface|null
+     */
+    public function getLocation(): ?LocationInterface
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param LocationInterface|null $location
+     * @return QuestInterface
+     */
+    public function setLocation(?LocationInterface $location): QuestInterface
+    {
+        $this->location = $location;
 
         return $this;
     }

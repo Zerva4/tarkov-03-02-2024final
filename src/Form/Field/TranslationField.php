@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form\Field;
 
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class TranslationField implements FieldInterface
 {
     use FieldTrait;
 
-    public static function new(string $propertyName, ?string $label = null, $fieldsConfig = []): self
+    public static function new(string $propertyName, $label = null, $fieldsConfig = []): self
     {
         return (new self())
             ->setProperty($propertyName)

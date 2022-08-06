@@ -8,6 +8,7 @@ parameters:
 
     doctrine_behaviors_translatable_fetch_mode: 'LAZY'
     doctrine_behaviors_translation_fetch_mode: 'LAZY'
+    doctrine_behaviors_timestampable_date_field_type: "datetime"
 
     # Locales
     app.default_locale: 'ru'
@@ -28,6 +29,10 @@ parameters:
     # Locations image config
     app.articles.images.path: '%app.storage.path%images/articles'
     app.articles.images.uri: '%app.storage.uri%images/articles'
+
+    # Locations image config
+    app.quests.images.path: '%app.storage.path%images/quests'
+    app.quests.images.uri: '%app.storage.uri%images/quests'
 
 services:
     # default configuration for services in *this* file
