@@ -37,6 +37,9 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $raidDuration;
 
+    #[ORM\Column(type: 'string',, length: 255, nullable: true)]
+    private ?string $slug = null;
+
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
@@ -149,5 +152,21 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     public function __toString(): string
     {
         return $this->__get('title');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string|null $slug
+     */
+    public function setSlug(?string $slug): void
+    {
+        $this->slug = $slug;
     }
 }
