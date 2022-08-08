@@ -17,6 +17,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
@@ -32,6 +33,8 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     private bool $published;
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: 'Invalid format', match: true)]
     private string $slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
