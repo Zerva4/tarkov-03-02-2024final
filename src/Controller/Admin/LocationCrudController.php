@@ -10,6 +10,7 @@ use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -40,14 +41,9 @@ class LocationCrudController extends BaseCrudController
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.locations'));
         $title = TextField::new('title', t('Title', [], 'admin.locations'));
-//        $locationImage= ImageField::new('imageName', t('Photo', [], 'admin.locations'))
-//            ->setUploadDir($this->getParameter('app.locations.images.path'));
         $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
-            ->setFormType(VichFileType::class)
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.locations.images.uri'))
-            ->setTranslationParameters(['form.label.delete' => 'Удалить изображение?'])
-            ->setFormTypeOption('delete_label', 'Delete image ?')
             ->setFormTypeOption('required', false);
         ;
         $numberOfPlayers = TextField::new('numberOfPlayers', t('Number of players', [], 'admin.locations'))->setRequired(true);
@@ -74,8 +70,8 @@ class LocationCrudController extends BaseCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
-                $published,
                 $locationImage->setColumns(4),
+                $published,
                 $numberOfPlayers->setColumns(4),
                 $raidDuration->setColumns(4),
                 $slug->setColumns(4),

@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Quest;
 use App\Form\Field\TranslationField;
+use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -27,8 +28,11 @@ class QuestCrudController extends BaseCrudController
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.locations'));
         $title = TextField::new('title', t('Title', [], 'admin.locations'));
-        $locationImage= ImageField::new('imageName', t('Photo', [], 'admin.locations'))
-            ->setUploadDir($this->getParameter('app.quests.images.path'));
+        $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
+            ->setTemplatePath('admin/field/vich_image.html.twig')
+            ->setCustomOption('base_path', $this->getParameter('app.quests.images.uri'))
+            ->setFormTypeOption('required', false);
+        ;
         $trader = AssociationField::new('trader', t('Trader', [], 'admin.quests'))
             ->setQueryBuilder(function($queryBuilder) {
                 return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
@@ -86,8 +90,8 @@ class QuestCrudController extends BaseCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
+                $locationImage,
                 $published,
-                $locationImage->setColumns(6),
                 $trader->setColumns(6),
                 $location->setColumns(6),
                 $slug->setColumns(6),

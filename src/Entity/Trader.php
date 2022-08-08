@@ -11,6 +11,7 @@ use App\Repository\TraderRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,10 +19,17 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
+/**
+ * @Vich\Uploadable
+ */
 class Trader implements TraderInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
@@ -36,6 +44,24 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
 
+    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Assert\Valid]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
+    )]
+    /**
+     * @Vich\UploadableField(mapping="traders", fileNameProperty="imageName")
+     * @Assert\Valid
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={
+     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
+     *     }
+     * )
+     */
+    private ?File $imageFile = null;
+
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLoyalty::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $loyalty;
@@ -47,6 +73,29 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     {
         $this->defaultLocale = $defaultLocation;
         $this->loyalty = new ArrayCollection();
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     * @return TraderInterface
+     */
+    public function setImageFile(?File $imageFile): TraderInterface
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            $this->updatedAt = new DateTime('NOW');
+        }
+
+        return $this;
     }
 
     protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
