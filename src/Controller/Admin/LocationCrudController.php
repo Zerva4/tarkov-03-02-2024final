@@ -18,9 +18,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Doctrine\ORM\QueryBuilder;
 use function Symfony\Component\Translation\t;
 
 class LocationCrudController extends BaseCrudController
@@ -47,19 +47,20 @@ class LocationCrudController extends BaseCrudController
         $title = TextField::new('title', t('Title', [], 'admin.locations'));
         $locationImage= ImageField::new('imageName', t('Photo', [], 'admin.locations'))
             ->setUploadDir($this->getParameter('app.locations.images.path'));
-        $numberOfPlayers = TextField::new('numberOfPlayers', t('Number of players', [], 'admin.locations'));
-        $raidDuration = NumberField::new('raidDuration', t('Raid duration', [], 'admin.locations'));
+        $numberOfPlayers = TextField::new('numberOfPlayers', t('Number of players', [], 'admin.locations'))->setRequired(true);
+        $raidDuration = TimeField::new('raidDuration', t('Raid duration', [], 'admin.locations'))->setRequired(true);
+        $slug = TextField::new('slug', t('Slug', [], 'admin.locations'))->setRequired(true);
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.locales')
+                'label' => t('Title', [], 'admin.locations')
             ],
             'description' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
                 'field_type' => CKEditorType::class,
-                'label' => t('Description', [], 'admin.locales')
+                'label' => t('Description', [], 'admin.locations')
             ],
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
@@ -74,6 +75,7 @@ class LocationCrudController extends BaseCrudController
                 $locationImage->setColumns(4),
                 $numberOfPlayers->setColumns(4),
                 $raidDuration->setColumns(4),
+                $slug->setColumns(4),
                 $translations,
             ],
             default => [

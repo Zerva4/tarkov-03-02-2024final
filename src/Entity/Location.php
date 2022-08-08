@@ -9,12 +9,15 @@ use App\Interfaces\QuestInterface;
 use App\Repository\LocationRepository;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'Locations')]
 #[ORM\Index(columns: ['slug'], name: 'slug_idx')]
@@ -33,12 +36,15 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     private ?string $imageName;
 
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $numberOfPlayers;
 
-    #[ORM\Column(type: 'float', nullable: true)]
-    private ?float $raidDuration;
+    #[ORM\Column(type: 'time', nullable: true)]
+    private ?\DateTimeInterface $raidDuration;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: 'Invalid format', match: true)]
     private ?string $slug;
 
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
@@ -73,12 +79,12 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
         return $this;
     }
 
-    public function getRaidDuration(): ?float
+    public function getRaidDuration(): ?DateTimeInterface
     {
         return $this->raidDuration;
     }
 
-    public function setRaidDuration(?float $raidDuration): self
+    public function setRaidDuration(?DateTimeInterface $raidDuration): self
     {
         $this->raidDuration = $raidDuration;
 
