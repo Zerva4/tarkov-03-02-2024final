@@ -13,8 +13,9 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'quests_translation')]
-#[ORM\HasLifecycleCallbacks]
+#[ORM\Index(columns: ['locale'], name: 'quests_locale_idx')]
 #[ORM\Entity(repositoryClass: QuestTranslationRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class QuestTranslation implements TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
