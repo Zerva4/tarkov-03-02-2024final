@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,11 +15,13 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'articles')]
+#[ORM\Index(columns: ['slug'], name: 'articles_slug_idx')]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article implements TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
+    use SlugTrait;
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
 
