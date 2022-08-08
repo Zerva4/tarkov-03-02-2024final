@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -32,7 +34,6 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $id = IntegerField::new('id', 'ID')->setColumns(0)->setTextAlign('left');
         $login = TextField::new('login', t('Login'))
             ->setColumns(4)
             ->setTextAlign('left')
@@ -75,6 +76,8 @@ class UserCrudController extends AbstractCrudController
             ->setRequired(false)
             ->setLabel(t('Confirm password'))
         ;
+        $createdAt = DateField::new('createdAt', 'Created');
+        $updatedAt = DateField::new('updatedAt', 'Updated');
 
         return match ($pageName) {
             Crud::PAGE_EDIT => [
@@ -97,7 +100,7 @@ class UserCrudController extends AbstractCrudController
                 $newPassword->setColumns(6)->setVirtual(true),
                 $confirmPassword->setColumns(6)->setVirtual(true),
             ],
-            default => [$id, $login, $email, $title, $roles],
+            default => [$login, $email, $title, $roles, $createdAt, $updatedAt],
         };
     }
 

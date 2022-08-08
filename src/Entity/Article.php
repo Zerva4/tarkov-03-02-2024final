@@ -1,51 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Traits\SlugTrait;
+use App\Traits\TranslatableMagicMethodsTrait;
+use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
-#[ORM\Table(name: 'Articles')]
+#[ORM\Table(name: 'articles')]
+#[ORM\Index(columns: ['slug'], name: 'articles_slug_idx')]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
-class Article
+class Article implements TranslatableInterface, TimestampableInterface
 {
-    use TimestampableEntity;
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    use UuidPrimaryKeyTrait;
+    use TimestampableTrait;
+    use SlugTrait;
+    use TranslatableTrait;
+    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private string $title;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imagePoster;
 
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $description;
-
-    #[ORM\Column(type: 'text')]
-    private string $body;
-
-    #[ORM\JoinTable(name: 'Articles_Tags')]
-    #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
-    private ?Collection $tags;
-
-    public function __construct()
+    public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        $this->tags = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
+        $this->defaultLocale = $defaultLocation;
     }
 
     public function isPublished(): ?bool
@@ -60,18 +48,6 @@ class Article
         return $this;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
     public function getImagePoster(): ?string
     {
         return $this->imagePoster;
@@ -82,72 +58,5 @@ class Article
         $this->imagePoster = $imagePoster;
 
         return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getBody(): ?string
-    {
-        return $this->body;
-    }
-
-    public function setBody(string $body): self
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|null
-     */
-    public function getTags(): ?Collection
-    {
-        return $this->tags;
-    }
-
-    /**
-     * @param ArrayCollection $tags
-     * @return Article
-     */
-    public function setTags(ArrayCollection $tags): self
-    {
-        $this->tags = $tags;
-
-        return $this;
-    }
-
-    /**
-     * @param ArrayCollection $tags
-     * @return Article
-     */
-    public function addTag(ArrayCollection $tags): self
-    {
-        foreach ($tags as $tag) {
-            if (!$this->tags->contains($tag)) {
-                $this->tags->add($tag);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Tag $tag
-     * @return void
-     */
-    public function removeTag(Tag $tag): void
-    {
-        $this->tags->removeElement($tag);
     }
 }

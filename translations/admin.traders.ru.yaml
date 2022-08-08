@@ -1,5 +1,15 @@
 Published: Публикуется
 Full name: Ф.И.О
-Character type: Тип персонажа
-URI-name: URI-имя
+Character type: Игровое имя
+Slug: Слаг
 Photo: Фотография
+Description: Описание
+Localization: Переводы
+Basic: Основное
+Additionally: Дополнительно
+Trader loyalty: Лояльность трейдера
+Loyalty level: Уровень лояльность трейдера
+Level: Уровень
+Required level: Требуемый уровень
+Required reputation: Требуемая репутация
+Required sales: Требуемые продажи
