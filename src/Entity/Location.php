@@ -17,6 +17,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'Locations')]
+#[ORM\Index(columns: ['slug'], name: 'slug_idx')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 class Location implements LocationInterface, TranslatableInterface, TimestampableInterface
 {
@@ -38,7 +39,7 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     private ?float $raidDuration;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $slug = null;
+    private ?string $slug;
 
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
@@ -155,9 +156,9 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
