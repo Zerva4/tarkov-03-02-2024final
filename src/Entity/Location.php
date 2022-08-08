@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Interfaces\LocationInterface;
 use App\Interfaces\QuestInterface;
 use App\Repository\LocationRepository;
+use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
@@ -27,6 +28,7 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
     use TimestampableTrait;
+    use SlugTrait;
     use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
@@ -41,11 +43,6 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
 
     #[ORM\Column(type: 'time', nullable: true)]
     private ?DateTimeInterface $raidDuration;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    #[Assert\NotBlank]
-    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: 'Invalid format', match: true)]
-    private string $slug;
 
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
@@ -159,24 +156,5 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     public function __toString(): string
     {
         return $this->__get('title');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     * @return LocationInterface
-     */
-    public function setSlug(string $slug): LocationInterface
-    {
-        $this->slug = $slug;
-
-        return $this;
     }
 }

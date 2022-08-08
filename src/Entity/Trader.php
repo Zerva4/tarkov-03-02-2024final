@@ -8,6 +8,7 @@ use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Interfaces\TraderLoyaltyInterface;
 use App\Repository\TraderRepository;
+use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,7 +18,6 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'traders')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
@@ -26,16 +26,12 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
+    use SlugTrait;
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
-
-    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
-    #[Assert\NotBlank]
-    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: 'Invalid format', match: true)]
-    private string $slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
@@ -72,25 +68,6 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     public function setPublished(bool $published): TraderInterface
     {
         $this->published = $published;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     * @return TraderInterface
-     */
-    public function setSlug(string $slug): TraderInterface
-    {
-        $this->slug = $slug;
 
         return $this;
     }

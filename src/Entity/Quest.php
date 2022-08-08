@@ -8,6 +8,7 @@ use App\Interfaces\LocationInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Repository\QuestRepository;
+use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,6 +25,7 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
+    use SlugTrait;
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
 
@@ -38,11 +40,6 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
 
     #[ORM\ManyToOne(targetEntity: Location::class, inversedBy: 'quests')]
     private ?LocationInterface $location = null;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    #[Assert\NotBlank]
-    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: 'Invalid format', match: true)]
-    private string $slug;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -114,25 +111,6 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
     public function setLocation(?LocationInterface $location): QuestInterface
     {
         $this->location = $location;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     * @return Quest
-     */
-    public function setSlug(string $slug): QuestInterface
-    {
-        $this->slug = $slug;
 
         return $this;
     }
