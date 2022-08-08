@@ -9,7 +9,6 @@ use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -39,7 +38,16 @@ class QuestCrudController extends BaseCrudController
                 ;
             })
         ;
-        $location = AssociationField::new('location', t('Location', [], 'admin.quests'));
+        $location = AssociationField::new('location', t('Location', [], 'admin.quests'))
+            ->setQueryBuilder(function($queryBuilder) {
+                return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
+                    ->addSelect('lt')
+                    ->andWhere('lt.locale = :locale')
+                    ->setParameter('locale', $this->container->get('request_stack')->getCurrentRequest()->getLocale())
+                    ;
+            })
+        ;
+        $slug = TextField::new('slug', t('Slug', [], 'admin.quests'))->setRequired(true);
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,
@@ -82,6 +90,7 @@ class QuestCrudController extends BaseCrudController
                 $locationImage->setColumns(6),
                 $trader->setColumns(6),
                 $location->setColumns(6),
+                $slug->setColumns(6),
                 $translations
             ],
             default => [$title, $trader, $location, $published, $createdAt, $updatedAt],
