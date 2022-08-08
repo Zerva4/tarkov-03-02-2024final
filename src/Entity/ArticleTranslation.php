@@ -16,6 +16,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'articles_translation')]
+#[ORM\Index(columns: ['locale'], name: 'articles_locale_idx')]
 #[ORM\Entity(repositoryClass: ArticleTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class ArticleTranslation implements TranslationInterface, TimestampableInterface
