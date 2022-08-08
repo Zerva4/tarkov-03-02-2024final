@@ -8,6 +8,7 @@ use App\Interfaces\LocationInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Repository\QuestRepository;
+use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,13 +16,16 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'Quests')]
+#[ORM\Index(columns: ['slug'], name: 'quests_slug_idx')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
 class Quest implements QuestInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
+    use SlugTrait;
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
 

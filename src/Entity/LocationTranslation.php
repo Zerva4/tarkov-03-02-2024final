@@ -13,6 +13,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'locations_translation')]
+#[ORM\Index(columns: ['locale'], name: 'locations_locale_idx')]
 #[ORM\Entity(repositoryClass: LocationTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class LocationTranslation implements TranslationInterface, TimestampableInterface

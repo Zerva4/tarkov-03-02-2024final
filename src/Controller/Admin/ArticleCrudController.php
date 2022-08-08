@@ -29,7 +29,9 @@ class ArticleCrudController extends BaseCrudController
         $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
         $title = TextField::new('title', t('Title', [], 'admin.articles'));
         $poster= ImageField::new('imagePoster', t('Poster', [], 'admin.articles'))
-            ->setUploadDir($this->getParameter('app.articles.images.path'));
+            ->setUploadDir($this->getParameter('app.articles.images.path'))
+        ;
+        $slug = TextField::new('slug', t('Slug', [], 'admin.articles'))->setRequired(true);
 //        $description  = TextEditorField::new('description', t('Description', [], 'admin.articles'));
 //        $body = TextEditorField::new('body', t('Description', [], 'admin.articles'));
 //        $tags = TagsInputField::new('tags', 'Теги')
@@ -77,6 +79,7 @@ class ArticleCrudController extends BaseCrudController
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $published,
                 $poster->setColumns(6)->setTextAlign('left'),
+                $slug->setColumns(6),
                 $translations
             ],
             default => [

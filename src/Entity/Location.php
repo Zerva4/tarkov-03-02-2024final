@@ -7,22 +7,28 @@ namespace App\Entity;
 use App\Interfaces\LocationInterface;
 use App\Interfaces\QuestInterface;
 use App\Repository\LocationRepository;
+use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'Locations')]
+#[ORM\Index(columns: ['slug'], name: 'locations_slug_idx')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 class Location implements LocationInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
     use TimestampableTrait;
+    use SlugTrait;
     use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
@@ -32,10 +38,11 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     private ?string $imageName;
 
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $numberOfPlayers;
 
-    #[ORM\Column(type: 'float', nullable: true)]
-    private ?float $raidDuration;
+    #[ORM\Column(type: 'time', nullable: true)]
+    private ?DateTimeInterface $raidDuration;
 
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
@@ -69,12 +76,12 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
         return $this;
     }
 
-    public function getRaidDuration(): ?float
+    public function getRaidDuration(): ?DateTimeInterface
     {
         return $this->raidDuration;
     }
 
-    public function setRaidDuration(?float $raidDuration): self
+    public function setRaidDuration(?DateTimeInterface $raidDuration): self
     {
         $this->raidDuration = $raidDuration;
 
