@@ -20,7 +20,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'Locations')]
-#[ORM\Index(columns: ['slug'], name: 'slug_idx')]
+#[ORM\Index(columns: ['slug'], name: 'locations_slug_idx')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 class Location implements LocationInterface, TranslatableInterface, TimestampableInterface
 {
@@ -40,12 +40,12 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     private ?string $numberOfPlayers;
 
     #[ORM\Column(type: 'time', nullable: true)]
-    private ?\DateTimeInterface $raidDuration;
+    private ?DateTimeInterface $raidDuration;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     #[Assert\NotBlank]
     #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: 'Invalid format', match: true)]
-    private ?string $slug;
+    private string $slug;
 
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
@@ -170,10 +170,13 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     }
 
     /**
-     * @param string|null $slug
+     * @param string $slug
+     * @return LocationInterface
      */
-    public function setSlug(?string $slug): void
+    public function setSlug(string $slug): LocationInterface
     {
         $this->slug = $slug;
+
+        return $this;
     }
 }
