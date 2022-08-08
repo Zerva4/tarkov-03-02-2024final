@@ -14,7 +14,7 @@ parameters:
     app.default_locale: 'ru'
     app.additional_locales: 'en'
 
-    app.storage.path: '/public/storage/'
+    app.storage.path: '%kernel.project_dir%/public/storage/'
     app.storage.uri: '%app_dir%storage/'
     app.storage.cache_uri: 'storage/'
 

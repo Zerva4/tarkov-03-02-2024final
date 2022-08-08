@@ -27,6 +27,7 @@ class BaseCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_EDIT, 'Редактирование')
             ->setFormThemes([
                 'admin/field/translation.html.twig',
+                'admin/field/vich_image.html.twig',
                 '@EasyAdmin/crud/form_theme.html.twig',
                 '@FOSCKEditor/Form/ckeditor_widget.html.twig',
             ])
