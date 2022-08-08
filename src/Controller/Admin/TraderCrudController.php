@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Trader;
-use App\Entity\TraderLoyalty;
 use App\Form\Field\TranslationField;
+use App\Form\Field\VichImageField;
 use App\Form\TraderLoyaltyForm;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,8 +31,11 @@ class TraderCrudController extends BaseCrudController
         $fullName = TextField::new('fullName', t('Full name', [], 'admin.traders'));
         $characterType = TextField::new('characterType', t('Character type', [], 'admin.traders'));
         $slug = TextField::new('slug', t('Slug', [], 'admin.traders'));
-        $avatar = ImageField::new('imageName', t('Photo', [], 'admin.traders'))
-            ->setUploadDir($this->getParameter('app.traders.images.path'));
+        $avatar = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
+            ->setTemplatePath('admin/field/vich_image.html.twig')
+            ->setCustomOption('base_path', $this->getParameter('app.traders.images.uri'))
+            ->setFormTypeOption('required', false);
+        ;
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
 
@@ -71,8 +73,8 @@ class TraderCrudController extends BaseCrudController
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 FormField::addTab(t('Basic', [], 'admin.traders')),
+                $avatar,
                 $published,
-                $avatar->setColumns(6)->setTextAlign('left'),
                 $slug->setColumns(6)->setTextAlign('left'),
                 $translations,
                 FormField::addTab(t('Additionally', [], 'admin.traders')),

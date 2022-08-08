@@ -6,10 +6,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Form\Field\TranslationField;
+use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,23 +28,12 @@ class ArticleCrudController extends BaseCrudController
         $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin'));
         $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
         $title = TextField::new('title', t('Title', [], 'admin.articles'));
-        $poster= ImageField::new('imagePoster', t('Poster', [], 'admin.articles'))
-            ->setUploadDir($this->getParameter('app.articles.images.path'))
+        $poster = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
+            ->setTemplatePath('admin/field/vich_image.html.twig')
+            ->setCustomOption('base_path', $this->getParameter('app.articles.images.uri'))
+            ->setFormTypeOption('required', false);
         ;
         $slug = TextField::new('slug', t('Slug', [], 'admin.articles'))->setRequired(true);
-//        $description  = TextEditorField::new('description', t('Description', [], 'admin.articles'));
-//        $body = TextEditorField::new('body', t('Description', [], 'admin.articles'));
-//        $tags = TagsInputField::new('tags', 'Теги')
-//            ->addCssFiles('assets/css/bootstrap-tagsinput.css')
-//            ->addJsFiles('assets/js/bootstrap-tagsinput.js')
-//            ->addJsFiles('assets/js/tags.js')
-//            ->setProperty('tags')
-//            ->setFormTypeOption('attr', [
-//                'data-role' => 'tagsinput',
-//            ])
-//            ->setFormType(TagsType::class)
-        ;
-
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,
@@ -77,8 +66,8 @@ class ArticleCrudController extends BaseCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
+                $poster,
                 $published,
-                $poster->setColumns(6)->setTextAlign('left'),
                 $slug->setColumns(6),
                 $translations
             ],

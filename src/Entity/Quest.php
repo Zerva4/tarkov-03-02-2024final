@@ -11,16 +11,23 @@ use App\Repository\QuestRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'Quests')]
 #[ORM\Index(columns: ['slug'], name: 'quests_slug_idx')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
+#[Vich\Uploadable]
+/**
+ * @Vich\Uploadable
+ */
 class Quest implements QuestInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
@@ -34,6 +41,24 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
+
+    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Assert\Valid]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
+    )]
+    /**
+     * @Vich\UploadableField(mapping="quests", fileNameProperty="imageName")
+     * @Assert\Valid
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={
+     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
+     *     }
+     * )
+     */
+    private ?File $imageFile = null;
 
     #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'quests')]
     private ?TraderInterface $trader = null;
@@ -111,6 +136,29 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
     public function setLocation(?LocationInterface $location): QuestInterface
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     * @return QuestInterface
+     */
+    public function setImageFile(?File $imageFile): QuestInterface
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            $this->updatedAt = new DateTime('NOW');
+        }
 
         return $this;
     }

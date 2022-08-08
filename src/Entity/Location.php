@@ -18,11 +18,17 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Table(name: 'Locations')]
+#[ORM\Table(name: 'locations')]
 #[ORM\Index(columns: ['slug'], name: 'locations_slug_idx')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
+#[Vich\Uploadable]
+/**
+ * @Vich\Uploadable
+ */
 class Location implements LocationInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
@@ -36,6 +42,24 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
+
+    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Assert\Valid]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
+    )]
+    /**
+     * @Vich\UploadableField(mapping="locations", fileNameProperty="imageName")
+     * @Assert\Valid
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={
+     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
+     *     }
+     * )
+     */
+    private ?File $imageFile = null;
 
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
     #[Assert\NotBlank]
@@ -156,5 +180,28 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     public function __toString(): string
     {
         return $this->__get('title');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFile(): mixed
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param mixed $imageFile
+     * @return LocationInterface
+     */
+    public function setImageFile(mixed $imageFile): LocationInterface
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            $this->updatedAt = new DateTime('NOW');
+        }
+
+        return $this;
     }
 }
