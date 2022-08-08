@@ -15,8 +15,8 @@ parameters:
     app.additional_locales: 'en'
 
     app.storage.path: '%kernel.project_dir%/public/storage/'
-    app.storage.uri: '%app_dir%storage/'
-    app.storage.cache_uri: 'storage/'
+    app.storage.uri: '%app_dir%/storage/'
+    app.storage.cache_uri: '%app_dir%/storage/cache/'
 
     # Traders image config
     app.traders.images.path: '%app.storage.path%images/traders'
