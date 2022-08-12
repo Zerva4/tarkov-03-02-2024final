@@ -23,6 +23,10 @@ parameters:
     app.traders.images.uri: '%app.storage.uri%images/traders'
 
     # Locations image config
+    app.maps.images.path: '%app.storage.path%images/locations'
+    app.maps.images.uri: '%app.storage.uri%images/locations'
+
+    # Locations image config
     app.locations.images.path: '%app.storage.path%images/locations'
     app.locations.images.uri: '%app.storage.uri%images/locations'
 
@@ -34,7 +38,7 @@ parameters:
     app.enemies.images.path: '%app.storage.path%images/enemies'
     app.enemies.images.uri: '%app.storage.uri%images/enemies'
 
-    # Locations image config
+    # Quests image config
     app.quests.images.path: '%app.storage.path%images/quests'
     app.quests.images.uri: '%app.storage.uri%images/quests'
 
