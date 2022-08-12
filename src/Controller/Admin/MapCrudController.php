@@ -39,30 +39,30 @@ class MapCrudController extends BaseCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $published = BooleanField::new('published', t('Published', [], 'admin.locations'));
-        $title = TextField::new('title', t('Title', [], 'admin.locations'));
-        $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
+        $published = BooleanField::new('published', t('Published', [], 'admin.maps'));
+        $title = TextField::new('title', t('Title', [], 'admin.maps'));
+        $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.maps')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.locations.images.uri'))
             ->setFormTypeOption('required', false);
         ;
-        $numberOfPlayers = TextField::new('numberOfPlayers', t('Number of players', [], 'admin.locations'))->setRequired(true);
-        $raidDuration = TimeField::new('raidDuration', t('Raid duration', [], 'admin.locations'))->setRequired(true);
-        $slug = TextField::new('slug', t('Slug', [], 'admin.locations'))->setRequired(true);
+        $numberOfPlayers = TextField::new('numberOfPlayers', t('Number of players', [], 'admin.maps'))->setRequired(true);
+        $raidDuration = TimeField::new('raidDuration', t('Raid duration', [], 'admin.maps'))->setRequired(true);
+        $slug = TextField::new('slug', t('Slug', [], 'admin.maps'))->setRequired(true);
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.locations')
+                'label' => t('Title', [], 'admin.maps')
             ],
             'description' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
                 'field_type' => CKEditorType::class,
-                'label' => t('Description', [], 'admin.locations')
+                'label' => t('Description', [], 'admin.maps')
             ],
         ];
-        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin.maps'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])

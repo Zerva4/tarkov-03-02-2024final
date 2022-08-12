@@ -62,7 +62,7 @@ class TraderCrudController extends BaseCrudController
             ])
         ;
 
-        $levels = CollectionField::new('levels', t('Trader level', [], 'admin.traders'))
+        $levels = CollectionField::new('levels', t('Trader levels', [], 'admin.traders'))
             ->allowAdd()
             ->allowDelete()
             ->setEntryType(TraderLevelsForm::class)
