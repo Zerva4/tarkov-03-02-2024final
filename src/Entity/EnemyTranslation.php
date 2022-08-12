@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\BossTranslationRepository;
+use App\Repository\EnemieTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,8 +12,8 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'bosses_translation')]
-#[ORM\Entity(repositoryClass: BossTranslationRepository::class)]
-class BossTranslation implements TranslationInterface, TimestampableInterface
+#[ORM\Entity(repositoryClass: EnemieTranslationRepository::class)]
+class EnemieTranslation implements TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;
@@ -41,7 +41,7 @@ class BossTranslation implements TranslationInterface, TimestampableInterface
 
     /**
      * @param string $name
-     * @return BossTranslation
+     * @return EnemieTranslation
      */
     public function setName(string $name): self
     {

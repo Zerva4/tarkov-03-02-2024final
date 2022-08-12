@@ -31,8 +31,8 @@ parameters:
     app.articles.images.uri: '%app.storage.uri%images/articles'
 
     # Bosses image config
-    app.bosses.images.path: '%app.storage.path%images/bosses'
-    app.bosses.images.uri: '%app.storage.uri%images/bosses'
+    app.enemies.images.path: '%app.storage.path%images/enemies'
+    app.enemies.images.uri: '%app.storage.uri%images/enemies'
 
     # Locations image config
     app.quests.images.path: '%app.storage.path%images/quests'

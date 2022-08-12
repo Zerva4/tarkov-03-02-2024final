@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Boss;
+use App\Entity\Enemie;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -13,11 +13,11 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
 
-class BossCrudController extends BaseCrudController
+class EnemieCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Boss::class;
+        return Enemie::class;
     }
 
     public function configureFields(string $pageName): iterable

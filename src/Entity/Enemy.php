@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\BossRepository;
+use App\Repository\EnemieRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -19,13 +19,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'bosses')]
-#[ORM\Entity(repositoryClass: BossRepository::class)]
+#[ORM\Entity(repositoryClass: EnemieRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
 /**
  * @Vich\Uploadable
  */
-class Boss implements TranslatableInterface, TimestampableInterface
+class Enemie implements TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -79,7 +79,7 @@ class Boss implements TranslatableInterface, TimestampableInterface
      * @param bool $published
      * @return $this
      */
-    public function setPublished(bool $published): Boss
+    public function setPublished(bool $published): Enemie
     {
         $this->published = $published;
 
@@ -96,9 +96,9 @@ class Boss implements TranslatableInterface, TimestampableInterface
 
     /**
      * @param string|null $imageName
-     * @return Boss
+     * @return Enemie
      */
-    public function setImageName(?string $imageName): Boss
+    public function setImageName(?string $imageName): Enemie
     {
         $this->imageName = $imageName;
 
@@ -115,9 +115,9 @@ class Boss implements TranslatableInterface, TimestampableInterface
 
     /**
      * @param File|null $imageFile
-     * @return Boss
+     * @return Enemie
      */
-    public function setImageFile(?File $imageFile): Boss
+    public function setImageFile(?File $imageFile): Enemie
     {
         $this->imageFile = $imageFile;
 

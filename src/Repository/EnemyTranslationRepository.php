@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\BossTranslation;
+use App\Entity\EnemieTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<BossTranslation>
+ * @extends ServiceEntityRepository<EnemieTranslation>
  *
- * @method BossTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method BossTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method BossTranslation[]    findAll()
- * @method BossTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EnemieTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EnemieTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EnemieTranslation[]    findAll()
+ * @method EnemieTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BossTranslationRepository extends ServiceEntityRepository
+class EnemieTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, BossTranslation::class);
+        parent::__construct($registry, EnemieTranslation::class);
     }
 
-    public function add(BossTranslation $entity, bool $flush = false): void
+    public function add(EnemieTranslation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class BossTranslationRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(BossTranslation $entity, bool $flush = false): void
+    public function remove(EnemieTranslation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 

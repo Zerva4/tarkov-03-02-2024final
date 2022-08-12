@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Boss;
+use App\Entity\Enemie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Boss>
+ * @extends ServiceEntityRepository<Enemie>
  *
- * @method Boss|null find($id, $lockMode = null, $lockVersion = null)
- * @method Boss|null findOneBy(array $criteria, array $orderBy = null)
- * @method Boss[]    findAll()
- * @method Boss[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Enemie|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Enemie|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Enemie[]    findAll()
+ * @method Enemie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BossRepository extends ServiceEntityRepository
+class EnemieRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Boss::class);
+        parent::__construct($registry, Enemie::class);
     }
 
-    public function add(Boss $entity, bool $flush = false): void
+    public function add(Enemie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class BossRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Boss $entity, bool $flush = false): void
+    public function remove(Enemie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
