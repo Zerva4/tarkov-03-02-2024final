@@ -257,4 +257,15 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
 
         return $this;
     }
+
+    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
+    {
+        if (! method_exists(self::getTranslationEntityClass(), $method)) {
+            $method = 'get' . ucfirst($method);
+        }
+
+        $translation = $this->translate($this->getCurrentLocale());
+
+        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
+    }
 }

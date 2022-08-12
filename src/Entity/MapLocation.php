@@ -32,80 +32,61 @@ class MapLocation implements MapLocationInterface, TranslatableInterface, Timest
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $published;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $imageName;
-
-    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
-    #[Assert\Valid]
-    #[Assert\File(
-        maxSize: '2M',
-        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
-    )]
-    /**
-     * @Vich\UploadableField(mapping="traders", fileNameProperty="imageName")
-     * @Assert\Valid
-     * @Assert\File(
-     *     maxSize="2M",
-     *     mimeTypes={
-     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
-     *     }
-     * )
-     */
-    private ?File $imageFile = null;
+//    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+//    private ?string $imageName;
+//
+//    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+//    #[Assert\Valid]
+//    #[Assert\File(
+//        maxSize: '2M',
+//        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
+//    )]
+//    /**
+//     * @Vich\UploadableField(mapping="traders", fileNameProperty="imageName")
+//     * @Assert\Valid
+//     * @Assert\File(
+//     *     maxSize="2M",
+//     *     mimeTypes={
+//     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
+//     *     }
+//     * )
+//     */
+//    private ?File $imageFile = null;
 
     #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'locations')]
     private ?MapInterface $map = null;
-
-    /**
-     * @return bool
-     */
-    public function isPublished(): bool
-    {
-        return $this->published;
-    }
-
-    /**
-     * @param bool $published
-     */
-    public function setPublished(bool $published): void
-    {
-        $this->published = $published;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    /**
-     * @param string|null $imageName
-     */
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    /**
-     * @return File|null
-     */
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @param File|null $imageFile
-     */
-    public function setImageFile(?File $imageFile): void
-    {
-        $this->imageFile = $imageFile;
-    }
+//
+//    /**
+//     * @return string|null
+//     */
+//    public function getImageName(): ?string
+//    {
+//        return $this->imageName;
+//    }
+//
+//    /**
+//     * @param string|null $imageName
+//     */
+//    public function setImageName(?string $imageName): void
+//    {
+//        $this->imageName = $imageName;
+//    }
+//
+//    /**
+//     * @return File|null
+//     */
+//    public function getImageFile(): ?File
+//    {
+//        return $this->imageFile;
+//    }
+//
+//    /**
+//     * @param File|null $imageFile
+//     */
+//    public function setImageFile(?File $imageFile): void
+//    {
+//        $this->imageFile = $imageFile;
+//    }
 
     /**
      * @return MapInterface|null
@@ -121,5 +102,10 @@ class MapLocation implements MapLocationInterface, TranslatableInterface, Timest
     public function setMap(?MapInterface $map): void
     {
         $this->map = $map;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('name');
     }
 }
