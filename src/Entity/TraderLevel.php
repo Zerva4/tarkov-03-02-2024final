@@ -15,7 +15,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 #[ORM\Table(name: 'traders_loyalty')]
 #[ORM\Entity(repositoryClass: TraderLoyaltyRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class TraderLoyalty implements TraderLoyaltyInterface, TimestampableInterface
+class TraderLevel implements TraderLoyaltyInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
