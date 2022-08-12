@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\TraderLoyalty;
+use App\Entity\TraderLevel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -35,7 +35,7 @@ class TraderLoyaltyForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => TraderLoyalty::class,
+            'data_class' => TraderLevel::class,
         ]);
     }
 }
