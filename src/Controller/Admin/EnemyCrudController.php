@@ -33,16 +33,16 @@ class EnemyCrudController extends BaseCrudController
             ->setCustomOption('base_path', $this->getParameter('app.enemies.images.uri'))
             ->setFormTypeOption('required', false);
         ;
-        $types = ChoiceField::new('types', t('Type'))
+        $types = ChoiceField::new('types', t('Type', [], 'admin.enemies'))
             ->allowMultipleChoices()
             ->setTextAlign('left')
             ->setChoices([
                 'TYPE_BOSS' => 'TYPE_BOSS',
-                'ROLE_FOLLOWER' => 'ROLE_FOLLOWER',
+                'TYPE_FOLLOWER' => 'ROLE_FOLLOWER',
             ])
             ->setTranslatableChoices([
                 'TYPE_BOSS' => t('Boss', [], 'admin.enemies'),
-                'ROLE_FOLLOWER' => t('Follower', [], 'admin.enemies'),
+                'TYPE_FOLLOWER' => t('Follower', [], 'admin.enemies'),
             ])
         ;
         $translationFields = [
@@ -72,7 +72,7 @@ class EnemyCrudController extends BaseCrudController
                 'label' => t('Followers', [], 'admin.bosses')
             ],
         ];
-        $translations = TranslationField::new('translations', t('Localization', [], 'admin.bosses'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin.enemies'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
@@ -82,8 +82,8 @@ class EnemyCrudController extends BaseCrudController
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $image,
                 $published,
-                $types,
-                $slug,
+                $types->setColumns(6)->setTextAlign('left'),
+                $slug->setColumns(6)->setTextAlign('left'),
                 $translations,
             ],
             default => [$name, $published, $types, $createdAt, $updatedAt],
