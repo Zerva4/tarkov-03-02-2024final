@@ -6,7 +6,7 @@ namespace App\Interfaces;
 
 use Ramsey\Uuid\UuidInterface;
 
-interface LocationInterface
+interface MapInterface
 {
     /**
      * @return UuidInterface
