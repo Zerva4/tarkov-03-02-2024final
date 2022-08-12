@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Interfaces\TraderInterface;
-use App\Interfaces\TraderLoyaltyInterface;
-use App\Repository\TraderLoyaltyRepository;
+use App\Interfaces\TraderLevelInterface;
+use App\Repository\TraderLevelRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
-#[ORM\Table(name: 'traders_loyalty')]
-#[ORM\Entity(repositoryClass: TraderLoyaltyRepository::class)]
+#[ORM\Table(name: 'traders_level')]
+#[ORM\Entity(repositoryClass: TraderLevelRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class TraderLevel implements TraderLoyaltyInterface, TimestampableInterface
+class TraderLevel implements TraderLevelInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -24,7 +24,7 @@ class TraderLevel implements TraderLoyaltyInterface, TimestampableInterface
     private int $level;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $requiredLevel = 0;
+    private int $requiredPlayerLevel = 0;
 
     #[ORM\Column(type: 'float', nullable: false)]
     private float $requiredReputation = 0.0;
@@ -32,7 +32,7 @@ class TraderLevel implements TraderLoyaltyInterface, TimestampableInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $requiredSales = 0;
 
-    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'loyalty')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'levels')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private TraderInterface $trader;
 
@@ -41,21 +41,21 @@ class TraderLevel implements TraderLoyaltyInterface, TimestampableInterface
         return $this->level;
     }
 
-    public function setLevel(int $level): TraderLoyaltyInterface
+    public function setLevel(int $level): TraderLevelInterface
     {
         $this->level = $level;
 
         return $this;
     }
 
-    public function getRequiredLevel(): int
+    public function getRequiredPlayerLevel(): int
     {
-        return $this->requiredLevel;
+        return $this->requiredPlayerLevel;
     }
 
-    public function setRequiredLevel(int $level): TraderLoyaltyInterface
+    public function setRequiredPlayerLevel(int $level): TraderLevelInterface
     {
-        $this->requiredLevel = $level;
+        $this->requiredPlayerLevel = $level;
 
         return $this;
     }
@@ -65,7 +65,7 @@ class TraderLevel implements TraderLoyaltyInterface, TimestampableInterface
         return $this->requiredReputation;
     }
 
-    public function setRequiredReputation(float $reputation): TraderLoyaltyInterface
+    public function setRequiredReputation(float $reputation): TraderLevelInterface
     {
         $this->requiredReputation = $reputation;
 
@@ -77,7 +77,7 @@ class TraderLevel implements TraderLoyaltyInterface, TimestampableInterface
         return $this->requiredSales;
     }
 
-    public function setRequiredSales(int $sales): TraderLoyaltyInterface
+    public function setRequiredSales(int $sales): TraderLevelInterface
     {
         $this->requiredSales = $sales;
 
@@ -89,7 +89,7 @@ class TraderLevel implements TraderLoyaltyInterface, TimestampableInterface
         return $this->trader;
     }
 
-    public function setTrader(TraderInterface $trader): TraderLoyaltyInterface
+    public function setTrader(TraderInterface $trader): TraderLevelInterface
     {
         $this->trader = $trader;
 

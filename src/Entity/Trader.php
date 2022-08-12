@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
-use App\Interfaces\TraderLoyaltyInterface;
+use App\Interfaces\TraderLevelInterface;
 use App\Repository\TraderRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
@@ -62,9 +62,9 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
      */
     private ?File $imageFile = null;
 
-    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLoyalty::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLevel::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\OrderBy(['level' => 'ASC'])]
-    private Collection $loyalty;
+    private Collection $levels;
 
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
@@ -72,7 +72,7 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         $this->defaultLocale = $defaultLocation;
-        $this->loyalty = new ArrayCollection();
+        $this->levels = new ArrayCollection();
     }
 
     /**
@@ -143,32 +143,32 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     /**
      * @return Collection
      */
-    public function getLoyalty(): Collection
+    public function getLevels(): Collection
     {
-        return $this->loyalty;
+        return $this->levels;
     }
 
     /**
-     * @param Collection $loyalty
+     * @param Collection $level
      * @return TraderInterface
      */
-    public function setLoyalty(Collection $loyalty): TraderInterface
+    public function setLevels(Collection $level): TraderInterface
     {
-        $this->loyalty = $loyalty;
+        $this->levels = $level;
 
         return $this;
     }
 
     /**
-     * @param TraderLoyaltyInterface ...$loyalty
+     * @param TraderLevelInterface ...$levels
      * @return Trader
      */
-    public function addLoyalty(TraderLoyaltyInterface ...$loyalty): TraderInterface
+    public function addLevel(TraderLevelInterface ...$levels): TraderInterface
     {
-        foreach ($loyalty as $loyaltyItem) {
-            if (!$this->loyalty->contains($loyaltyItem)) {
-                $this->loyalty->add($loyaltyItem);
-                $loyaltyItem->setTrader($this);
+        foreach ($levels as $level) {
+            if (!$this->levels->contains($level)) {
+                $this->levels->add($level);
+                $level->setTrader($this);
             }
         }
 
@@ -176,13 +176,13 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     }
 
     /**
-     * @param TraderLoyaltyInterface $loyalty
+     * @param TraderLevelInterface $level
      * @return TraderInterface
      */
-    public function removeLoyalty(TraderLoyaltyInterface $loyalty): TraderInterface
+    public function removeLevel(TraderLevelInterface $level): TraderInterface
     {
-        if ($this->loyalty->contains($loyalty)) {
-            $this->loyalty->removeElement($loyalty);
+        if ($this->levels->contains($level)) {
+            $this->levels->removeElement($level);
         }
 
         return $this;

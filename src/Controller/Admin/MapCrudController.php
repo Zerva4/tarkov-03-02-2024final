@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Location;
+use App\Entity\Map;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -18,11 +18,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use function Symfony\Component\Translation\t;
 
-class LocationCrudController extends BaseCrudController
+class MapCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Location::class;
+        return Map::class;
     }
 
 //    public function configureCrud(Crud $crud): Crud

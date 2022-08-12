@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function Symfony\Component\Translation\t;
 
-class TraderLoyaltyForm extends AbstractType
+class TraderLevelsForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -20,8 +20,8 @@ class TraderLoyaltyForm extends AbstractType
             ->add('level', IntegerType::class, [
                 'label' => t('Level', [], 'admin.traders')
             ])
-            ->add('requiredLevel', IntegerType::class, [
-                'label' => t('Required level', [], 'admin.traders')
+            ->add('requiredPlayerLevel', IntegerType::class, [
+                'label' => t('Required player level', [], 'admin.traders')
             ])
             ->add('requiredReputation', NumberType::class, [
                 'label' => t('Required reputation', [], 'admin.traders')

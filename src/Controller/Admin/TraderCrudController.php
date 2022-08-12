@@ -7,7 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Trader;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
-use App\Form\TraderLoyaltyForm;
+use App\Form\TraderLevelsForm;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -62,10 +62,10 @@ class TraderCrudController extends BaseCrudController
             ])
         ;
 
-        $loyalty = CollectionField::new('loyalty', t('Trader loyalty', [], 'admin.traders'))
+        $levels = CollectionField::new('levels', t('Trader level', [], 'admin.traders'))
             ->allowAdd()
             ->allowDelete()
-            ->setEntryType(TraderLoyaltyForm::class)
+            ->setEntryType(TraderLevelsForm::class)
             ->setEntryIsComplex(false)
             ->setFormTypeOption('by_reference', false)
         ;
@@ -78,7 +78,7 @@ class TraderCrudController extends BaseCrudController
                 $slug->setColumns(6)->setTextAlign('left'),
                 $translations,
                 FormField::addTab(t('Additionally', [], 'admin.traders')),
-                $loyalty->setColumns(12)
+                $levels->setColumns(12)
             ],
             default => [$characterType, $fullName, $published, $createdAt, $updatedAt],
         };
