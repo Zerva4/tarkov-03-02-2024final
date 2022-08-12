@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Interfaces\LocationInterface;
+use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Repository\QuestRepository;
@@ -63,8 +63,8 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
     #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'quests')]
     private ?TraderInterface $trader = null;
 
-    #[ORM\ManyToOne(targetEntity: Location::class, inversedBy: 'quests')]
-    private ?LocationInterface $location = null;
+    #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'quests')]
+    private ?MapInterface $map = null;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -122,20 +122,20 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
     }
 
     /**
-     * @return LocationInterface|null
+     * @return MapInterface|null
      */
-    public function getLocation(): ?LocationInterface
+    public function getMap(): ?MapInterface
     {
-        return $this->location;
+        return $this->map;
     }
 
     /**
-     * @param LocationInterface|null $location
+     * @param MapInterface|null $map
      * @return QuestInterface
      */
-    public function setLocation(?LocationInterface $location): QuestInterface
+    public function setMap(?MapInterface $map): QuestInterface
     {
-        $this->location = $location;
+        $this->map = $map;
 
         return $this;
     }
