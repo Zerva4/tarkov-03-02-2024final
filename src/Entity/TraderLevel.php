@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
-#[ORM\Table(name: 'traders_level')]
+#[ORM\Table(name: 'traders_levels')]
 #[ORM\Entity(repositoryClass: TraderLevelRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class TraderLevel implements TraderLevelInterface, TimestampableInterface
