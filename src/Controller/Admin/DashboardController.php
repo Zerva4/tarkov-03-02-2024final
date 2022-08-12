@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
-use App\Entity\Location;
+use App\Entity\Enemy;
+use App\Entity\Map;
 use App\Entity\Quest;
 use App\Entity\Trader;
 use App\Entity\User;
@@ -62,12 +63,13 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard');
         yield MenuItem::section(t('Content', [], 'menu'), '');
-        yield MenuItem::linkToCrud(t('Locations', [], 'menu'), 'fa fa-map', Location::class)->setController(LocationCrudController::class);
+        yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
+        yield MenuItem::linkToDashboard(t('Items', [], 'menu'), 'fa fa-items');
         yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);
         yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-money', Trader::class)->setController(TraderCrudController::class);
+        yield MenuItem::linkToCrud(t('Enemies', [], 'menu'), 'fa fa-money', Enemy::class)->setController(EnemyCrudController::class);
         yield MenuItem::linkToDashboard(t('Updates', [], 'menu'), 'fa fa-upload');
         yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);
-        yield MenuItem::linkToDashboard(t('Items', [], 'menu'), 'fa fa-items');
         yield MenuItem::section(t('Materials', [], 'menu'), '');
         yield MenuItem::linkToDashboard(t('Photos', [], 'menu'), 'fa fa-camera');
         yield MenuItem::linkToDashboard(t('Videos', [], 'menu'), 'fa fa-video-camera');

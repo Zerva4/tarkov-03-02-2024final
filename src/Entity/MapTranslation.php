@@ -12,11 +12,11 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
-#[ORM\Table(name: 'locations_translation')]
-#[ORM\Index(columns: ['locale'], name: 'locations_locale_idx')]
+#[ORM\Table(name: 'maps_translation')]
+#[ORM\Index(columns: ['locale'], name: 'maps_locale_idx')]
 #[ORM\Entity(repositoryClass: LocationTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class LocationTranslation implements TranslationInterface, TimestampableInterface
+class MapTranslation implements TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;
@@ -28,7 +28,7 @@ class LocationTranslation implements TranslationInterface, TimestampableInterfac
     #[ORM\Column(type: 'text')]
     private string $description;
 
-    #[ORM\ManyToOne(targetEntity: Location::class, inversedBy: 'translations')]
+    #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'translations')]
     #[ORM\JoinColumn(name: 'translatable_id', referencedColumnName: 'id')]
     protected $translatable;
 

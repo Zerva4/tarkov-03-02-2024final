@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Interfaces\LocationInterface;
+use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
 use App\Repository\LocationRepository;
 use App\Traits\SlugTrait;
@@ -22,14 +22,14 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Table(name: 'locations')]
-#[ORM\Index(columns: ['slug'], name: 'locations_slug_idx')]
+#[ORM\Table(name: 'maps')]
+#[ORM\Index(columns: ['slug'], name: 'maps_slug_idx')]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 #[Vich\Uploadable]
 /**
  * @Vich\Uploadable
  */
-class Location implements LocationInterface, TranslatableInterface, TimestampableInterface
+class Map implements MapInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
@@ -41,7 +41,7 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
     private bool $published;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $imageName;
+    private ?string $imageName = null;
 
     #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
     #[Assert\Valid]
@@ -138,9 +138,9 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
 
     /**
      * @param Collection $quests
-     * @return LocationInterface
+     * @return MapInterface
      */
-    public function setQuests(Collection $quests): LocationInterface
+    public function setQuests(Collection $quests): MapInterface
     {
         $this->quests = $quests;
 
@@ -149,9 +149,9 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
 
     /**
      * @param QuestInterface ...$quests
-     * @return LocationInterface
+     * @return MapInterface
      */
-    public function addQuest(QuestInterface ...$quests): LocationInterface
+    public function addQuest(QuestInterface ...$quests): MapInterface
     {
         foreach ($quests as $quest) {
             if (!$this->quests->contains($quest)) {
@@ -165,9 +165,9 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
 
     /**
      * @param QuestInterface $quest
-     * @return LocationInterface
+     * @return MapInterface
      */
-    public function removeQuest(QuestInterface $quest): LocationInterface
+    public function removeQuest(QuestInterface $quest): MapInterface
     {
         if ($this->quests->contains($quest)) {
             $this->quests->removeElement($quest);
@@ -192,9 +192,9 @@ class Location implements LocationInterface, TranslatableInterface, Timestampabl
 
     /**
      * @param mixed $imageFile
-     * @return LocationInterface
+     * @return MapInterface
      */
-    public function setImageFile(mixed $imageFile): LocationInterface
+    public function setImageFile(mixed $imageFile): MapInterface
     {
         $this->imageFile = $imageFile;
 
