@@ -42,11 +42,17 @@ class TraderCrudController extends BaseCrudController
         $translationFields = [
             'characterType' => [
                 'field_type' => TextType::class,
-                'label' => t('Character type', [], 'admin.traders')
+                'label' => t('Character type', [], 'admin.traders'),
+//                'row_attr' => [
+//                    'class' => 'col-md-6'
+//                ],
             ],
             'fullName' => [
                 'field_type' => TextType::class,
-                'label' => t('Full name', [], 'admin.traders')
+                'label' => t('Full name', [], 'admin.traders'),
+//                'row_attr' => [
+//                    'class' => 'col-md-6'
+//                ],
             ],
             'description' => [
                 'attr' => [
@@ -77,7 +83,7 @@ class TraderCrudController extends BaseCrudController
                 $published,
                 $slug->setColumns(6)->setTextAlign('left'),
                 $translations,
-                FormField::addTab(t('Additionally', [], 'admin.traders')),
+                FormField::addTab(t('Levels', [], 'admin.traders')),
                 $levels->setColumns(12)
             ],
             default => [$characterType, $fullName, $published, $createdAt, $updatedAt],
