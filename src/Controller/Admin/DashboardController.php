@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
+use App\Entity\Boss;
 use App\Entity\Map;
 use App\Entity\Quest;
 use App\Entity\Trader;
@@ -65,6 +66,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
         yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);
         yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-money', Trader::class)->setController(TraderCrudController::class);
+        yield MenuItem::linkToCrud(t('Bosses', [], 'menu'), 'fa fa-money', Boss::class)->setController(BossCrudController::class);
         yield MenuItem::linkToDashboard(t('Updates', [], 'menu'), 'fa fa-upload');
         yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);
         yield MenuItem::linkToDashboard(t('Items', [], 'menu'), 'fa fa-items');
