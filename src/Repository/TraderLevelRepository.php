@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method TraderLevel[]    findAll()
  * @method TraderLevel[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TraderLoyaltyRepository extends ServiceEntityRepository
+class TraderLevelRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
