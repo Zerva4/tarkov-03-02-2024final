@@ -50,6 +50,57 @@ class BossTranslation implements TranslationInterface, TimestampableInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getBehavior(): ?string
+    {
+        return $this->behavior;
+    }
+
+    /**
+     * @param string|null $behavior
+     */
+    public function setBehavior(?string $behavior): void
+    {
+        $this->behavior = $behavior;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFollowers(): ?string
+    {
+        return $this->followers;
+    }
+
+    /**
+     * @param string|null $followers
+     */
+    public function setFollowers(?string $followers): void
+    {
+        $this->followers = $followers;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStrategy(): ?string
+    {
+        return $this->strategy;
+    }
+
+    /**
+     * @param string|null $strategy
+     */
+    public function setStrategy(?string $strategy): void
+    {
+        $this->strategy = $strategy;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         return $this->getName();

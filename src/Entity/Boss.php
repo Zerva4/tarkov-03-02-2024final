@@ -33,8 +33,8 @@ class Boss implements TranslatableInterface, TimestampableInterface
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
 
-    #[ORM\Column(type: 'boolean', nullable: false)]
-    private bool $published = false;
+    #[ORM\Column(type: 'boolean')]
+    private bool $published;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
@@ -51,21 +51,26 @@ class Boss implements TranslatableInterface, TimestampableInterface
      * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={
-     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
+     *         "image/webp", "image/jpg", "image/gif", "image/jpeg", "image/png"
      *     }
      * )
      */
     private ?File $imageFile = null;
 
+    public function __construct(string $defaultLocation = '%app.default_locale%')
+    {
+        $this->defaultLocale = $defaultLocation;
+    }
+
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function isPublished(): bool
+    public function isPublished(): ?bool
     {
         return $this->getPublished();
     }
 
-    public function getPublished(): bool
+    public function getPublished(): ?bool
     {
         return $this->published;
     }
@@ -121,5 +126,16 @@ class Boss implements TranslatableInterface, TimestampableInterface
         }
 
         return $this;
+    }
+
+    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
+    {
+        if (! method_exists(self::getTranslationEntityClass(), $method)) {
+            $method = 'get' . ucfirst($method);
+        }
+
+        $translation = $this->translate($this->getCurrentLocale());
+
+        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
     }
 }
