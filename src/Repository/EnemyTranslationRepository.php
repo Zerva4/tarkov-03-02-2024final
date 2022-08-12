@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\EnemieTranslation;
+use App\Entity\EnemyTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EnemieTranslation>
+ * @extends ServiceEntityRepository<EnemyTranslation>
  *
- * @method EnemieTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method EnemieTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method EnemieTranslation[]    findAll()
- * @method EnemieTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EnemyTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EnemyTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EnemyTranslation[]    findAll()
+ * @method EnemyTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EnemieTranslationRepository extends ServiceEntityRepository
+class EnemyTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EnemieTranslation::class);
+        parent::__construct($registry, EnemyTranslation::class);
     }
 
-    public function add(EnemieTranslation $entity, bool $flush = false): void
+    public function add(EnemyTranslation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class EnemieTranslationRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(EnemieTranslation $entity, bool $flush = false): void
+    public function remove(EnemyTranslation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 

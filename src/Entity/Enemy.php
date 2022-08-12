@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\EnemieRepository;
+use App\Repository\EnemyRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -18,14 +18,14 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Table(name: 'bosses')]
-#[ORM\Entity(repositoryClass: EnemieRepository::class)]
+#[ORM\Table(name: 'enemies')]
+#[ORM\Entity(repositoryClass: EnemyRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
 /**
  * @Vich\Uploadable
  */
-class Enemie implements TranslatableInterface, TimestampableInterface
+class Enemy implements TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -38,6 +38,9 @@ class Enemie implements TranslatableInterface, TimestampableInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
+
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $types = [];
 
     #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
     #[Assert\Valid]
@@ -79,7 +82,7 @@ class Enemie implements TranslatableInterface, TimestampableInterface
      * @param bool $published
      * @return $this
      */
-    public function setPublished(bool $published): Enemie
+    public function setPublished(bool $published): Enemy
     {
         $this->published = $published;
 
@@ -96,9 +99,9 @@ class Enemie implements TranslatableInterface, TimestampableInterface
 
     /**
      * @param string|null $imageName
-     * @return Enemie
+     * @return Enemy
      */
-    public function setImageName(?string $imageName): Enemie
+    public function setImageName(?string $imageName): Enemy
     {
         $this->imageName = $imageName;
 
@@ -115,9 +118,9 @@ class Enemie implements TranslatableInterface, TimestampableInterface
 
     /**
      * @param File|null $imageFile
-     * @return Enemie
+     * @return Enemy
      */
-    public function setImageFile(?File $imageFile): Enemie
+    public function setImageFile(?File $imageFile): Enemy
     {
         $this->imageFile = $imageFile;
 
@@ -126,6 +129,22 @@ class Enemie implements TranslatableInterface, TimestampableInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypes(): array
+    {
+        return array_unique($this->types);
+    }
+
+    /**
+     * @param array $types
+     */
+    public function setTypes(array $types): void
+    {
+        $this->types = $types;
     }
 
     protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])

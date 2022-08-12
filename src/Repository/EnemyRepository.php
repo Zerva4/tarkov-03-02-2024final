@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Enemie;
+use App\Entity\Enemy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Enemie>
+ * @extends ServiceEntityRepository<Enemy>
  *
- * @method Enemie|null find($id, $lockMode = null, $lockVersion = null)
- * @method Enemie|null findOneBy(array $criteria, array $orderBy = null)
- * @method Enemie[]    findAll()
- * @method Enemie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Enemy|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Enemy|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Enemy[]    findAll()
+ * @method Enemy[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EnemieRepository extends ServiceEntityRepository
+class EnemyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Enemie::class);
+        parent::__construct($registry, Enemy::class);
     }
 
-    public function add(Enemie $entity, bool $flush = false): void
+    public function add(Enemy $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class EnemieRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Enemie $entity, bool $flush = false): void
+    public function remove(Enemy $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
