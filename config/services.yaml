@@ -30,6 +30,10 @@ parameters:
     app.articles.images.path: '%app.storage.path%images/articles'
     app.articles.images.uri: '%app.storage.uri%images/articles'
 
+    # Bosses image config
+    app.bosses.images.path: '%app.storage.path%images/bosses'
+    app.bosses.images.uri: '%app.storage.uri%images/bosses'
+
     # Locations image config
     app.quests.images.path: '%app.storage.path%images/quests'
     app.quests.images.uri: '%app.storage.uri%images/quests'
