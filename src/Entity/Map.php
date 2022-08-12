@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Interfaces\MapInterface;
+use App\Interfaces\MapLocationInterface;
 use App\Interfaces\QuestInterface;
 use App\Repository\LocationRepository;
 use App\Traits\SlugTrait;
@@ -12,6 +13,7 @@ use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -68,12 +70,17 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
     #[ORM\Column(type: 'time', nullable: true)]
     private ?DateTimeInterface $raidDuration;
 
-    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'map', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
+
+    #[ORM\OneToMany(mappedBy: 'map', targetEntity: MapLocation::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $locations;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         $this->defaultLocale = $defaultLocation;
+        $this->quests = new ArrayCollection();
+
     }
 
     public function isPublished(): ?bool
@@ -200,6 +207,52 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
 
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    /**
+     * @param Collection $locations
+     */
+    public function setLocations(Collection $locations): void
+    {
+        $this->locations = $locations;
+    }
+
+    /**
+     * @param MapLocationInterface ...$locations
+     * @return MapInterface
+     */
+    public function addLocation(MapLocationInterface ...$locations): MapInterface
+    {
+        foreach ($locations as $location) {
+            if (!$this->locations->contains($location)) {
+                $this->locations->add($location);
+                $location->setMap($this);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param MapLocationInterface $location
+     * @return MapInterface
+     */
+    public function removeLocation(MapLocationInterface $location): MapInterface
+    {
+        if ($this->locations->contains($location)) {
+            $this->locations->removeElement($location);
+            $location->setMap(null);
         }
 
         return $this;
