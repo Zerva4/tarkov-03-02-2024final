@@ -26,6 +26,7 @@ class BossCrudController extends BaseCrudController
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
         $name = TextField::new('name', t('Name', [], 'admin.bosses'));
+        $slug = TextField::new('slug', t('Slug', [], 'admin.bosses'));
         $image = VichImageField::new('imageFile', t('Photo', [], 'admin.bosses')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.bosses.images.uri'))
@@ -66,8 +67,9 @@ class BossCrudController extends BaseCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
-                $published,
                 $image,
+                $published,
+                $slug,
                 $translations,
             ],
             default => [$name, $published, $createdAt, $updatedAt],
