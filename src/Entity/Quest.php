@@ -40,7 +40,7 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
     private bool $published;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $imageName;
+    private ?string $imageName = null;
 
     #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
     #[Assert\Valid]

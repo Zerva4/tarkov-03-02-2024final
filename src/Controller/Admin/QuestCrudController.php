@@ -26,9 +26,9 @@ class QuestCrudController extends BaseCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $published = BooleanField::new('published', t('Published', [], 'admin.locations'));
+        $published = BooleanField::new('published', t('Published', [], 'admin.quests'));
         $title = TextField::new('title', t('Title', [], 'admin.locations'));
-        $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
+        $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.quests')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.quests.images.uri'))
             ->setFormTypeOption('required', false);
@@ -42,7 +42,7 @@ class QuestCrudController extends BaseCrudController
                 ;
             })
         ;
-        $location = AssociationField::new('location', t('Location', [], 'admin.quests'))
+        $maps = AssociationField::new('map', t('Map', [], 'admin.quests'))
             ->setQueryBuilder(function($queryBuilder) {
                 return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
                     ->addSelect('lt')
@@ -79,7 +79,7 @@ class QuestCrudController extends BaseCrudController
                 'label' => t('Goals', [], 'admin.quests')
             ],
         ];
-        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin.quests'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
@@ -93,11 +93,11 @@ class QuestCrudController extends BaseCrudController
                 $locationImage,
                 $published,
                 $trader->setColumns(6),
-                $location->setColumns(6),
+                $maps->setColumns(6),
                 $slug->setColumns(6),
                 $translations
             ],
-            default => [$title, $trader, $location, $published, $createdAt, $updatedAt],
+            default => [$title, $trader, $maps, $published, $createdAt, $updatedAt],
         };
     }
 }

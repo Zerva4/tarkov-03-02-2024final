@@ -48,28 +48,28 @@ class EnemyCrudController extends BaseCrudController
         $translationFields = [
             'name' => [
                 'field_type' => TextType::class,
-                'label' => t('Name', [], 'admin.bosses'),
+                'label' => t('Name', [], 'admin.enemies'),
             ],
             'behavior' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
                 'field_type' => CKEditorType::class,
-                'label' => t('Behavior', [], 'admin.bosses')
+                'label' => t('Behavior', [], 'admin.enemies')
             ],
             'strategy' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
                 'field_type' => CKEditorType::class,
-                'label' => t('Strategy', [], 'admin.bosses')
+                'label' => t('Strategy', [], 'admin.enemies')
             ],
             'followers' => [
                 'attr' => [
                     'class' => 'ckeditor'
                 ],
                 'field_type' => CKEditorType::class,
-                'label' => t('Followers', [], 'admin.bosses')
+                'label' => t('Followers', [], 'admin.enemies')
             ],
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin.enemies'), $translationFields)
@@ -86,7 +86,7 @@ class EnemyCrudController extends BaseCrudController
                 $slug->setColumns(6)->setTextAlign('left'),
                 $translations,
             ],
-            default => [$name, $published, $types, $createdAt, $updatedAt],
+            default => [$name, $types, $published, $createdAt, $updatedAt],
         };
     }
 }
