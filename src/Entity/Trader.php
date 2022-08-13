@@ -24,6 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'traders')]
+#[ORM\Index(columns: ['api_id'], name: 'traders_api_key_idx')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
@@ -37,6 +38,9 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     use SlugTrait;
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $apiId;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -94,6 +98,25 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
         }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiId(): string
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param string $apiId
+     * @return TraderInterface
+     */
+    public function setApiId(string $apiId): TraderInterface
+    {
+        $this->apiId = $apiId;
 
         return $this;
     }
