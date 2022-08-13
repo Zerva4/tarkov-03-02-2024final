@@ -44,11 +44,6 @@ class MapTranslation implements TranslationInterface, TimestampableInterface
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->getTitle();
-    }
-
     /**
      * @return string
      */
@@ -63,5 +58,10 @@ class MapTranslation implements TranslationInterface, TimestampableInterface
     public function setDescription(string $description): void
     {
         $this->description = $description;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
     }
 }
