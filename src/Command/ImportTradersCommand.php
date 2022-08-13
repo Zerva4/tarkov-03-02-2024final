@@ -94,11 +94,9 @@ class ImportTradersCommand extends Command
             $traderEntity = $traderRepository->findOneBy(['apiId' => $trader['id']]);
 
             if ($traderEntity instanceof Trader) {
-//                dump('Update');
                 $traderEntity->setDefaultLocale($lang);
                 $traderEntity->translate($lang, false)->setCharacterType($trader['name']);
             } else {
-//                dump('New');
                 /** @var TraderInterface $traderEntity */
                 $traderEntity = new Trader();
                 $traderEntity->setDefaultLocale($lang);
