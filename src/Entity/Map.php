@@ -39,6 +39,9 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
     use SlugTrait;
     use TranslatableMagicMethodsTrait;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $apiId;
+
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
@@ -256,6 +259,22 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiId(): string
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param string $apiId
+     */
+    public function setApiId(string $apiId): void
+    {
+        $this->apiId = $apiId;
     }
 
     protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
