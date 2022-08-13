@@ -103,6 +103,7 @@ class ImportMapsCommand extends Command
         $progressBar->advance(1);
 
         foreach ($maps as $map) {
+            if ($map['nameId'] === 'factory4_night') continue;
             $progressBar->advance();
             $traderRepository = $this->em->getRepository(Map::class);
             $mapEntity = $traderRepository->findOneBy(['apiId' => $map['id']]);
