@@ -9,14 +9,9 @@ use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Repository\QuestRepository;
 use App\Traits\SlugTrait;
-use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
-use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -28,13 +23,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest implements QuestInterface, TranslatableInterface, TimestampableInterface
+class Quest extends BaseEntity implements QuestInterface
 {
     use UuidPrimaryKeyTrait;
-    use TimestampableTrait;
     use SlugTrait;
-    use TranslatableTrait;
-    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -68,7 +60,7 @@ class Quest implements QuestInterface, TranslatableInterface, TimestampableInter
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        $this->defaultLocale = $defaultLocation;
+        parent::__construct($defaultLocation);
     }
 
     public function isPublished(): ?bool
