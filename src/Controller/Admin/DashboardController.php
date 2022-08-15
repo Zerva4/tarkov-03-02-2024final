@@ -50,6 +50,7 @@ class DashboardController extends AbstractDashboardController
             ->disableUrlSignatures()
             ->generateRelativeUrls()
             ->setTranslationDomain('admin')
+            ->disableDarkMode(true)
         ;
     }
 
