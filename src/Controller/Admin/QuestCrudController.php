@@ -30,7 +30,7 @@ class QuestCrudController extends BaseCrudController
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.quests'));
-        $title = TextField::new('title', t('Title', [], 'admin.locations'));
+        $title = TextField::new('title', t('Title', [], 'admin.quests'));
         $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.quests')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.quests.images.uri'))
