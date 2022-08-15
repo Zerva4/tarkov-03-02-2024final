@@ -7,7 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Trader;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
-use App\Form\TraderLevelsForm;
+use App\Form\TraderLevelForm;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -43,16 +43,10 @@ class TraderCrudController extends BaseCrudController
             'characterType' => [
                 'field_type' => TextType::class,
                 'label' => t('Character type', [], 'admin.traders'),
-//                'row_attr' => [
-//                    'class' => 'col-md-6'
-//                ],
             ],
             'fullName' => [
                 'field_type' => TextType::class,
                 'label' => t('Full name', [], 'admin.traders'),
-//                'row_attr' => [
-//                    'class' => 'col-md-6'
-//                ],
             ],
             'description' => [
                 'attr' => [
@@ -71,7 +65,7 @@ class TraderCrudController extends BaseCrudController
         $levels = CollectionField::new('levels', t('Trader levels', [], 'admin.traders'))
             ->allowAdd()
             ->allowDelete()
-            ->setEntryType(TraderLevelsForm::class)
+            ->setEntryType(TraderLevelForm::class)
             ->setEntryIsComplex(false)
             ->setFormTypeOption('by_reference', false)
         ;

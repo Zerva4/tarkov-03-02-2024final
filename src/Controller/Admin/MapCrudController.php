@@ -8,7 +8,7 @@ use App\Entity\Map;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\MapLocationForm;
-use App\Form\TraderLevelsForm;
+use App\Form\TraderLevelForm;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -27,18 +27,6 @@ class MapCrudController extends BaseCrudController
     {
         return Map::class;
     }
-
-//    public function configureCrud(Crud $crud): Crud
-//    {
-//        return parent::configureCrud($crud)
-//            ->setFormThemes([
-//                'admin/field/translation.html.twig',
-//                'admin/field/vich_image.html.twig',
-//                '@EasyAdmin/crud/form_theme.html.twig',
-//                '@FOSCKEditor/Form/ckeditor_widget.html.twig',
-//            ])
-//        ;
-//    }
 
     public function configureFields(string $pageName): iterable
     {
