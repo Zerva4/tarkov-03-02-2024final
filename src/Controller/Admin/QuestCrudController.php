@@ -7,9 +7,11 @@ namespace App\Controller\Admin;
 use App\Entity\Quest;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
+use App\Form\QuestObjectiveForm;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -80,6 +82,13 @@ class QuestCrudController extends BaseCrudController
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
         ;
+        $objectives = CollectionField::new('objectives', t('Objectives', [], 'admin.traders'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(QuestObjectiveForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', false)
+        ;
 
         $createdAt = DateField::new('createdAt', 'Created')->setTextAlign('center');
         $updatedAt = DateField::new('updatedAt', 'Updated')->setTextAlign('center');
@@ -96,6 +105,8 @@ class QuestCrudController extends BaseCrudController
                 $slug->setColumns(6),
                 $translations,
                 FormField::addTab(t('Objectives', [], 'admin.quests')),
+                $objectives->setColumns(12),
+                FormField::addTab(t('Keys', [], 'admin.quests')),
             ],
             default => [
                 $title->setSortable(true),
