@@ -22,6 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'Quests')]
 #[ORM\Index(columns: ['slug'], name: 'quests_slug_idx')]
+#[ORM\Index(columns: ['api_id'], name: 'quests_api_key_idx')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
 #[Vich\Uploadable]
 /**
@@ -31,6 +32,9 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $apiId;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -252,6 +256,24 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     public function setMinPlayerLevel(int $minPlayerLevel): QuestInterface
     {
         $this->minPlayerLevel = $minPlayerLevel;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiId(): string
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param string $apiId
+     */
+    public function setApiId(string $apiId): QuestInterface
+    {
+        $this->apiId = $apiId;
 
         return $this;
     }
