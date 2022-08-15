@@ -9,6 +9,7 @@ use App\Interfaces\QuestObjectiveInterface;
 use App\Repository\QuestObjectiveRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'quests_objectives')]
 #[ORM\Index(columns: ['type'], name: 'quest_type_idx')]
@@ -16,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 class QuestObjective extends BaseEntity implements QuestObjectiveInterface
 {
     use UuidPrimaryKeyTrait;
+    use TranslatableTrait;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $type = null;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Repository\QuestObjectiveTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -13,6 +14,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'quests_objectives_translation')]
 #[ORM\Index(columns: ['locale'], name: 'quests_objectives_locale_idx')]
+#[ORM\Entity(repositoryClass: QuestObjectiveTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class QuestObjectiveTranslation implements TranslationInterface, TimestampableInterface
 {

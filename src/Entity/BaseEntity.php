@@ -10,7 +10,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
-class BaseEntity implements TranslatableInterface, TimestampableInterface
+class BaseEntity implements TimestampableInterface, TranslatableInterface
 {
     use TimestampableTrait;
     use TranslatableTrait;

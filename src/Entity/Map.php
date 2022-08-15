@@ -7,7 +7,7 @@ namespace App\Entity;
 use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
 use App\Interfaces\QuestInterface;
-use App\Repository\LocationRepository;
+use App\Repository\MapRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -26,7 +26,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'maps')]
 #[ORM\Index(columns: ['slug'], name: 'maps_slug_idx')]
-#[ORM\Entity(repositoryClass: LocationRepository::class)]
+#[ORM\Entity(repositoryClass: MapRepository::class)]
 #[Vich\Uploadable]
 /**
  * @Vich\Uploadable
