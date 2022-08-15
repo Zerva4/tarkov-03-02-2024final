@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function Symfony\Component\Translation\t;
 
-class TraderLevelsForm extends AbstractType
+class TraderLevelForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
