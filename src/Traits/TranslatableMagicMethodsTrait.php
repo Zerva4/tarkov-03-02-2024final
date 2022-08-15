@@ -17,6 +17,6 @@ trait TranslatableMagicMethodsTrait
     {
         $method = 'get'. ucfirst($name);
         $arguments=[];
-        return $this->proxyCurrentLocaleTranslation($method, $arguments);
+        return self::proxyCurrentLocaleTranslation($method, $arguments);
     }
 }

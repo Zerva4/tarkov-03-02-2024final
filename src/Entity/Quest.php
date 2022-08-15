@@ -16,7 +16,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -31,7 +30,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
 {
     use UuidPrimaryKeyTrait;
-    use TranslatableTrait;
     use SlugTrait;
 
     #[ORM\Column(type: 'boolean')]
@@ -39,6 +37,12 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $experience = null;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $minPlayerLevel = 1;
 
     #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
     #[Assert\Valid]
@@ -210,6 +214,44 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
             $this->objectives->removeElement($objective);
             $objective->setQuest(null);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    /**
+     * @param int|null $experience
+     * @return QuestInterface
+     */
+    public function setExperience(?int $experience): QuestInterface
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinPlayerLevel(): int
+    {
+        return $this->minPlayerLevel;
+    }
+
+    /**
+     * @param int $minPlayerLevel
+     * @return QuestInterface
+     */
+    public function setMinPlayerLevel(int $minPlayerLevel): QuestInterface
+    {
+        $this->minPlayerLevel = $minPlayerLevel;
 
         return $this;
     }
