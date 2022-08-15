@@ -6,11 +6,14 @@ namespace App\Entity;
 
 use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
+use App\Interfaces\QuestObjectiveInterface;
 use App\Interfaces\TraderInterface;
 use App\Repository\QuestRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -58,9 +61,13 @@ class Quest extends BaseEntity implements QuestInterface
     #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'quests')]
     private ?MapInterface $map = null;
 
+    #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    private Collection $objectives;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
+        $this->objectives = new ArrayCollection();
     }
 
     public function isPublished(): ?bool
@@ -150,6 +157,55 @@ class Quest extends BaseEntity implements QuestInterface
 
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getObjectives(): Collection
+    {
+        return $this->objectives;
+    }
+
+    /**
+     * @param Collection $objectives
+     * @return QuestInterface
+     */
+    public function setObjectives(Collection $objectives): QuestInterface
+    {
+        $this->objectives = $objectives;
+
+        return $this;
+    }
+
+    /**
+     * @param QuestObjectiveInterface ...$objectives
+     * @return QuestInterface
+     */
+    public function addObjective(QuestObjectiveInterface ...$objectives): QuestInterface
+    {
+        foreach ($objectives as $objective) {
+            if (!$this->objectives->contains($objective)) {
+                $this->objectives->add($objective);
+                $objective->setQuest($this);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param QuestObjectiveInterface $objective
+     * @return QuestInterface
+     */
+    public function removeObjective(QuestObjectiveInterface $objective): QuestInterface
+    {
+        if ($this->objectives->contains($objective)) {
+            $this->objectives->removeElement($objective);
+            $objective->setQuest(null);
         }
 
         return $this;
