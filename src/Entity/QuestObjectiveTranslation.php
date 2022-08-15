@@ -22,7 +22,7 @@ class QuestObjectiveTranslation implements TranslationInterface, TimestampableIn
     use TranslationTrait;
     use TimestampableTrait;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $description = null;
 
     /**
