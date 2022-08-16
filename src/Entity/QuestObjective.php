@@ -12,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'quests_objectives')]
-#[ORM\Index(columns: ['type'], name: 'quest_type_idx')]
+#[ORM\Index(columns: ['type'], name: 'quest_objective_type_idx')]
+#[ORM\Index(columns: ['api_id'], name: 'quest_objective_api_idx')]
 #[ORM\Entity(repositoryClass: QuestObjectiveRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class QuestObjective extends BaseEntity implements QuestObjectiveInterface
