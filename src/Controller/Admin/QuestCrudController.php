@@ -27,6 +27,15 @@ class QuestCrudController extends BaseCrudController
         return Quest::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return parent::configureCrud($crud)
+            ->setSearchFields([
+                'title',
+            ])
+        ;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.quests'));
