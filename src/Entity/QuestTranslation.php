@@ -26,11 +26,11 @@ class QuestTranslation implements TranslationInterface, TimestampableInterface
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $title;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $howToComplete;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $howToComplete = null;
 
     public function getTitle(): ?string
     {
