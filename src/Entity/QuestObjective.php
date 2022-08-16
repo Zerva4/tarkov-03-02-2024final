@@ -14,10 +14,14 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 #[ORM\Table(name: 'quests_objectives')]
 #[ORM\Index(columns: ['type'], name: 'quest_type_idx')]
 #[ORM\Entity(repositoryClass: QuestObjectiveRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class QuestObjective extends BaseEntity implements QuestObjectiveInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $apiId;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $type = null;
@@ -96,8 +100,30 @@ class QuestObjective extends BaseEntity implements QuestObjectiveInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getApiId(): string
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param string $apiId
+     * @return QuestObjectiveInterface
+     */
+    public function setApiId(string $apiId): QuestObjectiveInterface
+    {
+        $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
-        return $this->__get('description');
+        return ($this->__get('description')) ? $this->__get('description') : '';
     }
 }
