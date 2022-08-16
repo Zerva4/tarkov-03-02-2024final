@@ -6,7 +6,6 @@ use App\Entity\Map;
 use App\Entity\Quest;
 use App\Entity\QuestObjective;
 use App\Entity\Trader;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -22,6 +21,25 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ImportQuestsCommand extends Command
 {
+    public static array $objectiveTypes = [
+        null => 'TYPE_NULL',
+        'plantItem' => 'TYPE_PLANT_ITEM',
+        'shoot' => 'TYPE_SHOOT',
+        'traderLevel' => 'TYPE_TRADER_LEVEL',
+        'findItem' => 'TYPE_FIND_ITEM',
+        'giveQuestItem' => 'TYPE_GIVE_QUEST_ITEM',
+        'plantQuestItem' => 'TYPE_PLANT_QUEST_ITEM',
+        'mark' => 'TYPE_MARK',
+        'findQuestItem' => 'TYPE_FIND_QUEST_ITEM',
+        'giveItem' => 'TYPE_GIVE_ITEM',
+        'playerLevel' => 'TYPE_PLAYER_LEVEL',
+        'buildWeapon' => 'TYPE_BUILD_WEAPON',
+        'extract' => 'TYPE_EXTRACT',
+        'taskStatus' => 'TYPE_TASK_STATUS',
+        'visit' => 'TYPE_VISIT',
+        'skill' => 'TYPE_SKILL',
+        'experience' => 'TYPE_EXPERIENCE',
+    ];
     protected static array $headers = ['Content-Type: application/json'];
     private ?EntityManagerInterface $em = null;
 
@@ -175,7 +193,7 @@ class ImportQuestsCommand extends Command
 
                     $objectiveEntity->setDefaultLocale($lang);
                     $objectiveEntity
-                        ->setType(QuestObjective::$objectiveTypes[$objective['type']])
+                        ->setType(self::$objectiveTypes[$objective['type']])
                         ->setOptional($objective['optional'])
                         ->setQuest($questEntity)
                         ->translate($lang, false)->setDescription($objective['description'])
