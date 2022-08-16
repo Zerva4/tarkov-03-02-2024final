@@ -22,21 +22,21 @@ class QuestObjectiveTranslation implements TranslationInterface, TimestampableIn
     use TranslationTrait;
     use TimestampableTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $description = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $description = '';
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param string|null $description
+     * @param string $description
      */
-    public function setDescription(?string $description): void
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }

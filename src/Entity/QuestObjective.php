@@ -125,6 +125,6 @@ class QuestObjective extends BaseEntity implements QuestObjectiveInterface
      */
     public function __toString(): string
     {
-        return ($this->__get('description')) ? $this->__get('description') : '';
+        return $this->__get('description');
     }
 }
