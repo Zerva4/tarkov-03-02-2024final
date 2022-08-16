@@ -175,7 +175,7 @@ class ImportQuestsCommand extends Command
 
                     $objectiveEntity->setDefaultLocale($lang);
                     $objectiveEntity
-                        ->setType($objective['type'])
+                        ->setType(QuestObjective::$objectiveTypes[$objective['type']])
                         ->setOptional($objective['optional'])
                         ->setQuest($questEntity)
                         ->translate($lang, false)->setDescription($objective['description'])
