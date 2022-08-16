@@ -10,6 +10,7 @@ use App\Entity\TraderLevel;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,8 +30,10 @@ class QuestObjectiveForm extends AbstractType
             ]
         ];
         $builder
-            ->add('type', TextType::class, [
-                'label' => t('Type', [], 'admin.quests')
+            ->add('type', ChoiceType::class, [
+                'label' => t('Type', [], 'admin.quests'),
+                'choices' => QuestObjective::$objectiveTypes,
+                'choice_translation_domain' => 'admin.quests'
             ])
             ->add('optional', CheckboxType::class, [
                 'label' => t('Optional', [], 'admin.quests')
