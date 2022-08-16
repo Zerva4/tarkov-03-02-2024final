@@ -21,6 +21,26 @@ class QuestObjective extends BaseEntity implements QuestObjectiveInterface
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
 
+    public static array $objectiveTypes = [
+        null => 'TYPE_NULL',
+        'plantItem' => 'TYPE_PLANT_ITEM',
+        'shoot' => 'TYPE_SHOOT',
+        'traderLevel' => 'TYPE_TRADER_LEVEL',
+        'findItem' => 'TYPE_FIND_ITEM',
+        'giveQuestItem' => 'TYPE_GIVE_QUEST_ITEM',
+        'plantQuestItem' => 'TYPE_PLANT_QUEST_ITEM',
+        'mark' => 'TYPE_MARK',
+        'findQuestItem' => 'TYPE_FIND_QUEST_ITEM',
+        'giveItem' => 'TYPE_GIVE_ITEM',
+        'playerLevel' => 'TYPE_PLAYER_LEVEL',
+        'buildWeapon' => 'TYPE_BUILD_WEAPON',
+        'extract' => 'TYPE_EXTRACT',
+        'taskStatus' => 'TYPE_TASK_STATUS',
+        'visit' => 'TYPE_VISIT',
+        'skill' => 'TYPE_SKILL',
+        'experience' => 'TYPE_EXPERIENCE',
+    ];
+
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $apiId;
 
