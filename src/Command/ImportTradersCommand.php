@@ -37,7 +37,7 @@ class ImportTradersCommand extends Command
     {
         $this
             ->setDescription('This command allows you to import or update traders from https://tarkov.dev./api')
-            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Admin login', default: 'ru')
+            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
         ;
     }
 

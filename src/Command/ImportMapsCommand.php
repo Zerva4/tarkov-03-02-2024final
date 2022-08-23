@@ -45,7 +45,7 @@ class ImportMapsCommand extends Command
     {
         $this
             ->setDescription('This command allows you to import or update maps from https://tarkov.dev./api')
-            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Admin login', default: 'ru')
+            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
         ;
     }
 
