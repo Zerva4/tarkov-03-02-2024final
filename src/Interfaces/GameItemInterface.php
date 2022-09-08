@@ -4,6 +4,9 @@ namespace App\Interfaces;
 
 use Doctrine\Common\Collections\Collection;
 
+/**
+ * Interface for GameItem entity.
+ */
 interface GameItemInterface
 {
     /**

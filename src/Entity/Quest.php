@@ -93,6 +93,18 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         $this->receivedGameItems = new ArrayCollection();
     }
 
+    public function getApiId(): string
+    {
+        return $this->apiId;
+    }
+
+    public function setApiId(string $apiId): QuestInterface
+    {
+        $this->apiId = $apiId;
+
+        return $this;
+    }
+
     public function isPublished(): ?bool
     {
         return $this->published;
@@ -105,18 +117,11 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    /**
-     * @param string|null $imageName
-     * @return QuestInterface
-     */
     public function setImageName(?string $imageName): QuestInterface
     {
         $this->imageName = $imageName;
@@ -124,18 +129,11 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @return TraderInterface|null
-     */
     public function getTrader(): ?TraderInterface
     {
         return $this->trader;
     }
 
-    /**
-     * @param TraderInterface|null $trader
-     * @return QuestInterface
-     */
     public function setTrader(?TraderInterface $trader): QuestInterface
     {
         $this->trader = $trader;
@@ -143,18 +141,11 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @return MapInterface|null
-     */
     public function getMap(): ?MapInterface
     {
         return $this->map;
     }
 
-    /**
-     * @param MapInterface|null $map
-     * @return QuestInterface
-     */
     public function setMap(?MapInterface $map): QuestInterface
     {
         $this->map = $map;
@@ -162,18 +153,11 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @return File|null
-     */
     public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
 
-    /**
-     * @param File|null $imageFile
-     * @return QuestInterface
-     */
     public function setImageFile(?File $imageFile): QuestInterface
     {
         $this->imageFile = $imageFile;
@@ -185,18 +169,11 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getObjectives(): Collection
     {
         return $this->objectives;
     }
 
-    /**
-     * @param Collection $objectives
-     * @return QuestInterface
-     */
     public function setObjectives(Collection $objectives): QuestInterface
     {
         $this->objectives = $objectives;
@@ -204,10 +181,6 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @param QuestObjectiveInterface ...$objectives
-     * @return QuestInterface
-     */
     public function addObjective(QuestObjectiveInterface ...$objectives): QuestInterface
     {
         foreach ($objectives as $objective) {
@@ -220,10 +193,6 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @param QuestObjectiveInterface $objective
-     * @return QuestInterface
-     */
     public function removeObjective(QuestObjectiveInterface $objective): QuestInterface
     {
         if ($this->objectives->contains($objective)) {
@@ -234,18 +203,11 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getExperience(): ?int
     {
         return $this->experience;
     }
 
-    /**
-     * @param int|null $experience
-     * @return QuestInterface
-     */
     public function setExperience(?int $experience): QuestInterface
     {
         $this->experience = $experience;
@@ -253,18 +215,11 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getMinPlayerLevel(): int
     {
         return $this->minPlayerLevel;
     }
 
-    /**
-     * @param int $minPlayerLevel
-     * @return QuestInterface
-     */
     public function setMinPlayerLevel(int $minPlayerLevel): QuestInterface
     {
         $this->minPlayerLevel = $minPlayerLevel;
@@ -272,27 +227,6 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getApiId(): string
-    {
-        return $this->apiId;
-    }
-
-    /**
-     * @param string $apiId
-     */
-    public function setApiId(string $apiId): QuestInterface
-    {
-        $this->apiId = $apiId;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|null
-     */
     public function getUsedGameItems(): ?Collection
     {
         return $this->usedGameItems;
