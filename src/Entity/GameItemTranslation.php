@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\ItemTranslationRepository;
+use App\Repository\GameItemTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -12,11 +12,11 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
-#[ORM\Table(name: 'items_translation')]
+#[ORM\Table(name: 'game_items_translation')]
 #[ORM\Index(columns: ['locale'], name: 'item_locale_idx')]
-#[ORM\Entity(repositoryClass: ItemTranslationRepository::class)]
+#[ORM\Entity(repositoryClass: GameItemTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class ItemTranslation implements TranslationInterface, TimestampableInterface
+class GameItemTranslation implements TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;
