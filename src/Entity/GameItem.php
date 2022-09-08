@@ -85,6 +85,12 @@ class GameItem extends BaseEntity implements GameItemInterface
     private ?float $velocity = null;
 
     /**
+     * @var int|null
+     */
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $loudness = null;
+
+    /**
      * @var ArrayCollection|Collection|null
      */
     #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'usedGameItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
@@ -270,6 +276,18 @@ class GameItem extends BaseEntity implements GameItemInterface
     public function setVelocity(?float $velocity): GameItemInterface
     {
         $this->velocity = $velocity;
+
+        return $this;
+    }
+
+    public function getLoudness(): ?int
+    {
+        return $this->loudness;
+    }
+
+    public function setLoudness(?int $loudness): GameItemInterface
+    {
+        $this->loudness = $loudness;
 
         return $this;
     }
