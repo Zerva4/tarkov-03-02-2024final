@@ -2,16 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\ItemRepository;
+use App\Repository\GameItemRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Interfaces\GameItemInterface;
 
 #[ORM\Table(name: 'items')]
 #[ORM\Index(columns: ['slug'], name: 'item_slug_idx')]
 #[ORM\Index(columns: ['api_id'], name: 'item_api_key_idx')]
-#[ORM\Entity(repositoryClass: ItemRepository::class)]
-class Item extends BaseEntity
+#[ORM\Entity(repositoryClass: GameItemRepository::class)]
+class GameItem extends BaseEntity implements GameItemInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
@@ -62,7 +65,7 @@ class Item extends BaseEntity
     private bool $hasGrid = false;
 
     /**
-     * @var bool 
+     * @var bool Использует наушники
      */
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $blocksHeadphones = false;
@@ -80,66 +83,214 @@ class Item extends BaseEntity
     private ?float $velocity = null;
 
     /**
-     * @return string
+     * @var ArrayCollection|Collection|null
      */
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'usedGameItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    private Collection|ArrayCollection|null $usedInTasks;
+
+    /**
+     * @var ArrayCollection|Collection|null
+     */
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedGameItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    private Collection|ArrayCollection|null $receivedFromTasks;
+
+    public function __construct(string $defaultLocation = '%app.default_locale%')
+    {
+        parent::__construct($defaultLocation);
+
+        $this->usedInTasks = new ArrayCollection();
+        $this->receivedFromTasks = new ArrayCollection();
+    }
+
     public function getApiId(): string
     {
         return $this->apiId;
     }
 
-    /**
-     * @param string $apiId
-     */
-    public function setApiId(string $apiId): void
+    public function setApiId(string $apiId): GameItemInterface
     {
         $this->apiId = $apiId;
+
+        return $this;
     }
 
-    /**
-     * @return float|null
-     */
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): GameItemInterface
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): GameItemInterface
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getBasePrice(): ?int
+    {
+        return $this->basePrice;
+    }
+
+    public function setBasePrice(?int $basePrice): GameItemInterface
+    {
+        $this->basePrice = $basePrice;
+
+        return $this;
+    }
+
+    public function getWidth(): ?int
+    {
+        return $this->width;
+    }
+
+    public function setWidth(?int $width): GameItemInterface
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    public function setHeight(?int $height): GameItemInterface
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor(?string $backgroundColor): GameItemInterface
+    {
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
     public function getAccuracyModifier(): ?float
     {
         return $this->accuracyModifier;
     }
 
-    /**
-     * @param float|null $accuracyModifier
-     */
-    public function setAccuracyModifier(?float $accuracyModifier): void
+    public function setAccuracyModifier(?float $accuracyModifier): GameItemInterface
     {
         $this->accuracyModifier = $accuracyModifier;
+
+        return $this;
     }
 
-    /**
-     * @return float|null
-     */
     public function getRecoilModifier(): ?float
     {
         return $this->recoilModifier;
     }
 
-    /**
-     * @param float|null $recoilModifier
-     */
-    public function setRecoilModifier(?float $recoilModifier): void
+    public function setRecoilModifier(?float $recoilModifier): GameItemInterface
     {
         $this->recoilModifier = $recoilModifier;
+
+        return $this;
     }
 
-    /**
-     * @return float|null
-     */
     public function getErgonomicsModifier(): ?float
     {
         return $this->ergonomicsModifier;
     }
 
-    /**
-     * @param float|null $ergonomicsModifier
-     */
-    public function setErgonomicsModifier(?float $ergonomicsModifier): void
+    public function setErgonomicsModifier(?float $ergonomicsModifier): GameItemInterface
     {
         $this->ergonomicsModifier = $ergonomicsModifier;
+
+        return $this;
+    }
+
+    public function isHasGrid(): bool
+    {
+        return $this->hasGrid;
+    }
+
+    public function setHasGrid(bool $hasGrid): GameItemInterface
+    {
+        $this->hasGrid = $hasGrid;
+
+        return $this;
+    }
+
+    public function isBlocksHeadphones(): bool
+    {
+        return $this->blocksHeadphones;
+    }
+
+    public function setBlocksHeadphones(bool $blocksHeadphones): GameItemInterface
+    {
+        $this->blocksHeadphones = $blocksHeadphones;
+
+        return $this;
+    }
+
+    public function getWeight(): ?float
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?float $weight): GameItemInterface
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getVelocity(): ?float
+    {
+        return $this->velocity;
+    }
+
+    public function setVelocity(?float $velocity): GameItemInterface
+    {
+        $this->velocity = $velocity;
+
+        return $this;
+    }
+
+    public function getUsedInTasks(): ?Collection
+    {
+        return $this->usedInTasks;
+    }
+
+    public function setUsedInTasks(?Collection $usedInTasks): GameItemInterface
+    {
+        $this->usedInTasks = $usedInTasks;
+
+        return $this;
+    }
+
+    public function getReceivedInTasks(): ?Collection
+    {
+        return $this->receivedFromTasks;
+    }
+
+    public function setReceivedInTasks(?Collection $receivedInTasks): GameItemInterface
+    {
+        $this->receivedFromTasks = $receivedInTasks;
+
+        return $this;
     }
 }
