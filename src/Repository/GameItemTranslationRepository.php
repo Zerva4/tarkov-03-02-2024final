@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\ItemTranslation;
+use App\Entity\GameItemTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemTranslation>
+ * @extends ServiceEntityRepository<GameItemTranslation>
  *
- * @method ItemTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemTranslation[]    findAll()
- * @method ItemTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method GameItemTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method GameItemTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method GameItemTranslation[]    findAll()
+ * @method GameItemTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemTranslationRepository extends ServiceEntityRepository
+class GameItemTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemTranslation::class);
+        parent::__construct($registry, GameItemTranslation::class);
     }
 
-    public function add(ItemTranslation $entity, bool $flush = false): void
+    public function add(GameItemTranslation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ItemTranslationRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(ItemTranslation $entity, bool $flush = false): void
+    public function remove(GameItemTranslation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
