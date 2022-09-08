@@ -163,22 +163,46 @@ interface GameItemInterface
     /**
      * @return Collection|null
      */
-    public function getUsedInTasks(): ?Collection;
+    public function getUsedInQuests(): ?Collection;
 
     /**
-     * @param Collection|null $usedInTasks
+     * @param Collection|null $usedInQuests
      * @return GameItemInterface
      */
-    public function setUsedInTasks(?Collection $usedInTasks): GameItemInterface;
+    public function setUsedInQuests(?Collection $usedInQuests): GameItemInterface;
+
+    /**
+     * @param QuestInterface $quest
+     * @return GameItemInterface
+     */
+    public function addUsedInQuest(QuestInterface $quest): GameItemInterface;
+
+    /**
+     * @param QuestInterface $quest
+     * @return GameItemInterface
+     */
+    public function removeUsedInQuest(QuestInterface $quest): GameItemInterface;
 
     /**
      * @return Collection|null
      */
-    public function getReceivedInTasks(): ?Collection;
+    public function getReceivedInQuests(): ?Collection;
 
     /**
-     * @param Collection|null $receivedInTasks
+     * @param Collection|null $receivedInQuests
      * @return GameItemInterface
      */
-    public function setReceivedInTasks(?Collection $receivedInTasks): GameItemInterface;
+    public function setReceivedInQuests(?Collection $receivedInQuests): GameItemInterface;
+
+    /**
+     * @param QuestInterface $quest
+     * @return GameItemInterface
+     */
+    public function addReceivedInQuest(QuestInterface $quest): GameItemInterface;
+
+    /**
+     * @param QuestInterface $quest
+     * @return GameItemInterface
+     */
+    public function removeReceivedInQuest(QuestInterface $quest): GameItemInterface;
 }
