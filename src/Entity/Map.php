@@ -79,6 +79,8 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
     #[ORM\OneToMany(mappedBy: 'map', targetEntity: MapLocation::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $locations;
 
+    // TODO: Добавить врагов и босссов.
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         $this->defaultLocale = $defaultLocation;
