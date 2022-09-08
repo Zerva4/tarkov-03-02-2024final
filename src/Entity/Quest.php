@@ -19,6 +19,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 
 #[ORM\Table(name: 'Quests')]
 #[ORM\Index(columns: ['slug'], name: 'quests_slug_idx')]
@@ -48,7 +49,7 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $minPlayerLevel = 1;
 
-    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'quests', fileNameProperty: 'imageName')]
     #[Assert\Valid]
     #[Assert\File(
         maxSize: '2M',
