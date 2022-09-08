@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\GameItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\QuestObjectiveInterface;
@@ -19,12 +20,12 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 
 #[ORM\Table(name: 'Quests')]
 #[ORM\Index(columns: ['slug'], name: 'quests_slug_idx')]
 #[ORM\Index(columns: ['api_id'], name: 'quests_api_key_idx')]
 #[ORM\Entity(repositoryClass: QuestRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
 /**
  * @Vich\Uploadable
@@ -76,10 +77,20 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $objectives;
 
+    #[ORM\ManyToMany(targetEntity: GameItem::class, inversedBy: 'usedInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_used_game_items')]
+    private ?Collection $usedGameItems;
+
+    #[ORM\ManyToMany(targetEntity: GameItem::class, inversedBy: 'receivedFromQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_received_game_items')]
+    private ?Collection $receivedGameItems;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
         $this->objectives = new ArrayCollection();
+        $this->usedGameItems = new ArrayCollection();
+        $this->receivedGameItems = new ArrayCollection();
     }
 
     public function isPublished(): ?bool
@@ -275,6 +286,73 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     public function setApiId(string $apiId): QuestInterface
     {
         $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getUsedGameItems(): ?Collection
+    {
+        return $this->usedGameItems;
+    }
+
+    public function setUsedGameItems(?Collection $usedGameItems): QuestInterface
+    {
+        $this->usedGameItems = $usedGameItems;
+
+        return $this;
+    }
+
+    public function addUsedGameItem(GameItemInterface $gameItem): QuestInterface
+    {
+        if (!$this->usedGameItems->contains($gameItem)) {
+            $this->usedGameItems->add($gameItem);
+            $gameItem->addUsedInQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsedGameItem(GameItemInterface $gameItem): QuestInterface
+    {
+        if ($this->usedGameItems->contains($gameItem)) {
+            $this->usedGameItems->removeElement($gameItem);
+            $gameItem->removeUsedInQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function getReceivedGameItems(): ?Collection
+    {
+        return $this->receivedGameItems;
+    }
+
+    public function setReceivedGameItems(?Collection $receivedGameItems): QuestInterface
+    {
+        $this->receivedGameItems = $receivedGameItems;
+
+        return $this;
+    }
+
+    public function addReceivedGameItem(GameItemInterface $gameItem): QuestInterface
+    {
+        if (!$this->usedGameItems->contains($gameItem)) {
+            $this->usedGameItems->add($gameItem);
+            $gameItem->addReceivedInQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceivedGameItem(GameItemInterface $gameItem): QuestInterface
+    {
+        if ($this->usedGameItems->contains($gameItem)) {
+            $this->usedGameItems->removeElement($gameItem);
+            $gameItem->removeReceivedInQuest($this);
+        }
 
         return $this;
     }
