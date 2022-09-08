@@ -324,19 +324,19 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this;
     }
 
-    public function getReceivedInQuests(): ?Collection
+    public function getReceivedFromQuests(): ?Collection
     {
         return $this->receivedFromQuests;
     }
 
-    public function setReceivedInQuests(?Collection $receivedInQuests): GameItemInterface
+    public function setReceivedFromQuests(?Collection $receivedFromQuests): GameItemInterface
     {
-        $this->receivedFromQuests = $receivedInQuests;
+        $this->receivedFromQuests = $receivedFromQuests;
 
         return $this;
     }
 
-    public function addReceivedInQuest(QuestInterface $quest): GameItemInterface
+    public function addReceivedFromQuest(QuestInterface $quest): GameItemInterface
     {
         if (!$this->receivedFromQuests->contains($quest)) {
             $this->receivedFromQuests->add($quest);
@@ -346,7 +346,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this;
     }
 
-    public function removeReceivedInQuest(QuestInterface $quest): GameItemInterface
+    public function removeReceivedFromQuest(QuestInterface $quest): GameItemInterface
     {
         if ($this->receivedFromQuests->contains($quest)) {
             $this->receivedFromQuests->removeElement($quest);

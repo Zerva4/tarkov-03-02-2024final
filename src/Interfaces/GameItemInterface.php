@@ -200,23 +200,23 @@ interface GameItemInterface
     /**
      * @return Collection|null
      */
-    public function getReceivedInQuests(): ?Collection;
+    public function getReceivedFromQuests(): ?Collection;
 
     /**
-     * @param Collection|null $receivedInQuests
+     * @param Collection|null $receivedFromQuests
      * @return GameItemInterface
      */
-    public function setReceivedInQuests(?Collection $receivedInQuests): GameItemInterface;
-
-    /**
-     * @param QuestInterface $quest
-     * @return GameItemInterface
-     */
-    public function addReceivedInQuest(QuestInterface $quest): GameItemInterface;
+    public function setReceivedFromQuests(?Collection $receivedFromQuests): GameItemInterface;
 
     /**
      * @param QuestInterface $quest
      * @return GameItemInterface
      */
-    public function removeReceivedInQuest(QuestInterface $quest): GameItemInterface;
+    public function addReceivedFromQuest(QuestInterface $quest): GameItemInterface;
+
+    /**
+     * @param QuestInterface $quest
+     * @return GameItemInterface
+     */
+    public function removeReceivedFromQuest(QuestInterface $quest): GameItemInterface;
 }

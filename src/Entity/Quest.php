@@ -273,9 +273,9 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
 
     public function addReceivedGameItem(GameItemInterface $gameItem): QuestInterface
     {
-        if (!$this->usedGameItems->contains($gameItem)) {
-            $this->usedGameItems->add($gameItem);
-            $gameItem->addReceivedInQuest($this);
+        if (!$this->receivedGameItems->contains($gameItem)) {
+            $this->receivedGameItems->add($gameItem);
+            $gameItem->addReceivedFromQuest($this);
         }
 
         return $this;
@@ -283,9 +283,9 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
 
     public function removeReceivedGameItem(GameItemInterface $gameItem): QuestInterface
     {
-        if ($this->usedGameItems->contains($gameItem)) {
-            $this->usedGameItems->removeElement($gameItem);
-            $gameItem->removeReceivedInQuest($this);
+        if ($this->receivedGameItems->contains($gameItem)) {
+            $this->receivedGameItems->removeElement($gameItem);
+            $gameItem->removeReceivedFromQuest($this);
         }
 
         return $this;
