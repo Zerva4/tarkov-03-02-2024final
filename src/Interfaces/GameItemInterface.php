@@ -164,6 +164,17 @@ interface GameItemInterface
     public function setVelocity(?float $velocity): GameItemInterface;
 
     /**
+     * @return int|null
+     */
+    public function getLoudness(): ?int;
+
+    /**
+     * @param int|null $loudness
+     * @return GameItemInterface
+     */
+    public function setLoudness(?int $loudness): GameItemInterface;
+
+    /**
      * @return Collection|null
      */
     public function getUsedInQuests(): ?Collection;
