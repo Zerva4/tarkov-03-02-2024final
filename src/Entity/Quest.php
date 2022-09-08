@@ -43,12 +43,6 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $experience = null;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $minPlayerLevel = 1;
-
     #[Vich\UploadableField(mapping: 'quests', fileNameProperty: 'imageName')]
     #[Assert\Valid]
     #[Assert\File(
@@ -66,6 +60,12 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
      * )
      */
     private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $experience = null;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $minPlayerLevel = 1;
 
     #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'quests')]
     private ?TraderInterface $trader = null;
