@@ -203,8 +203,10 @@ class ImportQuestsCommand extends Command
                     $questEntity->addObjective($objectiveEntity);
                 }
             }
-            // Set needed keys
-            // TODO: Create after import items
+            // TODO: Set required quests
+            // TODO: Set start rewards. Create after import items
+            // TODO: Set finish rewards. Create after import items
+            // TODO: Set needed keys. Create after import items
 
             $this->em->persist($questEntity);
             $questEntity->mergeNewTranslations();
