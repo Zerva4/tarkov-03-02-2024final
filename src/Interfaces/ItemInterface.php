@@ -43,6 +43,17 @@ interface ItemInterface
     public function setSlug(string $slug): ItemInterface;
 
     /**
+     * @return array
+     */
+    public function getTypes(): array;
+
+    /**
+     * @param array $types
+     * @return ItemInterface
+     */
+    public function setTypes(array $types): ItemInterface;
+
+    /**
      * @return int|null
      */
     public function getBasePrice(): ?int;
