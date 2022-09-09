@@ -126,46 +126,46 @@ interface QuestInterface
     /**
      * @return Collection|null
      */
-    public function getUsedGameItems(): ?Collection;
+    public function getUsedItems(): ?Collection;
 
     /**
-     * @param Collection|null $usedGameItems
+     * @param Collection|null $usedItems
      * @return QuestInterface
      */
-    public function setUsedGameItems(?Collection $usedGameItems): QuestInterface;
+    public function setUsedItems(?Collection $usedItems): QuestInterface;
 
     /**
-     * @param GameItemInterface $gameItem
+     * @param ItemInterface $item
      * @return QuestInterface
      */
-    public function addUsedGameItem(GameItemInterface $gameItem): QuestInterface;
+    public function addUsedItem(ItemInterface $item): QuestInterface;
 
     /**
-     * @param GameItemInterface $gameItem
+     * @param ItemInterface $item
      * @return QuestInterface
      */
-    public function removeUsedGameItem(GameItemInterface $gameItem): QuestInterface;
+    public function removeUsedItem(ItemInterface $item): QuestInterface;
 
     /**
      * @return Collection|null
      */
-    public function getReceivedGameItems(): ?Collection;
+    public function getReceivedItems(): ?Collection;
 
     /**
-     * @param Collection|null $receivedGameItems
+     * @param Collection|null $receivedItems
      * @return QuestInterface
      */
-    public function setReceivedGameItems(?Collection $receivedGameItems): QuestInterface;
+    public function setReceivedItems(?Collection $receivedItems): QuestInterface;
 
     /**
-     * @param GameItemInterface $gameItem
+     * @param ItemInterface $item
      * @return QuestInterface
      */
-    public function addReceivedGameItem(GameItemInterface $gameItem): QuestInterface;
+    public function addReceivedItem(ItemInterface $item): QuestInterface;
 
     /**
-     * @param GameItemInterface $gameItem
+     * @param ItemInterface $item
      * @return QuestInterface
      */
-    public function removeReceivedGameItem(GameItemInterface $gameItem): QuestInterface;
+    public function removeReceivedItem(ItemInterface $item): QuestInterface;
 }

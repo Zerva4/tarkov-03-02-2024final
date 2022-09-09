@@ -2,9 +2,9 @@
 
 namespace App\Command;
 
-use App\Entity\GameItem;
+use App\Entity\Item;
 use App\Entity\Quest;
-use App\Interfaces\GameItemInterface;
+use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -16,10 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:import:game-items',
-    description: 'Import or update game items from https://tarkov.dev./api',
+    name: 'app:import:items',
+    description: 'Import or update items from https://tarkov.dev./api',
 )]
-class ImportGameItemsCommand extends Command
+class ImportItemsCommand extends Command
 {
     protected static array $headers = ['Content-Type: application/json'];
     private ?EntityManagerInterface $em = null;
@@ -33,7 +33,7 @@ class ImportGameItemsCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('This command allows you to import or update game items from https://tarkov.dev./api')
+            ->setDescription('This command allows you to import or update items from https://tarkov.dev./api')
             ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
         ;
     }
@@ -92,34 +92,34 @@ class ImportGameItemsCommand extends Command
             ]
         ]));
 
-        $gameItems = (json_decode($data, true)['data']['items']);
-        if (null === $gameItems) {
+        $items = (json_decode($data, true)['data']['items']);
+        if (null === $items) {
             $io->warning('Nothing to import or update.');
         }
 
-        $progressBar = new ProgressBar($output, count($gameItems));
+        $progressBar = new ProgressBar($output, count($items));
         $progressBar->advance(0);
-        $gameItemRepository = $this->em->getRepository(GameItem::class);
+        $itemRepository = $this->em->getRepository(Item::class);
         $questRepository = $this->em->getRepository(Quest::class);
 
-        foreach ($gameItems as $item) {
-            $gameItemEntity = $gameItemRepository->findOneBy(['apiId' => $item['id']]);
+        foreach ($items as $item) {
+            $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
-            if ($gameItemEntity instanceof GameItemInterface) {
-                $gameItemEntity->setDefaultLocale($lang);
-                $gameItemEntity->translate($lang, false)->setTitle($item['name']);
+            if ($itemEntity instanceof ItemInterface) {
+                $itemEntity->setDefaultLocale($lang);
+                $itemEntity->translate($lang, false)->setTitle($item['name']);
             } else {
-                /** @var GameItemInterface $mapEntity */
-                $gameItemEntity = new GameItem($lang);
-                $gameItemEntity->setDefaultLocale($lang);
-                $gameItemEntity->translate($lang, false)->setTitle($item['name']);
-                $gameItemEntity->setApiId($item['id']);
+                /** @var ItemInterface $mapEntity */
+                $itemEntity = new Item($lang);
+                $itemEntity->setDefaultLocale($lang);
+                $itemEntity->translate($lang, false)->setTitle($item['name']);
+                $itemEntity->setApiId($item['id']);
             }
 
             // Set another params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
             $blocksHeadphones = (null !== $item['blocksHeadphones']) ? $item['blocksHeadphones'] : false;
-            $gameItemEntity->setPublished(true)
+            $itemEntity->setPublished(true)
                 ->setSlug($item['normalizedName'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])
@@ -135,15 +135,14 @@ class ImportGameItemsCommand extends Command
                 ->setLoudness($item['loudness'])
                 ->mergeNewTranslations()
             ;
-            $this->em->persist($gameItemEntity);
+            $this->em->persist($itemEntity);
 
             // Set received from quests
             if (is_array($item['receivedFromTasks']) && count($item['receivedFromTasks']) > 0) {
                 foreach ($item['receivedFromTasks'] as $key => $receivedFromQuest) {
                     $questEntity = $questRepository->findOneBy(['apiId' => $receivedFromQuest['id']]);
                     if ($questEntity instanceof QuestInterface) {
-                        $gameItemEntity->addReceivedFromQuest($questEntity);
-//                        $questEntity->addReceivedGameItem($gameItemEntity);
+                        $itemEntity->addReceivedFromQuest($questEntity);
                     }
                 }
             }
@@ -153,8 +152,7 @@ class ImportGameItemsCommand extends Command
                 foreach ($item['usedInTasks'] as $usedInTask) {
                     $questEntity = $questRepository->findOneBy(['apiId' => $usedInTask['id']]);
                     if ($questEntity instanceof QuestInterface) {
-                        $gameItemEntity->addUsedInQuest($questEntity);
-//                        $questEntity->addUsedGameItem($gameItemEntity);
+                        $itemEntity->addUsedInQuest($questEntity);
                     }
                 }
             }
@@ -164,7 +162,7 @@ class ImportGameItemsCommand extends Command
         }
 
         $progressBar->finish();
-        $io->success('Game items imported.');
+        $io->success('Items imported.');
 
         return Command::SUCCESS;
     }

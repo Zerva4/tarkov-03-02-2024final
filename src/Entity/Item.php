@@ -3,20 +3,20 @@
 namespace App\Entity;
 
 use App\Interfaces\QuestInterface;
-use App\Repository\GameItemRepository;
+use App\Repository\ItemRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Interfaces\GameItemInterface;
+use App\Interfaces\ItemInterface;
 
-#[ORM\Table(name: 'game_items')]
-#[ORM\Index(columns: ['slug'], name: 'game_items_slug_idx')]
-#[ORM\Index(columns: ['api_id'], name: 'game_items_api_key_idx')]
-#[ORM\Entity(repositoryClass: GameItemRepository::class)]
+#[ORM\Table(name: 'items')]
+#[ORM\Index(columns: ['slug'], name: 'items_slug_idx')]
+#[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
+#[ORM\Entity(repositoryClass: ItemRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class GameItem extends BaseEntity implements GameItemInterface
+class Item extends BaseEntity implements ItemInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
@@ -93,16 +93,23 @@ class GameItem extends BaseEntity implements GameItemInterface
     /**
      * @var ArrayCollection|Collection|null
      */
-    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'usedGameItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinTable(name: 'quests_used_game_items')]
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'usedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_used_items')]
     private Collection|ArrayCollection|null $usedInQuests;
 
     /**
      * @var ArrayCollection|Collection|null
      */
-    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedGameItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinTable(name: 'quests_received_game_items')]
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection|ArrayCollection|null $receivedFromQuests;
+
+    /**
+     * @var ArrayCollection|Collection|null
+     */
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_received_items')]
+    private Collection|ArrayCollection|null $bartersFor;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -110,6 +117,7 @@ class GameItem extends BaseEntity implements GameItemInterface
 
         $this->usedInQuests = new ArrayCollection();
         $this->receivedFromQuests = new ArrayCollection();
+        $this->bartersFor = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -117,7 +125,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->apiId;
     }
 
-    public function setApiId(string $apiId): GameItemInterface
+    public function setApiId(string $apiId): ItemInterface
     {
         $this->apiId = $apiId;
 
@@ -129,7 +137,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->published;
     }
 
-    public function setPublished(bool $published): GameItemInterface
+    public function setPublished(bool $published): ItemInterface
     {
         $this->published = $published;
 
@@ -141,7 +149,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->slug;
     }
 
-    public function setSlug(string $slug): GameItemInterface
+    public function setSlug(string $slug): ItemInterface
     {
         $this->slug = $slug;
 
@@ -153,7 +161,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->basePrice;
     }
 
-    public function setBasePrice(?int $basePrice): GameItemInterface
+    public function setBasePrice(?int $basePrice): ItemInterface
     {
         $this->basePrice = $basePrice;
 
@@ -165,7 +173,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->width;
     }
 
-    public function setWidth(?int $width): GameItemInterface
+    public function setWidth(?int $width): ItemInterface
     {
         $this->width = $width;
 
@@ -177,7 +185,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->height;
     }
 
-    public function setHeight(?int $height): GameItemInterface
+    public function setHeight(?int $height): ItemInterface
     {
         $this->height = $height;
 
@@ -189,7 +197,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->backgroundColor;
     }
 
-    public function setBackgroundColor(?string $backgroundColor): GameItemInterface
+    public function setBackgroundColor(?string $backgroundColor): ItemInterface
     {
         $this->backgroundColor = $backgroundColor;
 
@@ -201,7 +209,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->accuracyModifier;
     }
 
-    public function setAccuracyModifier(?float $accuracyModifier): GameItemInterface
+    public function setAccuracyModifier(?float $accuracyModifier): ItemInterface
     {
         $this->accuracyModifier = $accuracyModifier;
 
@@ -213,7 +221,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->recoilModifier;
     }
 
-    public function setRecoilModifier(?float $recoilModifier): GameItemInterface
+    public function setRecoilModifier(?float $recoilModifier): ItemInterface
     {
         $this->recoilModifier = $recoilModifier;
 
@@ -225,7 +233,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->ergonomicsModifier;
     }
 
-    public function setErgonomicsModifier(?float $ergonomicsModifier): GameItemInterface
+    public function setErgonomicsModifier(?float $ergonomicsModifier): ItemInterface
     {
         $this->ergonomicsModifier = $ergonomicsModifier;
 
@@ -237,7 +245,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->hasGrid;
     }
 
-    public function setHasGrid(bool $hasGrid): GameItemInterface
+    public function setHasGrid(bool $hasGrid): ItemInterface
     {
         $this->hasGrid = $hasGrid;
 
@@ -249,7 +257,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->blocksHeadphones;
     }
 
-    public function setBlocksHeadphones(bool $blocksHeadphones): GameItemInterface
+    public function setBlocksHeadphones(bool $blocksHeadphones): ItemInterface
     {
         $this->blocksHeadphones = $blocksHeadphones;
 
@@ -261,7 +269,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->weight;
     }
 
-    public function setWeight(?float $weight): GameItemInterface
+    public function setWeight(?float $weight): ItemInterface
     {
         $this->weight = $weight;
 
@@ -273,7 +281,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->velocity;
     }
 
-    public function setVelocity(?float $velocity): GameItemInterface
+    public function setVelocity(?float $velocity): ItemInterface
     {
         $this->velocity = $velocity;
 
@@ -285,7 +293,7 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->loudness;
     }
 
-    public function setLoudness(?int $loudness): GameItemInterface
+    public function setLoudness(?int $loudness): ItemInterface
     {
         $this->loudness = $loudness;
 
@@ -297,28 +305,28 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->usedInQuests;
     }
 
-    public function setUsedInQuests(?Collection $usedInQuests): GameItemInterface
+    public function setUsedInQuests(?Collection $usedInQuests): ItemInterface
     {
         $this->usedInQuests = $usedInQuests;
 
         return $this;
     }
 
-    public function addUsedInQuest(QuestInterface $quest): GameItemInterface
+    public function addUsedInQuest(QuestInterface $quest): ItemInterface
     {
         if (!$this->usedInQuests->contains($quest)) {
             $this->usedInQuests->add($quest);
-            $quest->addUsedGameItem($this);
+            $quest->addUsedItem($this);
         }
 
         return $this;
     }
 
-    public function removeUsedInQuest(QuestInterface $quest): GameItemInterface
+    public function removeUsedInQuest(QuestInterface $quest): ItemInterface
     {
         if ($this->usedInQuests->contains($quest)) {
             $this->usedInQuests->removeElement($quest);
-            $quest->removeUsedGameItem($this);
+            $quest->removeUsedItem($this);
         }
 
         return $this;
@@ -329,28 +337,28 @@ class GameItem extends BaseEntity implements GameItemInterface
         return $this->receivedFromQuests;
     }
 
-    public function setReceivedFromQuests(?Collection $receivedFromQuests): GameItemInterface
+    public function setReceivedFromQuests(?Collection $receivedFromQuests): ItemInterface
     {
         $this->receivedFromQuests = $receivedFromQuests;
 
         return $this;
     }
 
-    public function addReceivedFromQuest(QuestInterface $quest): GameItemInterface
+    public function addReceivedFromQuest(QuestInterface $quest): ItemInterface
     {
         if (!$this->receivedFromQuests->contains($quest)) {
             $this->receivedFromQuests->add($quest);
-            $quest->addReceivedGameItem($this);
+            $quest->addReceivedItem($this);
         }
 
         return $this;
     }
 
-    public function removeReceivedFromQuest(QuestInterface $quest): GameItemInterface
+    public function removeReceivedFromQuest(QuestInterface $quest): ItemInterface
     {
         if ($this->receivedFromQuests->contains($quest)) {
             $this->receivedFromQuests->removeElement($quest);
-            $quest->removeReceivedGameItem($this);
+            $quest->removeReceivedItem($this);
         }
 
         return $this;

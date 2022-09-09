@@ -5,9 +5,9 @@ namespace App\Interfaces;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Interface for GameItem entity.
+ * Interface for Item entity.
  */
-interface GameItemInterface
+interface ItemInterface
 {
     /**
      * @return string
@@ -16,9 +16,9 @@ interface GameItemInterface
 
     /**
      * @param string $apiId
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setApiId(string $apiId): GameItemInterface;
+    public function setApiId(string $apiId): ItemInterface;
 
     /**
      * @return bool
@@ -27,9 +27,9 @@ interface GameItemInterface
 
     /**
      * @param bool $published
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setPublished(bool $published): GameItemInterface;
+    public function setPublished(bool $published): ItemInterface;
 
     /**
      * @return string
@@ -38,9 +38,9 @@ interface GameItemInterface
 
     /**
      * @param string $slug
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setSlug(string $slug): GameItemInterface;
+    public function setSlug(string $slug): ItemInterface;
 
     /**
      * @return int|null
@@ -49,9 +49,9 @@ interface GameItemInterface
 
     /**
      * @param int|null $basePrice
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setBasePrice(?int $basePrice): GameItemInterface;
+    public function setBasePrice(?int $basePrice): ItemInterface;
 
     /**
      * @return int|null
@@ -60,9 +60,9 @@ interface GameItemInterface
 
     /**
      * @param int|null $width
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setWidth(?int $width): GameItemInterface;
+    public function setWidth(?int $width): ItemInterface;
 
     /**
      * @return int|null
@@ -71,9 +71,9 @@ interface GameItemInterface
 
     /**
      * @param int|null $height
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setHeight(?int $height): GameItemInterface;
+    public function setHeight(?int $height): ItemInterface;
 
     /**
      * @return string|null
@@ -82,9 +82,9 @@ interface GameItemInterface
 
     /**
      * @param string|null $backgroundColor
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setBackgroundColor(?string $backgroundColor): GameItemInterface;
+    public function setBackgroundColor(?string $backgroundColor): ItemInterface;
 
     /**
      * @return float|null
@@ -93,9 +93,9 @@ interface GameItemInterface
 
     /**
      * @param float|null $accuracyModifier
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setAccuracyModifier(?float $accuracyModifier): GameItemInterface;
+    public function setAccuracyModifier(?float $accuracyModifier): ItemInterface;
 
     /**
      * @return float|null
@@ -104,9 +104,9 @@ interface GameItemInterface
 
     /**
      * @param float|null $recoilModifier
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setRecoilModifier(?float $recoilModifier): GameItemInterface;
+    public function setRecoilModifier(?float $recoilModifier): ItemInterface;
 
     /**
      * @return float|null
@@ -115,9 +115,9 @@ interface GameItemInterface
 
     /**
      * @param float|null $ergonomicsModifier
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setErgonomicsModifier(?float $ergonomicsModifier): GameItemInterface;
+    public function setErgonomicsModifier(?float $ergonomicsModifier): ItemInterface;
 
     /**
      * @return bool
@@ -126,9 +126,9 @@ interface GameItemInterface
 
     /**
      * @param bool $hasGrid
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setHasGrid(bool $hasGrid): GameItemInterface;
+    public function setHasGrid(bool $hasGrid): ItemInterface;
 
     /**
      * @return bool
@@ -137,9 +137,9 @@ interface GameItemInterface
 
     /**
      * @param bool $blocksHeadphones
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setBlocksHeadphones(bool $blocksHeadphones): GameItemInterface;
+    public function setBlocksHeadphones(bool $blocksHeadphones): ItemInterface;
 
     /**
      * @return float|null
@@ -148,9 +148,9 @@ interface GameItemInterface
 
     /**
      * @param float|null $weight
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setWeight(?float $weight): GameItemInterface;
+    public function setWeight(?float $weight): ItemInterface;
 
     /**
      * @return float|null
@@ -159,9 +159,9 @@ interface GameItemInterface
 
     /**
      * @param float|null $velocity
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setVelocity(?float $velocity): GameItemInterface;
+    public function setVelocity(?float $velocity): ItemInterface;
 
     /**
      * @return int|null
@@ -170,9 +170,9 @@ interface GameItemInterface
 
     /**
      * @param int|null $loudness
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setLoudness(?int $loudness): GameItemInterface;
+    public function setLoudness(?int $loudness): ItemInterface;
 
     /**
      * @return Collection|null
@@ -181,21 +181,21 @@ interface GameItemInterface
 
     /**
      * @param Collection|null $usedInQuests
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setUsedInQuests(?Collection $usedInQuests): GameItemInterface;
+    public function setUsedInQuests(?Collection $usedInQuests): ItemInterface;
 
     /**
      * @param QuestInterface $quest
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function addUsedInQuest(QuestInterface $quest): GameItemInterface;
+    public function addUsedInQuest(QuestInterface $quest): ItemInterface;
 
     /**
      * @param QuestInterface $quest
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function removeUsedInQuest(QuestInterface $quest): GameItemInterface;
+    public function removeUsedInQuest(QuestInterface $quest): ItemInterface;
 
     /**
      * @return Collection|null
@@ -204,19 +204,19 @@ interface GameItemInterface
 
     /**
      * @param Collection|null $receivedFromQuests
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function setReceivedFromQuests(?Collection $receivedFromQuests): GameItemInterface;
+    public function setReceivedFromQuests(?Collection $receivedFromQuests): ItemInterface;
 
     /**
      * @param QuestInterface $quest
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function addReceivedFromQuest(QuestInterface $quest): GameItemInterface;
+    public function addReceivedFromQuest(QuestInterface $quest): ItemInterface;
 
     /**
      * @param QuestInterface $quest
-     * @return GameItemInterface
+     * @return ItemInterface
      */
-    public function removeReceivedFromQuest(QuestInterface $quest): GameItemInterface;
+    public function removeReceivedFromQuest(QuestInterface $quest): ItemInterface;
 }
