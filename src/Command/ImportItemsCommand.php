@@ -45,7 +45,7 @@ class ImportItemsCommand extends Command
 
         $query = <<< GRAPHQL
             {
-            items(ids: "5447a9cd4bdc2dbd208b4567", lang: $lang) {
+            items(lang: $lang) {
                 id,
                 updated,
                 name,
