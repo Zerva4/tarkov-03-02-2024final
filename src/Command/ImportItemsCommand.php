@@ -45,7 +45,7 @@ class ImportItemsCommand extends Command
 
         $query = <<< GRAPHQL
             {
-            items(lang: $lang) {
+            items(ids: "5447a9cd4bdc2dbd208b4567", lang: $lang) {
                 id,
                 updated,
                 name,
@@ -103,6 +103,7 @@ class ImportItemsCommand extends Command
         $questRepository = $this->em->getRepository(Quest::class);
 
         foreach ($items as $item) {
+            dump($item);
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
             if ($itemEntity instanceof ItemInterface) {
@@ -121,6 +122,7 @@ class ImportItemsCommand extends Command
             $blocksHeadphones = (null !== $item['blocksHeadphones']) ? $item['blocksHeadphones'] : false;
             $itemEntity->setPublished(true)
                 ->setSlug($item['normalizedName'])
+                ->setTypes($item['types'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])
                 ->setHeight($item['height'])

@@ -31,7 +31,7 @@ class Item extends BaseEntity implements ItemInterface
     private string $slug;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private array $types = [];
+    private ?array $types = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $basePrice = null;
@@ -113,7 +113,6 @@ class Item extends BaseEntity implements ItemInterface
 
         $this->usedInQuests = new ArrayCollection();
         $this->receivedFromQuests = new ArrayCollection();
-        $this->bartersFor = new ArrayCollection();
     }
 
     public function getApiId(): string
