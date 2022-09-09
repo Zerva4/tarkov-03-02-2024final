@@ -103,7 +103,6 @@ class ImportItemsCommand extends Command
         $questRepository = $this->em->getRepository(Quest::class);
 
         foreach ($items as $item) {
-            dump($item);
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
             if ($itemEntity instanceof ItemInterface) {
