@@ -30,6 +30,9 @@ class Item extends BaseEntity implements ItemInterface
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $slug;
 
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $types = [];
+
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $basePrice = null;
 
@@ -104,13 +107,6 @@ class Item extends BaseEntity implements ItemInterface
     #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection|ArrayCollection|null $receivedFromQuests;
 
-    /**
-     * @var ArrayCollection|Collection|null
-     */
-    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinTable(name: 'quests_received_items')]
-    private Collection|ArrayCollection|null $bartersFor;
-
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -152,6 +148,18 @@ class Item extends BaseEntity implements ItemInterface
     public function setSlug(string $slug): ItemInterface
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getTypes(): array
+    {
+        return $this->types;
+    }
+
+    public function setTypes(array $types): ItemInterface
+    {
+        $this->types = $types;
 
         return $this;
     }
