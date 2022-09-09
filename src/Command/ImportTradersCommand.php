@@ -3,8 +3,10 @@
 namespace App\Command;
 
 use App\Entity\Trader;
+use App\Entity\TraderLevel;
 use App\Interfaces\TraderInterface;
 use App\Repository\TraderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -35,7 +37,7 @@ class ImportTradersCommand extends Command
     {
         $this
             ->setDescription('This command allows you to import or update traders from https://tarkov.dev./api')
-            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Admin login', default: 'ru')
+            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
         ;
     }
 
@@ -104,6 +106,24 @@ class ImportTradersCommand extends Command
                 $traderEntity->translate($lang, false)->setCharacterType($trader['name']);
                 $traderEntity->setApiId($trader['id']);
                 $traderEntity->setPublished(true);
+            }
+
+            // Set levels
+            if (count($trader['levels']) > 0) {
+                $levelsEntities = new ArrayCollection();
+                foreach ($trader['levels'] as $level) {
+                    $levelEntity = new TraderLevel($lang);
+                    $levelEntity
+                        ->setLevel($level['level'])
+                        ->setRequiredPlayerLevel($level['requiredPlayerLevel'])
+                        ->setRequiredReputation($level['requiredReputation'])
+                        ->setRequiredSales($level['requiredCommerce'])
+                        ->setTrader($traderEntity)
+                    ;
+                    $this->em->persist($levelEntity);
+                    $levelsEntities->add($levelEntity);
+                }
+                $traderEntity->setLevels($levelsEntities);
             }
             $traderEntity->setSlug($trader['normalizedName']);
             $this->em->persist($traderEntity);

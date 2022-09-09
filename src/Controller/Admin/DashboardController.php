@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Entity\Enemy;
+use App\Entity\Item;
 use App\Entity\Map;
 use App\Entity\Quest;
 use App\Entity\Trader;
@@ -50,6 +51,7 @@ class DashboardController extends AbstractDashboardController
             ->disableUrlSignatures()
             ->generateRelativeUrls()
             ->setTranslationDomain('admin')
+            ->disableDarkMode(true)
         ;
     }
 
@@ -64,7 +66,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard');
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
-        yield MenuItem::linkToDashboard(t('Items', [], 'menu'), 'fa fa-items');
+        yield MenuItem::linkToCrud(t('Items', [], 'menu'), 'fa fa-items', Item::class)->setController(ItemCrudController::class);
         yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);
         yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-money', Trader::class)->setController(TraderCrudController::class);
         yield MenuItem::linkToCrud(t('Enemies', [], 'menu'), 'fa fa-money', Enemy::class)->setController(EnemyCrudController::class);

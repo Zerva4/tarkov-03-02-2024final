@@ -6,6 +6,7 @@ namespace App\Traits;
 
 use App\Entity\Article;
 use App\Entity\Enemy;
+use App\Entity\Item;
 use App\Entity\Map;
 use App\Entity\Quest;
 use App\Entity\Trader;
@@ -29,7 +30,7 @@ trait SlugTrait
 
     /**
      * @param string $slug
-     * @return Trader|Article|Enemy|Map|Quest|SlugTrait
+     * @return SlugTrait|Article|Enemy|Item|Map|Quest|Trader
      */
     public function setSlug(string $slug): self
     {

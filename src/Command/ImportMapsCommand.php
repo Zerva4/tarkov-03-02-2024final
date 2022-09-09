@@ -45,7 +45,7 @@ class ImportMapsCommand extends Command
     {
         $this
             ->setDescription('This command allows you to import or update maps from https://tarkov.dev./api')
-            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Admin login', default: 'ru')
+            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
         ;
     }
 
@@ -101,11 +101,12 @@ class ImportMapsCommand extends Command
 
         $progressBar = new ProgressBar($output, count($maps));
         $progressBar->advance(1);
+        $mapRepository = $this->em->getRepository(Map::class);
 
         foreach ($maps as $map) {
+            if ($map['nameId'] === 'factory4_night') continue;
             $progressBar->advance();
-            $traderRepository = $this->em->getRepository(Map::class);
-            $mapEntity = $traderRepository->findOneBy(['apiId' => $map['id']]);
+            $mapEntity = $mapRepository->findOneBy(['apiId' => $map['id']]);
 
             if ($mapEntity instanceof Map) {
                 $mapEntity->setDefaultLocale($lang);

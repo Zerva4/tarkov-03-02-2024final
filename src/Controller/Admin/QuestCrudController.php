@@ -7,11 +7,14 @@ namespace App\Controller\Admin;
 use App\Entity\Quest;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
+use App\Form\QuestObjectiveForm;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,15 +27,26 @@ class QuestCrudController extends BaseCrudController
         return Quest::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return parent::configureCrud($crud)
+            ->setSearchFields([
+                'title',
+            ])
+        ;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.quests'));
-        $title = TextField::new('title', t('Title', [], 'admin.locations'));
+        $title = TextField::new('title', t('Title', [], 'admin.quests'));
         $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.quests')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.quests.images.uri'))
-            ->setFormTypeOption('required', false);
+            ->setFormTypeOption('required', false)
         ;
+        $experience = NumberField::new('experience', t('Experience', [], 'admin.quests'));
+        $minPlayerLevel = NumberField::new('minPlayerLevel', t('Min. player level', [], 'admin.quests'));
         $trader = AssociationField::new('trader', t('Trader', [], 'admin.quests'))
             ->setQueryBuilder(function($queryBuilder) {
                 return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
@@ -71,33 +85,47 @@ class QuestCrudController extends BaseCrudController
                 'field_type' => CKEditorType::class,
                 'label' => t('How to complete', [], 'admin.quests')
             ],
-            'goals' => [
-                'attr' => [
-                    'class' => 'ckeditor'
-                ],
-                'field_type' => CKEditorType::class,
-                'label' => t('Goals', [], 'admin.quests')
-            ],
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin.quests'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
         ;
+        $objectives = CollectionField::new('objectives', t('Objectives', [], 'admin.traders'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(QuestObjectiveForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', false)
+        ;
 
-        $createdAt = DateField::new('createdAt', 'Created');
-        $updatedAt = DateField::new('updatedAt', 'Updated');
+        $createdAt = DateField::new('createdAt', 'Created')->setTextAlign('center');
+        $updatedAt = DateField::new('updatedAt', 'Updated')->setTextAlign('center');
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
+                FormField::addTab(t('Basic', [], 'admin.quests')),
                 $locationImage,
                 $published,
+                $experience->setColumns(6),
+                $minPlayerLevel->setColumns(6),
                 $trader->setColumns(6),
                 $maps->setColumns(6),
                 $slug->setColumns(6),
-                $translations
+                $translations,
+                FormField::addTab(t('Objectives', [], 'admin.quests')),
+                $objectives->setColumns(12),
+                FormField::addTab(t('Keys', [], 'admin.quests')),
             ],
-            default => [$title, $trader, $maps, $published, $createdAt, $updatedAt],
+            default => [
+                $title->setSortable(true),
+                $published,
+                $trader,
+                $experience->setTextAlign('center'),
+                $minPlayerLevel->setTextAlign('center'),
+                $maps->setTextAlign('center'),
+                $createdAt,
+                $updatedAt],
         };
     }
 }

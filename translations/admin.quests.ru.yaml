@@ -8,3 +8,27 @@ Goals: Цели
 Trader: Торговец
 Map: Карта
 Slug: Слаг
+Basic: Основное
+Objectives: Задачи
+Experience: Опыт
+Min. player level: Мин. уровень игрока
+Keys: Ключи
+Type: Тип задачи
+Optional: Обязательная цель?
+TYPE_NULL: Не определен
+TYPE_PLANT_ITEM: Plant item
+TYPE_SHOOT: Стрелять
+TYPE_TRADER_LEVEL: Уровень трейдера
+TYPE_FIND_ITEM: Найти предмет
+TYPE_GIVE_QUEST_ITEM: Отдать квестовый предмет
+TYPE_PLANT_QUEST_ITEM: Обычный квестовый предмет
+TYPE_MARK: Пометить
+TYPE_FIND_QUEST_ITEM: Найти квестовый предмет
+TYPE_GIVE_ITEM: Отдать предмет
+TYPE_PLAYER_LEVEL: Уровень игрока
+TYPE_BUILD_WEAPON: Создать оружие
+TYPE_EXTRACT: Извлечь
+TYPE_TASK_STATUS: Статус задачи
+TYPE_VISIT: Посетить
+TYPE_SKILL: Навык
+TYPE_EXPERIENCE: Опыт
