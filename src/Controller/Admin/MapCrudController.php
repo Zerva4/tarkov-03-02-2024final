@@ -28,6 +28,13 @@ class MapCrudController extends BaseCrudController
         return Map::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud->setSearchFields([
+            'id', 'translation.title',
+        ]);
+    }
+
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.maps'));
