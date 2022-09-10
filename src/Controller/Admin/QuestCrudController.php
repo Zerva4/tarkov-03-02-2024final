@@ -29,11 +29,9 @@ class QuestCrudController extends BaseCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return parent::configureCrud($crud)
-            ->setSearchFields([
-                'title',
-            ])
-        ;
+        return parent::configureCrud($crud)->setSearchFields([
+            'translations.title',
+        ]);
     }
 
     public function configureFields(string $pageName): iterable

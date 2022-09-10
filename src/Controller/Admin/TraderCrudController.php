@@ -25,6 +25,13 @@ class TraderCrudController extends BaseCrudController
         return Trader::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return parent::configureCrud($crud)->setSearchFields([
+            'translations.characterType', 'translations.fullName'
+        ]);
+    }
+
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.traders'));
