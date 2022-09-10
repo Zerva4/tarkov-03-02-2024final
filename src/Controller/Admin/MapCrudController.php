@@ -31,7 +31,7 @@ class MapCrudController extends BaseCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud->setSearchFields([
-            'id', 'translation.title',
+            'id', 'translations.title',
         ]);
     }
 
