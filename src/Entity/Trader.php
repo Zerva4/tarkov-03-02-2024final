@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Interfaces\TraderLevelInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\TraderRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
@@ -31,7 +32,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Trader implements TraderInterface, TranslatableInterface, TimestampableInterface
+class Trader extends BaseEntity implements UuidPrimaryKeyInterface, TraderInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -78,45 +79,16 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        $this->defaultLocale = $defaultLocation;
+        parent::__construct($defaultLocation);
+
         $this->levels = new ArrayCollection();
     }
 
-    /**
-     * @return File|null
-     */
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @param File|null $imageFile
-     * @return TraderInterface
-     */
-    public function setImageFile(?File $imageFile): TraderInterface
-    {
-        $this->imageFile = $imageFile;
-
-        if ($imageFile) {
-            $this->updatedAt = new DateTime('NOW');
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getApiId(): string
     {
         return $this->apiId;
     }
 
-    /**
-     * @param string $apiId
-     * @return TraderInterface
-     */
     public function setApiId(string $apiId): TraderInterface
     {
         $this->apiId = $apiId;
@@ -124,31 +96,16 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;
     }
 
-    /**
-     * @param int $position
-     */
-    public function setPosition(int $position): void
+    public function setPosition(int $position): TraderInterface
     {
         $this->position = $position;
-    }
 
-    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
-    {
-        if (! method_exists(self::getTranslationEntityClass(), $method)) {
-            $method = 'get' . ucfirst($method);
-        }
-
-        $translation = $this->translate($this->getCurrentLocale());
-
-        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
+        return $this;
     }
 
     public function isPublished(): ?bool
@@ -163,18 +120,11 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    /**
-     * @param string|null $imageName
-     * @return Trader
-     */
     public function setImageName(?string $imageName): TraderInterface
     {
         $this->imageName = $imageName;
@@ -182,18 +132,27 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): TraderInterface
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            $this->updatedAt = new DateTime('NOW');
+        }
+
+        return $this;
+    }
+
     public function getLevels(): Collection
     {
         return $this->levels;
     }
 
-    /**
-     * @param Collection $level
-     * @return TraderInterface
-     */
     public function setLevels(Collection $level): TraderInterface
     {
         $this->levels = $level;
@@ -201,26 +160,16 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @param TraderLevelInterface ...$levels
-     * @return Trader
-     */
-    public function addLevel(TraderLevelInterface ...$levels): TraderInterface
+    public function addLevel(TraderLevelInterface $level): TraderInterface
     {
-        foreach ($levels as $level) {
-            if (!$this->levels->contains($level)) {
-                $this->levels->add($level);
-                $level->setTrader($this);
-            }
+        if (!$this->levels->contains($level)) {
+            $this->levels->add($level);
+            $level->setTrader($this);
         }
 
         return $this;
     }
 
-    /**
-     * @param TraderLevelInterface $level
-     * @return TraderInterface
-     */
     public function removeLevel(TraderLevelInterface $level): TraderInterface
     {
         if ($this->levels->contains($level)) {
@@ -230,17 +179,11 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getQuests(): Collection
     {
         return $this->quests;
     }
 
-    /**
-     * @param Collection $quests
-     */
     public function setQuests(Collection $quests): TraderInterface
     {
         $this->quests = $quests;
@@ -248,26 +191,16 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @param QuestInterface ...$quests
-     * @return Trader
-     */
-    public function addQuest(QuestInterface ...$quests): TraderInterface
+    public function addQuest(QuestInterface $quest): TraderInterface
     {
-        foreach ($quests as $quest) {
-            if (!$this->quests->contains($quest)) {
-                $this->quests->add($quest);
-                $quest->setTrader($this);
-            }
+        if (!$this->quests->contains($quest)) {
+            $this->quests->add($quest);
+            $quest->setTrader($this);
         }
 
         return $this;
     }
 
-    /**
-     * @param QuestInterface $quest
-     * @return TraderInterface
-     */
     public function removeQuest(QuestInterface $quest): TraderInterface
     {
         if ($this->quests->contains($quest)) {
