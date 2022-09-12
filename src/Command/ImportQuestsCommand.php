@@ -159,7 +159,7 @@ class ImportQuestsCommand extends Command
 
             $questEntity
                 ->setApiId($quest['id'])
-                ->setGameOrder($order)
+                ->setPosition($order)
                 ->setPublished(true)
                 ->setExperience($quest['experience'])
                 ->setMinPlayerLevel($quest['minPlayerLevel'])

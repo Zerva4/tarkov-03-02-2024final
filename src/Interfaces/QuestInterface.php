@@ -26,13 +26,13 @@ interface QuestInterface
     /**
      * @return int
      */
-    public function getGameOrder(): int;
+    public function getPosition(): int;
 
     /**
      * @param int $gameOrder
      * @return QuestInterface
      */
-    public function setGameOrder(int $gameOrder): QuestInterface;
+    public function setPosition(int $gameOrder): QuestInterface;
 
     /**
      * @return bool|null
