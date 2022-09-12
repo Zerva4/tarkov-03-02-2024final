@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Map;
 use App\Interfaces\MapInterface;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -104,6 +105,7 @@ class ImportMapsCommand extends Command
         $mapRepository = $this->em->getRepository(Map::class);
 
         foreach ($maps as $map) {
+            list($minPlayers, $maxPlayers) = explode('-', $map['players'], 2);
             if ($map['nameId'] === 'factory4_night') continue;
             $progressBar->advance();
             $mapEntity = $mapRepository->findOneBy(['apiId' => $map['id']]);
@@ -119,17 +121,21 @@ class ImportMapsCommand extends Command
                 $mapEntity->translate($lang, false)->setTitle($map['name']);
                 $mapEntity->translate($lang, false)->setDescription($map['description']);
             }
-            $mapEntity->setApiId($map['id']);
-            $mapEntity->setPublished(true);
-            $mapEntity->setSlug(self::$slugs[$map['nameId']]);
-            $mapEntity->setRaidDuration(null);
-            $mapEntity->setNumberOfPlayers($map['players']);
+            $duration = (new DateTime())->setTimestamp((int)$map['raidDuration']*60);
+            $mapEntity
+                ->setApiId($map['id'])
+                ->setPublished(true)
+                ->setSlug(self::$slugs[$map['nameId']])
+                ->setRaidDuration($duration)
+                ->setMinPlayersNumber((int)$minPlayers)
+                ->setMaxPlayersNumber((int)$maxPlayers)
+            ;
             $this->em->persist($mapEntity);
             $mapEntity->mergeNewTranslations();
         }
         $this->em->flush();
         $progressBar->finish();
-        $io->success('Traders imported.');
+        $io->success('Maps imported.');
 
         return Command::SUCCESS;
     }

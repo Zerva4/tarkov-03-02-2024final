@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
@@ -44,8 +45,12 @@ class MapCrudController extends BaseCrudController
             ->setCustomOption('base_path', $this->getParameter('app.maps.images.uri'))
             ->setFormTypeOption('required', false);
         ;
-        $numberOfPlayers = TextField::new('numberOfPlayers', t('Number of players', [], 'admin.maps'))->setRequired(true);
-        $raidDuration = TimeField::new('raidDuration', t('Raid duration', [], 'admin.maps'))->setRequired(true);
+        $minPlayersNumber = NumberField::new('minPlayersNumber', t('Min number of players', [], 'admin.maps'))->setRequired(true);
+        $maxPlayersNumber = NumberField::new('maxPlayersNumber', t('Max number of players', [], 'admin.maps'))->setRequired(true);
+        $raidDuration = TimeField::new('raidDuration', t('Raid duration', [], 'admin.maps'))
+            ->setRequired(true)
+            ->setFormat('HH:mm')
+        ;
         $slug = TextField::new('slug', t('Slug', [], 'admin.maps'))->setRequired(true);
         $translationFields = [
             'title' => [
@@ -79,9 +84,10 @@ class MapCrudController extends BaseCrudController
                 FormField::addTab(t('Basic', [], 'admin.maps')),
                 $locationImage->setColumns(4),
                 $published,
-                $numberOfPlayers->setColumns(4),
-                $raidDuration->setColumns(4),
-                $slug->setColumns(4),
+                $minPlayersNumber->setColumns(3),
+                $maxPlayersNumber->setColumns(3),
+                $raidDuration->setColumns(3),
+                $slug->setColumns(3),
                 $translations,
                 FormField::addTab(t('Locations', [], 'admin.maps')),
                 $locations->setColumns(12)
@@ -89,7 +95,8 @@ class MapCrudController extends BaseCrudController
             default => [
                 $title->setColumns(12)->setTextAlign('left'),
                 $published->setColumns(1)->setTextAlign('center'),
-                $numberOfPlayers->setColumns(2)->setTextAlign('center'),
+                $minPlayersNumber->setColumns(2)->setTextAlign('center'),
+                $maxPlayersNumber->setColumns(2)->setTextAlign('center'),
                 $raidDuration->setColumns(2)->setTextAlign('center'),
                 DateField::new('createdAt', t('Created', [], 'admin'))->setTextAlign('center'),
                 DateField::new('updatedAt', t('Updated', [], 'admin'))->setTextAlign('center'),
