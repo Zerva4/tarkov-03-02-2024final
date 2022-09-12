@@ -66,6 +66,7 @@ class ImportQuestsCommand extends Command
             {
                 tasks(lang: $lang) {
                     id,
+                    tarkovDataId,
                     name,
                     experience,
                     minPlayerLevel,
@@ -74,12 +75,11 @@ class ImportQuestsCommand extends Command
                     successMessageId,
                     failMessageId,
                     trader {
-                        id,
-                        name
+                        id
                     },
                     taskRequirements {
                         task {
-                            name
+                            id
                         },
                         status
                     }
@@ -148,6 +148,7 @@ class ImportQuestsCommand extends Command
         $mapRepository = $this->em->getRepository(Map::class);
 
         foreach ($quests as $quest) {
+            $order = (null !== $quest['tarkovDataId']) ? $quest['tarkovDataId'] : 0;
             $questEntity = $questRepository->findOneBy(['apiId' => $quest['id']]);
 
             if ($questEntity instanceof Quest) {
@@ -158,6 +159,7 @@ class ImportQuestsCommand extends Command
 
             $questEntity
                 ->setApiId($quest['id'])
+                ->setGameOrder($order)
                 ->setPublished(true)
                 ->setExperience($quest['experience'])
                 ->setMinPlayerLevel($quest['minPlayerLevel'])
