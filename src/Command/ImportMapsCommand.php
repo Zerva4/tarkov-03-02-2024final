@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Map;
 use App\Interfaces\MapInterface;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -120,11 +121,12 @@ class ImportMapsCommand extends Command
                 $mapEntity->translate($lang, false)->setTitle($map['name']);
                 $mapEntity->translate($lang, false)->setDescription($map['description']);
             }
+            $duration = (new DateTime())->setTimestamp((int)$map['raidDuration']*60);
             $mapEntity
                 ->setApiId($map['id'])
                 ->setPublished(true)
                 ->setSlug(self::$slugs[$map['nameId']])
-                ->setRaidDuration(null)
+                ->setRaidDuration($duration)
                 ->setMinPlayersNumber((int)$minPlayers)
                 ->setMaxPlayersNumber((int)$maxPlayers)
             ;
