@@ -42,6 +42,9 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $apiId;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $position;
+
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
@@ -119,6 +122,22 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         $this->apiId = $apiId;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     */
+    public function setPosition(int $position): void
+    {
+        $this->position = $position;
     }
 
     protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
