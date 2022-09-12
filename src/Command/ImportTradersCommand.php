@@ -52,6 +52,7 @@ class ImportTradersCommand extends Command
             {
                 traders(lang: {$lang}) {
                     id,
+                    tarkovDataId,
                     name,
                     normalizedName,
                     resetTime,
@@ -91,6 +92,7 @@ class ImportTradersCommand extends Command
         $progressBar->advance(1);
 
         foreach ($traders as $trader) {
+            $order = $trader['tarkovDataId'];
             $progressBar->advance();
             $traderRepository = $this->em->getRepository(Trader::class);
             $traderEntity = $traderRepository->findOneBy(['apiId' => $trader['id']]);
@@ -98,10 +100,12 @@ class ImportTradersCommand extends Command
             if ($traderEntity instanceof Trader) {
                 $traderEntity->setDefaultLocale($lang);
                 $traderEntity->translate($lang, false)->setCharacterType($trader['name']);
+                $traderEntity->setPosition($order);
             } else {
                 /** @var TraderInterface $traderEntity */
                 $traderEntity = new Trader();
                 $traderEntity->setDefaultLocale($lang);
+                $traderEntity->setPosition($order);
                 $traderEntity->translate($lang, false)->setFullName(null);
                 $traderEntity->translate($lang, false)->setCharacterType($trader['name']);
                 $traderEntity->setApiId($trader['id']);
