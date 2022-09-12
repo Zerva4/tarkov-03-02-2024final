@@ -38,6 +38,9 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $apiId;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $gameOrder = 0;
+
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
@@ -68,10 +71,12 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $minPlayerLevel = 1;
 
-    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'quests')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'quests')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?TraderInterface $trader = null;
 
     #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'quests')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?MapInterface $map = null;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
@@ -101,6 +106,18 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     public function setApiId(string $apiId): QuestInterface
     {
         $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    public function getGameOrder(): int
+    {
+        return $this->gameOrder;
+    }
+
+    public function setGameOrder(int $gameOrder): QuestInterface
+    {
+        $this->gameOrder = $gameOrder;
 
         return $this;
     }
