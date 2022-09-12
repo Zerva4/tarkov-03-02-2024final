@@ -9,6 +9,7 @@ use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\QuestObjectiveForm;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -16,6 +17,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\NumericFilter;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
@@ -29,10 +33,19 @@ class QuestCrudController extends BaseCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return parent::configureCrud($crud)
-            ->setSearchFields([
-                'title',
-            ])
+        return parent::configureCrud($crud)->setSearchFields([
+            'translations.title',
+        ]);
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add(BooleanFilter::new('published', t('Published', [], 'admin.quests')))
+            ->add(NumericFilter::new('experience', t('Experience', [], 'admin.quests')))
+            ->add(NumericFilter::new('minPlayerLevel', t('Min. player level', [], 'admin.quests')))
+            ->add(EntityFilter::new('trader', t('Trader', [], 'admin.quests')))
+            ->add(EntityFilter::new('map', t('Map', [], 'admin.quests')))
         ;
     }
 

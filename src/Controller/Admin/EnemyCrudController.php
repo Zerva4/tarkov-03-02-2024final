@@ -21,6 +21,13 @@ class EnemyCrudController extends BaseCrudController
         return Enemy::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return parent::configureCrud($crud)->setSearchFields([
+            'translations.title',
+        ]);
+    }
+
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.enemies'));

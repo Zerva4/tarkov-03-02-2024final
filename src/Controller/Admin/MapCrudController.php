@@ -8,17 +8,17 @@ use App\Entity\Map;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\MapLocationForm;
-use App\Form\TraderLevelForm;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Vich\UploaderBundle\Form\Type\VichFileType;
 use function Symfony\Component\Translation\t;
 
 class MapCrudController extends BaseCrudController
@@ -30,7 +30,7 @@ class MapCrudController extends BaseCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud->setSearchFields([
+        return parent::configureCrud($crud)->setSearchFields([
             'id', 'translations.title',
         ]);
     }
