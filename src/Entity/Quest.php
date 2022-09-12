@@ -39,7 +39,7 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     private string $apiId;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
-    private int $gameOrder = 0;
+    private int $position = 0;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -110,14 +110,14 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
         return $this;
     }
 
-    public function getGameOrder(): int
+    public function getPosition(): int
     {
-        return $this->gameOrder;
+        return $this->position;
     }
 
-    public function setGameOrder(int $gameOrder): QuestInterface
+    public function setPosition(int $position): QuestInterface
     {
-        $this->gameOrder = $gameOrder;
+        $this->position = $position;
 
         return $this;
     }
