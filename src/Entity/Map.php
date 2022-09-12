@@ -66,10 +66,10 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
      */
     private ?File $imageFile = null;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $minPlayersNumber = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxPlayersNumber = 0;
 
     #[ORM\Column(type: 'time', nullable: true)]
