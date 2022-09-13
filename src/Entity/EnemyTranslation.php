@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\EnemyTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
-use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
@@ -13,7 +13,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'enemies_translation')]
 #[ORM\Entity(repositoryClass: EnemyTranslationRepository::class)]
-class EnemyTranslation implements TranslationInterface, TimestampableInterface
+class EnemyTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;

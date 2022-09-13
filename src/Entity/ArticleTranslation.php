@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Interfaces\TagInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ArticleTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,7 +20,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 #[ORM\Index(columns: ['locale'], name: 'articles_locale_idx')]
 #[ORM\Entity(repositoryClass: ArticleTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class ArticleTranslation implements TranslationInterface, TimestampableInterface
+class ArticleTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;

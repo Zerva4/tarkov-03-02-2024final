@@ -9,6 +9,7 @@ use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\QuestObjectiveInterface;
 use App\Interfaces\TraderInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\QuestRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -30,13 +31,16 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
+class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestInterface, TranslatableInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $apiId;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $position = 0;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -68,10 +72,12 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $minPlayerLevel = 1;
 
-    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'quests')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'quests')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?TraderInterface $trader = null;
 
     #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'quests')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?MapInterface $map = null;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
@@ -88,6 +94,7 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
+
         $this->objectives = new ArrayCollection();
         $this->usedItems = new ArrayCollection();
         $this->receivedItems = new ArrayCollection();
@@ -101,6 +108,18 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     public function setApiId(string $apiId): QuestInterface
     {
         $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): QuestInterface
+    {
+        $this->position = $position;
 
         return $this;
     }

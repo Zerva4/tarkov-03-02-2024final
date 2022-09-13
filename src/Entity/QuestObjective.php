@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Interfaces\QuestInterface;
 use App\Interfaces\QuestObjectiveInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\QuestObjectiveRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +17,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 #[ORM\Index(columns: ['api_id'], name: 'quest_objective_api_idx')]
 #[ORM\Entity(repositoryClass: QuestObjectiveRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class QuestObjective extends BaseEntity implements QuestObjectiveInterface
+class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestObjectiveInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;

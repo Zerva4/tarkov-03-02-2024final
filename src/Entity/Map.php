@@ -7,9 +7,9 @@ namespace App\Entity;
 use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
 use App\Interfaces\QuestInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapRepository;
 use App\Traits\SlugTrait;
-use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
 use DateTimeInterface;
@@ -19,7 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -31,13 +30,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Map implements MapInterface, TranslatableInterface, TimestampableInterface
+class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
-    use TranslatableTrait;
     use TimestampableTrait;
     use SlugTrait;
-    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $apiId;
@@ -84,7 +81,8 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
     // TODO: Добавить врагов и босссов.
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        $this->defaultLocale = $defaultLocation;
+        parent::__construct($defaultLocation);
+
         $this->quests = new ArrayCollection();
     }
 
@@ -238,17 +236,6 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
         }
 
         return $this;
-    }
-
-    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
-    {
-        if (! method_exists(self::getTranslationEntityClass(), $method)) {
-            $method = 'get' . ucfirst($method);
-        }
-
-        $translation = $this->translate($this->getCurrentLocale());
-
-        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
     }
 
     public function __toString(): string

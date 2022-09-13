@@ -10,7 +10,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
-class BaseEntity implements TimestampableInterface, TranslatableInterface
+class TranslatableEntity implements TimestampableInterface, TranslatableInterface
 {
     use TimestampableTrait;
     use TranslatableTrait;
@@ -21,9 +21,9 @@ class BaseEntity implements TimestampableInterface, TranslatableInterface
         $this->defaultLocale = $defaultLocation;
     }
 
-    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
+    private function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
     {
-        if (! method_exists(self::getTranslationEntityClass(), $method)) {
+        if (!method_exists(self::getTranslationEntityClass(), $method)) {
             $method = 'get' . ucfirst($method);
         }
 

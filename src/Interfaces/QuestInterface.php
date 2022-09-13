@@ -24,6 +24,17 @@ interface QuestInterface
     public function setApiId(string $apiId): QuestInterface;
 
     /**
+     * @return int
+     */
+    public function getPosition(): int;
+
+    /**
+     * @param int $gameOrder
+     * @return QuestInterface
+     */
+    public function setPosition(int $gameOrder): QuestInterface;
+
+    /**
      * @return bool|null
      */
     public function isPublished(): ?bool;
