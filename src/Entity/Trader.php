@@ -10,7 +10,6 @@ use App\Interfaces\TraderLevelInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\TraderRepository;
 use App\Traits\SlugTrait;
-use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,7 +18,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -32,13 +30,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Trader extends BaseEntity implements UuidPrimaryKeyInterface, TraderInterface, TranslatableInterface, TimestampableInterface
+class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, TraderInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
     use SlugTrait;
-    use TranslatableTrait;
-    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $apiId;

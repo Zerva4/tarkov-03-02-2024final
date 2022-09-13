@@ -10,7 +10,6 @@ use App\Interfaces\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapRepository;
 use App\Traits\SlugTrait;
-use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
 use DateTimeInterface;
@@ -20,7 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -32,13 +30,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Map extends BaseEntity implements UuidPrimaryKeyInterface, MapInterface, TranslatableInterface, TimestampableInterface
+class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
-    use TranslatableTrait;
     use TimestampableTrait;
     use SlugTrait;
-    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $apiId;

@@ -17,7 +17,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 #[ORM\Index(columns: ['api_id'], name: 'quest_objective_api_idx')]
 #[ORM\Entity(repositoryClass: QuestObjectiveRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class QuestObjective extends BaseEntity implements UuidPrimaryKeyInterface, QuestObjectiveInterface
+class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestObjectiveInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;

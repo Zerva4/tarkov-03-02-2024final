@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\LocationTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +17,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 #[ORM\Index(columns: ['locale'], name: 'maps_locale_idx')]
 #[ORM\Entity(repositoryClass: LocationTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class MapTranslation implements TranslationInterface, TimestampableInterface
+class MapTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;
@@ -27,10 +28,10 @@ class MapTranslation implements TranslationInterface, TimestampableInterface
 
     #[ORM\Column(type: 'text')]
     private string $description;
-
-    #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'translations')]
-    #[ORM\JoinColumn(name: 'translatable_id', referencedColumnName: 'id')]
-    protected $translatable;
+//
+//    #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'translations')]
+//    #[ORM\JoinColumn(name: 'translatable_id', referencedColumnName: 'id')]
+//    protected $translatable;
 
     public function getTitle(): ?string
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ItemTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +17,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 #[ORM\Index(columns: ['locale'], name: 'item_locale_idx')]
 #[ORM\Entity(repositoryClass: ItemTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class ItemTranslation implements TranslationInterface, TimestampableInterface
+class ItemTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;

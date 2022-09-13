@@ -7,14 +7,12 @@ namespace App\Entity;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\EnemyRepository;
 use App\Traits\SlugTrait;
-use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -26,13 +24,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Enemy extends BaseEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface
+class Enemy extends TranslatableEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
     use SlugTrait;
-    use TranslatableTrait;
-    use TranslatableMagicMethodsTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;

@@ -17,7 +17,7 @@ use App\Interfaces\ItemInterface;
 #[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Item extends BaseEntity implements UuidPrimaryKeyInterface, ItemInterface
+class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;

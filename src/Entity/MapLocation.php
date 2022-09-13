@@ -8,15 +8,11 @@ use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapLocationRepository;
-use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'maps_locations')]
@@ -26,12 +22,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class MapLocation implements UuidPrimaryKeyInterface, MapLocationInterface, TranslatableInterface, TimestampableInterface
+class MapLocation extends TranslatableEntity implements UuidPrimaryKeyInterface, MapLocationInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
-    use TranslatableTrait;
-    use TranslatableMagicMethodsTrait;
 
 //    #[ORM\Column(type: 'string', length: 255, nullable: true)]
 //    private ?string $imageName;

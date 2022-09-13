@@ -31,7 +31,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest extends BaseEntity implements UuidPrimaryKeyInterface, QuestInterface, TranslatableInterface
+class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestInterface, TranslatableInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;

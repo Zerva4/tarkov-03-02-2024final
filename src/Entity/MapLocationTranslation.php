@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapLocationTranslateRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,7 +16,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 #[ORM\Table(name: 'maps_locations_translation')]
 #[ORM\Entity(repositoryClass: MapLocationTranslateRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class MapLocationTranslation implements TranslationInterface, TimestampableInterface
+class MapLocationTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
