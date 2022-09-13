@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
 use App\Interfaces\QuestInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
@@ -31,7 +32,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Map implements MapInterface, TranslatableInterface, TimestampableInterface
+class Map extends BaseEntity implements UuidPrimaryKeyInterface, MapInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
@@ -84,7 +85,8 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
     // TODO: Добавить врагов и босссов.
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        $this->defaultLocale = $defaultLocation;
+        parent::__construct($defaultLocation);
+
         $this->quests = new ArrayCollection();
     }
 
@@ -238,17 +240,6 @@ class Map implements MapInterface, TranslatableInterface, TimestampableInterface
         }
 
         return $this;
-    }
-
-    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
-    {
-        if (! method_exists(self::getTranslationEntityClass(), $method)) {
-            $method = 'get' . ucfirst($method);
-        }
-
-        $translation = $this->translate($this->getCurrentLocale());
-
-        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
     }
 
     public function __toString(): string

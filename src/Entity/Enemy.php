@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\EnemyRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
@@ -25,7 +26,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Enemy implements TranslatableInterface, TimestampableInterface
+class Enemy extends BaseEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -59,11 +60,6 @@ class Enemy implements TranslatableInterface, TimestampableInterface
      * )
      */
     private ?File $imageFile = null;
-
-    public function __construct(string $defaultLocation = '%app.default_locale%')
-    {
-        $this->defaultLocale = $defaultLocation;
-    }
 
     /**
      * @return bool|null
@@ -145,16 +141,5 @@ class Enemy implements TranslatableInterface, TimestampableInterface
     public function setTypes(array $types): void
     {
         $this->types = $types;
-    }
-
-    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
-    {
-        if (! method_exists(self::getTranslationEntityClass(), $method)) {
-            $method = 'get' . ucfirst($method);
-        }
-
-        $translation = $this->translate($this->getCurrentLocale());
-
-        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
     }
 }

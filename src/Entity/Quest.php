@@ -9,6 +9,7 @@ use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\QuestObjectiveInterface;
 use App\Interfaces\TraderInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\QuestRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -30,7 +31,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
+class Quest extends BaseEntity implements UuidPrimaryKeyInterface, QuestInterface, TranslatableInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
@@ -93,6 +94,7 @@ class Quest extends BaseEntity implements QuestInterface, TranslatableInterface
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
+
         $this->objectives = new ArrayCollection();
         $this->usedItems = new ArrayCollection();
         $this->receivedItems = new ArrayCollection();

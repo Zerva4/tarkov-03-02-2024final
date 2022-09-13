@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Interfaces\TraderInterface;
 use App\Interfaces\TraderLevelInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\TraderLevelRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,7 +16,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 #[ORM\Table(name: 'traders_levels')]
 #[ORM\Entity(repositoryClass: TraderLevelRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class TraderLevel implements TraderLevelInterface, TimestampableInterface
+class TraderLevel implements UuidPrimaryKeyInterface, TraderLevelInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;

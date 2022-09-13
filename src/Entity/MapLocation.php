@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapLocationRepository;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -25,7 +26,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class MapLocation implements MapLocationInterface, TranslatableInterface, TimestampableInterface
+class MapLocation implements UuidPrimaryKeyInterface, MapLocationInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;

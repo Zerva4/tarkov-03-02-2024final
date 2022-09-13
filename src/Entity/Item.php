@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Interfaces\QuestInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ItemRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -16,7 +17,7 @@ use App\Interfaces\ItemInterface;
 #[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Item extends BaseEntity implements ItemInterface
+class Item extends BaseEntity implements UuidPrimaryKeyInterface, ItemInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
