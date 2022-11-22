@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use Doctrine\Common\Collections\Collection;
+use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 
 /**
  * Interface for Item entity.
