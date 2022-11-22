@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
@@ -78,7 +79,6 @@ class QuestCrudController extends BaseCrudController
                     ;
             })
         ;
-        $slug = TextField::new('slug', t('Slug', [], 'admin.quests'))->setRequired(true);
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,
@@ -104,6 +104,9 @@ class QuestCrudController extends BaseCrudController
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
         ;
+        $slug = SlugField::new('slug', t('Slug', [], 'admin.quests'))
+            ->setTargetFieldName('slug')
+            ->setRequired(true);
         $objectives = CollectionField::new('objectives', t('Objectives', [], 'admin.traders'))
             ->allowAdd()
             ->allowDelete()
