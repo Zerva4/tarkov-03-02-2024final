@@ -7,6 +7,10 @@ use App\Entity\Quest;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Imagick;
+use ImagickException;
+use ImagickPixel;
+use JetBrains\PhpStorm\NoReturn;
 use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -15,6 +19,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 #[AsCommand(
     name: 'app:import:items',
@@ -24,11 +29,12 @@ class ImportItemsCommand extends Command
 {
     protected static array $headers = ['Content-Type: application/json'];
     private ?EntityManagerInterface $em = null;
+    protected string $storageDir;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, KernelInterface $kernel) {
         parent::__construct();
-
         $this->em = $em;
+        $this->storageDir = $kernel->getProjectDir().'/public/storage/images/items/';
     }
 
     protected function configure(): void
@@ -39,6 +45,9 @@ class ImportItemsCommand extends Command
         ;
     }
 
+    /**
+     * @throws ImagickException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -55,6 +64,7 @@ class ImportItemsCommand extends Command
                 basePrice,
                 width, height, backgroundColor
                 inspectImageLink
+                image512pxLink
                 types,
                 properties {
                   __typename
@@ -388,6 +398,33 @@ class ImportItemsCommand extends Command
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
                 $itemEntity->setApiId($item['id']);
+
+
+            }
+
+            // Download file
+            if (!$itemEntity->getImageFile()) {
+                $curlHandle = curl_init($item['image512pxLink']);
+                $fileName = basename($item['image512pxLink']);
+                $tmpFileName = $this->storageDir . $fileName;
+                $fp = fopen($tmpFileName, 'wb');
+                curl_setopt($curlHandle, CURLOPT_FILE, $fp);
+                curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+                curl_exec($curlHandle);
+                curl_close($curlHandle);
+                fclose($fp);
+
+                // Convert to png
+                $saveFileName = $this->storageDir . explode('-', $fileName, 2)[0] . '.png';
+                $im = new Imagick();
+                $im->pingImage($tmpFileName);
+                $im->readImage($tmpFileName);
+                $im->setImageFormat('png');
+                $im->setBackgroundColor(new ImagickPixel('transparent'));
+                $im->writeImage($saveFileName);
+                unlink($tmpFileName);
+
+                $itemEntity->setImageName($fileName);
             }
 
             // Set another params
