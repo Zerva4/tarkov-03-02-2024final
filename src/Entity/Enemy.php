@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\EnemyInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\EnemyRepository;
 use App\Traits\SlugTrait;
@@ -24,7 +25,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Enemy extends TranslatableEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface
+class Enemy extends TranslatableEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface, EnemyInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -58,23 +59,23 @@ class Enemy extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     private ?File $imageFile = null;
 
     /**
-     * @return bool|null
+     * @return bool
      */
-    public function isPublished(): ?bool
+    public function isPublished(): bool
     {
         return $this->getPublished();
     }
 
-    public function getPublished(): ?bool
+    public function getPublished(): bool
     {
         return $this->published;
     }
 
     /**
      * @param bool $published
-     * @return $this
+     * @return EnemyInterface
      */
-    public function setPublished(bool $published): Enemy
+    public function setPublished(bool $published): EnemyInterface
     {
         $this->published = $published;
 
