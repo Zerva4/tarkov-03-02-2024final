@@ -39,14 +39,14 @@ final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
 
-    #[Vich\UploadableField(mapping: 'quests', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'items', fileNameProperty: 'imageName')]
     #[Assert\Valid]
     #[Assert\File(
         maxSize: '2M',
         mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
     )]
     /**
-     * @Vich\UploadableField(mapping="quests", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="items", fileNameProperty="imageName")
      * @Assert\Valid
      * @Assert\File(
      *     maxSize="2M",
