@@ -1,1 +1,6 @@
 .datagrid-empty > tbody { box-shadow: 0 0; }
+.main-header .navbar {
+    display: block;
+    padding: 0 0 0 0;
+}
+.main-header #header-logo .logo-custom { text-align: center; display: block; }
