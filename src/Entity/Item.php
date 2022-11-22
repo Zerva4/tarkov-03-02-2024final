@@ -63,15 +63,27 @@ final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true])]
     private ?array $types = null;
 
+    /**
+     * @var int|null Базовая цена
+     */
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $basePrice = null;
 
+    /**
+     * @var int|null Ширина
+     */
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $width = null;
 
+    /**
+     * @var int|null Высота
+     */
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $height = null;
 
+    /**
+     * @var string|null Цвет фона
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $backgroundColor = null;
 
@@ -118,7 +130,7 @@ final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     private ?float $velocity = null;
 
     /**
-     * @var int|null
+     * @var int|null Громкость
      */
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $loudness = null;
