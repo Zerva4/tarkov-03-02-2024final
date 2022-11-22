@@ -26,6 +26,9 @@ class ItemTranslation implements UuidPrimaryKeyInterface, TranslationInterface, 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $title;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -36,5 +39,21 @@ class ItemTranslation implements UuidPrimaryKeyInterface, TranslationInterface, 
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
     }
 }
