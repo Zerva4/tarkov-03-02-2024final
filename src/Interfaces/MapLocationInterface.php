@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Interfaces;
 
 use Ramsey\Uuid\UuidInterface;
 
-interface LocationInterface
+interface MapLocationInterface
 {
     /**
      * @return UuidInterface

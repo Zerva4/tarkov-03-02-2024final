@@ -1,2 +1,8 @@
 Created: Создано
 Updated: Обновлено
+Boss: Босс
+Follower: Последователь
+label.null: Не указанно
+vich_uploader:
+  form_label:
+    delete_confirm: Удалить файл

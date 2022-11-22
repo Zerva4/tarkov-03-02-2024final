@@ -6,29 +6,41 @@ namespace App\Entity;
 
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
-use App\Interfaces\TraderLoyaltyInterface;
+use App\Interfaces\TraderLevelInterface;
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\TraderRepository;
 use App\Traits\SlugTrait;
-use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'traders')]
+#[ORM\Index(columns: ['api_id'], name: 'traders_api_key_idx')]
 #[ORM\Entity(repositoryClass: TraderRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Trader implements TraderInterface, TranslatableInterface, TimestampableInterface
+#[Vich\Uploadable]
+/**
+ * @Vich\Uploadable
+ */
+class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, TraderInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
     use SlugTrait;
-    use TranslatableTrait;
-    use TranslatableMagicMethodsTrait;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $apiId;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $position;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -36,28 +48,60 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
 
-    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLoyalty::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Assert\Valid]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
+    )]
+    /**
+     * @Vich\UploadableField(mapping="traders", fileNameProperty="imageName")
+     * @Assert\Valid
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={
+     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
+     *     }
+     * )
+     */
+    private ?File $imageFile = null;
+
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLevel::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\OrderBy(['level' => 'ASC'])]
-    private Collection $loyalty;
+    private Collection $levels;
 
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
-        $this->defaultLocale = $defaultLocation;
-        $this->loyalty = new ArrayCollection();
+        parent::__construct($defaultLocation);
+
+        $this->levels = new ArrayCollection();
     }
 
-    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
+    public function getApiId(): string
     {
-        if (! method_exists(self::getTranslationEntityClass(), $method)) {
-            $method = 'get' . ucfirst($method);
-        }
+        return $this->apiId;
+    }
 
-        $translation = $this->translate($this->getCurrentLocale());
+    public function setApiId(string $apiId): TraderInterface
+    {
+        $this->apiId = $apiId;
 
-        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
+        return $this;
+    }
+
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): TraderInterface
+    {
+        $this->position = $position;
+
+        return $this;
     }
 
     public function isPublished(): ?bool
@@ -72,18 +116,11 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    /**
-     * @param string|null $imageName
-     * @return Trader
-     */
     public function setImageName(?string $imageName): TraderInterface
     {
         $this->imageName = $imageName;
@@ -91,65 +128,58 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getLoyalty(): Collection
+    public function getImageFile(): ?File
     {
-        return $this->loyalty;
+        return $this->imageFile;
     }
 
-    /**
-     * @param Collection $loyalty
-     * @return TraderInterface
-     */
-    public function setLoyalty(Collection $loyalty): TraderInterface
+    public function setImageFile(?File $imageFile): TraderInterface
     {
-        $this->loyalty = $loyalty;
+        $this->imageFile = $imageFile;
 
-        return $this;
-    }
-
-    /**
-     * @param TraderLoyaltyInterface ...$loyalty
-     * @return Trader
-     */
-    public function addLoyalty(TraderLoyaltyInterface ...$loyalty): TraderInterface
-    {
-        foreach ($loyalty as $loyaltyItem) {
-            if (!$this->loyalty->contains($loyaltyItem)) {
-                $this->loyalty->add($loyaltyItem);
-                $loyaltyItem->setTrader($this);
-            }
+        if ($imageFile) {
+            $this->updatedAt = new DateTime('NOW');
         }
 
         return $this;
     }
 
-    /**
-     * @param TraderLoyaltyInterface $loyalty
-     * @return TraderInterface
-     */
-    public function removeLoyalty(TraderLoyaltyInterface $loyalty): TraderInterface
+    public function getLevels(): Collection
     {
-        if ($this->loyalty->contains($loyalty)) {
-            $this->loyalty->removeElement($loyalty);
+        return $this->levels;
+    }
+
+    public function setLevels(Collection $level): TraderInterface
+    {
+        $this->levels = $level;
+
+        return $this;
+    }
+
+    public function addLevel(TraderLevelInterface $level): TraderInterface
+    {
+        if (!$this->levels->contains($level)) {
+            $this->levels->add($level);
+            $level->setTrader($this);
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
+    public function removeLevel(TraderLevelInterface $level): TraderInterface
+    {
+        if ($this->levels->contains($level)) {
+            $this->levels->removeElement($level);
+        }
+
+        return $this;
+    }
+
     public function getQuests(): Collection
     {
         return $this->quests;
     }
 
-    /**
-     * @param Collection $quests
-     */
     public function setQuests(Collection $quests): TraderInterface
     {
         $this->quests = $quests;
@@ -157,26 +187,16 @@ class Trader implements TraderInterface, TranslatableInterface, TimestampableInt
         return $this;
     }
 
-    /**
-     * @param QuestInterface ...$quests
-     * @return Trader
-     */
-    public function addQuest(QuestInterface ...$quests): TraderInterface
+    public function addQuest(QuestInterface $quest): TraderInterface
     {
-        foreach ($quests as $quest) {
-            if (!$this->quests->contains($quest)) {
-                $this->quests->add($quest);
-                $quest->setTrader($this);
-            }
+        if (!$this->quests->contains($quest)) {
+            $this->quests->add($quest);
+            $quest->setTrader($this);
         }
 
         return $this;
     }
 
-    /**
-     * @param QuestInterface $quest
-     * @return TraderInterface
-     */
     public function removeQuest(QuestInterface $quest): TraderInterface
     {
         if ($this->quests->contains($quest)) {

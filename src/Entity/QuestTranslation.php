@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\QuestTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +17,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 #[ORM\Index(columns: ['locale'], name: 'quests_locale_idx')]
 #[ORM\Entity(repositoryClass: QuestTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class QuestTranslation implements TranslationInterface, TimestampableInterface
+class QuestTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslationTrait;
@@ -25,14 +26,11 @@ class QuestTranslation implements TranslationInterface, TimestampableInterface
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $title;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $description;
-
-    #[ORM\Column(type: 'text')]
-    private ?string $howToComplete;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $goals = null;
+    private ?string $howToComplete = null;
 
     public function getTitle(): ?string
     {
@@ -66,24 +64,6 @@ class QuestTranslation implements TranslationInterface, TimestampableInterface
     public function setHowToComplete(string $howToComplete): self
     {
         $this->howToComplete = $howToComplete;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getGoals(): ?string
-    {
-        return $this->goals;
-    }
-
-    /**
-     * @param string|null $goals
-     */
-    public function setGoals(?string $goals): self
-    {
-        $this->goals = $goals;
 
         return $this;
     }

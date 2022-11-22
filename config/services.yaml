@@ -14,13 +14,17 @@ parameters:
     app.default_locale: 'ru'
     app.additional_locales: 'en'
 
-    app.storage.path: '/public/storage/'
-    app.storage.uri: '%app_dir%storage/'
-    app.storage.cache_uri: 'storage/'
+    app.storage.path: '%kernel.project_dir%/public/storage/'
+    app.storage.uri: '%app_dir%/storage/'
+    app.storage.cache_uri: '%app_dir%/storage/cache/'
 
     # Traders image config
     app.traders.images.path: '%app.storage.path%images/traders'
     app.traders.images.uri: '%app.storage.uri%images/traders'
+
+    # Maps image config
+    app.maps.images.path: '%app.storage.path%images/locations'
+    app.maps.images.uri: '%app.storage.uri%images/locations'
 
     # Locations image config
     app.locations.images.path: '%app.storage.path%images/locations'
@@ -30,9 +34,17 @@ parameters:
     app.articles.images.path: '%app.storage.path%images/articles'
     app.articles.images.uri: '%app.storage.uri%images/articles'
 
-    # Locations image config
+    # Bosses image config
+    app.enemies.images.path: '%app.storage.path%images/enemies'
+    app.enemies.images.uri: '%app.storage.uri%images/enemies'
+
+    # Quests image config
     app.quests.images.path: '%app.storage.path%images/quests'
     app.quests.images.uri: '%app.storage.uri%images/quests'
+
+    # Items image config
+    app.items.images.path: '%app.storage.path%images/items'
+    app.items.images.uri: '%app.storage.uri%images/items'
 
 services:
     # default configuration for services in *this* file

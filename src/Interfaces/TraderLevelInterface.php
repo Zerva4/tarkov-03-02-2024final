@@ -10,7 +10,7 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * Interface for TraderLoyalty entity.
  */
-interface TraderLoyaltyInterface
+interface TraderLevelInterface
 {
     /**
      * @return UuidInterface
@@ -30,20 +30,20 @@ interface TraderLoyaltyInterface
 
     /**
      * @param int $level
-     * @return TraderLoyaltyInterface
+     * @return TraderLevelInterface
      */
-    public function setLevel(int $level): TraderLoyaltyInterface;
+    public function setLevel(int $level): TraderLevelInterface;
 
     /**
      * @return int
      */
-    public function getRequiredLevel(): int;
+    public function getRequiredPlayerLevel(): int;
 
     /**
      * @param int $level
-     * @return TraderLoyaltyInterface
+     * @return TraderLevelInterface
      */
-    public function setRequiredLevel(int $level): TraderLoyaltyInterface;
+    public function setRequiredPlayerLevel(int $level): TraderLevelInterface;
 
     /**
      * @return float
@@ -52,9 +52,9 @@ interface TraderLoyaltyInterface
 
     /**
      * @param float $reputation
-     * @return TraderLoyaltyInterface
+     * @return TraderLevelInterface
      */
-    public function setRequiredReputation(float $reputation): TraderLoyaltyInterface;
+    public function setRequiredReputation(float $reputation): TraderLevelInterface;
 
     /**
      * @return int
@@ -63,9 +63,9 @@ interface TraderLoyaltyInterface
 
     /**
      * @param int $sales
-     * @return TraderLoyaltyInterface
+     * @return TraderLevelInterface
      */
-    public function setRequiredSales(int $sales): TraderLoyaltyInterface;
+    public function setRequiredSales(int $sales): TraderLevelInterface;
 
     /**
      * @return TraderInterface
@@ -74,7 +74,7 @@ interface TraderLoyaltyInterface
 
     /**
      * @param TraderInterface $trader
-     * @return TraderLoyaltyInterface
+     * @return TraderLevelInterface
      */
-    public function setTrader(TraderInterface $trader): TraderLoyaltyInterface;
+    public function setTrader(TraderInterface $trader): TraderLevelInterface;
 }

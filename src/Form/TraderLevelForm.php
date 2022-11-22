@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\TraderLoyalty;
+use App\Entity\TraderLevel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function Symfony\Component\Translation\t;
 
-class TraderLoyaltyForm extends AbstractType
+class TraderLevelForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -20,8 +20,8 @@ class TraderLoyaltyForm extends AbstractType
             ->add('level', IntegerType::class, [
                 'label' => t('Level', [], 'admin.traders')
             ])
-            ->add('requiredLevel', IntegerType::class, [
-                'label' => t('Required level', [], 'admin.traders')
+            ->add('requiredPlayerLevel', IntegerType::class, [
+                'label' => t('Required player level', [], 'admin.traders')
             ])
             ->add('requiredReputation', NumberType::class, [
                 'label' => t('Required reputation', [], 'admin.traders')
@@ -35,7 +35,7 @@ class TraderLoyaltyForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => TraderLoyalty::class,
+            'data_class' => TraderLevel::class,
         ]);
     }
 }
