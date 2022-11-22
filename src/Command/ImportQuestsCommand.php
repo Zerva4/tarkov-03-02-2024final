@@ -68,6 +68,7 @@ class ImportQuestsCommand extends Command
                     id,
                     tarkovDataId,
                     name,
+                    normalizedName,
                     experience,
                     minPlayerLevel,
                     descriptionMessageId,
@@ -157,13 +158,14 @@ class ImportQuestsCommand extends Command
                 $questEntity = new Quest($lang);
             }
 
+            $questSlugName = (null !== $quest['normalizedName']) ? $quest['normalizedName'] : $quest['id'];
             $questEntity
                 ->setApiId($quest['id'])
                 ->setPosition($order)
                 ->setPublished(true)
                 ->setExperience($quest['experience'])
                 ->setMinPlayerLevel($quest['minPlayerLevel'])
-                ->setSlug($quest['id'])
+                ->setSlug($questSlugName)
             ;
             $questEntity->translate($lang, false)->setTitle($quest['name']);
 

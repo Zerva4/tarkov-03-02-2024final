@@ -7,6 +7,11 @@ use App\Entity\Quest;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Imagick;
+use ImagickException;
+use ImagickPixel;
+use JetBrains\PhpStorm\NoReturn;
+use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -14,6 +19,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 #[AsCommand(
     name: 'app:import:items',
@@ -23,11 +29,12 @@ class ImportItemsCommand extends Command
 {
     protected static array $headers = ['Content-Type: application/json'];
     private ?EntityManagerInterface $em = null;
+    protected string $storageDir;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, KernelInterface $kernel) {
         parent::__construct();
-
         $this->em = $em;
+        $this->storageDir = $kernel->getProjectDir().'/public/storage/images/items/';
     }
 
     protected function configure(): void
@@ -38,6 +45,9 @@ class ImportItemsCommand extends Command
         ;
     }
 
+    /**
+     * @throws ImagickException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -54,11 +64,31 @@ class ImportItemsCommand extends Command
                 basePrice,
                 width, height, backgroundColor
                 inspectImageLink
+                image512pxLink
                 types,
-                        # properties {
-                        # ... Ammo
-                        # ... Grenade
-                        # }
+                properties {
+                  __typename
+                  ... Ammo
+                  ... Armor
+                  ... Backpack
+                  ... Barrel
+                  ... ChestRig
+                  ... FoodDrink
+                  ... Glasses
+                  ... Helmet
+                  ... Key
+                  ... Magazine
+                  ... MedicalItem
+                  ... MedKit
+                  ... Melee
+                  ... NightVision
+                  ... Painkiller
+                  ... Scope
+                  ... SurgicalKit
+                  ... Grenade
+                  ... Weapon
+                  ... WeaponMod
+                }
                 accuracyModifier,
                 recoilModifier,
                 ergonomicsModifier,
@@ -81,6 +111,260 @@ class ImportItemsCommand extends Command
                   level
                 }
               }
+            }
+            
+            fragment Ammo on ItemPropertiesAmmo {
+              caliber
+              stackMaxSize
+              tracer
+              tracerColor
+              projectileCount
+              damage
+              armorDamage
+              fragmentationChance
+              ricochetChance
+              penetrationChance
+              penetrationPower
+              accuracyModifier
+              recoilModifier
+              initialSpeed
+              lightBleedModifier
+              heavyBleedModifier
+              durabilityBurnFactor
+              heatFactor
+            }
+            
+            fragment Armor on ItemPropertiesArmor {
+              class
+              durability
+              repairCost
+              speedPenalty
+              turnPenalty
+              ergoPenalty
+              zones
+              material {
+                __typename
+                id
+                name
+                destructibility
+                minRepairDegradation
+                maxRepairDegradation
+                explosionDestructibility
+                minRepairKitDegradation
+                maxRepairKitDegradation
+              }
+            }
+            
+            # fragment ArmorMaterial on ItemPropertiesArmorMaterial {
+            #   id
+            #   name
+            #   destructibility
+            #   minRepairDegradation
+            #   maxRepairDegradation
+            #   explosionDestructibility
+            #   minRepairKitDegradation
+            #   maxRepairKitDegradation
+            # }
+            
+            fragment Backpack on ItemPropertiesBackpack {
+              capacity
+            }
+            
+            fragment Barrel on ItemPropertiesBarrel {
+              ergonomics
+              recoilModifier
+              centerOfImpact
+              deviationCurve
+              deviationMax
+            }
+            
+            fragment ChestRig on ItemPropertiesChestRig {
+              class
+              durability
+              repairCost
+              speedPenalty
+              turnPenalty
+              ergoPenalty
+              zones
+              material {
+                __typename
+              }
+              capacity
+            }
+            
+            fragment FoodDrink on ItemPropertiesFoodDrink {
+              energy
+              hydration
+              units
+              stimEffects {
+                type
+                chance
+                delay
+                duration
+                value
+                percent
+                skillName
+              }
+            }
+            
+            fragment Glasses on ItemPropertiesGlasses {
+              class
+              durability
+              repairCost
+              blindnessProtection
+              material {
+                __typename
+                id
+                name
+                destructibility
+                minRepairDegradation
+                maxRepairDegradation
+                explosionDestructibility
+                minRepairKitDegradation
+                maxRepairKitDegradation
+              }
+            }
+            
+            fragment Grenade on ItemPropertiesGrenade {
+              type,
+              fuse,
+              minExplosionDistance,
+              maxExplosionDistance,
+              fragments,
+              contusionRadius
+            }
+            
+            fragment Helmet on ItemPropertiesHelmet {
+              class
+              durability
+              repairCost
+              speedPenalty
+              turnPenalty
+              ergoPenalty
+              headZones
+              material {
+                __typename
+                id
+                name
+                destructibility
+                minRepairDegradation
+                maxRepairDegradation
+                explosionDestructibility
+                minRepairKitDegradation
+                maxRepairKitDegradation
+              }
+              deafening
+              blocksHeadset
+              blindnessProtection
+              ricochetX
+              ricochetY
+              ricochetZ
+            }
+            
+            fragment Key on ItemPropertiesKey {
+              uses
+            }
+            
+            fragment Magazine on ItemPropertiesMagazine {
+              ergonomics
+              recoilModifier
+              capacity
+              loadModifier
+              ammoCheckModifier
+              malfunctionChance
+              allowedAmmo {
+                id
+              }
+            }
+            
+            fragment MedicalItem on ItemPropertiesMedicalItem {
+              uses
+              useTime
+              cures
+            }
+            
+            fragment MedKit on ItemPropertiesMedKit {
+              hitpoints
+              useTime
+              maxHealPerUse
+              cures
+              hpCostLightBleeding
+              hpCostHeavyBleeding
+            }
+            
+            fragment Melee on ItemPropertiesMelee {
+              slashDamage
+              stabDamage
+              hitRadius
+            }
+            
+            fragment NightVision on ItemPropertiesNightVision {
+              intensity
+              noiseIntensity
+              noiseScale
+              diffuseIntensity
+            }
+            
+            fragment Painkiller on ItemPropertiesPainkiller {
+              uses
+              useTime
+              cures
+              painkillerDuration
+              energyImpact
+              hydrationImpact
+            }
+            
+            fragment Scope on ItemPropertiesScope{
+              ergonomics
+              sightModes
+              sightingRange
+              recoilModifier
+              zoomLevels
+            }
+            
+            fragment SurgicalKit on ItemPropertiesSurgicalKit {
+              uses
+              useTime
+              cures
+              minLimbHealth
+              maxLimbHealth
+            }
+            
+            fragment Weapon on ItemPropertiesWeapon {
+                caliber
+              defaultAmmo {
+                id
+              }
+              effectiveDistance
+              ergonomics
+              fireModes
+              fireRate
+              maxDurability
+              recoilVertical
+              recoilHorizontal
+              repairCost
+              sightingRange
+              centerOfImpact
+              deviationCurve
+              deviationMax
+              defaultWidth
+              defaultHeight
+              defaultErgonomics
+              defaultRecoilVertical
+              defaultRecoilHorizontal
+              defaultWeight
+              defaultPreset {
+                id
+              }
+              allowedAmmo {
+                id
+              }
+            }
+            
+            fragment WeaponMod on ItemPropertiesWeaponMod {
+              ergonomics
+              recoilModifier
+              accuracyModifier
             }
         GRAPHQL;
 
@@ -114,6 +398,34 @@ class ImportItemsCommand extends Command
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
                 $itemEntity->setApiId($item['id']);
+
+
+            }
+
+            // Download file
+            if (!$itemEntity->getImageFile()) {
+                $curlHandle = curl_init($item['image512pxLink']);
+                $fileName = basename($item['image512pxLink']);
+                $tmpFileName = $this->storageDir . $fileName;
+                $fp = fopen($tmpFileName, 'wb');
+                curl_setopt($curlHandle, CURLOPT_FILE, $fp);
+                curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+                curl_exec($curlHandle);
+                curl_close($curlHandle);
+                fclose($fp);
+
+                // Convert to png
+                $saveFileName = explode('-', $fileName, 2)[0] . '.png';
+                $saveFilePath = $this->storageDir . $saveFileName;
+                $im = new Imagick();
+                $im->pingImage($tmpFileName);
+                $im->readImage($tmpFileName);
+                $im->setImageFormat('png');
+                $im->setBackgroundColor(new ImagickPixel('transparent'));
+                $im->writeImage($saveFilePath);
+                unlink($tmpFileName);
+
+                $itemEntity->setImageName(explode('-', $fileName, 2)[0] . '.png');
             }
 
             // Set another params

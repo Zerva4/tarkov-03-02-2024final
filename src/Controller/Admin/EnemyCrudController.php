@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,7 +35,9 @@ class EnemyCrudController extends BaseCrudController
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
         $name = TextField::new('name', t('Name', [], 'admin.enemies'));
-        $slug = TextField::new('slug', t('Slug', [], 'admin.enemies'));
+        $slug = SlugField::new('slug', t('Slug', [], 'admin.enemies'))
+            ->setTargetFieldName('slug')
+            ->setRequired(true);
         $image = VichImageField::new('imageFile', t('Photo', [], 'admin.enemies')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.enemies.images.uri'))

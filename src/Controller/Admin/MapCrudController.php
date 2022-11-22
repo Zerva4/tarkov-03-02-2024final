@@ -15,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
@@ -51,7 +52,9 @@ class MapCrudController extends BaseCrudController
             ->setRequired(true)
             ->setFormat('HH:mm')
         ;
-        $slug = TextField::new('slug', t('Slug', [], 'admin.maps'))->setRequired(true);
+        $slug = SlugField::new('slug', t('Slug', [], 'admin.maps'))
+            ->setTargetFieldName('slug')
+            ->setRequired(true);
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,

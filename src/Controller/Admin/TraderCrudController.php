@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,7 +38,9 @@ class TraderCrudController extends BaseCrudController
         $published = BooleanField::new('published', t('Published', [], 'admin.traders'));
         $fullName = TextField::new('fullName', t('Full name', [], 'admin.traders'));
         $characterType = TextField::new('characterType', t('Character type', [], 'admin.traders'));
-        $slug = TextField::new('slug', t('Slug', [], 'admin.traders'));
+        $slug = SlugField::new('slug', t('Slug', [], 'admin.traders'))
+            ->setTargetFieldName('slug')
+            ->setRequired(true);
         $avatar = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.traders.images.uri'))

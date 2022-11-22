@@ -7,17 +7,24 @@ use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ItemRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Interfaces\ItemInterface;
-use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'items')]
 #[ORM\Index(columns: ['slug'], name: 'items_slug_idx')]
 #[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
+/**
+ * @Vich\Uploadable
+ */
 final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemInterface
 {
     use UuidPrimaryKeyTrait;
@@ -29,21 +36,54 @@ final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $imageName = null;
+
+    #[Vich\UploadableField(mapping: 'items', fileNameProperty: 'imageName')]
+    #[Assert\Valid]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
+    )]
+    /**
+     * @Vich\UploadableField(mapping="items", fileNameProperty="imageName")
+     * @Assert\Valid
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={
+     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
+     *     }
+     * )
+     */
+    private ?File $imageFile = null;
+
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $slug;
 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true])]
     private ?array $types = null;
 
+    /**
+     * @var int|null Базовая цена
+     */
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $basePrice = null;
 
+    /**
+     * @var int|null Ширина
+     */
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $width = null;
 
+    /**
+     * @var int|null Высота
+     */
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $height = null;
 
+    /**
+     * @var string|null Цвет фона
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $backgroundColor = null;
 
@@ -90,7 +130,7 @@ final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     private ?float $velocity = null;
 
     /**
-     * @var int|null
+     * @var int|null Громкость
      */
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $loudness = null;
@@ -368,6 +408,38 @@ final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, 
         if ($this->receivedFromQuests->contains($quest)) {
             $this->receivedFromQuests->removeElement($quest);
             $quest->removeReceivedItem($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param string|null $imageName
+     */
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): ItemInterface
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            $this->updatedAt = new DateTime('NOW');
         }
 
         return $this;
