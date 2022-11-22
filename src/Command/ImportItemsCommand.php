@@ -415,16 +415,17 @@ class ImportItemsCommand extends Command
                 fclose($fp);
 
                 // Convert to png
-                $saveFileName = $this->storageDir . explode('-', $fileName, 2)[0] . '.png';
+                $saveFileName = explode('-', $fileName, 2)[0] . '.png';
+                $saveFilePath = $this->storageDir . $saveFileName;
                 $im = new Imagick();
                 $im->pingImage($tmpFileName);
                 $im->readImage($tmpFileName);
                 $im->setImageFormat('png');
                 $im->setBackgroundColor(new ImagickPixel('transparent'));
-                $im->writeImage($saveFileName);
+                $im->writeImage($saveFilePath);
                 unlink($tmpFileName);
 
-                $itemEntity->setImageName($fileName);
+                $itemEntity->setImageName(explode('-', $fileName, 2)[0] . '.png');
             }
 
             // Set another params
