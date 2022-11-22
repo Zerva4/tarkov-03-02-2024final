@@ -11,13 +11,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Interfaces\ItemInterface;
+use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 
 #[ORM\Table(name: 'items')]
 #[ORM\Index(columns: ['slug'], name: 'items_slug_idx')]
 #[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemInterface
+final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
@@ -31,7 +32,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $slug;
 
-    #[ORM\Column(type: 'json', nullable: true)]
+    #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true])]
     private ?array $types = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
