@@ -7,6 +7,7 @@ use App\Entity\Quest;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -55,10 +56,29 @@ class ImportItemsCommand extends Command
                 width, height, backgroundColor
                 inspectImageLink
                 types,
-                        # properties {
-                        # ... Ammo
-                        # ... Grenade
-                        # }
+                properties {
+                  __typename
+                  ... Ammo
+                  ... Armor
+                  ... Backpack
+                  ... Barrel
+                  ... ChestRig
+                  ... FoodDrink
+                  ... Glasses
+                  ... Helmet
+                  ... Key
+                  ... Magazine
+                  ... MedicalItem
+                  ... MedKit
+                  ... Melee
+                  ... NightVision
+                  ... Painkiller
+                  ... Scope
+                  ... SurgicalKit
+                  ... Grenade
+                  ... Weapon
+                  ... WeaponMod
+                }
                 accuracyModifier,
                 recoilModifier,
                 ergonomicsModifier,
@@ -81,6 +101,260 @@ class ImportItemsCommand extends Command
                   level
                 }
               }
+            }
+            
+            fragment Ammo on ItemPropertiesAmmo {
+              caliber
+              stackMaxSize
+              tracer
+              tracerColor
+              projectileCount
+              damage
+              armorDamage
+              fragmentationChance
+              ricochetChance
+              penetrationChance
+              penetrationPower
+              accuracyModifier
+              recoilModifier
+              initialSpeed
+              lightBleedModifier
+              heavyBleedModifier
+              durabilityBurnFactor
+              heatFactor
+            }
+            
+            fragment Armor on ItemPropertiesArmor {
+              class
+              durability
+              repairCost
+              speedPenalty
+              turnPenalty
+              ergoPenalty
+              zones
+              material {
+                __typename
+                id
+                name
+                destructibility
+                minRepairDegradation
+                maxRepairDegradation
+                explosionDestructibility
+                minRepairKitDegradation
+                maxRepairKitDegradation
+              }
+            }
+            
+            # fragment ArmorMaterial on ItemPropertiesArmorMaterial {
+            #   id
+            #   name
+            #   destructibility
+            #   minRepairDegradation
+            #   maxRepairDegradation
+            #   explosionDestructibility
+            #   minRepairKitDegradation
+            #   maxRepairKitDegradation
+            # }
+            
+            fragment Backpack on ItemPropertiesBackpack {
+              capacity
+            }
+            
+            fragment Barrel on ItemPropertiesBarrel {
+              ergonomics
+              recoilModifier
+              centerOfImpact
+              deviationCurve
+              deviationMax
+            }
+            
+            fragment ChestRig on ItemPropertiesChestRig {
+              class
+              durability
+              repairCost
+              speedPenalty
+              turnPenalty
+              ergoPenalty
+              zones
+              material {
+                __typename
+              }
+              capacity
+            }
+            
+            fragment FoodDrink on ItemPropertiesFoodDrink {
+              energy
+              hydration
+              units
+              stimEffects {
+                type
+                chance
+                delay
+                duration
+                value
+                percent
+                skillName
+              }
+            }
+            
+            fragment Glasses on ItemPropertiesGlasses {
+              class
+              durability
+              repairCost
+              blindnessProtection
+              material {
+                __typename
+                id
+                name
+                destructibility
+                minRepairDegradation
+                maxRepairDegradation
+                explosionDestructibility
+                minRepairKitDegradation
+                maxRepairKitDegradation
+              }
+            }
+            
+            fragment Grenade on ItemPropertiesGrenade {
+              type,
+              fuse,
+              minExplosionDistance,
+              maxExplosionDistance,
+              fragments,
+              contusionRadius
+            }
+            
+            fragment Helmet on ItemPropertiesHelmet {
+              class
+              durability
+              repairCost
+              speedPenalty
+              turnPenalty
+              ergoPenalty
+              headZones
+              material {
+                __typename
+                id
+                name
+                destructibility
+                minRepairDegradation
+                maxRepairDegradation
+                explosionDestructibility
+                minRepairKitDegradation
+                maxRepairKitDegradation
+              }
+              deafening
+              blocksHeadset
+              blindnessProtection
+              ricochetX
+              ricochetY
+              ricochetZ
+            }
+            
+            fragment Key on ItemPropertiesKey {
+              uses
+            }
+            
+            fragment Magazine on ItemPropertiesMagazine {
+              ergonomics
+              recoilModifier
+              capacity
+              loadModifier
+              ammoCheckModifier
+              malfunctionChance
+              allowedAmmo {
+                id
+              }
+            }
+            
+            fragment MedicalItem on ItemPropertiesMedicalItem {
+              uses
+              useTime
+              cures
+            }
+            
+            fragment MedKit on ItemPropertiesMedKit {
+              hitpoints
+              useTime
+              maxHealPerUse
+              cures
+              hpCostLightBleeding
+              hpCostHeavyBleeding
+            }
+            
+            fragment Melee on ItemPropertiesMelee {
+              slashDamage
+              stabDamage
+              hitRadius
+            }
+            
+            fragment NightVision on ItemPropertiesNightVision {
+              intensity
+              noiseIntensity
+              noiseScale
+              diffuseIntensity
+            }
+            
+            fragment Painkiller on ItemPropertiesPainkiller {
+              uses
+              useTime
+              cures
+              painkillerDuration
+              energyImpact
+              hydrationImpact
+            }
+            
+            fragment Scope on ItemPropertiesScope{
+              ergonomics
+              sightModes
+              sightingRange
+              recoilModifier
+              zoomLevels
+            }
+            
+            fragment SurgicalKit on ItemPropertiesSurgicalKit {
+              uses
+              useTime
+              cures
+              minLimbHealth
+              maxLimbHealth
+            }
+            
+            fragment Weapon on ItemPropertiesWeapon {
+                caliber
+              defaultAmmo {
+                id
+              }
+              effectiveDistance
+              ergonomics
+              fireModes
+              fireRate
+              maxDurability
+              recoilVertical
+              recoilHorizontal
+              repairCost
+              sightingRange
+              centerOfImpact
+              deviationCurve
+              deviationMax
+              defaultWidth
+              defaultHeight
+              defaultErgonomics
+              defaultRecoilVertical
+              defaultRecoilHorizontal
+              defaultWeight
+              defaultPreset {
+                id
+              }
+              allowedAmmo {
+                id
+              }
+            }
+            
+            fragment WeaponMod on ItemPropertiesWeaponMod {
+              ergonomics
+              recoilModifier
+              accuracyModifier
             }
         GRAPHQL;
 
