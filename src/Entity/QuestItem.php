@@ -28,7 +28,7 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
     use UuidPrimaryKeyTrait;
     use SlugTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
     #[ORM\Column(type: 'boolean')]
@@ -40,7 +40,7 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $height = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
 
     #[Vich\UploadableField(mapping: 'quests', fileNameProperty: 'imageName')]
