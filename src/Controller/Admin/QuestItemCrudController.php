@@ -33,7 +33,7 @@ class QuestItemCrudController extends BaseCrudController
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.quests_items'));
         $title = TextField::new('title', t('Title', [], 'admin.quests_items'));
-        $shortTitle = TextField::new('shortTitle', t('Title', [], 'admin.quests_items'));
+        $shortTitle = TextField::new('shortTitle', t('Short title', [], 'admin.quests_items'));
         $questItemImage = VichImageField::new('imageFile', t('Photo', [], 'admin.quests_items')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.quests_items.images.uri'))
