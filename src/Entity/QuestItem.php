@@ -7,6 +7,7 @@ use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\QuestItemRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
@@ -114,7 +115,7 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
         return $this->imageName;
     }
 
-    public function setImageName(string $imageName): QuestItemInterface
+    public function setImageName(?string $imageName): QuestItemInterface
     {
         $this->imageName = $imageName;
 
@@ -129,6 +130,10 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
     public function setImageFile(?File $imageFile): QuestItemInterface
     {
         $this->imageFile = $imageFile;
+
+        if ($imageFile) {
+            $this->updatedAt = new DateTime('NOW');
+        }
 
         return $this;
     }
