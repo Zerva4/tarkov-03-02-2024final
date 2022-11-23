@@ -37,3 +37,10 @@ vich_uploader:
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
+        quests_items:
+            uri_prefix: '%app.quests_items.images.uri%'
+            upload_destination: '%app.quests_items.images.path%'
+            namer: vich_uploader.namer_uniqid
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
