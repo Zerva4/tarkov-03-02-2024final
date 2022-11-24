@@ -27,7 +27,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestItemInterface, TranslatableInterface
 {
     use UuidPrimaryKeyTrait;
-    use SlugTrait;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
@@ -43,6 +42,11 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
+
+    #[ORM\Column(type: 'string', length: 255, unique: false, nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: 'Invalid format', match: true)]
+    private string $slug;
 
     #[Vich\UploadableField(mapping: 'quests_items', fileNameProperty: 'imageName')]
     #[Assert\Valid]
@@ -61,6 +65,11 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
      * )
      */
     private ?File $imageFile = null;
+
+    public function __construct(string $defaultLocation = '%app.default_locale%')
+    {
+        parent::__construct($defaultLocation);
+    }
 
     public function getApiId(): string
     {
@@ -134,6 +143,18 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
         }
+
+        return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
