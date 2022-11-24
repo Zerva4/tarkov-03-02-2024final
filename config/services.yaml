@@ -47,8 +47,8 @@ parameters:
     app.items.images.uri: '%app.storage.uri%images/items'
 
     # Quests items image config
-    app.quests_items.images.path: '%app.storage.path%images/quests_items'
-    app.quests_items.images.uri: '%app.storage.uri%images/quests_items'
+    app.quests_items.images.path: '%app.storage.path%images/quests-items'
+    app.quests_items.images.uri: '%app.storage.uri%images/quests-items'
 
 services:
     # default configuration for services in *this* file
