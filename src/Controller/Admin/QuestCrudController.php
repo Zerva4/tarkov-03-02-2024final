@@ -141,7 +141,8 @@ class QuestCrudController extends BaseCrudController
                 $minPlayerLevel->setTextAlign('center'),
                 $maps->setTextAlign('center'),
                 $createdAt,
-                $updatedAt],
+                $updatedAt
+            ],
         };
     }
 }
