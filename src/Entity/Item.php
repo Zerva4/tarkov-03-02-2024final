@@ -25,7 +25,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-final class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemInterface
+class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
