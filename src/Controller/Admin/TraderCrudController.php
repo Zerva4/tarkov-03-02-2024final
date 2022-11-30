@@ -90,7 +90,10 @@ class TraderCrudController extends BaseCrudController
                 FormField::addTab(t('Levels', [], 'admin.traders')),
                 $levels->setColumns(12)
             ],
-            default => [$characterType, $fullName, $published, $createdAt, $updatedAt],
+            default => [
+                $characterType->setTemplatePath('admin/field/link-edit.html.twig'),
+                $fullName,
+                $published, $createdAt, $updatedAt],
         };
     }
 }
