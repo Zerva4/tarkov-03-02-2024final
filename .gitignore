@@ -35,6 +35,13 @@
 info/
 .idea/
 .DS_Store
+.cache/
+.history
+.npm/
+.psql_history
+.yarnrc
+package-lock.json
+yarn.lock
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
