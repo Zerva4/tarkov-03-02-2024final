@@ -134,7 +134,7 @@ class QuestCrudController extends BaseCrudController
                 FormField::addTab(t('Keys', [], 'admin.quests')),
             ],
             default => [
-                $title->setSortable(true),
+                $title->setSortable(true)->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published,
                 $trader,
                 $experience->setTextAlign('center'),
