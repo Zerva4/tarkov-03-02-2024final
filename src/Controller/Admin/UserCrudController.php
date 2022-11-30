@@ -100,7 +100,9 @@ class UserCrudController extends AbstractCrudController
                 $newPassword->setColumns(6)->setVirtual(true),
                 $confirmPassword->setColumns(6)->setVirtual(true),
             ],
-            default => [$login, $email, $title, $roles, $createdAt, $updatedAt],
+            default => [
+                $login->setTemplatePath('admin/field/link-edit.html.twig'),
+                $email, $title, $roles, $createdAt, $updatedAt],
         };
     }
 

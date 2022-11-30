@@ -99,7 +99,8 @@ class ItemCrudController extends BaseCrudController
                 FormField::addTab(t('Extra options', [], 'admin.items')),
             ],
             default => [
-                $title->setColumns(12)->setTextAlign('left'),
+                $title->setColumns(12)->setTextAlign('left')
+                    ->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published->setColumns(1)->setTextAlign('center'),
                 DateField::new('createdAt', t('Created', [], 'admin'))->setTextAlign('center'),
                 DateField::new('updatedAt', t('Updated', [], 'admin'))->setTextAlign('center'),

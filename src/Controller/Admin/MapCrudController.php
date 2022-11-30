@@ -96,7 +96,8 @@ class MapCrudController extends BaseCrudController
                 $locations->setColumns(12)
             ],
             default => [
-                $title->setColumns(12)->setTextAlign('left'),
+                $title->setColumns(12)->setTextAlign('left')
+                    ->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published->setColumns(1)->setTextAlign('center'),
                 $minPlayersNumber->setColumns(2)->setTextAlign('center'),
                 $maxPlayersNumber->setColumns(2)->setTextAlign('center'),

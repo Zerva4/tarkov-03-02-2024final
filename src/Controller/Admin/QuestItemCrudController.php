@@ -79,7 +79,7 @@ class QuestItemCrudController extends BaseCrudController
                 $translations,
             ],
             default => [
-                $title,
+                $title->setTemplatePath('admin/field/link-edit.html.twig'),
                 $shortTitle,
                 $published,
                 $createdAt,
