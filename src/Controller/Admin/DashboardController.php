@@ -33,7 +33,6 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('Eft Site')
             ->renderContentMaximized()
-            ->disableUrlSignatures()
             ->generateRelativeUrls()
             ->setTranslationDomain('admin')
             ->disableDarkMode(true)
