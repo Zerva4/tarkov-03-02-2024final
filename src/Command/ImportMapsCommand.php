@@ -101,7 +101,7 @@ class ImportMapsCommand extends Command
         }
 
         $progressBar = new ProgressBar($output, count($maps));
-        $progressBar->advance(1);
+        $progressBar->advance(0);
         $mapRepository = $this->em->getRepository(Map::class);
 
         foreach ($maps as $map) {

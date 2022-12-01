@@ -89,7 +89,7 @@ class ImportTradersCommand extends Command
         }
 
         $progressBar = new ProgressBar($output, count($traders));
-        $progressBar->advance(1);
+        $progressBar->advance(0);
 
         foreach ($traders as $trader) {
             $order = $trader['tarkovDataId'];
