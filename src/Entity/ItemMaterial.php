@@ -6,7 +6,6 @@ use App\Interfaces\ItemMaterialInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ItemMaterialRepository;
 use App\Traits\UuidPrimaryKeyTrait;
-use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
@@ -51,6 +50,13 @@ class ItemMaterial extends TranslatableEntity implements UuidPrimaryKeyInterface
     public function getPublished(): bool
     {
         return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
+
+        return $this;
     }
 
     public function getApiId(): ?string

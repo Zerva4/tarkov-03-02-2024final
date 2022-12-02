@@ -85,10 +85,10 @@ class ImportItemsMaterialsCommand extends Command
                 $materialEntity->setDefaultLocale($lang);
                 $materialEntity->translate($lang, false)->setTitle($material['name']);
                 $materialEntity->setApiId($material['id']);
+                $materialEntity->setPublished(true);
             }
 
             $materialEntity
-                ->setPublished(true)
                 ->setDestructibility($material['destructibility'])
                 ->setMinRepairDegradation($material['minRepairDegradation'])
                 ->setMaxRepairDegradation($material['maxRepairDegradation'])
