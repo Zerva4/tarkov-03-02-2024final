@@ -11,7 +11,7 @@ final class Version20221202002115 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Added fields createdAt, updatedAt for ItemMaterial entity';
+        return 'Added fields created_at, updated_at for ItemMaterial entity';
     }
 
     public function up(Schema $schema): void
