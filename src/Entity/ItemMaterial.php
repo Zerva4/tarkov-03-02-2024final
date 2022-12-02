@@ -19,7 +19,7 @@ class ItemMaterial extends TranslatableEntity implements UuidPrimaryKeyInterface
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
 
-    #[ORM\Column(length: 255, nullable: false)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $apiId = null;
 
     #[ORM\Column]
