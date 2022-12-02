@@ -6,14 +6,18 @@ use App\Interfaces\ItemMaterialInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ItemMaterialRepository;
 use App\Traits\UuidPrimaryKeyTrait;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
 #[ORM\Table(name: 'items_materials')]
 #[ORM\Index(columns: ['api_id'], name: 'items_materials_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemMaterialRepository::class)]
-class ItemMaterial extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemMaterialInterface
+class ItemMaterial extends TranslatableEntity implements UuidPrimaryKeyInterface, TimestampableInterface, ItemMaterialInterface
 {
     use UuidPrimaryKeyTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(length: 255, nullable: false)]
     private ?string $apiId = null;
