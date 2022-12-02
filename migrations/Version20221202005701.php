@@ -7,11 +7,14 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20221201205709 extends AbstractMigration
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+final class Version20221202005701 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Init tables';
+        return '';
     }
 
     public function up(Schema $schema): void
@@ -50,6 +53,15 @@ final class Version20221201205709 extends AbstractMigration
         $this->addSql('CREATE INDEX items_slug_idx ON items (slug)');
         $this->addSql('CREATE INDEX items_api_key_idx ON items (api_id)');
         $this->addSql('COMMENT ON COLUMN items.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE items_materials (id UUID NOT NULL, api_id VARCHAR(255) DEFAULT NULL, destructibility DOUBLE PRECISION NOT NULL, min_repair_degradation DOUBLE PRECISION NOT NULL, max_repair_degradation DOUBLE PRECISION NOT NULL, explosion_destructibility DOUBLE PRECISION NOT NULL, min_repair_kit_degradation DOUBLE PRECISION NOT NULL, max_repair_kit_degradation DOUBLE PRECISION NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX items_materials_api_key_idx ON items_materials (api_id)');
+        $this->addSql('COMMENT ON COLUMN items_materials.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE items_materials_translation (id UUID NOT NULL, translatable_id UUID DEFAULT NULL, title VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, locale VARCHAR(5) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_97113B212C2AC5D3 ON items_materials_translation (translatable_id)');
+        $this->addSql('CREATE INDEX item_material_locale_idx ON items_materials_translation (locale)');
+        $this->addSql('CREATE UNIQUE INDEX items_materials_translation_unique_translation ON items_materials_translation (translatable_id, locale)');
+        $this->addSql('COMMENT ON COLUMN items_materials_translation.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN items_materials_translation.translatable_id IS \'(DC2Type:uuid)\'');
         $this->addSql('CREATE TABLE items_translation (id UUID NOT NULL, translatable_id UUID DEFAULT NULL, title VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, locale VARCHAR(5) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_C4AF85E2C2AC5D3 ON items_translation (translatable_id)');
         $this->addSql('CREATE INDEX item_locale_idx ON items_translation (locale)');
@@ -152,6 +164,7 @@ final class Version20221201205709 extends AbstractMigration
         $this->addSql('ALTER TABLE articles_tags ADD CONSTRAINT FK_354053613A91A7AD FOREIGN KEY (article_translation_id) REFERENCES articles_translation (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE articles_tags ADD CONSTRAINT FK_35405361BAD26311 FOREIGN KEY (tag_id) REFERENCES Tags (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE enemies_translation ADD CONSTRAINT FK_6CA5E2102C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES enemies (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE items_materials_translation ADD CONSTRAINT FK_97113B212C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES items_materials (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE items_translation ADD CONSTRAINT FK_C4AF85E2C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES items (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE maps_locations ADD CONSTRAINT FK_C383B3B953C55F64 FOREIGN KEY (map_id) REFERENCES maps (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE maps_locations_translation ADD CONSTRAINT FK_498201E92C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES maps_locations (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -178,6 +191,7 @@ final class Version20221201205709 extends AbstractMigration
         $this->addSql('ALTER TABLE articles_tags DROP CONSTRAINT FK_354053613A91A7AD');
         $this->addSql('ALTER TABLE articles_tags DROP CONSTRAINT FK_35405361BAD26311');
         $this->addSql('ALTER TABLE enemies_translation DROP CONSTRAINT FK_6CA5E2102C2AC5D3');
+        $this->addSql('ALTER TABLE items_materials_translation DROP CONSTRAINT FK_97113B212C2AC5D3');
         $this->addSql('ALTER TABLE items_translation DROP CONSTRAINT FK_C4AF85E2C2AC5D3');
         $this->addSql('ALTER TABLE maps_locations DROP CONSTRAINT FK_C383B3B953C55F64');
         $this->addSql('ALTER TABLE maps_locations_translation DROP CONSTRAINT FK_498201E92C2AC5D3');
@@ -202,6 +216,8 @@ final class Version20221201205709 extends AbstractMigration
         $this->addSql('DROP TABLE enemies');
         $this->addSql('DROP TABLE enemies_translation');
         $this->addSql('DROP TABLE items');
+        $this->addSql('DROP TABLE items_materials');
+        $this->addSql('DROP TABLE items_materials_translation');
         $this->addSql('DROP TABLE items_translation');
         $this->addSql('DROP TABLE maps');
         $this->addSql('DROP TABLE maps_locations');
