@@ -54,6 +54,10 @@ class ImportAllCommand extends Command
         $questsCmd = $this->getApplication()->find('app:import:quests-items');
         $questsCmd->run($inputArguments, $output);
 
+        // Import items materials
+        $itemsCmd = $this->getApplication()->find('app:import:items-materials');
+        $itemsCmd->run($inputArguments, $output);
+
         // Import items
         $itemsCmd = $this->getApplication()->find('app:import:items');
         $itemsCmd->run($inputArguments, $output);

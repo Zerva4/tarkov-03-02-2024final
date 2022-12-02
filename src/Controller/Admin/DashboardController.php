@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Article;
 use App\Entity\Enemy;
 use App\Entity\Item;
+use App\Entity\ItemMaterial;
 use App\Entity\Map;
 use App\Entity\Quest;
 use App\Entity\QuestItem;
@@ -33,7 +34,6 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('Eft Site')
             ->renderContentMaximized()
-            ->disableUrlSignatures()
             ->generateRelativeUrls()
             ->setTranslationDomain('admin')
             ->disableDarkMode(true)
@@ -49,8 +49,9 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         $itemsMenu = [
-            MenuItem::linkToCrud(t('Сommon items', [], 'menu'), '', Item::class)->setController(ItemCrudController::class)->setLinkRel('noreferrer'),
-            MenuItem::linkToCrud(t('Quest items', [], 'menu'), '', QuestItem::class)->setController(QuestItemCrudController::class)->setLinkRel('noreferrer')
+            MenuItem::linkToCrud(t('Сommon', [], 'menu'), '', Item::class)->setController(ItemCrudController::class)->setLinkRel('noreferrer'),
+            MenuItem::linkToCrud(t('Quest', [], 'menu'), '', QuestItem::class)->setController(QuestItemCrudController::class)->setLinkRel('noreferrer'),
+            MenuItem::linkToCrud(t('Materials', [], 'menu'), '', ItemMaterial::class)->setController(ItemMaterialCrudController::class)->setLinkRel('noreferrer')
         ];
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);

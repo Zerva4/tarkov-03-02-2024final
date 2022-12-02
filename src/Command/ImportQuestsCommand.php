@@ -142,7 +142,7 @@ class ImportQuestsCommand extends Command
         }
 
         $progressBar = new ProgressBar($output, count($quests));
-        $progressBar->advance(1);
+        $progressBar->advance(0);
         $questRepository = $this->em->getRepository(Quest::class);
         $questObjectiveRepository = $this->em->getRepository(QuestObjective::class);
         $traderRepository = $this->em->getRepository(Trader::class);
