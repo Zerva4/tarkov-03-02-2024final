@@ -88,6 +88,7 @@ class ImportItemsMaterialsCommand extends Command
             }
 
             $materialEntity
+                ->setPublished(true)
                 ->setDestructibility($material['destructibility'])
                 ->setMinRepairDegradation($material['minRepairDegradation'])
                 ->setMaxRepairDegradation($material['maxRepairDegradation'])
