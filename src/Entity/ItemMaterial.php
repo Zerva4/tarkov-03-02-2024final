@@ -19,6 +19,9 @@ class ItemMaterial extends TranslatableEntity implements UuidPrimaryKeyInterface
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $published;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $apiId = null;
 
@@ -39,6 +42,16 @@ class ItemMaterial extends TranslatableEntity implements UuidPrimaryKeyInterface
 
     #[ORM\Column]
     private ?float $maxRepairKitDegradation = null;
+
+    public function isPublished(): bool
+    {
+        return $this->getPublished();
+    }
+
+    public function getPublished(): bool
+    {
+        return $this->published;
+    }
 
     public function getApiId(): ?string
     {
