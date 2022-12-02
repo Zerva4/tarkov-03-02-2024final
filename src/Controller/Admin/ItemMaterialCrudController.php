@@ -55,7 +55,13 @@ class ItemMaterialCrudController extends BaseCrudController
                 $minRepairKitDegradation->setRequired(true)->setColumns(4),
                 $maxRepairKitDegradation->setRequired(true)->setColumns(4)
             ],
-            default => [$title, $published, $createdAt, $updatedAt],
+            default => [
+                $title->setColumns(12)->setTextAlign('left')
+                    ->setTemplatePath('admin/field/link-edit.html.twig'),
+                $published,
+                $createdAt,
+                $updatedAt
+            ],
         };
     }
 }
