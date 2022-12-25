@@ -2,15 +2,15 @@
 
 namespace App\Command;
 
-use App\Entity\ItemMaterial;
+use App\Entity\Items\ItemMaterial;
 use App\Interfaces\ItemMaterialInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -56,13 +56,19 @@ class ImportItemsMaterialsCommand extends Command
         }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
+        try {
+            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => self::$headers,
+                    'content' => json_encode(['query' => $query]),
+                ]
+            ]));
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
+
         $materials = (json_decode($data, true)['data']['armorMaterials']);
         if (null === $materials) {
             $io->warning('Nothing to import or update.');

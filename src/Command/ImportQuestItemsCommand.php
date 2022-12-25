@@ -2,10 +2,11 @@
 
 namespace App\Command;
 
-use App\Entity\QuestItem;
+use App\Entity\Quests\QuestItem;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestItemInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
@@ -70,13 +71,18 @@ class ImportQuestItemsCommand extends Command
             }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
+        try {
+            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => self::$headers,
+                    'content' => json_encode(['query' => $query]),
+                ]
+            ]));
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
 
         $questItems = (json_decode($data, true)['data']['questItems']);
         if (null === $questItems) {
@@ -103,8 +109,6 @@ class ImportQuestItemsCommand extends Command
                 $questItemEntity->translate($lang, false)->setShortTitle($item['shortName']);
                 $questItemEntity->translate($lang, false)->setDescription($item['description']);
                 $questItemEntity->setApiId($item['id']);
-
-
             }
 
             // Download file
