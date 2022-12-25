@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Items\Item;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;

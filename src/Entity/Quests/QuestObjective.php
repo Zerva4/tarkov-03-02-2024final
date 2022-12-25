@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\QuestObjectiveInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\QuestObjectiveRepository;
 use App\Traits\UuidPrimaryKeyTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
@@ -51,9 +54,18 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $optional = false;
 
+    private Collection $maps;
+
     #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'objectives')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private QuestInterface $quest;
+
+    public function __construct(string $defaultLocation = '%app.default_locale%')
+    {
+        parent::__construct($defaultLocation);
+
+        $this->maps = new ArrayCollection();
+    }
 
     /**
      * Get objective type.
@@ -102,7 +114,7 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
     }
 
     /**
-     * Get parent quest.
+     * Get quest instance.
      *
      * @return QuestInterface
      */
@@ -112,6 +124,8 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
     }
 
     /**
+     * Set quest instance.
+     *
      * @param QuestInterface|null $quest
      * @return QuestObjectiveInterface
      */
@@ -123,20 +137,54 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
     }
 
     /**
-     * @return string
+     * Get maps collections.
+     *
+     * @return Collection<Map>
      */
-    public function getApiId(): string
+    public function getMaps(): Collection
     {
-        return $this->apiId;
+        return $this->maps;
     }
 
     /**
-     * @param string $apiId
+     * Set maps collections.
+     *
+     * @param Collection<Map> $maps
      * @return QuestObjectiveInterface
      */
-    public function setApiId(string $apiId): QuestObjectiveInterface
+    public function setMaps(Collection $maps): QuestObjectiveInterface
     {
-        $this->apiId = $apiId;
+        $this->maps = $maps;
+
+        return $this;
+    }
+
+    /**
+     * @param MapInterface ...$maps
+     * @return QuestObjectiveInterface
+     */
+    public function addMap(MapInterface ...$maps): QuestObjectiveInterface
+    {
+        foreach ($maps as $map) {
+            if (!$this->maps->contains($maps)) {
+                $this->maps->add($maps);
+                //$objective->setQuest($this);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param MapInterface $map
+     * @return QuestObjectiveInterface
+     */
+    public function removeMap(MapInterface $map): QuestObjectiveInterface
+    {
+        if ($this->maps->contains($map)) {
+            $this->maps->removeElement($map);
+            //$objective->setQuest(null);
+        }
 
         return $this;
     }

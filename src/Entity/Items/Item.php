@@ -16,7 +16,36 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+/** "ItemPropertiesWeapon" => 1
+  "none" => 1
+  "ItemPropertiesKey" => 1
+  "ItemPropertiesGrenade" => 1
+  "ItemPropertiesMagazine" => 1
+  "ItemPropertiesFoodDrink" => 1
+  "ItemPropertiesWeaponMod" => 1
+  "ItemPropertiesMelee" => 1
+  "ItemPropertiesContainer" => 1
+  "ItemPropertiesScope" => 1
+  "ItemPropertiesChestRig" => 1
+  "ItemPropertiesBackpack" => 1
+  "ItemPropertiesMedicalItem" => 1
+  "ItemPropertiesPainkiller" => 1
+  "ItemPropertiesMedKit" => 1
+  "ItemPropertiesAmmo" => 1
+  "ItemPropertiesArmor" => 1
+  "ItemPropertiesGlasses" => 1
+  "ItemPropertiesBarrel" => 1
+  "ItemPropertiesHelmet" => 1
+  "ItemPropertiesNightVision" => 1
+  "ItemPropertiesPreset" => 1
+  "ItemPropertiesArmorAttachment" => 1
+  "ItemPropertiesStim" => 1
+  "ItemPropertiesSurgicalKit" => 1
+**/
+
 #[ORM\Table(name: 'items')]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\Index(columns: ['slug'], name: 'items_slug_idx')]
 #[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
