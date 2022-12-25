@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Quests\Quest;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Interfaces\TraderLevelInterface;
@@ -36,7 +37,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     use TimestampableTrait;
     use SlugTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]

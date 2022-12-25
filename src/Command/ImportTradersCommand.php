@@ -8,6 +8,7 @@ use App\Interfaces\TraderInterface;
 use App\Repository\TraderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -76,13 +77,19 @@ class ImportTradersCommand extends Command
             }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
+        try {
+            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => self::$headers,
+                    'content' => json_encode(['query' => $query]),
+                ]
+            ]));
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
+
         $traders = (json_decode($data, true)['data']['traders']);
         if (null === $traders) {
             $io->warning('Nothing to import or update.');

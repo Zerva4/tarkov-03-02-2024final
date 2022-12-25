@@ -6,11 +6,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Entity\Enemy;
-use App\Entity\Item;
-use App\Entity\ItemMaterial;
+use App\Entity\Items\Item;
+use App\Entity\Items\ItemMaterial;
 use App\Entity\Map;
-use App\Entity\Quest;
-use App\Entity\QuestItem;
+use App\Entity\Quests\Quest;
+use App\Entity\Quests\QuestItem;
 use App\Entity\Trader;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
@@ -55,9 +55,9 @@ class DashboardController extends AbstractDashboardController
         ];
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
+        yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-hand-holding-usd', Trader::class)->setController(TraderCrudController::class);
         yield MenuItem::subMenu(t('Items', [], 'menu'), 'fa fa-cubes')->setSubItems($itemsMenu);
         yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);
-        yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-hand-holding-usd', Trader::class)->setController(TraderCrudController::class);
         yield MenuItem::linkToCrud(t('Enemies', [], 'menu'), 'fa fa-skull', Enemy::class)->setController(EnemyCrudController::class);
         yield MenuItem::linkToDashboard(t('Updates', [], 'menu'), 'fa fa-sync');
         yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);

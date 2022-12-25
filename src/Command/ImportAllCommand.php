@@ -46,14 +46,6 @@ class ImportAllCommand extends Command
         $mapsCmd = $this->getApplication()->find('app:import:maps');
         $mapsCmd->run($inputArguments, $output);
 
-        // Import quests
-        $questsCmd = $this->getApplication()->find('app:import:quests');
-        $questsCmd->run($inputArguments, $output);
-
-        // Import quests items
-        $questsCmd = $this->getApplication()->find('app:import:quests-items');
-        $questsCmd->run($inputArguments, $output);
-
         // Import items materials
         $itemsCmd = $this->getApplication()->find('app:import:items-materials');
         $itemsCmd->run($inputArguments, $output);
@@ -61,6 +53,14 @@ class ImportAllCommand extends Command
         // Import items
         $itemsCmd = $this->getApplication()->find('app:import:items');
         $itemsCmd->run($inputArguments, $output);
+
+        // Import quests
+        $questsCmd = $this->getApplication()->find('app:import:quests');
+        $questsCmd->run($inputArguments, $output);
+
+        // Import quests items
+        $questsCmd = $this->getApplication()->find('app:import:quests-items');
+        $questsCmd->run($inputArguments, $output);
 
         $io->success('Database import successful.');
 

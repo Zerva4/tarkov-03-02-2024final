@@ -3,10 +3,11 @@
 namespace App\Command;
 
 use App\Entity\Map;
-use App\Entity\Quest;
-use App\Entity\QuestObjective;
+use App\Entity\Quests\Quest;
+use App\Entity\Quests\QuestObjective;
 use App\Entity\Trader;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -129,13 +130,19 @@ class ImportQuestsCommand extends Command
         }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
+        try {
+            $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => self::$headers,
+                    'content' => json_encode(['query' => $query]),
+                ]
+            ]));
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
+
         $quests = (json_decode($data, true)['data']['tasks']);
         if (null === $quests) {
             $io->warning('Nothing to import or update.');
@@ -154,20 +161,22 @@ class ImportQuestsCommand extends Command
 
             if ($questEntity instanceof Quest) {
                 $questEntity->setDefaultLocale($lang);
+                $questEntity->translate($lang, false)->setTitle($quest['name']);
             } else {
                 $questEntity = new Quest($lang);
+                $questEntity->translate($lang, false)->setTitle($quest['name']);
+                $questEntity->setApiId($quest['id']);
             }
 
             $questSlugName = (null !== $quest['normalizedName']) ? $quest['normalizedName'] : $quest['id'];
+
             $questEntity
-                ->setApiId($quest['id'])
                 ->setPosition($order)
                 ->setPublished(true)
                 ->setExperience($quest['experience'])
                 ->setMinPlayerLevel($quest['minPlayerLevel'])
                 ->setSlug($questSlugName)
             ;
-            $questEntity->translate($lang, false)->setTitle($quest['name']);
 
             // Set trader
             if (null !== $quest['trader']['id']) {

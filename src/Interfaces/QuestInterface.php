@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\File\File;
 interface QuestInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function getApiId(): string;
+    public function getApiId(): ?string;
 
     /**
      * @param string $apiId

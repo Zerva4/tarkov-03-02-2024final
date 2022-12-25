@@ -6,6 +6,7 @@ use App\Entity\Map;
 use App\Interfaces\MapInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -88,13 +89,19 @@ class ImportMapsCommand extends Command
             }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
+        try {
+            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => self::$headers,
+                    'content' => json_encode(['query' => $query]),
+                ]
+            ]));
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
+
         $maps = (json_decode($data, true)['data']['maps']);
         if (null === $maps) {
             $io->warning('Nothing to import or update.');

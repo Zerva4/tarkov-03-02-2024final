@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Items;
 
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ItemMaterialTranslationRepository;

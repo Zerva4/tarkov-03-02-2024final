@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Items;
 
+use App\Entity\Quests\Quest;
+use App\Entity\TranslatableEntity;
+use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ItemRepository;
@@ -11,12 +14,43 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Interfaces\ItemInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+/** "ItemPropertiesWeapon" => 1
+  "none" => 1
+  "ItemPropertiesKey" => 1
+  "ItemPropertiesGrenade" => 1
+  "ItemPropertiesMagazine" => 1
+  "ItemPropertiesFoodDrink" => 1
+  "ItemPropertiesWeaponMod" => 1
+  "ItemPropertiesMelee" => 1
+  "ItemPropertiesContainer" => 1
+  "ItemPropertiesScope" => 1
+  "ItemPropertiesChestRig" => 1
+  "ItemPropertiesBackpack" => 1
+  "ItemPropertiesMedicalItem" => 1
+  "ItemPropertiesPainkiller" => 1
+  "ItemPropertiesMedKit" => 1
+  "ItemPropertiesAmmo" => 1
+  "ItemPropertiesArmor" => 1
+  "ItemPropertiesGlasses" => 1
+  "ItemPropertiesBarrel" => 1
+  "ItemPropertiesHelmet" => 1
+  "ItemPropertiesNightVision" => 1
+  "ItemPropertiesPreset" => 1
+  "ItemPropertiesArmorAttachment" => 1
+  "ItemPropertiesStim" => 1
+  "ItemPropertiesSurgicalKit" => 1
+**/
+
 #[ORM\Table(name: 'items')]
+//#[ORM\InheritanceType('JOINED')]
+//#[ORM\DiscriminatorColumn(name: 'type', type: 'string', length: 50)]
+//#[ORM\DiscriminatorMap([
+//    'ItemPropertiesWeapon' => ItemPropertiesWeapon::class
+//])]
 #[ORM\Index(columns: ['slug'], name: 'items_slug_idx')]
 #[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
@@ -30,8 +64,11 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     use UuidPrimaryKeyTrait;
     use SlugTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private ?string $type;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -165,6 +202,25 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function setApiId(string $apiId): ItemInterface
     {
         $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return ItemInterface
+     */
+    public function setType(string $type): ItemInterface
+    {
+        $this->type = $type;
 
         return $this;
     }

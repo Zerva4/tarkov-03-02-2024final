@@ -6,9 +6,9 @@ namespace App\Traits;
 
 use App\Entity\Article;
 use App\Entity\Enemy;
-use App\Entity\Item;
+use App\Entity\Items\Item;
 use App\Entity\Map;
-use App\Entity\Quest;
+use App\Entity\Quests\Quest;
 use App\Entity\Trader;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;

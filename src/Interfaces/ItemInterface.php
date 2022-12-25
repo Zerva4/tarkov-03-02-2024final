@@ -22,6 +22,11 @@ interface ItemInterface
     public function setApiId(string $apiId): ItemInterface;
 
     /**
+     * @return string|null
+     */
+    public function getType(): ?string;
+
+    /**
      * @return bool
      */
     public function isPublished(): bool;

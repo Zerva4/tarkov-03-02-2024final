@@ -2,15 +2,15 @@
 
 namespace App\Command;
 
-use App\Entity\Item;
-use App\Entity\Quest;
+use App\Entity\Items\Item;
+use App\Entity\Quests\Quest;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
-use JetBrains\PhpStorm\NoReturn;
 use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -368,14 +368,20 @@ class ImportItemsCommand extends Command
             }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
+        try {
+            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => self::$headers,
+                    'content' => json_encode(['query' => $query]),
+                ]
+            ]));
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
 
+        $itemTypes = [];
         $items = (json_decode($data, true)['data']['items']);
         if (null === $items) {
             $io->warning('Nothing to import or update.');
@@ -393,13 +399,13 @@ class ImportItemsCommand extends Command
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
             } else {
+                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemDefaultProperty';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
                 $itemEntity->setApiId($item['id']);
-
-
+                $itemEntity->setType($typeName);
             }
 
             // Download file

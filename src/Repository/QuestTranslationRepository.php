@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\QuestTranslation;
+use App\Entity\Quests\QuestTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
