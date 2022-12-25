@@ -156,7 +156,6 @@ class ImportQuestsCommand extends Command
         $mapRepository = $this->em->getRepository(Map::class);
 
         foreach ($quests as $quest) {
-//            dump($quest);
             $order = (null !== $quest['tarkovDataId']) ? $quest['tarkovDataId'] : 0;
             $questEntity = $questRepository->findOneBy(['apiId' => $quest['id']]);
 
