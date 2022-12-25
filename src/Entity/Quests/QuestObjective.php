@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Quests;
 
+use App\Entity\TranslatableEntity;
 use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\QuestObjectiveInterface;
@@ -45,8 +46,8 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
         'TYPE_EXPERIENCE' => 'TYPE_EXPERIENCE',
     ];
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $apiId;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $apiId;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $type = null;
@@ -65,6 +66,25 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
         parent::__construct($defaultLocation);
 
         $this->maps = new ArrayCollection();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getApiId(): ?string
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param string $apiId
+     * @return QuestObjectiveInterface
+     */
+    public function setApiId(string $apiId): QuestObjectiveInterface
+    {
+        $this->apiId = $apiId;
+
+        return $this;
     }
 
     /**

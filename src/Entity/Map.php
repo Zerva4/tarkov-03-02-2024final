@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Quests\Quest;
 use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
 use App\Interfaces\QuestInterface;
@@ -36,7 +37,7 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
     use TimestampableTrait;
     use SlugTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
     #[ORM\Column(type: 'boolean')]

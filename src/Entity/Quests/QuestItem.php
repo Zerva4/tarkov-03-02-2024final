@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Quests;
 
+use App\Entity\TranslatableEntity;
 use App\Interfaces\QuestItemInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\QuestItemRepository;
-use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
 use Doctrine\DBAL\Types\Types;

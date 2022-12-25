@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a8320bc5887d66f51bebca07c3bf511",
+    "content-hash": "9c60895f56869d1d362edc1a97046dfe",
     "packages": [
         {
             "name": "a2lix/auto-form-bundle",
@@ -11430,7 +11430,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-gettext": "*",

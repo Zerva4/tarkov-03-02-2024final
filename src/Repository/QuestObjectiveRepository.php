@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\QuestObjective;
+use App\Entity\Quests\QuestObjective;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Items;
 
+use App\Entity\Quests\Quest;
+use App\Entity\TranslatableEntity;
+use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ItemRepository;
@@ -11,7 +14,6 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Interfaces\ItemInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -44,8 +46,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 **/
 
 #[ORM\Table(name: 'items')]
-#[ORM\InheritanceType('JOINED')]
-#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+//#[ORM\InheritanceType('JOINED')]
+//#[ORM\DiscriminatorColumn(name: 'type', type: 'string', length: 50)]
+//#[ORM\DiscriminatorMap([
+//    'ItemPropertiesWeapon' => ItemPropertiesWeapon::class
+//])]
 #[ORM\Index(columns: ['slug'], name: 'items_slug_idx')]
 #[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
@@ -59,8 +64,11 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     use UuidPrimaryKeyTrait;
     use SlugTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private ?string $type;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
@@ -194,6 +202,25 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function setApiId(string $apiId): ItemInterface
     {
         $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return ItemInterface
+     */
+    public function setType(string $type): ItemInterface
+    {
+        $this->type = $type;
 
         return $this;
     }

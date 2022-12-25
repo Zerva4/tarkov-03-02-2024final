@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Quests;
 
 use App\Entity\Items\Item;
+use App\Entity\Map;
+use App\Entity\Trader;
+use App\Entity\TranslatableEntity;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
@@ -32,12 +35,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestInterface, TranslatableInterface
+class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestInterface
 {
     use UuidPrimaryKeyTrait;
     use SlugTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -101,7 +104,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         $this->receivedItems = new ArrayCollection();
     }
 
-    public function getApiId(): string
+    public function getApiId(): ?string
     {
         return $this->apiId;
     }
