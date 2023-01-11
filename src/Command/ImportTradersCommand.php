@@ -99,7 +99,7 @@ class ImportTradersCommand extends Command
         $progressBar->advance(0);
 
         foreach ($traders as $trader) {
-            $order = $trader['tarkovDataId'];
+            $order = (null !== $trader['tarkovDataId']) ? $trader['tarkovDataId'] : -1;
             $progressBar->advance();
             $traderRepository = $this->em->getRepository(Trader::class);
             $traderEntity = $traderRepository->findOneBy(['apiId' => $trader['id']]);
