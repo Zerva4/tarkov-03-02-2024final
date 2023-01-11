@@ -33,6 +33,7 @@ class ImportMapsCommand extends Command
         'Shoreline' => 'coast',
         'laboratory' => 'lab',
         'Woods' => 'forest',
+        'TarkovStreets' => 'streets'
     ];
 
     private ?EntityManagerInterface $em = null;
@@ -114,6 +115,7 @@ class ImportMapsCommand extends Command
         foreach ($maps as $map) {
             list($minPlayers, $maxPlayers) = explode('-', $map['players'], 2);
             if ($map['nameId'] === 'factory4_night') continue;
+
             $progressBar->advance();
             $mapEntity = $mapRepository->findOneBy(['apiId' => $map['id']]);
 
