@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\Member;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -62,7 +62,7 @@ class AdminCreateCommand extends Command
 
         $user = $this->checkUser($userLogin);
 
-        if ($user instanceof Member) {
+        if ($user instanceof User) {
             $io->error('User with login \''.$userLogin.'\' or e-mail \''.$userEmail.'\' already exists.');
 
             return 0;
@@ -86,9 +86,9 @@ class AdminCreateCommand extends Command
     /**
      * @throws Exception
      */
-    private function checkUser(string $userLogin): ?Member
+    private function checkUser(string $userLogin): ?User
     {
-        return $this->em->getRepository(Member::class)->findByLoginOrEmail($userLogin);
+        return $this->em->getRepository(User::class)->findByLoginOrEmail($userLogin);
     }
 
     private function hashPassword(PasswordAuthenticatedUserInterface $user, string $password): string
@@ -96,9 +96,9 @@ class AdminCreateCommand extends Command
         return $this->passwordHasher->hashPassword($user, $password);
     }
 
-    private function createUser(string $userLogin, string $userEmail, string $userPassword = ''): Member
+    private function createUser(string $userLogin, string $userEmail, string $userPassword = ''): User
     {
-        $user = new Member();
+        $user = new User();
         $user->setEmail($userEmail)
             ->setTitle('Administrator')
             ->setLogin($userLogin)
