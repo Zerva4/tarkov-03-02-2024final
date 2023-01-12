@@ -6,6 +6,7 @@ use App\Entity\Map;
 use App\Entity\Quests\Quest;
 use App\Entity\Quests\QuestObjective;
 use App\Entity\Trader;
+use App\Interfaces\GraphqlClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -41,13 +42,13 @@ class ImportQuestsCommand extends Command
         'skill' => 'TYPE_SKILL',
         'experience' => 'TYPE_EXPERIENCE',
     ];
-    protected static array $headers = ['Content-Type: application/json'];
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
+    private GraphqlClientInterface $client;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client) {
         parent::__construct();
-
         $this->em = $em;
+        $this->client = $client;
     }
 
     protected function configure(): void
@@ -131,19 +132,13 @@ class ImportQuestsCommand extends Command
         GRAPHQL;
 
         try {
-            $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-                'http' => [
-                    'method' => 'POST',
-                    'header' => self::$headers,
-                    'content' => json_encode(['query' => $query]),
-                ]
-            ]));
+            $response = $this->client->query($query);
+            $quests = $response['data']['tasks'];
         } catch (Exception $e) {
             $io->error($e->getMessage());
             return Command::FAILURE;
         }
 
-        $quests = (json_decode($data, true)['data']['tasks']);
         if (null === $quests) {
             $io->warning('Nothing to import or update.');
         }

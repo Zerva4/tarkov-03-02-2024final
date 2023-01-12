@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Quests\QuestItem;
+use App\Interfaces\GraphqlClientInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestItemInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,14 +26,15 @@ use Symfony\Component\HttpKernel\KernelInterface;
 )]
 class ImportQuestItemsCommand extends Command
 {
-    protected static array $headers = ['Content-Type: application/json'];
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
+    private GraphqlClientInterface $client;
     protected string $storageDir;
 
-    public function __construct(EntityManagerInterface $em, KernelInterface $kernel) {
+    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client, KernelInterface $kernel) {
         parent::__construct();
         $this->em = $em;
-        $this->storageDir = $kernel->getProjectDir().'/public/storage/images/quests-items/';
+        $this->client = $client;
+        $this->storageDir = $kernel->getContainer()->getParameter('app.quests_items.images.path') . '/';
     }
 
     protected function configure(): void
@@ -72,19 +74,13 @@ class ImportQuestItemsCommand extends Command
         GRAPHQL;
 
         try {
-            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-                'http' => [
-                    'method' => 'POST',
-                    'header' => self::$headers,
-                    'content' => json_encode(['query' => $query]),
-                ]
-            ]));
+            $response = $this->client->query($query);
+            $questItems = $response['data']['questItems'];
         } catch (Exception $e) {
             $io->error($e->getMessage());
             return Command::FAILURE;
         }
 
-        $questItems = (json_decode($data, true)['data']['questItems']);
         if (null === $questItems) {
             $io->warning('Nothing to import or update.');
         }
@@ -112,6 +108,7 @@ class ImportQuestItemsCommand extends Command
             }
 
             // Download file
+            @unlink($this->storageDir.'*.webp');
             if (!$questItemEntity->getImageFile()) {
                 $curlHandle = curl_init($item['image512pxLink']);
                 $fileName = basename($item['image512pxLink']);

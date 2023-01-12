@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Items\ItemMaterial;
+use App\Interfaces\GraphqlClientInterface;
 use App\Interfaces\ItemMaterialInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -20,12 +21,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ImportItemsMaterialsCommand extends Command
 {
-    protected static array $headers = ['Content-Type: application/json'];
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
+    private GraphqlClientInterface $client;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client) {
         parent::__construct();
         $this->em = $em;
+        $this->client = $client;
     }
 
     protected function configure(): void
@@ -57,19 +59,13 @@ class ImportItemsMaterialsCommand extends Command
         GRAPHQL;
 
         try {
-            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-                'http' => [
-                    'method' => 'POST',
-                    'header' => self::$headers,
-                    'content' => json_encode(['query' => $query]),
-                ]
-            ]));
+            $response = $this->client->query($query);
+            $materials = $response['data']['armorMaterials'];
         } catch (Exception $e) {
             $io->error($e->getMessage());
             return Command::FAILURE;
         }
 
-        $materials = (json_decode($data, true)['data']['armorMaterials']);
         if (null === $materials) {
             $io->warning('Nothing to import or update.');
         }
