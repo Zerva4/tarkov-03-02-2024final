@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Map;
+use App\Interfaces\GraphqlClientInterface;
 use App\Interfaces\MapInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +13,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -22,25 +22,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ImportMapsCommand extends Command
 {
-    protected static array $headers = ['Content-Type: application/json'];
-    protected static array $slugs = [
-        'bigmap' => 'customs',
-        'factory4_day' => 'factory',
-        'Interchange' => 'upshot',
-        'Lighthouse' => 'lighthouse',
-        'factory4_night' => 'night-factory',
-        'RezervBase' => 'reserve',
-        'Shoreline' => 'coast',
-        'laboratory' => 'lab',
-        'Woods' => 'forest',
-    ];
+    private EntityManagerInterface $em;
+    private GraphqlClientInterface $client;
 
-    private ?EntityManagerInterface $em = null;
-
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client) {
         parent::__construct();
 
         $this->em = $em;
+        $this->client = $client;
     }
 
     protected function configure(): void
@@ -55,15 +44,14 @@ class ImportMapsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $lang = $input->getOption('lang');
-        $traders = null;
-        $countTraders = 0;
 
         $query = <<< GRAPHQL
             {
-                maps(lang: $lang) {
+                maps(lang: {$lang}) {
                     id,
                     name,
                     nameId,
+                    normalizedName,
                     wiki,
                     description,
                     enemies,
@@ -90,19 +78,13 @@ class ImportMapsCommand extends Command
         GRAPHQL;
 
         try {
-            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-                'http' => [
-                    'method' => 'POST',
-                    'header' => self::$headers,
-                    'content' => json_encode(['query' => $query]),
-                ]
-            ]));
+            $response = $this->client->query($query);
+            $maps = $response['data']['maps'];
         } catch (Exception $e) {
             $io->error($e->getMessage());
             return Command::FAILURE;
         }
 
-        $maps = (json_decode($data, true)['data']['maps']);
         if (null === $maps) {
             $io->warning('Nothing to import or update.');
         }
@@ -114,6 +96,7 @@ class ImportMapsCommand extends Command
         foreach ($maps as $map) {
             list($minPlayers, $maxPlayers) = explode('-', $map['players'], 2);
             if ($map['nameId'] === 'factory4_night') continue;
+
             $progressBar->advance();
             $mapEntity = $mapRepository->findOneBy(['apiId' => $map['id']]);
 
@@ -125,6 +108,7 @@ class ImportMapsCommand extends Command
                 /** @var MapInterface $mapEntity */
                 $mapEntity = new Map($lang);
                 $mapEntity->setDefaultLocale($lang);
+                /** TranslationInterface */
                 $mapEntity->translate($lang, false)->setTitle($map['name']);
                 $mapEntity->translate($lang, false)->setDescription($map['description']);
             }
@@ -132,7 +116,7 @@ class ImportMapsCommand extends Command
             $mapEntity
                 ->setApiId($map['id'])
                 ->setPublished(true)
-                ->setSlug(self::$slugs[$map['nameId']])
+                ->setSlug($map['normalizedName'])
                 ->setRaidDuration($duration)
                 ->setMinPlayersNumber((int)$minPlayers)
                 ->setMaxPlayersNumber((int)$maxPlayers)

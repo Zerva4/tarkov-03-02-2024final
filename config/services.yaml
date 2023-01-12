@@ -16,6 +16,10 @@ parameters:
     app.default_locale: 'ru'
     app.additional_locales: 'en'
 
+    # GraphQL url address
+    app.graphql_api_url: '%env(GRAPHQL_API_URL)%'
+
+    # Define storage paths
     app.storage.path: '%kernel.project_dir%/public/storage/'
     app.storage.uri: '%app_dir%/storage/'
     app.storage.cache_uri: '%app_dir%/storage/cache/'

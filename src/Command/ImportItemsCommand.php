@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Items\Item;
 use App\Entity\Quests\Quest;
+use App\Interfaces\GraphqlClientInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,7 +12,6 @@ use Exception;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
-use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -27,14 +27,16 @@ use Symfony\Component\HttpKernel\KernelInterface;
 )]
 class ImportItemsCommand extends Command
 {
-    protected static array $headers = ['Content-Type: application/json'];
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
+    private GraphqlClientInterface $client;
     protected string $storageDir;
 
-    public function __construct(EntityManagerInterface $em, KernelInterface $kernel) {
+    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client, KernelInterface $kernel) {
         parent::__construct();
+
         $this->em = $em;
-        $this->storageDir = $kernel->getProjectDir().'/public/storage/images/items/';
+        $this->client = $client;
+        $this->storageDir = $kernel->getContainer()->getParameter('app.items.images.path') . '/';
     }
 
     protected function configure(): void
@@ -369,20 +371,13 @@ class ImportItemsCommand extends Command
         GRAPHQL;
 
         try {
-            $data = file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-                'http' => [
-                    'method' => 'POST',
-                    'header' => self::$headers,
-                    'content' => json_encode(['query' => $query]),
-                ]
-            ]));
+            $response = $this->client->query($query);
+            $items = $response['data']['items'];
         } catch (Exception $e) {
             $io->error($e->getMessage());
             return Command::FAILURE;
         }
 
-        $itemTypes = [];
-        $items = (json_decode($data, true)['data']['items']);
         if (null === $items) {
             $io->warning('Nothing to import or update.');
         }
@@ -409,6 +404,7 @@ class ImportItemsCommand extends Command
             }
 
             // Download file
+            @unlink($this->storageDir.'*.webp');
             if (!$itemEntity->getImageFile()) {
                 $curlHandle = curl_init($item['image512pxLink']);
                 $fileName = basename($item['image512pxLink']);

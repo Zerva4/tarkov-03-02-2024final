@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\User;
+use App\Entity\Member;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
     name: 'app:admin:create',
     description: 'This command allows you to create admin user with ROLE_ADMIN ...',
 )]
-class UserCreateCommand extends Command
+class AdminCreateCommand extends Command
 {
     protected static $defaultName = 'app:admin:create';
 
@@ -62,7 +62,7 @@ class UserCreateCommand extends Command
 
         $user = $this->checkUser($userLogin);
 
-        if ($user instanceof User) {
+        if ($user instanceof Member) {
             $io->error('User with login \''.$userLogin.'\' or e-mail \''.$userEmail.'\' already exists.');
 
             return 0;
@@ -86,9 +86,9 @@ class UserCreateCommand extends Command
     /**
      * @throws Exception
      */
-    private function checkUser(string $userLogin): ?User
+    private function checkUser(string $userLogin): ?Member
     {
-        return $this->em->getRepository(User::class)->findByLoginOrEmail($userLogin);
+        return $this->em->getRepository(Member::class)->findByLoginOrEmail($userLogin);
     }
 
     private function hashPassword(PasswordAuthenticatedUserInterface $user, string $password): string
@@ -96,9 +96,9 @@ class UserCreateCommand extends Command
         return $this->passwordHasher->hashPassword($user, $password);
     }
 
-    private function createUser(string $userLogin, string $userEmail, string $userPassword = ''): User
+    private function createUser(string $userLogin, string $userEmail, string $userPassword = ''): Member
     {
-        $user = new User();
+        $user = new Member();
         $user->setEmail($userEmail)
             ->setTitle('Administrator')
             ->setLogin($userLogin)
