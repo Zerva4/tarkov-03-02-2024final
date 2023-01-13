@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface GraphqlClientInterface
+interface GraphQLClientInterface
 {
     public function query(string $query, array $variables = [], ?string $token = null, string $endpoint = null ): string|array;
 }

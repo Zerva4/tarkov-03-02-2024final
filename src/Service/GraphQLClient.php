@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Interfaces\GraphqlClientInterface;
+use App\Interfaces\GraphQLClientInterface;
 use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -12,7 +12,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class GraphqlClient implements GraphqlClientInterface
+class GraphQLClient implements GraphQLClientInterface
 {
     private HttpClientInterface $client;
     private string $defaultURL;

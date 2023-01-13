@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Quests\QuestItem;
-use App\Interfaces\GraphqlClientInterface;
+use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestItemInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,10 +27,10 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class ImportQuestItemsCommand extends Command
 {
     private EntityManagerInterface $em;
-    private GraphqlClientInterface $client;
+    private GraphQLClientInterface $client;
     protected string $storageDir;
 
-    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client, KernelInterface $kernel) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel) {
         parent::__construct();
         $this->em = $em;
         $this->client = $client;

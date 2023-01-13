@@ -6,7 +6,7 @@ use App\Entity\Map;
 use App\Entity\Quests\Quest;
 use App\Entity\Quests\QuestObjective;
 use App\Entity\Trader;
-use App\Interfaces\GraphqlClientInterface;
+use App\Interfaces\GraphQLClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -43,9 +43,9 @@ class ImportQuestsCommand extends Command
         'experience' => 'TYPE_EXPERIENCE',
     ];
     private EntityManagerInterface $em;
-    private GraphqlClientInterface $client;
+    private GraphQLClientInterface $client;
 
-    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client) {
         parent::__construct();
         $this->em = $em;
         $this->client = $client;

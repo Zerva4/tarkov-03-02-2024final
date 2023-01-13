@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Map;
-use App\Interfaces\GraphqlClientInterface;
+use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\MapInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,9 +23,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportMapsCommand extends Command
 {
     private EntityManagerInterface $em;
-    private GraphqlClientInterface $client;
+    private GraphQLClientInterface $client;
 
-    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client) {
         parent::__construct();
 
         $this->em = $em;

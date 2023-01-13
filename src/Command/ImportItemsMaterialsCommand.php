@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Items\ItemMaterial;
-use App\Interfaces\GraphqlClientInterface;
+use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\ItemMaterialInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -22,9 +22,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportItemsMaterialsCommand extends Command
 {
     private EntityManagerInterface $em;
-    private GraphqlClientInterface $client;
+    private GraphQLClientInterface $client;
 
-    public function __construct(EntityManagerInterface $em, GraphqlClientInterface $client) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client) {
         parent::__construct();
         $this->em = $em;
         $this->client = $client;
