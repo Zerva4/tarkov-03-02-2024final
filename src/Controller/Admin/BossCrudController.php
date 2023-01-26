@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -57,12 +58,20 @@ class BossCrudController extends BaseCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
+                FormField::addTab(t('Basic', [], 'admin.enemies')),
                 $image,
                 $published,
                 $slug->setColumns(12),
                 $translations,
+                FormField::addTab(t('Health', [], 'admin.enemies')),
+                FormField::addTab(t('Equipment', [], 'admin.enemies')),
             ],
-            default => [$name, $published, $createdAt, $updatedAt],
+            default => [
+                $name->setTextAlign('left')->setTemplatePath('admin/field/link-edit.html.twig'),
+                $published,
+                $createdAt,
+                $updatedAt
+            ],
         };
     }
 }
