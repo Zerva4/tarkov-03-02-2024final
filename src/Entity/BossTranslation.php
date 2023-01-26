@@ -11,7 +11,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
-#[ORM\Table(name: 'enemies_translation')]
+#[ORM\Table(name: 'bosses_translation')]
 #[ORM\Entity(repositoryClass: BossTranslationRepository::class)]
 class BossTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
