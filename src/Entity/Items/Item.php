@@ -67,9 +67,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
-    #[ORM\Column(type: 'string', length: 50, nullable: true)]
-    private ?string $type;
-
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
@@ -99,6 +96,12 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true])]
     private ?array $types = null;
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private ?string $typeProperties;
+
+    #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true])]
+    private ?array $properties = null;
 
     /**
      * @var int|null Базовая цена
@@ -209,18 +212,18 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     /**
      * @return string|null
      */
-    public function getType(): ?string
+    public function getTypeProperties(): ?string
     {
-        return $this->type;
+        return $this->typeProperties;
     }
 
     /**
-     * @param string $type
+     * @param string $typeProperties
      * @return ItemInterface
      */
-    public function setType(string $type): ItemInterface
+    public function setTypeProperties(string $typeProperties): ItemInterface
     {
-        $this->type = $type;
+        $this->typeProperties = $typeProperties;
 
         return $this;
     }
@@ -497,6 +500,25 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
         }
+
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getProperties(): ?array
+    {
+        return $this->properties;
+    }
+
+    /**
+     * @param array|null $properties
+     * @return ItemInterface
+     */
+    public function setProperties(?array $properties): ItemInterface
+    {
+        $this->properties = $properties;
 
         return $this;
     }
