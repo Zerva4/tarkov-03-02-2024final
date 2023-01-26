@@ -37,9 +37,6 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
 
-    #[ORM\Column(type: 'json', nullable: true)]
-    private array $types = [];
-
     #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
     #[Assert\Valid]
     #[Assert\File(
@@ -122,21 +119,5 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
         }
 
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getTypes(): array
-    {
-        return array_unique($this->types);
-    }
-
-    /**
-     * @param array $types
-     */
-    public function setTypes(array $types): void
-    {
-        $this->types = $types;
     }
 }

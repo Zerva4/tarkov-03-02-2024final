@@ -22,15 +22,6 @@ class BossTranslation implements UuidPrimaryKeyInterface, TranslationInterface, 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $name;
 
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $behavior = null;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $followers = null;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $strategy = null;
-
     /**
      * @return string
      */
@@ -48,54 +39,6 @@ class BossTranslation implements UuidPrimaryKeyInterface, TranslationInterface, 
         $this->name = $name;
 
         return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getBehavior(): ?string
-    {
-        return $this->behavior;
-    }
-
-    /**
-     * @param string|null $behavior
-     */
-    public function setBehavior(?string $behavior): void
-    {
-        $this->behavior = $behavior;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getFollowers(): ?string
-    {
-        return $this->followers;
-    }
-
-    /**
-     * @param string|null $followers
-     */
-    public function setFollowers(?string $followers): void
-    {
-        $this->followers = $followers;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getStrategy(): ?string
-    {
-        return $this->strategy;
-    }
-
-    /**
-     * @param string|null $strategy
-     */
-    public function setStrategy(?string $strategy): void
-    {
-        $this->strategy = $strategy;
     }
 
     /**
