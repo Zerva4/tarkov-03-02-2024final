@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
 interface BossInterface
@@ -32,4 +33,38 @@ interface BossInterface
      * @return BossInterface
      */
     public function setPublished(bool $published): BossInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getEquipment(): Collection;
+
+    /**
+     * @param Collection $equipment
+     * @return BossInterface
+     */
+    public function setEquipment(Collection $equipment): BossInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getHealth(): Collection;
+
+    /**
+     * @param Collection $health
+     * @return BossInterface
+     */
+    public function setHealth(Collection $health): BossInterface;
+
+    /**
+     * @param BossHealthInterface $health
+     * @return BossInterface
+     */
+    public function addHealth(BossHealthInterface $health): BossInterface;
+
+    /**
+     * @param BossHealthInterface $health
+     * @return BossInterface
+     */
+    public function removeHealth(BossHealthInterface $health): BossInterface;
 }
