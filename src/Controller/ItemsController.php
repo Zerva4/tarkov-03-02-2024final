@@ -21,10 +21,9 @@ class ItemsController extends AbstractController
     public function getBySlug(string $slug, ItemRepository $itemRepository): Response
     {
         $item = $itemRepository->getItemBySlug($slug);
-        dump($item);
 
         return $this->render('items/index.html.twig', [
-            'controller_name' => 'ItemsController',
+            'item' => $item,
         ]);
     }
 }
