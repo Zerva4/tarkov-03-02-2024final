@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Enemy;
+use App\Entity\BossTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Enemy>
+ * @extends ServiceEntityRepository<BossTranslation>
  *
- * @method Enemy|null find($id, $lockMode = null, $lockVersion = null)
- * @method Enemy|null findOneBy(array $criteria, array $orderBy = null)
- * @method Enemy[]    findAll()
- * @method Enemy[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method BossTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method BossTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method BossTranslation[]    findAll()
+ * @method BossTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EnemyRepository extends ServiceEntityRepository
+class BossTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Enemy::class);
+        parent::__construct($registry, BossTranslation::class);
     }
 
-    public function add(Enemy $entity, bool $flush = false): void
+    public function add(BossTranslation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class EnemyRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Enemy $entity, bool $flush = false): void
+    public function remove(BossTranslation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class EnemyRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Boss[] Returns an array of Boss objects
+//     * @return BossTranslation[] Returns an array of BossTranslation objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class EnemyRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Boss
+//    public function findOneBySomeField($value): ?BossTranslation
 //    {
 //        return $this->createQueryBuilder('b')
 //            ->andWhere('b.exampleField = :val')

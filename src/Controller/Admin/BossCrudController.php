@@ -2,24 +2,25 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Enemy;
+use App\Entity\Boss;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
 
-class EnemyCrudController extends BaseCrudController
+class BossCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Enemy::class;
+        return Boss::class;
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -43,43 +44,10 @@ class EnemyCrudController extends BaseCrudController
             ->setCustomOption('base_path', $this->getParameter('app.enemies.images.uri'))
             ->setFormTypeOption('required', false);
         ;
-        $types = ChoiceField::new('types', t('Type', [], 'admin.enemies'))
-            ->allowMultipleChoices()
-            ->setTextAlign('left')
-            ->setChoices([
-                'TYPE_BOSS' => 'TYPE_BOSS',
-                'TYPE_FOLLOWER' => 'ROLE_FOLLOWER',
-            ])
-            ->setTranslatableChoices([
-                'TYPE_BOSS' => t('Boss', [], 'admin.enemies'),
-                'TYPE_FOLLOWER' => t('Follower', [], 'admin.enemies'),
-            ])
-        ;
         $translationFields = [
             'name' => [
                 'field_type' => TextType::class,
                 'label' => t('Name', [], 'admin.enemies'),
-            ],
-            'behavior' => [
-                'attr' => [
-                    'class' => 'ckeditor'
-                ],
-                'field_type' => CKEditorType::class,
-                'label' => t('Behavior', [], 'admin.enemies')
-            ],
-            'strategy' => [
-                'attr' => [
-                    'class' => 'ckeditor'
-                ],
-                'field_type' => CKEditorType::class,
-                'label' => t('Strategy', [], 'admin.enemies')
-            ],
-            'followers' => [
-                'attr' => [
-                    'class' => 'ckeditor'
-                ],
-                'field_type' => CKEditorType::class,
-                'label' => t('Followers', [], 'admin.enemies')
             ],
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin.enemies'), $translationFields)
@@ -90,13 +58,20 @@ class EnemyCrudController extends BaseCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
+                FormField::addTab(t('Basic', [], 'admin.enemies')),
                 $image,
                 $published,
-                $types->setColumns(6)->setTextAlign('left'),
-                $slug->setColumns(6)->setTextAlign('left'),
+                $slug->setColumns(12),
                 $translations,
+                FormField::addTab(t('Health', [], 'admin.enemies')),
+                FormField::addTab(t('Equipment', [], 'admin.enemies')),
             ],
-            default => [$name, $types, $published, $createdAt, $updatedAt],
+            default => [
+                $name->setTextAlign('left')->setTemplatePath('admin/field/link-edit.html.twig'),
+                $published,
+                $createdAt,
+                $updatedAt
+            ],
         };
     }
 }

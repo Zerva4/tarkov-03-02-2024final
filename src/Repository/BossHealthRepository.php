@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\EnemyTranslation;
+use App\Entity\BossHealth;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EnemyTranslation>
+ * @extends ServiceEntityRepository<BossHealth>
  *
- * @method EnemyTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method EnemyTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method EnemyTranslation[]    findAll()
- * @method EnemyTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method BossHealth|null find($id, $lockMode = null, $lockVersion = null)
+ * @method BossHealth|null findOneBy(array $criteria, array $orderBy = null)
+ * @method BossHealth[]    findAll()
+ * @method BossHealth[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EnemyTranslationRepository extends ServiceEntityRepository
+class BossHealthRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EnemyTranslation::class);
+        parent::__construct($registry, BossHealth::class);
     }
 
-    public function add(EnemyTranslation $entity, bool $flush = false): void
+    public function save(BossHealth $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class EnemyTranslationRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(EnemyTranslation $entity, bool $flush = false): void
+    public function remove(BossHealth $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class EnemyTranslationRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return BossTranslation[] Returns an array of BossTranslation objects
+//     * @return BossHealt[] Returns an array of BossHealt objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class EnemyTranslationRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?BossTranslation
+//    public function findOneBySomeField($value): ?BossHealt
 //    {
 //        return $this->createQueryBuilder('b')
 //            ->andWhere('b.exampleField = :val')
