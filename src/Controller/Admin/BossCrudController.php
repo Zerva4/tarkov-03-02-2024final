@@ -43,43 +43,10 @@ class BossCrudController extends BaseCrudController
             ->setCustomOption('base_path', $this->getParameter('app.enemies.images.uri'))
             ->setFormTypeOption('required', false);
         ;
-        $types = ChoiceField::new('types', t('Type', [], 'admin.enemies'))
-            ->allowMultipleChoices()
-            ->setTextAlign('left')
-            ->setChoices([
-                'TYPE_BOSS' => 'TYPE_BOSS',
-                'TYPE_FOLLOWER' => 'ROLE_FOLLOWER',
-            ])
-            ->setTranslatableChoices([
-                'TYPE_BOSS' => t('Boss', [], 'admin.enemies'),
-                'TYPE_FOLLOWER' => t('Follower', [], 'admin.enemies'),
-            ])
-        ;
         $translationFields = [
             'name' => [
                 'field_type' => TextType::class,
                 'label' => t('Name', [], 'admin.enemies'),
-            ],
-            'behavior' => [
-                'attr' => [
-                    'class' => 'ckeditor'
-                ],
-                'field_type' => CKEditorType::class,
-                'label' => t('Behavior', [], 'admin.enemies')
-            ],
-            'strategy' => [
-                'attr' => [
-                    'class' => 'ckeditor'
-                ],
-                'field_type' => CKEditorType::class,
-                'label' => t('Strategy', [], 'admin.enemies')
-            ],
-            'followers' => [
-                'attr' => [
-                    'class' => 'ckeditor'
-                ],
-                'field_type' => CKEditorType::class,
-                'label' => t('Followers', [], 'admin.enemies')
             ],
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin.enemies'), $translationFields)
@@ -92,11 +59,10 @@ class BossCrudController extends BaseCrudController
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $image,
                 $published,
-                $types->setColumns(6)->setTextAlign('left'),
-                $slug->setColumns(6)->setTextAlign('left'),
+                $slug->setColumns(12),
                 $translations,
             ],
-            default => [$name, $types, $published, $createdAt, $updatedAt],
+            default => [$name, $published, $createdAt, $updatedAt],
         };
     }
 }
