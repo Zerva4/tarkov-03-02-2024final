@@ -400,7 +400,7 @@ class ImportItemsCommand extends Command
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
                 $itemEntity->setApiId($item['id']);
-                $itemEntity->setType($typeName);
+                $itemEntity->setTypeProperties($typeName);
             }
 
             // Download file
@@ -436,6 +436,7 @@ class ImportItemsCommand extends Command
             $itemEntity->setPublished(true)
                 ->setSlug($item['normalizedName'])
                 ->setTypes($item['types'])
+                ->setProperties($item['properties'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])
                 ->setHeight($item['height'])

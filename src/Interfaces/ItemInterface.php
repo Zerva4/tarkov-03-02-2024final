@@ -24,7 +24,24 @@ interface ItemInterface
     /**
      * @return string|null
      */
-    public function getType(): ?string;
+    public function getTypeProperties(): ?string;
+
+    /**
+     * @param string $typeProperties
+     * @return ItemInterface
+     */
+    public function setTypeProperties(string $typeProperties): ItemInterface;
+
+    /**
+     * @return array|null
+     */
+    public function getProperties(): ?array;
+
+    /**
+     * @param array|null $properties
+     * @return ItemInterface
+     */
+    public function setProperties(?array $properties): ItemInterface;
 
     /**
      * @return bool
