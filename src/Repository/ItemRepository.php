@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Items\Item;
+use App\Interfaces\ItemInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,5 +40,20 @@ class ItemRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function getItemBySlug(string $slug, int $mode = AbstractQuery::HYDRATE_ARRAY): ?array
+    {
+        $item = null;
+
+        $query = $this->createQueryBuilder('i')
+            ->andWhere('i.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+        ;
+        return $query->getOneOrNullResult($mode);
     }
 }
