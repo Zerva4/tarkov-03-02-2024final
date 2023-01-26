@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 use Ramsey\Uuid\UuidInterface;
 
-interface EnemyInterface
+interface BossInterface
 {
     /**
      * @return UuidInterface
@@ -29,7 +29,7 @@ interface EnemyInterface
 
     /**
      * @param bool $published
-     * @return EnemyInterface
+     * @return BossInterface
      */
-    public function setPublished(bool $published): EnemyInterface;
+    public function setPublished(bool $published): BossInterface;
 }

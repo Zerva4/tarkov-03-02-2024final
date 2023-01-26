@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Interfaces\EnemyInterface;
+use App\Interfaces\BossInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Repository\EnemyRepository;
+use App\Repository\BossRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
@@ -18,14 +18,14 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Table(name: 'enemies')]
-#[ORM\Entity(repositoryClass: EnemyRepository::class)]
+#[ORM\Table(name: 'bosses')]
+#[ORM\Entity(repositoryClass: BossRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
 /**
  * @Vich\Uploadable
  */
-class Enemy extends TranslatableEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface, EnemyInterface
+class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface, BossInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -73,9 +73,9 @@ class Enemy extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
 
     /**
      * @param bool $published
-     * @return EnemyInterface
+     * @return BossInterface
      */
-    public function setPublished(bool $published): EnemyInterface
+    public function setPublished(bool $published): BossInterface
     {
         $this->published = $published;
 
@@ -92,9 +92,9 @@ class Enemy extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
 
     /**
      * @param string|null $imageName
-     * @return Enemy
+     * @return Boss
      */
-    public function setImageName(?string $imageName): Enemy
+    public function setImageName(?string $imageName): Boss
     {
         $this->imageName = $imageName;
 
@@ -111,9 +111,9 @@ class Enemy extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
 
     /**
      * @param File|null $imageFile
-     * @return Enemy
+     * @return Boss
      */
-    public function setImageFile(?File $imageFile): Enemy
+    public function setImageFile(?File $imageFile): Boss
     {
         $this->imageFile = $imageFile;
 
