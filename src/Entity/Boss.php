@@ -11,6 +11,7 @@ use App\Repository\BossRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -35,6 +36,9 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $slug;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
@@ -62,6 +66,14 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
     #[ORM\OneToMany(mappedBy: 'boss', targetEntity: BossHealth::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $health;
 
+    public function __construct(string $defaultLocation = '%app.default_locale%')
+    {
+        parent::__construct($defaultLocation);
+
+        $this->equipment = new ArrayCollection();
+        $this->health = new ArrayCollection();
+    }
+
     public function isPublished(): bool
     {
         return $this->getPublished();
@@ -79,12 +91,31 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return BossInterface
+     */
+    public function setSlug(string $slug): BossInterface
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    public function setImageName(?string $imageName): Boss
+    public function setImageName(?string $imageName): BossInterface
     {
         $this->imageName = $imageName;
 
@@ -142,7 +173,7 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
     {
         if (!$this->health->contains($health)) {
             $this->health->add($health);
-            $health->setMap($this);
+            $health->setBoss($this);
         }
 
         return $this;
@@ -152,7 +183,7 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
     {
         if ($this->health->contains($health)) {
             $this->health->removeElement($health);
-            $health->setMap(null);
+            $health->setBoss(null);
         }
 
         return $this;

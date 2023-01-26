@@ -34,6 +34,10 @@ interface BossInterface
      */
     public function setPublished(bool $published): BossInterface;
 
+    public function getSlug(): string;
+
+    public function setSlug(string $slug): BossInterface;
+
     /**
      * @return Collection
      */
