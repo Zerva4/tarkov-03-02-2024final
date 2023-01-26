@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Interfaces\BossHealthInterface;
 use App\Interfaces\BossInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\BossRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
@@ -55,9 +57,11 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
      */
     private ?File $imageFile = null;
 
-    /**
-     * @return bool
-     */
+    private Collection $equipment;
+
+    #[ORM\OneToMany(mappedBy: 'boss', targetEntity: BossHealth::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $health;
+
     public function isPublished(): bool
     {
         return $this->getPublished();
@@ -68,10 +72,6 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
         return $this->published;
     }
 
-    /**
-     * @param bool $published
-     * @return BossInterface
-     */
     public function setPublished(bool $published): BossInterface
     {
         $this->published = $published;
@@ -79,18 +79,11 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    /**
-     * @param string|null $imageName
-     * @return Boss
-     */
     public function setImageName(?string $imageName): Boss
     {
         $this->imageName = $imageName;
@@ -98,24 +91,68 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
         return $this;
     }
 
-    /**
-     * @return File|null
-     */
     public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
 
-    /**
-     * @param File|null $imageFile
-     * @return Boss
-     */
     public function setImageFile(?File $imageFile): Boss
     {
         $this->imageFile = $imageFile;
 
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
+        }
+
+        return $this;
+    }
+
+    public function getEquipment(): Collection
+    {
+        return $this->equipment;
+    }
+
+    /**
+     * @param Collection $equipment
+     * @return BossInterface
+     */
+    public function setEquipment(Collection $equipment): BossInterface
+    {
+        $this->equipment = $equipment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getHealth(): Collection
+    {
+        return $this->health;
+    }
+
+    public function setHealth(Collection $health): BossInterface
+    {
+        $this->health = $health;
+
+        return $this;
+    }
+
+    public function addHealth(BossHealthInterface $health): BossInterface
+    {
+        if (!$this->health->contains($health)) {
+            $this->health->add($health);
+            $health->setMap($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHealth(BossHealthInterface $health): BossInterface
+    {
+        if ($this->health->contains($health)) {
+            $this->health->removeElement($health);
+            $health->setMap(null);
         }
 
         return $this;
