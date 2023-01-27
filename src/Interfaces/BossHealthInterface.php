@@ -7,17 +7,6 @@ use Ramsey\Uuid\UuidInterface;
 interface BossHealthInterface
 {
     /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface;
-
-    /**
-     * @param UuidInterface $id
-     * @return void
-     */
-    public function setId(UuidInterface $id): void;
-
-    /**
      * @return bool
      */
     public function isPublished(): bool;
@@ -60,5 +49,5 @@ interface BossHealthInterface
      */
     public function getBoss(): BossInterface;
 
-    public function setBoss(BossInterface $boss): BossHealthInterface;
+    public function setBoss(?BossInterface $boss): BossHealthInterface;
 }

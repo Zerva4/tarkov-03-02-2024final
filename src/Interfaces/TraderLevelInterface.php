@@ -13,17 +13,6 @@ use Ramsey\Uuid\UuidInterface;
 interface TraderLevelInterface
 {
     /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface;
-
-    /**
-     * @param UuidInterface $id
-     * @return void
-     */
-    public function setId(UuidInterface $id): void;
-
-    /**
      * @return int
      */
     public function getLevel(): int;

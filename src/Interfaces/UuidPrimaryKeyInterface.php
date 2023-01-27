@@ -7,9 +7,9 @@ use Ramsey\Uuid\UuidInterface;
 interface UuidPrimaryKeyInterface
 {
     /**
-     * @return UuidInterface
+     * @return UuidInterface|null
      */
-    public function getId(): UuidInterface;
+    public function getId(): ?UuidInterface;
 
     /**
      * @param UuidInterface $id
