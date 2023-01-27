@@ -10,6 +10,7 @@ use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use function Symfony\Component\Translation\t;
 
 #[ORM\Table(name: 'bosses_health')]
 #[ORM\Entity(repositoryClass: BossHealthRepository::class)]
@@ -24,15 +25,12 @@ class BossHealth implements UuidPrimaryKeyInterface, TimestampableInterface, Bos
     #[ORM\Column(nullable: true)]
     private ?int $max = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $name;
 
     #[ORM\ManyToOne(targetEntity: Boss::class, inversedBy: 'health')]
-    private BossInterface $boss;
+    private ?BossInterface $boss = null;
 
-    /**
-     * @return bool
-     */
     public function isPublished(): bool
     {
         return $this->published;
@@ -44,10 +42,6 @@ class BossHealth implements UuidPrimaryKeyInterface, TimestampableInterface, Bos
         return $this->published;
     }
 
-    /**
-     * @param bool $published
-     * @return BossHealthInterface
-     */
     public function setPublished(bool $published): BossHealthInterface
     {
         $this->published = $published;
@@ -55,18 +49,11 @@ class BossHealth implements UuidPrimaryKeyInterface, TimestampableInterface, Bos
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getMax(): ?int
     {
         return $this->max;
     }
 
-    /**
-     * @param int|null $max
-     * @return BossHealthInterface
-     */
     public function setMax(?int $max): BossHealthInterface
     {
         $this->max = $max;
@@ -74,18 +61,11 @@ class BossHealth implements UuidPrimaryKeyInterface, TimestampableInterface, Bos
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return BossHealthInterface
-     */
     public function setName(string $name): BossHealthInterface
     {
         $this->name = $name;
@@ -93,22 +73,20 @@ class BossHealth implements UuidPrimaryKeyInterface, TimestampableInterface, Bos
         return $this;
     }
 
-    /**
-     * @return BossInterface
-     */
     public function getBoss(): BossInterface
     {
         return $this->boss;
     }
 
-    /**
-     * @param BossInterface $boss
-     * @return BossHealthInterface
-     */
-    public function setBoss(BossInterface $boss): BossHealthInterface
+    public function setBoss(?BossInterface $boss): BossHealthInterface
     {
         $this->boss = $boss;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }
