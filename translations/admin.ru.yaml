@@ -5,6 +5,8 @@ Published: Публикуется
 Boss: Босс
 Follower: Последователь
 label.null: Не указанно
+Photo: Фото
 vich_uploader:
+  Photo: Фото
   form_label:
     delete_confirm: Удалить файл
