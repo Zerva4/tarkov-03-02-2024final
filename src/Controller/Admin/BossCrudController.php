@@ -3,11 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Boss;
+use App\Form\BossHealthForm;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -56,6 +59,15 @@ class BossCrudController extends BaseCrudController
             ])
         ;
 
+        $health = CollectionField::new('health')
+            ->setEntryType(BossHealthForm::class)
+            ->allowAdd()
+            ->allowDelete()
+            ->showEntryLabel(true)
+            ->setEntryIsComplex(true)
+            ->setFormTypeOption('by_reference', false)
+        ;
+
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 FormField::addTab(t('Basic', [], 'admin.enemies')),
@@ -64,6 +76,7 @@ class BossCrudController extends BaseCrudController
                 $slug->setColumns(12),
                 $translations,
                 FormField::addTab(t('Health', [], 'admin.enemies')),
+                $health->setColumns(12),
                 FormField::addTab(t('Equipment', [], 'admin.enemies')),
             ],
             default => [
