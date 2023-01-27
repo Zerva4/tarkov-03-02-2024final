@@ -45,6 +45,17 @@ interface BossHealthInterface
     public function setMax(?int $max): BossHealthInterface;
 
     /**
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
+     * @param string $name
+     * @return BossHealthInterface
+     */
+    public function setName(string $name): BossHealthInterface;
+
+    /**
      * @return BossInterface
      */
     public function getBoss(): BossInterface;
