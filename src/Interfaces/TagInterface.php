@@ -12,17 +12,6 @@ use Ramsey\Uuid\UuidInterface;
 interface TagInterface
 {
     /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface;
-
-    /**
-     * @param UuidInterface $id
-     * @return void
-     */
-    public function setId(UuidInterface $id): void;
-
-    /**
      * @return string|null
      */
     public function getName(): ?string;

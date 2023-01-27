@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\BossHealth;
+use App\Interfaces\BossHealthInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<BossHealth>
@@ -37,6 +41,23 @@ class BossHealthRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findByByNameAndBossId(UuidInterface $bossId, string $name): ?BossHealthInterface
+    {
+        return $this->createQueryBuilder('h')
+            ->andWhere('h.boss = :bossId')
+            ->andWhere('h.name = :name')
+            ->setParameters([
+                'bossId' => $bossId,
+                'name' => $name
+            ])
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
 //    /**

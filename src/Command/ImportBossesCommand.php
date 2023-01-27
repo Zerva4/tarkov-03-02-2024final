@@ -4,13 +4,13 @@ namespace App\Command;
 
 use App\Entity\Boss;
 use App\Entity\BossHealth;
-use App\Entity\Map;
 use App\Interfaces\BossInterface;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\MapInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -112,17 +112,25 @@ class ImportBossesCommand extends Command
             ;
 
             // Added health
+            $bossHealthRepository = $this->em->getRepository(BossHealth::class);
             foreach ($boss['health'] as $health) {
-                $bossHealthEntity = new BossHealth();
-                $bossHealthEntity
-                    ->setPublished(true)
-                    ->setName($health['id'])
-                    ->setMax($health['max'])
-                    ->setBoss($bossEntity)
-                ;
-                $this->em->persist($bossHealthEntity);
-                $bossEntity->addHealth($bossHealthEntity);
-                unset($bossHealthEntity);
+                $bossHealthEntity = null;
+
+                if (null !== $bossEntity->getId()) {
+                    $bossHealthEntity = $bossHealthRepository->findByByNameAndBossId($bossEntity->getId(), $health['id']);
+                }
+
+                if (!$bossHealthEntity) {
+                    $bossHealthEntity = new BossHealth();
+                    $bossHealthEntity
+                        ->setPublished(true)
+                        ->setName($health['id'])
+                        ->setMax($health['max'])
+                        ->setBoss($bossEntity);
+                    $this->em->persist($bossHealthEntity);
+                    $bossEntity->addHealth($bossHealthEntity);
+                    unset($bossHealthEntity);
+                }
             }
 
             $this->em->persist($bossEntity);

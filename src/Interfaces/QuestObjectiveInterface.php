@@ -7,9 +7,6 @@ use Ramsey\Uuid\UuidInterface;
 
 interface QuestObjectiveInterface
 {
-    public function getId(): UuidInterface;
-    public function setId(UuidInterface $id): void;
-
     public function getApiId(): ?string;
 
     public function setApiId(string $apiId): QuestObjectiveInterface;
