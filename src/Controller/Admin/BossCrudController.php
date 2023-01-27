@@ -63,9 +63,9 @@ class BossCrudController extends BaseCrudController
             ->setEntryType(BossHealthForm::class)
             ->allowAdd()
             ->allowDelete()
-            ->showEntryLabel(true)
-            ->setEntryIsComplex(true)
-            ->setFormTypeOption('by_reference', false)
+            ->showEntryLabel(false)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', true)
         ;
 
         return match ($pageName) {
