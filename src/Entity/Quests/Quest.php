@@ -8,6 +8,7 @@ use App\Entity\Items\Item;
 use App\Entity\Map;
 use App\Entity\Trader;
 use App\Entity\TranslatableEntity;
+use App\Interfaces\BarterInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\QuestInterface;
@@ -82,6 +83,9 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'quests')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?MapInterface $map = null;
+
+    #[ORM\OneToOne(inversedBy: 'questUnlock', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    private ?BarterInterface $unlockInBarter = null;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $objectives;
@@ -171,6 +175,25 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     public function setMap(?MapInterface $map): QuestInterface
     {
         $this->map = $map;
+
+        return $this;
+    }
+
+    /**
+     * @return BarterInterface|null
+     */
+    public function getUnlockInBarter(): ?BarterInterface
+    {
+        return $this->unlockInBarter;
+    }
+
+    /**
+     * @param BarterInterface|null $unlockInBarter
+     * @return QuestInterface
+     */
+    public function setUnlockInBarter(?BarterInterface $unlockInBarter): QuestInterface
+    {
+        $this->unlockInBarter = $unlockInBarter;
 
         return $this;
     }
