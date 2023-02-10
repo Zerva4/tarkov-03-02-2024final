@@ -253,4 +253,50 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function removeReceivedFromQuest(QuestInterface $quest): ItemInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getRequiredInBarters(): Collection;
+
+    /**
+     * @param Collection $requiredInBarters
+     * @return ItemInterface
+     */
+    public function setRequiredInBarters(Collection $requiredInBarters): ItemInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return ItemInterface
+     */
+    public function addRequiredInBarter(BarterInterface $barter): ItemInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return ItemInterface
+     */
+    public function removeRequiredInBarter(BarterInterface $barter): ItemInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getRewardInBarters(): Collection;
+
+    /**
+     * @param Collection $rewardInBarters
+     * @return ItemInterface
+     */
+    public function setRewardInBarters(Collection $rewardInBarters): ItemInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return ItemInterface
+     */
+    public function addRewardInBarter(BarterInterface $barter): ItemInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return ItemInterface
+     */
+    public function removeRewardInBarter(BarterInterface $barter): ItemInterface;
 }
