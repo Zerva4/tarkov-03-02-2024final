@@ -2,8 +2,10 @@
 
 namespace App\Entity\Items;
 
+use App\Entity\Barter;
 use App\Entity\Quests\Quest;
 use App\Entity\TranslatableEntity;
+use App\Interfaces\BarterInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
@@ -189,12 +191,22 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection|ArrayCollection|null $receivedFromQuests;
 
+    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'requiredItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'barters_required_items')]
+    private Collection $requiredInBarters;
+
+    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'rewardItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'barters_reward_items')]
+    private Collection $rewardInBarters;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
 
         $this->usedInQuests = new ArrayCollection();
         $this->receivedFromQuests = new ArrayCollection();
+        $this->requiredInBarters = new ArrayCollection();
+        $this->rewardInBarters = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -519,6 +531,100 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function setProperties(?array $properties): ItemInterface
     {
         $this->properties = $properties;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRequiredInBarters(): Collection
+    {
+        return $this->requiredInBarters;
+    }
+
+    /**
+     * @param Collection $requiredInBarters
+     * @return ItemInterface
+     */
+    public function setRequiredInBarters(Collection $requiredInBarters): ItemInterface
+    {
+        $this->requiredInBarters = $requiredInBarters;
+
+        return $this;
+    }
+
+    /**
+     * @param BarterInterface $barter
+     * @return ItemInterface
+     */
+    public function addRequiredInBarter(BarterInterface $barter): ItemInterface
+    {
+        if (!$this->receivedFromQuests->contains($barter)) {
+            $this->receivedFromQuests->add($barter);
+            $barter->addRequiredItem($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param BarterInterface $barter
+     * @return ItemInterface
+     */
+    public function removeRequiredInBarter(BarterInterface $barter): ItemInterface
+    {
+        if ($this->requiredInBarters->contains($barter)) {
+            $this->requiredInBarters->removeElement($barter);
+            $barter->removeRequiredItem($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRewardInBarters(): Collection
+    {
+        return $this->rewardInBarters;
+    }
+
+    /**
+     * @param Collection $rewardInBarters
+     * @return ItemInterface
+     */
+    public function setRewardInBarters(Collection $rewardInBarters): ItemInterface
+    {
+        $this->rewardInBarters = $rewardInBarters;
+
+        return $this;
+    }
+
+    /**
+     * @param BarterInterface $barter
+     * @return ItemInterface
+     */
+    public function addRewardInBarter(BarterInterface $barter): ItemInterface
+    {
+        if (!$this->rewardInBarters->contains($barter)) {
+            $this->rewardInBarters->add($barter);
+            $barter->addRewardItem($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param BarterInterface $barter
+     * @return ItemInterface
+     */
+    public function removeRewardInBarter(BarterInterface $barter): ItemInterface
+    {
+        if ($this->rewardInBarters->contains($barter)) {
+            $this->rewardInBarters->removeElement($barter);
+            $barter->removeRewardItem($this);
+        }
 
         return $this;
     }
