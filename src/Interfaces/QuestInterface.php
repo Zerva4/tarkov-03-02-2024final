@@ -73,6 +73,17 @@ interface QuestInterface
     public function getMap(): ?MapInterface;
 
     /**
+     * @return BarterInterface|null
+     */
+    public function getUnlockInBarter(): ?BarterInterface;
+
+    /**
+     * @param BarterInterface|null $unlockInBarter
+     * @return QuestInterface
+     */
+    public function setUnlockInBarter(?BarterInterface $unlockInBarter): QuestInterface;
+
+    /**
      * @param MapInterface|null $map
      * @return QuestInterface
      */
