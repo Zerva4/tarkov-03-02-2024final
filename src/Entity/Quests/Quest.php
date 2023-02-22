@@ -84,9 +84,9 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?MapInterface $map = null;
 
-    #[ORM\OneToOne(inversedBy: 'questUnlock', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinColumn(unique: false, nullable: true)]
-    private ?BarterInterface $unlockInBarter = null;
+    #[ORM\OneToMant(mappedBy: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'questUnlock')]
+    #[ORM\JoinColumn(name: 'unlock_in_barter', referencedColumnName: 'id')]
+    private ?Collection $unlockInBarter = null;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $objectives;
@@ -97,7 +97,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
 
     #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'receivedFromQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'quests_received_items')]
-    private ?Collection $receivedItems;
+    private Collection $receivedItems;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -106,6 +106,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         $this->objectives = new ArrayCollection();
         $this->usedItems = new ArrayCollection();
         $this->receivedItems = new ArrayCollection();
+        $this->unlockInBarter = new ArrayCollection();
     }
 
     public function getApiId(): ?string
@@ -176,25 +177,6 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     public function setMap(?MapInterface $map): QuestInterface
     {
         $this->map = $map;
-
-        return $this;
-    }
-
-    /**
-     * @return BarterInterface|null
-     */
-    public function getUnlockInBarter(): ?BarterInterface
-    {
-        return $this->unlockInBarter;
-    }
-
-    /**
-     * @param BarterInterface|null $unlockInBarter
-     * @return QuestInterface
-     */
-    public function setUnlockInBarter(?BarterInterface $unlockInBarter): QuestInterface
-    {
-        $this->unlockInBarter = $unlockInBarter;
 
         return $this;
     }
@@ -332,6 +314,53 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         if ($this->receivedItems->contains($item)) {
             $this->receivedItems->removeElement($item);
             $item->removeReceivedFromQuest($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getUnlockInBarter(): ?Collection
+    {
+        return $this->unlockInBarter;
+    }
+
+    /**
+     * @param Collection|null $unlockInBarter
+     * @return QuestInterface
+     */
+    public function setUnlockInBarter(?Collection $unlockInBarter): QuestInterface
+    {
+        $this->unlockInBarter = $unlockInBarter;
+
+        return $this;
+    }
+
+    /**
+     * @param BarterInterface $barter
+     * @return QuestInterface
+     */
+    public function addUnlockInBarter(BarterInterface $barter): QuestInterface
+    {
+        if (!$this->unlockInBarter->contains($barter)) {
+            $this->unlockInBarter->add($barter);
+            $barter->setQuestUnlock($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param BarterInterface $barter
+     * @return QuestInterface
+     */
+    public function removeUnlockInBarter(BarterInterface $barter): QuestInterface
+    {
+        if ($this->unlockInBarter->contains($barter)) {
+            $this->unlockInBarter->add($barter);
+            $barter->setQuestUnlock($this);
         }
 
         return $this;

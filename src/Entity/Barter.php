@@ -40,8 +40,8 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $traderLevel;
 
-    #[ORM\OneToOne(mappedBy: 'unlockInBarter', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinColumn(unique: false, nullable: true)]
+    #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'unlockInBarter')]
+    #[ORM\JoinColumn(name: 'unlock_in_barter', referencedColumnName: 'id')]
     private ?QuestInterface $questUnlock = null;
 
     #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
@@ -59,7 +59,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getApiId(): string
     {
@@ -67,7 +67,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     }
 
     /**
-     * @param int $apiId
+     * @param string $apiId
      * @return BarterInterface
      */
     public function setApiId(string $apiId): BarterInterface
@@ -148,7 +148,12 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
      */
     public function setQuestUnlock(?QuestInterface $questUnlock): BarterInterface
     {
-        $this->questUnlock = $questUnlock;
+        if (null === $questUnlock) {
+            $this->questUnlock->removeUnlockInBarter($this);
+            $this->questUnlock = null;
+        } else {
+            $this->questUnlock = $questUnlock;
+        }
 
         return $this;
     }

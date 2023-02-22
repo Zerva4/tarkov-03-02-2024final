@@ -75,13 +75,25 @@ interface QuestInterface
     /**
      * @return BarterInterface|null
      */
-    public function getUnlockInBarter(): ?BarterInterface;
+    public function getUnlockInBarter(): ?Collection;
 
     /**
-     * @param BarterInterface|null $unlockInBarter
+     * @param Collection|null $unlockInBarter
      * @return QuestInterface
      */
-    public function setUnlockInBarter(?BarterInterface $unlockInBarter): QuestInterface;
+    public function setUnlockInBarter(?Collection $unlockInBarter): QuestInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return QuestInterface
+     */
+    public function addUnlockInBarter(BarterInterface $barter): QuestInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return QuestInterface
+     */
+    public function removeUnlockInBarter(BarterInterface $barter): QuestInterface;
 
     /**
      * @param MapInterface|null $map

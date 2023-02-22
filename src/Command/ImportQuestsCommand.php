@@ -41,6 +41,7 @@ class ImportQuestsCommand extends Command
         'visit' => 'TYPE_VISIT',
         'skill' => 'TYPE_SKILL',
         'experience' => 'TYPE_EXPERIENCE',
+        'useItem' => 'TYPE_USE_ITEM'
     ];
     private EntityManagerInterface $em;
     private GraphQLClientInterface $client;
