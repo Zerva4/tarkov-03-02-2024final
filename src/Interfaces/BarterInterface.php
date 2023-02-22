@@ -5,8 +5,8 @@ use Doctrine\Common\Collections\Collection;
 
 interface BarterInterface
 {
-    public function getApiId(): int;
-    public function setApiId(int $apiId): BarterInterface;
+    public function getApiId(): string;
+    public function setApiId(string $apiId): BarterInterface;
     public function isPublished(): bool;
     public function setPublished(bool $published): BarterInterface;
     public function getTrader(): ?TraderInterface;
