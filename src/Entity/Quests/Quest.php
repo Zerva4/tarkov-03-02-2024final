@@ -85,6 +85,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     private ?MapInterface $map = null;
 
     #[ORM\OneToOne(inversedBy: 'questUnlock', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinColumn(unique: false, nullable: true)]
     private ?BarterInterface $unlockInBarter = null;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]

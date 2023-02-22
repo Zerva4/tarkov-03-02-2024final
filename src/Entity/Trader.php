@@ -72,7 +72,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $levels;
 
-    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'trader', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Barter::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $barters;
 
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]

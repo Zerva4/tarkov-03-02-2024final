@@ -18,19 +18,22 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
 #[ORM\Table(name: 'barters')]
+#[ORM\Index(columns: ['api_id'], name: 'barter_api_key_idx')]
 #[ORM\Entity(repositoryClass: BarterRepository::class)]
 class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $apiId;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $apiId = null;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
-    #[ORM\ManyToMany(targetEntity: Trader::class, inversedBy: 'barters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+//    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'barters', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'barters')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ORM\JoinTable(name: 'barters_traders')]
     private TraderInterface $trader;
 
@@ -38,6 +41,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     private int $traderLevel;
 
     #[ORM\OneToOne(mappedBy: 'unlockInBarter', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinColumn(unique: false, nullable: true)]
     private ?QuestInterface $questUnlock = null;
 
     #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
@@ -57,7 +61,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     /**
      * @return int
      */
-    public function getApiId(): int
+    public function getApiId(): string
     {
         return $this->apiId;
     }
@@ -66,7 +70,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
      * @param int $apiId
      * @return BarterInterface
      */
-    public function setApiId(int $apiId): BarterInterface
+    public function setApiId(string $apiId): BarterInterface
     {
         $this->apiId = $apiId;
 
