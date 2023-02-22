@@ -2,8 +2,8 @@
 
 namespace App\Interfaces;
 
+use App\Entity\Items\ContainedItem;
 use Doctrine\Common\Collections\Collection;
-use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 
 /**
  * Interface for Item entity.
@@ -253,4 +253,27 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function removeReceivedFromQuest(QuestInterface $quest): ItemInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getContainedItems(): Collection;
+
+    /**
+     * @param Collection $containedItems
+     * @return ItemInterface
+     */
+    public function setContainedItems(Collection $containedItems): ItemInterface;
+
+    /**
+     * @param ContainedItemInterface $containedItem
+     * @return ItemInterface
+     */
+    public function addContainedItem(ContainedItemInterface $containedItem): ItemInterface;
+
+    /**
+     * @param ContainedItemInterface $containedItem
+     * @return ItemInterface
+     */
+    public function removeContainedItem(ContainedItemInterface $containedItem): ItemInterface;
 }

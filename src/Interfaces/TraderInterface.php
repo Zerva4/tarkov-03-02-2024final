@@ -75,6 +75,26 @@ interface TraderInterface
      */
     public function setLevels(Collection $level): TraderInterface;
 
+    public function getBarters(): Collection;
+
+    /**
+     * @param Collection $barters
+     * @return TraderInterface
+     */
+    public function setBarters(Collection $barters): TraderInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return TraderInterface
+     */
+    public function addBarter(BarterInterface $barter): TraderInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return TraderInterface
+     */
+    public function removeBarter(BarterInterface $barter): TraderInterface;
+
     /**
      * @param TraderLevelInterface $level
      * @return TraderInterface

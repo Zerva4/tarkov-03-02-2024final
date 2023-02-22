@@ -4,6 +4,7 @@ namespace App\Entity\Items;
 
 use App\Entity\Quests\Quest;
 use App\Entity\TranslatableEntity;
+use App\Interfaces\ContainedItemInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
@@ -189,12 +190,16 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection|ArrayCollection|null $receivedFromQuests;
 
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: ContainedItem::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $containedItems;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
 
         $this->usedInQuests = new ArrayCollection();
         $this->receivedFromQuests = new ArrayCollection();
+        $this->containedItems = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -519,6 +524,45 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function setProperties(?array $properties): ItemInterface
     {
         $this->properties = $properties;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getContainedItems(): Collection
+    {
+        return $this->containedItems;
+    }
+
+    /**
+     * @param Collection $containedItems
+     * @return ItemInterface
+     */
+    public function setContainedItems(Collection $containedItems): ItemInterface
+    {
+        $this->containedItems = $containedItems;
+
+        return $this;
+    }
+
+    public function addContainedItem(ContainedItemInterface $containedItem): ItemInterface
+    {
+        if (!$this->containedItems->contains($containedItem)) {
+            $this->containedItems->add($containedItem);
+            $containedItem->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContainedItem(ContainedItemInterface $containedItem): ItemInterface
+    {
+        if ($this->containedItems->contains($containedItem)) {
+            $this->containedItems->add($containedItem);
+            $containedItem->setItem(null);
+        }
 
         return $this;
     }

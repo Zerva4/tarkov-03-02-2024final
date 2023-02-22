@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Quests\Quest;
+use App\Interfaces\BarterInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Interfaces\TraderLevelInterface;
@@ -71,6 +72,9 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $levels;
 
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Barter::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $barters;
+
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
@@ -79,6 +83,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         parent::__construct($defaultLocation);
 
         $this->levels = new ArrayCollection();
+        $this->barters = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -171,6 +176,52 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     {
         if ($this->levels->contains($level)) {
             $this->levels->removeElement($level);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getBarters(): Collection
+    {
+        return $this->barters;
+    }
+
+    /**
+     * @param Collection $barters
+     * @return TraderInterface
+     */
+    public function setBarters(Collection $barters): TraderInterface
+    {
+        $this->barters = $barters;
+
+        return $this;
+    }
+
+    /**
+     * @param BarterInterface $barter
+     * @return TraderInterface
+     */
+    public function addBarter(BarterInterface $barter): TraderInterface
+    {
+        if (!$this->barters->contains($barter)) {
+            $this->barters->add($barter);
+            $barter->setTrader($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param BarterInterface $barter
+     * @return TraderInterface
+     */
+    public function removeBarter(BarterInterface $barter): TraderInterface
+    {
+        if ($this->barters->contains($barter)) {
+            $this->barters->removeElement($barter);
         }
 
         return $this;
