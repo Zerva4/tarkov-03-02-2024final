@@ -114,16 +114,12 @@ class ImportBartersCommand extends Command
             $progressBar->advance();
             $barterEntity = $barterRepository->findOneBy(['apiId' => $barter['id']]);
 
-            if (!$barterEntity instanceof BarterInterface) {
+            if (!$barterEntity instanceof Barter) {
                 $barterEntity = new Barter();
                 $barterEntity->setPublished(true);
                 $barterEntity->setApiId($barter['id']);
-            } else {
-                /** @var BarterInterface $barterEntity */
-                $barterEntity = new Barter();
-//                $barterEntity->setApiId($barter['id']);
-                $barterEntity->setPublished(true);
             }
+
 
             // Set trader
             /** @var TraderInterface $traderEntity */
