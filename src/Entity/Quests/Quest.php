@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Quests;
 
+use App\Entity\Barter;
 use App\Entity\Items\Item;
 use App\Entity\Map;
 use App\Entity\Trader;
@@ -84,8 +85,8 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?MapInterface $map = null;
 
-    #[ORM\OneToMant(mappedBy: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'questUnlock')]
-    #[ORM\JoinColumn(name: 'unlock_in_barter', referencedColumnName: 'id')]
+    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: Barter::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinColumn(name: 'quest_unlock', referencedColumnName: 'id')]
     private ?Collection $unlockInBarter = null;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
