@@ -254,4 +254,26 @@ interface ItemInterface
      */
     public function removeReceivedFromQuest(QuestInterface $quest): ItemInterface;
 
+    /**
+     * @return Collection
+     */
+    public function getContainedItems(): Collection;
+
+    /**
+     * @param Collection $containedItems
+     * @return ItemInterface
+     */
+    public function setContainedItems(Collection $containedItems): ItemInterface;
+
+    /**
+     * @param ContainedItemInterface $containedItem
+     * @return ItemInterface
+     */
+    public function addContainedItem(ContainedItemInterface $containedItem): ItemInterface;
+
+    /**
+     * @param ContainedItemInterface $containedItem
+     * @return ItemInterface
+     */
+    public function removeContainedItem(ContainedItemInterface $containedItem): ItemInterface;
 }
