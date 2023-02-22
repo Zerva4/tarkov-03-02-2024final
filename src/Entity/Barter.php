@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Entity\Items\Item;
+use App\Entity\Items\ContainedItem;
 use App\Entity\Quests\Quest;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\TraderInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Interfaces\ItemInterface;
+use App\Interfaces\ContainedItemInterface;
 use App\Repository\BarterRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,11 +40,11 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     #[ORM\OneToOne(mappedBy: 'unlockInBarter', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     private ?QuestInterface $questUnlock = null;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'requiredInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'barters_required_items')]
     private Collection $requiredItems;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'rewardInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'rewardInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'barters_reward_items')]
     private Collection $rewardItems;
 
@@ -168,7 +168,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
         return $this;
     }
 
-    public function addRequiredItem(ItemInterface $item): BarterInterface
+    public function addRequiredItem(ContainedItemInterface $item): BarterInterface
     {
         if (!$this->requiredItems->contains($item)) {
             $this->requiredItems->add($item);
@@ -178,7 +178,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
         return $this;
     }
 
-    public function removeRequiredItem(ItemInterface $item): BarterInterface
+    public function removeRequiredItem(ContainedItemInterface $item): BarterInterface
     {
         if ($this->requiredItems->contains($item)) {
             $this->requiredItems->removeElement($item);
@@ -208,10 +208,10 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     }
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return BarterInterface
      */
-    public function addRewardItem(ItemInterface $item): BarterInterface
+    public function addRewardItem(ContainedItemInterface $item): BarterInterface
     {
         if (!$this->rewardItems->contains($item)) {
             $this->rewardItems->removeElement($item);
@@ -222,10 +222,10 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     }
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return BarterInterface
      */
-    public function removeRewardItem(ItemInterface $item): BarterInterface
+    public function removeRewardItem(ContainedItemInterface $item): BarterInterface
     {
         if (!$this->rewardItems->contains($item)) {
             $this->rewardItems->add($item);
