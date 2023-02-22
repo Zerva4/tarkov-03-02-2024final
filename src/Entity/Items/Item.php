@@ -2,10 +2,9 @@
 
 namespace App\Entity\Items;
 
-use App\Entity\Barter;
 use App\Entity\Quests\Quest;
 use App\Entity\TranslatableEntity;
-use App\Interfaces\BarterInterface;
+use App\Interfaces\ContainedItemInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
@@ -191,13 +190,8 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection|ArrayCollection|null $receivedFromQuests;
 
-    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'requiredItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinTable(name: 'barters_required_items')]
-    private Collection $requiredInBarters;
-
-    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'rewardItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinTable(name: 'barters_reward_items')]
-    private Collection $rewardInBarters;
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: ContainedItem::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $containedItems;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -205,8 +199,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
 
         $this->usedInQuests = new ArrayCollection();
         $this->receivedFromQuests = new ArrayCollection();
-        $this->requiredInBarters = new ArrayCollection();
-        $this->rewardInBarters = new ArrayCollection();
+        $this->containedItems = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -538,92 +531,37 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     /**
      * @return Collection
      */
-    public function getRequiredInBarters(): Collection
+    public function getContainedItems(): Collection
     {
-        return $this->requiredInBarters;
+        return $this->containedItems;
     }
 
     /**
-     * @param Collection $requiredInBarters
+     * @param Collection $containedItems
      * @return ItemInterface
      */
-    public function setRequiredInBarters(Collection $requiredInBarters): ItemInterface
+    public function setContainedItems(Collection $containedItems): ItemInterface
     {
-        $this->requiredInBarters = $requiredInBarters;
+        $this->containedItems = $containedItems;
 
         return $this;
     }
 
-    /**
-     * @param BarterInterface $barter
-     * @return ItemInterface
-     */
-    public function addRequiredInBarter(BarterInterface $barter): ItemInterface
+    public function addContainedItem(ContainedItemInterface $containedItem): ItemInterface
     {
-        if (!$this->receivedFromQuests->contains($barter)) {
-            $this->receivedFromQuests->add($barter);
-            $barter->addRequiredItem($this);
+        if (!$this->containedItems->contains($containedItem)) {
+            $this->containedItems->add($containedItem);
+            $containedItem->setItem($this);
         }
 
         return $this;
     }
 
-    /**
-     * @param BarterInterface $barter
-     * @return ItemInterface
-     */
-    public function removeRequiredInBarter(BarterInterface $barter): ItemInterface
+    public function removeContainedItem(ContainedItemInterface $containedItem): ItemInterface
     {
-        if ($this->requiredInBarters->contains($barter)) {
-            $this->requiredInBarters->removeElement($barter);
-            $barter->removeRequiredItem($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getRewardInBarters(): Collection
-    {
-        return $this->rewardInBarters;
-    }
-
-    /**
-     * @param Collection $rewardInBarters
-     * @return ItemInterface
-     */
-    public function setRewardInBarters(Collection $rewardInBarters): ItemInterface
-    {
-        $this->rewardInBarters = $rewardInBarters;
-
-        return $this;
-    }
-
-    /**
-     * @param BarterInterface $barter
-     * @return ItemInterface
-     */
-    public function addRewardInBarter(BarterInterface $barter): ItemInterface
-    {
-        if (!$this->rewardInBarters->contains($barter)) {
-            $this->rewardInBarters->add($barter);
-            $barter->addRewardItem($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param BarterInterface $barter
-     * @return ItemInterface
-     */
-    public function removeRewardInBarter(BarterInterface $barter): ItemInterface
-    {
-        if ($this->rewardInBarters->contains($barter)) {
-            $this->rewardInBarters->removeElement($barter);
-            $barter->removeRewardItem($this);
+        if ($this->containedItems->contains($containedItem)) {
+            $this->containedItems->add($containedItem);
+            $containedItem->setItem(null);
         }
 
         return $this;
