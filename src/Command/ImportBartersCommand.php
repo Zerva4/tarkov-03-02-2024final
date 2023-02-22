@@ -15,6 +15,7 @@ use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -39,7 +40,7 @@ class ImportBartersCommand extends Command
     {
         $this
             ->setDescription('This command allows you to import or update barters from https://tarkov.dev./api')
-//            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
+            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
         ;
     }
 
@@ -120,7 +121,7 @@ class ImportBartersCommand extends Command
             } else {
                 /** @var BarterInterface $barterEntity */
                 $barterEntity = new Barter();
-                $barterEntity->setApiId($barter['id']);
+//                $barterEntity->setApiId($barter['id']);
                 $barterEntity->setPublished(true);
             }
 
@@ -133,7 +134,7 @@ class ImportBartersCommand extends Command
             $barterEntity->setTraderLevel($barter['level']);
 
             // Set unlock task
-            $questEntity = null;
+//            $questEntity = null;
             if (null !== $barter['taskUnlock']) {
                 $questEntity = $questRepository->findOneBy(['apiId' => $barter['taskUnlock']['id']]);
                 $barterEntity->setQuestUnlock($questEntity);
