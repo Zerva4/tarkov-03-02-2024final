@@ -31,8 +31,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
-//    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'barters', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
-    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'barters')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'barters')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ORM\JoinTable(name: 'barters_traders')]
     private TraderInterface $trader;
@@ -135,9 +134,9 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     }
 
     /**
-     * @return QuestInterface
+     * @return QuestInterface|null
      */
-    public function getQuestUnlock(): QuestInterface
+    public function getQuestUnlock(): ?QuestInterface
     {
         return $this->questUnlock;
     }
