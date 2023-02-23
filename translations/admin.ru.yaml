@@ -6,6 +6,7 @@ Boss: Босс
 Follower: Последователь
 label.null: Не указанно
 Photo: Фото
+Barter: Бартер
 vich_uploader:
   Photo: Фото
   form_label:
