@@ -222,8 +222,8 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     public function addRewardItem(ContainedItemInterface $item): BarterInterface
     {
         if (!$this->rewardItems->contains($item)) {
-            $this->rewardItems->removeElement($item);
-            $item->removeRewardInBarter($this);
+            $this->rewardItems->add($item);
+            $item->addRewardInBarter($this);
         }
 
         return $this;
@@ -235,9 +235,10 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
      */
     public function removeRewardItem(ContainedItemInterface $item): BarterInterface
     {
+        dump('delete');
         if (!$this->rewardItems->contains($item)) {
-            $this->rewardItems->add($item);
-            $item->addRewardInBarter($this);
+            $this->rewardItems->removeElement($item);
+            $item->removeRewardInBarter($this);
         }
 
         return $this;
