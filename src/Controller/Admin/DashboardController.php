@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
+use App\Entity\Barter;
 use App\Entity\Boss;
 use App\Entity\Items\Item;
 use App\Entity\Items\ItemMaterial;
@@ -51,6 +52,7 @@ class DashboardController extends AbstractDashboardController
         $itemsMenu = [
             MenuItem::linkToCrud(t('Сommon', [], 'menu'), '', Item::class)->setController(ItemCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Quest', [], 'menu'), '', QuestItem::class)->setController(QuestItemCrudController::class)->setLinkRel('noreferrer'),
+            MenuItem::linkToCrud(t('Barters', [], 'menu'), '', Barter::class)->setController(BarterCrudController::class),
             MenuItem::linkToCrud(t('Materials', [], 'menu'), '', ItemMaterial::class)->setController(ItemMaterialCrudController::class)->setLinkRel('noreferrer')
         ];
         yield MenuItem::section(t('Content', [], 'menu'), '');

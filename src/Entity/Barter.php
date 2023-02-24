@@ -25,14 +25,13 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: true)]
     private ?string $apiId = null;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
-//    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'barters', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
-    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'barters')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'barters')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ORM\JoinTable(name: 'barters_traders')]
     private TraderInterface $trader;
@@ -40,8 +39,8 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $traderLevel;
 
-    #[ORM\OneToOne(mappedBy: 'unlockInBarter', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinColumn(unique: false, nullable: true)]
+    #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'unlockInBarter')]
+    #[ORM\JoinColumn(name: 'quest_unlock', referencedColumnName: 'id')]
     private ?QuestInterface $questUnlock = null;
 
     #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
@@ -59,7 +58,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getApiId(): string
     {
@@ -67,7 +66,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     }
 
     /**
-     * @param int $apiId
+     * @param string $apiId
      * @return BarterInterface
      */
     public function setApiId(string $apiId): BarterInterface
@@ -135,9 +134,9 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     }
 
     /**
-     * @return QuestInterface
+     * @return QuestInterface|null
      */
-    public function getQuestUnlock(): QuestInterface
+    public function getQuestUnlock(): ?QuestInterface
     {
         return $this->questUnlock;
     }
@@ -148,7 +147,12 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
      */
     public function setQuestUnlock(?QuestInterface $questUnlock): BarterInterface
     {
-        $this->questUnlock = $questUnlock;
+        if (null === $questUnlock) {
+            $this->questUnlock->removeUnlockInBarter($this);
+            $this->questUnlock = null;
+        } else {
+            $this->questUnlock = $questUnlock;
+        }
 
         return $this;
     }
@@ -218,8 +222,8 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     public function addRewardItem(ContainedItemInterface $item): BarterInterface
     {
         if (!$this->rewardItems->contains($item)) {
-            $this->rewardItems->removeElement($item);
-            $item->removeRewardInBarter($this);
+            $this->rewardItems->add($item);
+            $item->addRewardInBarter($this);
         }
 
         return $this;
@@ -231,9 +235,10 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
      */
     public function removeRewardItem(ContainedItemInterface $item): BarterInterface
     {
+        dump('delete');
         if (!$this->rewardItems->contains($item)) {
-            $this->rewardItems->add($item);
-            $item->addRewardInBarter($this);
+            $this->rewardItems->removeElement($item);
+            $item->removeRewardInBarter($this);
         }
 
         return $this;

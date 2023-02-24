@@ -15,6 +15,7 @@ use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -39,14 +40,13 @@ class ImportBartersCommand extends Command
     {
         $this
             ->setDescription('This command allows you to import or update barters from https://tarkov.dev./api')
-//            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
+            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-//        $lang = $input->getOption('lang');
 
         $query = <<< GRAPHQL
             {
@@ -117,11 +117,6 @@ class ImportBartersCommand extends Command
                 $barterEntity = new Barter();
                 $barterEntity->setPublished(true);
                 $barterEntity->setApiId($barter['id']);
-            } else {
-                /** @var BarterInterface $barterEntity */
-                $barterEntity = new Barter();
-                $barterEntity->setApiId($barter['id']);
-                $barterEntity->setPublished(true);
             }
 
             // Set trader
@@ -133,7 +128,6 @@ class ImportBartersCommand extends Command
             $barterEntity->setTraderLevel($barter['level']);
 
             // Set unlock task
-            $questEntity = null;
             if (null !== $barter['taskUnlock']) {
                 $questEntity = $questRepository->findOneBy(['apiId' => $barter['taskUnlock']['id']]);
                 $barterEntity->setQuestUnlock($questEntity);
@@ -141,35 +135,34 @@ class ImportBartersCommand extends Command
 
             // Set requiredItems
             foreach ($barter['requiredItems'] as $requiredItem) {
-                $containedItemEntity = new ContainedItem();
+                $containedRequiredItemEntity = new ContainedItem();
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $requiredItem['item']['id']]);
-                $containedItemEntity->setItem($itemEntity);
-                $containedItemEntity->setCount($requiredItem['count']);
-                $containedItemEntity->setQuantity($requiredItem['quantity']);
-                $containedItemEntity->setAttributes($requiredItem['attributes']);
-                $barterEntity->addRequiredItem($containedItemEntity);
-                $this->em->persist($containedItemEntity);
+                $containedRequiredItemEntity->setItem($itemEntity);
+                $containedRequiredItemEntity->setCount($requiredItem['count']);
+                $containedRequiredItemEntity->setQuantity($requiredItem['quantity']);
+                $containedRequiredItemEntity->setAttributes($requiredItem['attributes']);
+                $barterEntity->addRequiredItem($containedRequiredItemEntity);
+                $this->em->persist($containedRequiredItemEntity);
+                unset($containedRequiredItemEntity);
             }
-            unset($containedItemEntity);
 
             // Set requiredItems
             foreach ($barter['rewardItems'] as $rewardItem) {
-                $containedItemEntity = new ContainedItem();
+                $containedRewardItemEntity = new ContainedItem();
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $rewardItem['item']['id']]);
-                $containedItemEntity->setItem($itemEntity);
-                $containedItemEntity->setCount($rewardItem['count']);
-                $containedItemEntity->setQuantity($rewardItem['quantity']);
-                $containedItemEntity->setAttributes($rewardItem['attributes']);
-                $barterEntity->addRewardItem($containedItemEntity);
-                $this->em->persist($containedItemEntity);
+                $containedRewardItemEntity->setItem($itemEntity);
+                $containedRewardItemEntity->setCount($rewardItem['count']);
+                $containedRewardItemEntity->setQuantity($rewardItem['quantity']);
+                $containedRewardItemEntity->setAttributes($rewardItem['attributes']);
+                $barterEntity->addRewardItem($containedRewardItemEntity);
+                $this->em->persist($containedRewardItemEntity);
+                unset($containedRewardItemEntity);
             }
-            unset($containedItemEntity);
-
             $this->em->persist($barterEntity);
         }
         $this->em->flush();
         $progressBar->finish();
-        $io->success('Traders imported.');
+        $io->success('Barters imported.');
 
         return Command::SUCCESS;
     }

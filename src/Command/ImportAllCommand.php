@@ -66,6 +66,10 @@ class ImportAllCommand extends Command
         $questsCmd = $this->getApplication()->find('app:import:quests');
         $questsCmd->run($inputArguments, $output);
 
+        // Import barters
+        $questsCmd = $this->getApplication()->find('app:import:barters');
+        $questsCmd->run($inputArguments, $output);
+
         $io->success('Database import successful.');
 
         return Command::SUCCESS;
