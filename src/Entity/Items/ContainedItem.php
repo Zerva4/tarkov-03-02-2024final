@@ -22,7 +22,7 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
 
-    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'containedItems')]
+    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', inversedBy: 'containedItems')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?ItemInterface $item;
 
@@ -35,11 +35,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true])]
     private ?array $attributes = null;
 
-    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'requiredItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'requiredItems', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'barters_required_items')]
     private Collection $requiredInBarters;
 
-    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'rewardItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'rewardItems', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'barters_reward_items')]
     private Collection $rewardInBarters;
 
