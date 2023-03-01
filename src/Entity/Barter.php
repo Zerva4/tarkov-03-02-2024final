@@ -43,11 +43,11 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     #[ORM\JoinColumn(name: 'quest_unlock', referencedColumnName: 'id')]
     private ?QuestInterface $questUnlock = null;
 
-    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredInBarters', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'barters_required_items')]
     private Collection $requiredItems;
 
-    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'rewardInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'rewardInBarters', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'barters_reward_items')]
     private Collection $rewardItems;
 
