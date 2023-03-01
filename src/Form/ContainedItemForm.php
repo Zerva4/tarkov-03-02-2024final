@@ -30,7 +30,7 @@ class ContainedItemForm extends AbstractType
                         ->setParameter('locale', 'ru')
                         ->orderBy('lt.title', 'ASC');
                 },
-                'autocomplete' => true,
+//                'autocomplete' => true,
                 'expanded'=> false,
                 'by_reference' => true,
                 'required' => true
