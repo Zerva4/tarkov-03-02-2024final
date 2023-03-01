@@ -30,15 +30,10 @@ class ContainedItemForm extends AbstractType
                         ->setParameter('locale', 'ru')
                         ->orderBy('lt.title', 'ASC');
                 },
-//                'autocomplete' => true,
                 'expanded'=> false,
                 'by_reference' => true,
                 'required' => true
             ])
-//                ->add('item', ItemAutocompleteField::class, [
-
-//                'searchable_fields' => ['title']
-//            ])
             ->add('count', NumberType::class, [
                 'label' => t('Count', [], 'admin.contained.item')
             ])
