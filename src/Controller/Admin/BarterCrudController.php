@@ -41,14 +41,14 @@ class BarterCrudController extends AbstractCrudController
             ->allowDelete()
             ->setEntryType(ContainedItemForm::class)
             ->setEntryIsComplex(false)
-            ->setFormTypeOption('by_reference', false)
+            ->setFormTypeOption('by_reference', true)
         ;
         $rewardItems = CollectionField::new('rewardItems', t('Reward items', [], 'admin.barters'))
             ->allowAdd()
             ->allowDelete()
             ->setEntryType(ContainedItemForm::class)
             ->setEntryIsComplex(false)
-            ->setFormTypeOption('by_reference', false)
+            ->setFormTypeOption('by_reference', true)
         ;
 
         return match ($pageName) {
