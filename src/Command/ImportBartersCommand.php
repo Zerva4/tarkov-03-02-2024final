@@ -8,6 +8,7 @@ use App\Entity\Items\Item;
 use App\Entity\Quests\Quest;
 use App\Entity\Trader;
 use App\Interfaces\BarterInterface;
+use App\Interfaces\ContainedItemInterface;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\TraderInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -135,7 +136,11 @@ class ImportBartersCommand extends Command
 
             // Set requiredItems
             foreach ($barter['requiredItems'] as $requiredItem) {
-                $containedRequiredItemEntity = new ContainedItem();
+                $containedRequiredItemEntity = $containedItemRepository->findBarterRequiredItemByItemId($barterEntity->getId(), $requiredItem['item']['id']);
+
+                if (!$containedRequiredItemEntity instanceof ContainedItemInterface) {
+                    $containedRequiredItemEntity = new ContainedItem();
+                }
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $requiredItem['item']['id']]);
                 $containedRequiredItemEntity->setItem($itemEntity);
                 $containedRequiredItemEntity->setCount($requiredItem['count']);
@@ -148,7 +153,10 @@ class ImportBartersCommand extends Command
 
             // Set requiredItems
             foreach ($barter['rewardItems'] as $rewardItem) {
-                $containedRewardItemEntity = new ContainedItem();
+                $containedRewardItemEntity = $containedItemRepository->findBarterRewardItemByItemId($barterEntity->getId(), $rewardItem['item']['id']);
+                if (!$containedRewardItemEntity instanceof ContainedItemInterface) {
+                    $containedRewardItemEntity = new ContainedItem();
+                }
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $rewardItem['item']['id']]);
                 $containedRewardItemEntity->setItem($itemEntity);
                 $containedRewardItemEntity->setCount($rewardItem['count']);
