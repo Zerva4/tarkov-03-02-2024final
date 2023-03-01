@@ -35,11 +35,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true])]
     private ?array $attributes = null;
 
-    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'requiredItems', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'requiredItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'barters_required_items')]
     private Collection $requiredInBarters;
 
-    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'rewardItems', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: Barter::class, mappedBy: 'rewardItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'barters_reward_items')]
     private Collection $rewardInBarters;
 
