@@ -103,7 +103,7 @@ class ItemCrudController extends BaseCrudController
                 $velocity->setColumns(3),
                 $loudness->setColumns(3),
                 FormField::addTab(t('Extra options', [], 'admin.items')),
-                $properties->setColumns(12)
+//                $properties->setColumns(12)
             ],
             default => [
                 $title->setColumns(12)->setTextAlign('left')
