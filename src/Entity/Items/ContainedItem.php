@@ -22,7 +22,7 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
 
-    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', inversedBy: 'containedItems')]
+    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'containedItems')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?ItemInterface $item;
 
