@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Items\ContainedItem;
+use App\Interfaces\ContainedItemInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<ContainedItem>
@@ -39,28 +41,33 @@ class ContainedItemRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return ContainedItem[] Returns an array of ContainedItem objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findBarterRequiredItemByItemId(?UuidInterface $barterId, string $apiIdItem): ?ContainedItemInterface
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.requiredInBarters', 'rib')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('rib.id = :id')
+            ->andWhere('cii.apiId = :api_id')
+            ->setParameters([
+                'id' => $barterId,
+                'api_id' =>$apiIdItem
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-//    public function findOneBySomeField($value): ?ContainedItem
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findBarterRewardItemByItemId(?UuidInterface $barterId, string $apiIdItem): ?ContainedItemInterface
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.rewardInBarters', 'rib')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('rib.id = :id')
+            ->andWhere('cii.apiId = :api_id')
+            ->setParameters([
+                'id' => $barterId,
+                'api_id' =>$apiIdItem
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
