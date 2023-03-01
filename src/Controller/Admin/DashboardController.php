@@ -52,8 +52,9 @@ class DashboardController extends AbstractDashboardController
         $itemsMenu = [
             MenuItem::linkToCrud(t('Сommon', [], 'menu'), '', Item::class)->setController(ItemCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Quest', [], 'menu'), '', QuestItem::class)->setController(QuestItemCrudController::class)->setLinkRel('noreferrer'),
+            MenuItem::linkToCrud(t('Materials', [], 'menu'), '', ItemMaterial::class)->setController(ItemMaterialCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Barters', [], 'menu'), '', Barter::class)->setController(BarterCrudController::class),
-            MenuItem::linkToCrud(t('Materials', [], 'menu'), '', ItemMaterial::class)->setController(ItemMaterialCrudController::class)->setLinkRel('noreferrer')
+            MenuItem::linkToCrud(t('Crafts', [], 'menu'), '', Barter::class)->setController(BarterCrudController::class),
         ];
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
