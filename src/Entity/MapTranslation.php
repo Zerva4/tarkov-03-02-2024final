@@ -28,10 +28,6 @@ class MapTranslation implements UuidPrimaryKeyInterface, TranslationInterface, T
 
     #[ORM\Column(type: 'text')]
     private string $description;
-//
-//    #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'translations')]
-//    #[ORM\JoinColumn(name: 'translatable_id', referencedColumnName: 'id')]
-//    protected $translatable;
 
     public function getTitle(): ?string
     {
