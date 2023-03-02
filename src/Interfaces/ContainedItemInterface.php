@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
+use App\Interfaces\Workshop\PlaceLevelInterface;
 use Doctrine\Common\Collections\Collection;
 
 interface ContainedItemInterface
@@ -24,4 +25,8 @@ interface ContainedItemInterface
     public function setRewardInBarters(Collection $rewardInBarters): ContainedItemInterface;
     public function addRewardInBarter(BarterInterface $barter): ContainedItemInterface;
     public function removeRewardInBarter(BarterInterface $barter): ContainedItemInterface;
+    public function getRequiredForPlacesLevels(): Collection;
+    public function setRequiredForPlacesLevels(Collection $requiredForPlacesLevels): ContainedItemInterface;
+    public function addRequiredForPlacesLevel(PlaceLevelInterface $placeLevel): ContainedItemInterface;
+    public function removeRequiredForPlacesLevel(PlaceLevelInterface $placeLevel): ContainedItemInterface;
 }
