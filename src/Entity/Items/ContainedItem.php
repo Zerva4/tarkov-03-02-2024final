@@ -3,10 +3,12 @@
 namespace App\Entity\Items;
 
 use App\Entity\Barter;
+use App\Entity\Workshop\PlaceLevel;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\ContainedItemInterface;
 use App\Interfaces\ItemInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
+use App\Interfaces\Workshop\PlaceLevelInterface;
 use App\Repository\ContainedItemRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -47,10 +49,15 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     #[ORM\JoinTable(name: 'barters_reward_items')]
     private Collection $rewardInBarters;
 
+    #[ORM\ManyToMany(targetEntity: PlaceLevel::class, mappedBy: 'requiredItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'places_levels_required_items')]
+    private Collection $requiredForPlacesLevels;
+
     public function __construct()
     {
         $this->requiredInBarters = new ArrayCollection();
         $this->rewardInBarters = new ArrayCollection();
+        $this->requiredForPlacesLevels = new ArrayCollection();
     }
 
     /**
@@ -245,5 +252,52 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     public function __toString(): string
     {
         return $this->item->__get('title');
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRequiredForPlacesLevels(): Collection
+    {
+        return $this->requiredForPlacesLevels;
+    }
+
+    /**
+     * @param Collection $requiredForPlacesLevels
+     * @return ContainedItemInterface
+     */
+    public function setRequiredForPlacesLevels(Collection $requiredForPlacesLevels): ContainedItemInterface
+    {
+        $this->requiredForPlacesLevels = $requiredForPlacesLevels;
+
+        return $this;
+    }
+
+    /**
+     * @param PlaceLevelInterface $placeLevel
+     * @return ContainedItemInterface
+     */
+    public function addRequiredForPlacesLevel(PlaceLevelInterface $placeLevel): ContainedItemInterface
+    {
+        if (!$this->requiredForPlacesLevels->contains($placeLevel)) {
+            $this->requiredForPlacesLevels->add($placeLevel);
+            $placeLevel->addRequiredItem($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PlaceLevelInterface $placeLevel
+     * @return ContainedItemInterface
+     */
+    public function removeRequiredForPlacesLevel(PlaceLevelInterface $placeLevel): ContainedItemInterface
+    {
+        if ($this->requiredForPlacesLevels->contains($placeLevel)) {
+            $this->requiredForPlacesLevels->removeElement($placeLevel);
+            $placeLevel->removeRequiredItem($this);
+        }
+
+        return $this;
     }
 }
