@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\Collection;
 
 interface ContainedItemInterface
 {
+    public function getApiId(): ?string;
+    public function setApiId(?string $apiId): ContainedItemInterface;
     public function getItem(): ?ItemInterface;
     public function setItem(?ItemInterface $item): ContainedItemInterface;
     public function getCount(): ?float;
