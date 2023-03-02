@@ -13,8 +13,8 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
-#[ORM\Table(name: 'places_level_translation')]
-#[ORM\Index(columns: ['locale'], name: 'place_level_locale_idx')]
+#[ORM\Table(name: 'places_levels_translation')]
+#[ORM\Index(columns: ['locale'], name: 'places_levels_locale_idx')]
 #[ORM\Entity(repositoryClass: LocationTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class PlaceLevelTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface

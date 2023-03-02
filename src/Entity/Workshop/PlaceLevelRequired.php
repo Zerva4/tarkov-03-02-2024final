@@ -12,8 +12,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Table(name: 'places_level_required')]
-#[ORM\Index(columns: ['api_id'], name: 'places_level_required_idx')]
+#[ORM\Table(name: 'places_levels_required')]
+#[ORM\Index(columns: ['api_id'], name: 'places_levels_required_idx')]
 #[ORM\Entity(repositoryClass: PlaceLevelRequiredRepository::class)]
 class PlaceLevelRequired implements UuidPrimaryKeyInterface, PlaceLevelRequiredInterface
 {
