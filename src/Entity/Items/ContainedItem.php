@@ -16,11 +16,15 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
 #[ORM\Table(name: 'contained_items')]
+#[ORM\Index(columns: ['api_id'], name: 'contained_item_idx')]
 #[ORM\Entity(repositoryClass: ContainedItemRepository::class)]
 class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, ContainedItemInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true, options: ['default' => null])]
+    private ?string $apiId = null;
 
     #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'containedItems')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
@@ -47,6 +51,25 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     {
         $this->requiredInBarters = new ArrayCollection();
         $this->rewardInBarters = new ArrayCollection();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getApiId(): ?string
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param string|null $apiId
+     * @return ContainedItemInterface
+     */
+    public function setApiId(?string $apiId): ContainedItemInterface
+    {
+        $this->apiId = $apiId;
+
+        return $this;
     }
 
     /**
