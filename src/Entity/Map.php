@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Quests\Quest;
+use App\Entity\Quest\Quest;
 use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
-use App\Interfaces\QuestInterface;
+use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapRepository;
 use App\Traits\SlugTrait;

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Items\Item;
+use App\Entity\Item\Item;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;

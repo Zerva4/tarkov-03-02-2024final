@@ -6,10 +6,10 @@ namespace App\Traits;
 
 use App\Entity\Article;
 use App\Entity\Boss;
-use App\Entity\Items\Item;
+use App\Entity\Item\Item;
 use App\Entity\Map;
-use App\Entity\Quests\Quest;
-use App\Entity\Trader;
+use App\Entity\Quest\Quest;
+use App\Entity\Trader\Trader;
 use App\Entity\Workshop\Place;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;

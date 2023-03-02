@@ -3,13 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Barter;
-use App\Entity\Items\ContainedItem;
-use App\Interfaces\BarterInterface;
-use App\Interfaces\ContainedItemInterface;
-use App\Interfaces\ItemInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<Barter>

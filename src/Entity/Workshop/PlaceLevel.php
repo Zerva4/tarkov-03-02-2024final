@@ -2,10 +2,10 @@
 
 namespace App\Entity\Workshop;
 
-use App\Entity\Items\ContainedItem;
+use App\Entity\Item\ContainedItem;
 use App\Entity\Skill;
 use App\Entity\TranslatableEntity;
-use App\Interfaces\ContainedItemInterface;
+use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\SkillInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;

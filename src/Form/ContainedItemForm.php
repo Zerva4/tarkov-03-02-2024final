@@ -2,9 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Items\ContainedItem;
-use App\Entity\Items\Item;
-use App\Repository\ItemRepository;
+use App\Entity\Item\ContainedItem;
+use App\Entity\Item\Item;
+use App\Repository\Item\ItemRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;

@@ -2,10 +2,10 @@
 
 namespace App\Command;
 
-use App\Entity\Trader;
-use App\Entity\TraderLevel;
+use App\Entity\Trader\Trader;
+use App\Entity\Trader\TraderLevel;
 use App\Interfaces\GraphQLClientInterface;
-use App\Interfaces\TraderInterface;
+use App\Interfaces\Trader\TraderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

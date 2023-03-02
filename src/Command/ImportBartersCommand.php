@@ -3,14 +3,14 @@
 namespace App\Command;
 
 use App\Entity\Barter;
-use App\Entity\Items\ContainedItem;
-use App\Entity\Items\Item;
-use App\Entity\Quests\Quest;
-use App\Entity\Trader;
+use App\Entity\Item\ContainedItem;
+use App\Entity\Item\Item;
+use App\Entity\Quest\Quest;
+use App\Entity\Trader\Trader;
 use App\Interfaces\BarterInterface;
-use App\Interfaces\ContainedItemInterface;
 use App\Interfaces\GraphQLClientInterface;
-use App\Interfaces\TraderInterface;
+use App\Interfaces\Item\ContainedItemInterface;
+use App\Interfaces\Trader\TraderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;

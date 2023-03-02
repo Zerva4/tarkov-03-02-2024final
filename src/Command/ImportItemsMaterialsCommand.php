@@ -2,9 +2,9 @@
 
 namespace App\Command;
 
-use App\Entity\Items\ItemMaterial;
+use App\Entity\Item\ItemMaterial;
 use App\Interfaces\GraphQLClientInterface;
-use App\Interfaces\ItemMaterialInterface;
+use App\Interfaces\Item\ItemMaterialInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;

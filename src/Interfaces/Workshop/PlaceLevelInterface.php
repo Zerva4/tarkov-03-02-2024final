@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Interfaces\Workshop;
-use App\Interfaces\ContainedItemInterface;
+use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\SkillInterface;
 use Doctrine\Common\Collections\Collection;
 

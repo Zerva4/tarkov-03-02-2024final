@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Entity\Items\ContainedItem;
-use App\Entity\Quests\Quest;
+use App\Entity\Item\ContainedItem;
+use App\Entity\Quest\Quest;
+use App\Entity\Trader\Trader;
 use App\Interfaces\BarterInterface;
-use App\Interfaces\QuestInterface;
-use App\Interfaces\TraderInterface;
+use App\Interfaces\Item\ContainedItemInterface;
+use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Interfaces\ContainedItemInterface;
 use App\Repository\BarterRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;

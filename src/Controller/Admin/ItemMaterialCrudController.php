@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Items\ItemMaterial;
+use App\Entity\Item\ItemMaterial;
 use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;

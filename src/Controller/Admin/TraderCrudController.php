@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Trader;
+use App\Entity\Trader\Trader;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\TraderLevelForm;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
