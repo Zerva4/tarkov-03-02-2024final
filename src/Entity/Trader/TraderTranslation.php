@@ -65,7 +65,7 @@ class TraderTranslation implements UuidPrimaryKeyInterface, TranslationInterface
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      * @return TraderTranslation
      */
     public function setDescription(?string $description): self
