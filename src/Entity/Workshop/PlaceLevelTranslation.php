@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Workshop;
 
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Repository\LocationTranslationRepository;
+use App\Repository\Workshop\PlaceLevelTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -15,7 +15,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'places_levels_translation')]
 #[ORM\Index(columns: ['locale'], name: 'places_levels_locale_idx')]
-#[ORM\Entity(repositoryClass: LocationTranslationRepository::class)]
+#[ORM\Entity(repositoryClass: PlaceLevelTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class PlaceLevelTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
