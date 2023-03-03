@@ -11,7 +11,9 @@ interface PlaceInterface
     public function isPublished(): bool;
     public function setPublished(bool $published): PlaceInterface;
     public function getOrderPlace(): ?int;
-    public function setOrderPlace(?int $order): PlaceInterface;
+    public function setOrderPlace(?int $orderPlace): PlaceInterface;
     public function getLevels(): Collection;
     public function setLevels(Collection $levels): PlaceInterface;
+    public function addLevel(PlaceLevelInterface $level): PlaceInterface;
+    public function removeLevel(PlaceLevelInterface $level): PlaceInterface;
 }

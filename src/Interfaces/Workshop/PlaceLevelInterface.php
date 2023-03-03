@@ -38,13 +38,13 @@ interface PlaceLevelInterface
     /**
      * @return int
      */
-    public function getOrder(): int;
+    public function getLevelOrder(): int;
 
     /**
      * @param int $order
      * @return PlaceLevelInterface
      */
-    public function setOrder(int $order = 0): PlaceLevelInterface;
+    public function setLevelOrder(int $order = 0): PlaceLevelInterface;
 
     /**
      * @return int
@@ -67,6 +67,29 @@ interface PlaceLevelInterface
      * @return PlaceLevelInterface
      */
     public function setConstructionTime(int $constructionTime): PlaceLevelInterface;
+
+    /**
+     * @return PlaceInterface|null
+     */
+    public function getPlace(): ?PlaceInterface;
+
+    /**
+     * @param PlaceInterface|null $place
+     * @return PlaceLevelInterface
+     */
+    public function setPlace(?PlaceInterface $place): PlaceLevelInterface;
+
+    /**
+     * @param PlaceInterface $place
+     * @return PlaceLevelInterface
+     */
+    public function addPlace(PlaceInterface $place): PlaceLevelInterface;
+
+    /**
+     * @param PlaceInterface $place
+     * @return PlaceLevelInterface
+     */
+    public function removePlace(PlaceInterface $place): PlaceLevelInterface;
 
     /**
      * @return Collection
