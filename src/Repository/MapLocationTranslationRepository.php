@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method MapLocationTranslation[]    findAll()
  * @method MapLocationTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MapLocationTranslateRepository extends ServiceEntityRepository
+class MapLocationTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -38,29 +38,4 @@ class MapLocationTranslateRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return MapLocationTranslate[] Returns an array of MapLocationTranslate objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?MapLocationTranslate
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
