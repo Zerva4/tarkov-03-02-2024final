@@ -76,7 +76,7 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
     #[ORM\OneToMany(mappedBy: 'map', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
-    #[ORM\OneToMany(mappedBy: 'map', targetEntity: MapLocation::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'map', targetEntity: MapLocation::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $locations;
 
     // TODO: Добавить врагов и босссов.
