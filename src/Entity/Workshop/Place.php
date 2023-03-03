@@ -5,6 +5,7 @@ namespace App\Entity\Workshop;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\PlaceInterface;
+use App\Interfaces\Workshop\PlaceLevelInterface;
 use App\Repository\Workshop\PlaceRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -31,10 +32,11 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
     private bool $published = true;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
-    private int $order = 0;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $orderPlace = null;
 
-    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: PlaceLevel::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: PlaceLevel::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinColumn(name: 'place_id', referencedColumnName: 'id')]
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $levels;
 
@@ -86,18 +88,18 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     /**
      * @return int
      */
-    public function getOrder(): int
+    public function getOrderPlace(): ?int
     {
-        return $this->order;
+        return $this->orderPlace;
     }
 
     /**
-     * @param int $order
+     * @param int|null $orderPlace
      * @return PlaceInterface
      */
-    public function setOrder(int $order): PlaceInterface
+    public function setOrderPlace(?int $orderPlace): PlaceInterface
     {
-        $this->order = $order;
+        $this->orderPlace = $orderPlace;
 
         return $this;
     }
@@ -117,6 +119,26 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     public function setLevels(Collection $levels): PlaceInterface
     {
         $this->levels = $levels;
+
+        return $this;
+    }
+
+    public function addLevel(PlaceLevelInterface $level): PlaceInterface
+    {
+        if (!$this->levels->contains($level)) {
+            $this->levels->add($level);
+            $level->addPlace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLevel(PlaceLevelInterface $level): PlaceInterface
+    {
+        if ($this->levels->contains($level)) {
+            $this->levels->removeElement($level);
+            $level->removePlace($this);
+        }
 
         return $this;
     }

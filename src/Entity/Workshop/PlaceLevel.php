@@ -8,6 +8,7 @@ use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\SkillInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
+use App\Interfaces\Workshop\PlaceInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
 use App\Interfaces\Workshop\PlaceLevelRequiredInterface;
 use App\Repository\Workshop\PlaceLevelRepository;
@@ -34,13 +35,16 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     private bool $published = true;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
-    private int $order = 0;
+    private int $levelOrder = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $level = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $constructionTime = 0;
+
+    #[ORM\ManyToOne(targetEntity: Place::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'levels')]
+    private ?PlaceInterface $place;
 
     #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredForPlacesLevels', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'places_levels_required_items')]
@@ -92,14 +96,14 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
         return $this;
     }
 
-    public function getOrder(): int
+    public function getLevelOrder(): int
     {
-        return $this->order;
+        return $this->levelOrder;
     }
 
-    public function setOrder(int $order = 0): PlaceLevelInterface
+    public function setLevelOrder(int $levelOrder = 0): PlaceLevelInterface
     {
-        $this->order = $order;
+        $this->levelOrder = $levelOrder;
 
         return $this;
     }
@@ -124,6 +128,41 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     public function setConstructionTime(int $constructionTime): PlaceLevelInterface
     {
         $this->constructionTime = $constructionTime;
+
+        return $this;
+    }
+
+    /**
+     * @return PlaceInterface|null
+     */
+    public function getPlace(): ?PlaceInterface
+    {
+        return $this->place;
+    }
+
+    /**
+     * @param PlaceInterface|null $place
+     * @return PlaceLevelInterface
+     */
+    public function setPlace(?PlaceInterface $place): PlaceLevelInterface
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
+    public function addPlace(PlaceInterface $place): PlaceLevelInterface
+    {
+        $place->addLevel($this);
+        $this->place = $place;
+
+        return $this;
+    }
+
+    public function removePlace(PlaceInterface $place): PlaceLevelInterface
+    {
+        $place->removeLevel($this);
+        $this->place = $place;
 
         return $this;
     }
@@ -232,5 +271,10 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string)$this->getLevel();
     }
 }
