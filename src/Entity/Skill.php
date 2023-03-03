@@ -8,6 +8,7 @@ use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
 use App\Repository\SkillRepository;
 use App\Traits\UuidPrimaryKeyTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -31,6 +32,13 @@ class Skill extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     #[ORM\ManyToMany(targetEntity: PlaceLevel::class, mappedBy: 'requiredPlacesLevels', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'places_levels_required_skills')]
     private Collection $requiredForPlacesLevels;
+
+    public function __construct(string $defaultLocation = '%app.default_locale%')
+    {
+        parent::__construct($defaultLocation);
+
+        $this->requiredForPlacesLevels = new ArrayCollection();
+    }
 
     /**
      * @return string|null
@@ -107,5 +115,10 @@ class Skill extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('title') . $this->getLevel();
     }
 }
