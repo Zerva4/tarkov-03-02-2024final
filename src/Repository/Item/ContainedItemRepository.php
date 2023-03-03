@@ -70,4 +70,19 @@ class ContainedItemRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findPlaceLevelRequiredForByItemId(?UuidInterface $placeLevelId, string $apiIdItem): ?ContainedItemInterface
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.requiredForPlacesLevels', 'rpl')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('rpl.id = :id')
+            ->andWhere('cii.apiId = :api_id')
+            ->setParameters([
+                'id' => $placeLevelId,
+                'api_id' =>$apiIdItem
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
