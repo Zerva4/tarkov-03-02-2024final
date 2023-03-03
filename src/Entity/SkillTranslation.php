@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Repository\LocationTranslationRepository;
+use App\Repository\SkillTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -15,7 +15,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'skills_translation')]
 #[ORM\Index(columns: ['locale'], name: 'skills_locale_idx')]
-#[ORM\Entity(repositoryClass: LocationTranslationRepository::class)]
+#[ORM\Entity(repositoryClass: SkillTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class SkillTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {
