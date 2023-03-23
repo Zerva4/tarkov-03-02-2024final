@@ -16,4 +16,8 @@ interface PlaceInterface
     public function setLevels(Collection $levels): PlaceInterface;
     public function addLevel(PlaceLevelInterface $level): PlaceInterface;
     public function removeLevel(PlaceLevelInterface $level): PlaceInterface;
+    public function getPlaceRequiredLevels(): Collection;
+    public function setPlaceRequiredLevels(Collection $placeRequiredLevels): PlaceInterface;
+    public function addPlaceRequiredLevel(PlaceLevelRequiredInterface $placeLevelRequired): PlaceInterface;
+    public function removePlaceRequiredLevel(PlaceLevelRequiredInterface $placeLevelRequired): PlaceInterface;
 }
