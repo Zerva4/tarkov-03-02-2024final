@@ -6,9 +6,7 @@ use App\Entity\Workshop\PlaceLevel;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Trader\TraderRequiredInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Interfaces\Workshop\PlaceInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
-use App\Interfaces\Workshop\PlaceLevelRequiredInterface;
 use App\Repository\Workshop\PlaceLevelRequiredRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -32,7 +30,7 @@ class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $level = 0;
 
-    #[ORM\ManyToMany(targetEntity: PlaceLevel::class, mappedBy: 'requiredPlacesLevels', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: PlaceLevel::class, mappedBy: 'requiredTraders', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'places_levels_required_traders')]
     private Collection $requiredForPlacesLevels;
 
@@ -51,7 +49,7 @@ class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
 
     /**
      * @param string|null $apiId
-     * @return PlaceLevelRequiredInterface
+     * @return TraderRequiredInterface
      */
     public function setApiId(?string $apiId): TraderRequiredInterface
     {
@@ -61,7 +59,7 @@ class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
     }
 
     /**
-     * @return PlaceInterface|null
+     * @return TraderInterface|null
      */
     public function getTrader(): ?TraderInterface
     {
@@ -121,7 +119,7 @@ class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
     {
         if (!$this->requiredForPlacesLevels->contains($placeLevel)) {
             $this->requiredForPlacesLevels->add($placeLevel);
-            $placeLevel->addRequiredPlaceLevel($this);
+            $placeLevel->addRequiredTrader($this);
         }
 
         return $this;
@@ -131,7 +129,7 @@ class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
     {
         if ($this->requiredForPlacesLevels->contains($placeLevel)) {
             $this->requiredForPlacesLevels->removeElement($placeLevel);
-            $placeLevel->removeRequiredPlaceLevel($this);
+            $placeLevel->addRequiredTrader($this);
         }
 
         return $this;
@@ -139,6 +137,6 @@ class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
 
     public function __toString(): string
     {
-        return $this->trader->__get('title') . ': уровень ' . $this->getLevel();
+        return $this->trader->__get('characterType') . ': уровень ' . $this->getLevel();
     }
 }
