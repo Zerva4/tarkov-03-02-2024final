@@ -178,6 +178,7 @@ class ImportPlacesCommand extends Command
                 $placeLevelEntity->setDefaultLocale($lang);
                 $placeLevelEntity->translate($lang, false)->setDescription($level['description']);
                 $placeLevelEntity->setLevelOrder($order);
+                $placeLevelEntity->setConstructionTime($level['constructionTime']);
                 $placeLevelEntity->setLevel($level['level']);
                 $placeLevelEntity->mergeNewTranslations();
 
