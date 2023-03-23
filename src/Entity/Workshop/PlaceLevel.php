@@ -4,9 +4,11 @@ namespace App\Entity\Workshop;
 
 use App\Entity\Item\ContainedItem;
 use App\Entity\Skill;
+use App\Entity\Trader\TraderRequired;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\SkillInterface;
+use App\Interfaces\Trader\TraderRequiredInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\PlaceInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
@@ -58,9 +60,9 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     #[ORM\JoinTable(name: 'places_levels_required_skills')]
     private Collection $requiredSkills;
 
-//    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredForPlacesLevels', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
-//    #[ORM\JoinTable(name: 'places_levels_required_skills')]
-//    private Collection $requiredTraders;
+    #[ORM\ManyToMany(targetEntity: TraderRequired::class, inversedBy: 'requiredForPlacesLevels', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'places_levels_required_traders')]
+    private Collection $requiredTraders;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -69,7 +71,7 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
         $this->requiredItems = new ArrayCollection();
         $this->requiredPlacesLevels = new ArrayCollection();
         $this->requiredSkills = new ArrayCollection();
-//        $this->requiredTraders = new ArrayCollection();
+        $this->requiredTraders = new ArrayCollection();
     }
 
     public function getApiId(): ?string
@@ -268,6 +270,45 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
         if ($this->requiredSkills->contains($skill)) {
             $this->requiredSkills->removeElement($skill);
             $skill->removeRequiredForPlacesLevel($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRequiredTraders(): Collection
+    {
+        return $this->requiredTraders;
+    }
+
+    /**
+     * @param Collection $requiredTraders
+     * @return PlaceLevelInterface
+     */
+    public function setRequiredTraders(Collection $requiredTraders): PlaceLevelInterface
+    {
+        $this->requiredTraders = $requiredTraders;
+
+        return $this;
+    }
+
+    public function addRequiredTrader(TraderRequiredInterface $trader): PlaceLevelInterface
+    {
+        if (!$this->requiredTraders->contains($trader)) {
+            $this->requiredTraders->add($trader);
+            $trader->addRequiredForPlacesLevel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequiredTrader(TraderRequiredInterface $trader): PlaceLevelInterface
+    {
+        if ($this->requiredTraders->contains($trader)) {
+            $this->requiredTraders->removeElement($trader);
+            $trader->removeRequiredForPlacesLevel($this);
         }
 
         return $this;
