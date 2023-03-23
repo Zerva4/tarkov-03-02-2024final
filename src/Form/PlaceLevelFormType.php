@@ -31,8 +31,12 @@ class PlaceLevelFormType extends AbstractType
                 'allow_delete' => true,
                 'delete_empty' => true
             ])
-            ->add('requiredPlacesLevels', null, [
+            ->add('requiredPlacesLevels', CollectionType::class, [
                 'label' => t('Required places Level', [], 'admin.places'),
+                'entry_type' => PlaceLevelRequiredType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true
             ])
             ->add('requiredSkills', CollectionType::class, [
                 'label' => t('Required skills', [], 'admin.places'),

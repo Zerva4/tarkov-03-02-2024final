@@ -28,9 +28,6 @@ class SkillFormType extends AbstractType
                 ],
                 'excluded_fields' => ['createdAt', 'updatedAt'],
             ])
-            ->add('title', TextType::class, [
-                'label' => t('Title', [], 'admin.places')
-            ])
             ->add('level', IntegerType::class, [
                 'label' => t('Level', [], 'admin.places')
             ])
