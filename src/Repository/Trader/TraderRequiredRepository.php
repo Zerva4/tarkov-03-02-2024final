@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Trader;
 
 use App\Entity\Trader\TraderRequired;
+use App\Interfaces\Trader\TraderRequiredInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<TraderRequired>
@@ -39,28 +41,18 @@ class TraderRequiredRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return TraderRequired[] Returns an array of TraderRequired objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?TraderRequired
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findByPlaceLevelRequiredByTraderId(?UuidInterface $placeLevelId, string $apiIdTrader): ?TraderRequiredInterface
+    {
+        return $this->createQueryBuilder('tr')
+            ->leftJoin('tr.requiredForPlacesLevels', 'rpl')
+            ->leftJoin('tr.trader', 'trt')
+            ->andWhere('rpl.id = :id')
+            ->andWhere('trt.apiId = :api_id')
+            ->setParameters([
+                'id' => $placeLevelId,
+                'api_id' => $apiIdTrader
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
