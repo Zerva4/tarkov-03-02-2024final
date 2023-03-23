@@ -3,6 +3,7 @@
 namespace App\Interfaces\Workshop;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\SkillInterface;
+use App\Interfaces\Trader\TraderRequiredInterface;
 use Doctrine\Common\Collections\Collection;
 
 interface PlaceLevelInterface
@@ -159,4 +160,12 @@ interface PlaceLevelInterface
      * @return PlaceLevelInterface
      */
     public function removeRequiredSkill(SkillInterface $skill): PlaceLevelInterface;
+
+    public function getRequiredTraders(): Collection;
+
+    public function setRequiredTraders(Collection $requiredTraders): PlaceLevelInterface;
+
+    public function addRequiredTrader(TraderRequiredInterface $trader): PlaceLevelInterface;
+
+    public function removeRequiredTrader(TraderRequiredInterface $trader): PlaceLevelInterface;
 }
