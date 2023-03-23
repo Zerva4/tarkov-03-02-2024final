@@ -7,7 +7,7 @@ use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Trader\TraderRequiredInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
-use App\Repository\Workshop\PlaceLevelRequiredRepository;
+use App\Repository\Trader\TraderRequiredRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'traders_required')]
 #[ORM\Index(columns: ['api_id'], name: 'traders_required_idx')]
-#[ORM\Entity(repositoryClass: PlaceLevelRequiredRepository::class)]
+#[ORM\Entity(repositoryClass: TraderRequiredRepository::class)]
 class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
 {
     use UuidPrimaryKeyTrait;
@@ -23,7 +23,7 @@ class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $apiId = null;
 
-    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'containedItems')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'requiredTraders')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?TraderInterface $trader = null;
 
