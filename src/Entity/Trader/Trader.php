@@ -11,6 +11,7 @@ use App\Interfaces\BarterInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Trader\TraderLevelInterface;
+use App\Interfaces\Trader\TraderRequiredInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Trader\TraderRepository;
 use App\Traits\SlugTrait;
@@ -80,12 +81,16 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: TraderRequired::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $requiredTraders;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
 
         $this->levels = new ArrayCollection();
         $this->barters = new ArrayCollection();
+        $this->requiredTraders = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -264,5 +269,44 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     public function __toString(): string
     {
         return $this->__get('characterType');
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRequiredTraders(): Collection
+    {
+        return $this->requiredTraders;
+    }
+
+    /**
+     * @param Collection $requiredTraders
+     * @return TraderInterface
+     */
+    public function setRequiredTraders(Collection $requiredTraders): TraderInterface
+    {
+        $this->requiredTraders = $requiredTraders;
+
+        return $this;
+    }
+
+    public function addRequiredTrader(TraderRequiredInterface $requiredTrader): TraderInterface
+    {
+        if (!$this->requiredTraders->contains($requiredTrader)) {
+            $this->requiredTraders->add($requiredTrader);
+            $requiredTrader->setTrader($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequiredTrader(TraderRequiredInterface $requiredTrader): TraderInterface
+    {
+        if (!$this->requiredTraders->contains($requiredTrader)) {
+            $this->requiredTraders->add($requiredTrader);
+            $requiredTrader->setTrader(null);
+        }
+
+        return $this;
     }
 }
