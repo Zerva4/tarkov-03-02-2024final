@@ -45,6 +45,13 @@ class PlaceLevelFormType extends AbstractType
                 'allow_delete' => true,
                 'delete_empty' => true
             ])
+            ->add('requiredTraders', CollectionType::class, [
+                'label' => t('Required traders', [], 'admin.places'),
+                'entry_type' => TraderRequiredType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true
+            ])
         ;
     }
 
