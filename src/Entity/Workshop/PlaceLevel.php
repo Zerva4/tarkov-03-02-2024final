@@ -50,7 +50,7 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     #[ORM\JoinTable(name: 'places_levels_required_items')]
     private Collection $requiredItems;
 
-    #[ORM\ManyToMany(targetEntity: PlaceLevelRequired::class, inversedBy: 'requiredForPlacesLevels', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: PlaceLevelRequired::class, inversedBy: 'requiredForPlacesLevels', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'places_levels_required_levels')]
     private Collection $requiredPlacesLevels;
 

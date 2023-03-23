@@ -41,7 +41,7 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $levels;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: PlaceLevelRequired::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: PlaceLevelRequired::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $placeRequiredLevels;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
