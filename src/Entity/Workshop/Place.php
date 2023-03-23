@@ -6,6 +6,7 @@ use App\Entity\TranslatableEntity;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\PlaceInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
+use App\Interfaces\Workshop\PlaceLevelRequiredInterface;
 use App\Repository\Workshop\PlaceRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -40,11 +41,15 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $levels;
 
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: PlaceLevelRequired::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $placeRequiredLevels;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
 
         $this->levels = new ArrayCollection();
+        $this->placeRequiredLevels = new ArrayCollection();
     }
 
     /**
@@ -123,6 +128,10 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         return $this;
     }
 
+    /**
+     * @param PlaceLevelInterface $level
+     * @return PlaceInterface
+     */
     public function addLevel(PlaceLevelInterface $level): PlaceInterface
     {
         if (!$this->levels->contains($level)) {
@@ -133,6 +142,10 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         return $this;
     }
 
+    /**
+     * @param PlaceLevelInterface $level
+     * @return PlaceInterface
+     */
     public function removeLevel(PlaceLevelInterface $level): PlaceInterface
     {
         if ($this->levels->contains($level)) {
@@ -141,5 +154,57 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPlaceRequiredLevels(): Collection
+    {
+        return $this->placeRequiredLevels;
+    }
+
+    /**
+     * @param Collection $placeRequiredLevels
+     * @return PlaceInterface
+     */
+    public function setPlaceRequiredLevels(Collection $placeRequiredLevels): PlaceInterface
+    {
+        $this->placeRequiredLevels = $placeRequiredLevels;
+
+        return $this;
+    }
+
+    /**
+     * @param PlaceLevelRequiredInterface $placeLevelRequired
+     * @return PlaceInterface
+     */
+    public function addPlaceRequiredLevel(PlaceLevelRequiredInterface $placeLevelRequired): PlaceInterface
+    {
+        if (!$this->placeRequiredLevels->contains($placeLevelRequired)) {
+            $this->placeRequiredLevels->add($placeLevelRequired);
+            $placeLevelRequired->setPlace($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PlaceLevelRequiredInterface $placeLevelRequired
+     * @return PlaceInterface
+     */
+    public function removePlaceRequiredLevel(PlaceLevelRequiredInterface $placeLevelRequired): PlaceInterface
+    {
+        if (!$this->placeRequiredLevels->contains($placeLevelRequired)) {
+            $this->placeRequiredLevels->add($placeLevelRequired);
+            $placeLevelRequired->setPlace(null);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('title');
     }
 }
