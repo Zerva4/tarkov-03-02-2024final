@@ -11,6 +11,7 @@ use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function Symfony\Component\Translation\t;
 
 #[ORM\Table(name: 'places_levels_required')]
 #[ORM\Index(columns: ['api_id'], name: 'places_levels_required_idx')]
@@ -22,6 +23,8 @@ class PlaceLevelRequired implements UuidPrimaryKeyInterface, PlaceLevelRequiredI
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $apiId = null;
 
+    #[ORM\ManyToOne(targetEntity: place::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'containedItems')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?PlaceInterface $place = null;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -130,5 +133,10 @@ class PlaceLevelRequired implements UuidPrimaryKeyInterface, PlaceLevelRequiredI
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->place->__get('title') . ': уровень ' . $this->getLevel();
     }
 }
