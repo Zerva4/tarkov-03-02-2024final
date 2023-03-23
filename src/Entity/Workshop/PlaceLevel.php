@@ -220,8 +220,8 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
 
     public function addRequiredPlaceLevel(PlaceLevelRequiredInterface $requiredPlaceLevel): PlaceLevelInterface
     {
-        if (!$this->requiredItems->contains($requiredPlaceLevel)) {
-            $this->requiredItems->add($requiredPlaceLevel);
+        if (!$this->requiredPlacesLevels->contains($requiredPlaceLevel)) {
+            $this->requiredPlacesLevels->add($requiredPlaceLevel);
             $requiredPlaceLevel->addRequiredForPlacesLevel($this);
         }
 
@@ -230,8 +230,8 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
 
     public function removeRequiredPlaceLevel(PlaceLevelRequiredInterface $requiredPlaceLevel): PlaceLevelInterface
     {
-        if ($this->requiredItems->contains($requiredPlaceLevel)) {
-            $this->requiredItems->removeElement($requiredPlaceLevel);
+        if ($this->requiredPlacesLevels->contains($requiredPlaceLevel)) {
+            $this->requiredPlacesLevels->removeElement($requiredPlaceLevel);
             $requiredPlaceLevel->removeRequiredForPlacesLevel($this);
         }
 
