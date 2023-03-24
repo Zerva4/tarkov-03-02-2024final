@@ -78,25 +78,25 @@ interface CraftInterface
     /**
      * @return Collection
      */
-    public function getRequiredItems(): Collection;
+    public function getRequiredContainedItems(): Collection;
 
     /**
      * @param Collection $requiredItems
      * @return CraftInterface
      */
-    public function setRequiredItems(Collection $requiredItems): CraftInterface;
+    public function setRequiredContainedItems(Collection $requiredItems): CraftInterface;
 
     /**
      * @param ContainedItemInterface $requiredItem
      * @return CraftInterface
      */
-    public function addRequiredItem(ContainedItemInterface $requiredItem): CraftInterface;
+    public function addRequiredContainedItem(ContainedItemInterface $requiredItem): CraftInterface;
 
     /**
      * @param ContainedItemInterface $requiredItem
      * @return CraftInterface
      */
-    public function removeRequiredItem(ContainedItemInterface $requiredItem): CraftInterface;
+    public function removeRequiredContainedItem(ContainedItemInterface $requiredItem): CraftInterface;
 
     /**
      * @return Collection
@@ -124,23 +124,23 @@ interface CraftInterface
     /**
      * @return Collection
      */
-    public function getRewardItems(): Collection;
+    public function getRewardContainedItems(): Collection;
 
     /**
      * @param Collection $rewardItems
      * @return CraftInterface
      */
-    public function setRewardItems(Collection $rewardItems): CraftInterface;
+    public function setRewardContainedItems(Collection $rewardItems): CraftInterface;
 
     /**
      * @param ContainedItemInterface $rewardItem
      * @return CraftInterface
      */
-    public function addRewardItem(ContainedItemInterface $rewardItem): CraftInterface;
+    public function addRewardContainedItem(ContainedItemInterface $rewardItem): CraftInterface;
 
     /**
      * @param ContainedItemInterface $rewardItem
      * @return CraftInterface
      */
-    public function removeRewardItem(ContainedItemInterface $rewardItem): CraftInterface;
+    public function removeRewardContainedItem(ContainedItemInterface $rewardItem): CraftInterface;
 }
