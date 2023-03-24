@@ -68,6 +68,8 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         $this->requiredInBarters = new ArrayCollection();
         $this->rewardInBarters = new ArrayCollection();
         $this->requiredForPlacesLevels = new ArrayCollection();
+        $this->requiredInCrafts = new ArrayCollection();
+        $this->rewardInCrafts = new ArrayCollection();
     }
 
     public function getApiId(): ?string
