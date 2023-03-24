@@ -45,13 +45,13 @@ interface CraftInterface
     /**
      * @return QuestInterface|null
      */
-    public function getQuest(): ?QuestInterface;
+    public function getUnlockQuest(): ?QuestInterface;
 
     /**
      * @param QuestInterface|null $quest
      * @return CraftInterface
      */
-    public function setQuest(?QuestInterface $quest): CraftInterface;
+    public function setUnlockQuest(?QuestInterface $quest): CraftInterface;
 
     /**
      * @return int|null
