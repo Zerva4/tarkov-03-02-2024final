@@ -277,7 +277,7 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
 
     public function addRewardInCraft(CraftInterface $craft): ContainedItemInterface
     {
-        if (!$this->rewardInCrafts->contains($craft)) {git add
+        if (!$this->rewardInCrafts->contains($craft)) {
             $this->rewardInCrafts->add($craft);
             $craft->addRewardContainedItem($this);
         }
