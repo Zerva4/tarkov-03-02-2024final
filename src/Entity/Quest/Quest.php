@@ -9,6 +9,7 @@ use App\Entity\Item\Item;
 use App\Entity\Map;
 use App\Entity\Trader\Trader;
 use App\Entity\TranslatableEntity;
+use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
@@ -16,6 +17,7 @@ use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Quest\QuestObjectiveInterface;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
+use App\Interfaces\Workshop\CraftInterface;
 use App\Repository\Quest\QuestRepository;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -102,6 +104,9 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection $receivedItems;
 
+    #[ORM\OneToMany(mappedBy: 'unlockQuest', targetEntity: Craft::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    private Collection $unlockInCrafts;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -110,6 +115,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         $this->usedItems = new ArrayCollection();
         $this->receivedItems = new ArrayCollection();
         $this->unlockInBarter = new ArrayCollection();
+        $this->unlockInCrafts = new ArrayCollection();
     }
 
     public function getApiId(): ?string
@@ -364,6 +370,38 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         if ($this->unlockInBarter->contains($barter)) {
             $this->unlockInBarter->add($barter);
             $barter->setQuestUnlock($this);
+        }
+
+        return $this;
+    }
+
+    public function getUnlockInCrafts(): Collection
+    {
+        return $this->unlockInCrafts;
+    }
+
+    public function setUnlockInCrafts(Collection $unlockInCrafts): QuestInterface
+    {
+        $this->unlockInCrafts = $unlockInCrafts;
+
+        return $this;
+    }
+
+    public function addUnlockInCraft(CraftInterface $craft): QuestInterface
+    {
+        if (!$this->unlockInCrafts->contains($craft)) {
+            $this->unlockInCrafts->add($craft);
+            $craft->setUnlockQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUnlockInCraft(CraftInterface $craft): QuestInterface
+    {
+        if ($this->unlockInCrafts->contains($craft)) {
+            $this->unlockInCrafts->add($craft);
+            $craft->setUnlockQuest(null);
         }
 
         return $this;
