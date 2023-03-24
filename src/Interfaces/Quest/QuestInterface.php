@@ -8,6 +8,7 @@ use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Trader\TraderInterface;
+use App\Interfaces\Workshop\CraftInterface;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -206,4 +207,27 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function removeReceivedItem(ItemInterface $item): QuestInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getUnlockInCrafts(): Collection;
+
+    /**
+     * @param Collection $unlockInCrafts
+     * @return QuestInterface
+     */
+    public function setUnlockInCrafts(Collection $unlockInCrafts): QuestInterface;
+
+    /**
+     * @param CraftInterface $craft
+     * @return QuestInterface
+     */
+    public function addUnlockInCraft(CraftInterface $craft): QuestInterface;
+
+    /**
+     * @param CraftInterface $craft
+     * @return QuestInterface
+     */
+    public function removeUnlockInCraft(CraftInterface $craft): QuestInterface;
 }
