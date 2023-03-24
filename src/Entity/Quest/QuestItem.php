@@ -3,11 +3,14 @@
 namespace App\Entity\Quest;
 
 use App\Entity\TranslatableEntity;
+use App\Entity\Workshop\Craft;
 use App\Interfaces\Quest\QuestItemInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
+use App\Interfaces\Workshop\CraftInterface;
 use App\Repository\Quest\QuestItemRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
@@ -65,6 +68,10 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
      * )
      */
     private ?File $imageFile = null;
+
+    #[ORM\ManyToMany(targetEntity: Craft::class, mappedBy: 'requiredQuestItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'crafts_required_quest_items')]
+    private Collection $requiredInCrafts;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -157,5 +164,33 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function getRequiredInCrafts(): Collection
+    {
+        return $this->requiredInCrafts;
+    }
+
+    public function setRequiredInCrafts(Collection $requiredInCrafts): QuestItemInterface
+    {
+        $this->requiredInCrafts = $requiredInCrafts;
+
+        return $this;
+    }
+
+    public function addRequiredInCraft(CraftInterface $craft): QuestItemInterface
+    {
+        if (!$this->requiredInCrafts->contains($craft)) {
+            $this->requiredInCrafts->add($craft);
+            $craft->addRequiredQuestItem($this);
+        }
+    }
+
+    public function removeRequiredInCraft(CraftInterface $craft): QuestItemInterface
+    {
+        if ($this->requiredInCrafts->contains($craft)) {
+            $this->requiredInCrafts->removeElement($craft);
+            $craft->removeRequiredQuestItem($this);
+        }
     }
 }
