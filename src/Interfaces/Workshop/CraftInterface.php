@@ -81,22 +81,22 @@ interface CraftInterface
     public function getRequiredContainedItems(): Collection;
 
     /**
-     * @param Collection $requiredItems
+     * @param Collection $containedItems
      * @return CraftInterface
      */
-    public function setRequiredContainedItems(Collection $requiredItems): CraftInterface;
+    public function setRequiredContainedItems(Collection $containedItems): CraftInterface;
 
     /**
-     * @param ContainedItemInterface $requiredItem
+     * @param ContainedItemInterface $containedItem
      * @return CraftInterface
      */
-    public function addRequiredContainedItem(ContainedItemInterface $requiredItem): CraftInterface;
+    public function addRequiredContainedItem(ContainedItemInterface $containedItem): CraftInterface;
 
     /**
-     * @param ContainedItemInterface $requiredItem
+     * @param ContainedItemInterface $containedItem
      * @return CraftInterface
      */
-    public function removeRequiredContainedItem(ContainedItemInterface $requiredItem): CraftInterface;
+    public function removeRequiredContainedItem(ContainedItemInterface $containedItem): CraftInterface;
 
     /**
      * @return Collection
@@ -104,10 +104,10 @@ interface CraftInterface
     public function getRequiredQuestItems(): Collection;
 
     /**
-     * @param Collection $requiredQuestItems
+     * @param Collection $questItems
      * @return CraftInterface
      */
-    public function setRequiredQuestItems(Collection $requiredQuestItems): CraftInterface;
+    public function setRequiredQuestItems(Collection $questItems): CraftInterface;
 
     /**
      * @param QuestItemInterface $questItem
@@ -127,20 +127,20 @@ interface CraftInterface
     public function getRewardContainedItems(): Collection;
 
     /**
-     * @param Collection $rewardItems
+     * @param Collection $containedItems
      * @return CraftInterface
      */
-    public function setRewardContainedItems(Collection $rewardItems): CraftInterface;
+    public function setRewardContainedItems(Collection $containedItems): CraftInterface;
 
     /**
-     * @param ContainedItemInterface $rewardItem
+     * @param ContainedItemInterface $containedItem
      * @return CraftInterface
      */
-    public function addRewardContainedItem(ContainedItemInterface $rewardItem): CraftInterface;
+    public function addRewardContainedItem(ContainedItemInterface $containedItem): CraftInterface;
 
     /**
-     * @param ContainedItemInterface $rewardItem
+     * @param ContainedItemInterface $containedItem
      * @return CraftInterface
      */
-    public function removeRewardContainedItem(ContainedItemInterface $rewardItem): CraftInterface;
+    public function removeRewardContainedItem(ContainedItemInterface $containedItem): CraftInterface;
 }
