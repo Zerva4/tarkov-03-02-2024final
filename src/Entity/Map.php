@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Quests\Quest;
+use App\Entity\Quest\Quest;
 use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
-use App\Interfaces\QuestInterface;
+use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapRepository;
 use App\Traits\SlugTrait;
@@ -76,7 +76,7 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
     #[ORM\OneToMany(mappedBy: 'map', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
-    #[ORM\OneToMany(mappedBy: 'map', targetEntity: MapLocation::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'map', targetEntity: MapLocation::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $locations;
 
     // TODO: Добавить врагов и босссов.

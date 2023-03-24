@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Entity\Items\ContainedItem;
-use App\Entity\Quests\Quest;
+use App\Entity\Item\ContainedItem;
+use App\Entity\Quest\Quest;
+use App\Entity\Trader\Trader;
 use App\Interfaces\BarterInterface;
-use App\Interfaces\QuestInterface;
-use App\Interfaces\TraderInterface;
+use App\Interfaces\Item\ContainedItemInterface;
+use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Interfaces\ContainedItemInterface;
 use App\Repository\BarterRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -43,11 +44,11 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     #[ORM\JoinColumn(name: 'quest_unlock', referencedColumnName: 'id')]
     private ?QuestInterface $questUnlock = null;
 
-    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'requiredInBarters', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'barters_required_items')]
     private Collection $requiredItems;
 
-    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'rewardInBarters', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'rewardInBarters', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'barters_reward_items')]
     private Collection $rewardItems;
 
@@ -235,7 +236,6 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
      */
     public function removeRewardItem(ContainedItemInterface $item): BarterInterface
     {
-        dump('delete');
         if (!$this->rewardItems->contains($item)) {
             $this->rewardItems->removeElement($item);
             $item->removeRewardInBarter($this);

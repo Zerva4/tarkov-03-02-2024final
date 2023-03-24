@@ -3,13 +3,14 @@
 namespace App\Command;
 
 use App\Entity\Barter;
-use App\Entity\Items\ContainedItem;
-use App\Entity\Items\Item;
-use App\Entity\Quests\Quest;
-use App\Entity\Trader;
+use App\Entity\Item\ContainedItem;
+use App\Entity\Item\Item;
+use App\Entity\Quest\Quest;
+use App\Entity\Trader\Trader;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\GraphQLClientInterface;
-use App\Interfaces\TraderInterface;
+use App\Interfaces\Item\ContainedItemInterface;
+use App\Interfaces\Trader\TraderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -135,7 +136,11 @@ class ImportBartersCommand extends Command
 
             // Set requiredItems
             foreach ($barter['requiredItems'] as $requiredItem) {
-                $containedRequiredItemEntity = new ContainedItem();
+                $containedRequiredItemEntity = $containedItemRepository->findBarterRequiredItemByItemId($barterEntity->getId(), $requiredItem['item']['id']);
+
+                if (!$containedRequiredItemEntity instanceof ContainedItemInterface) {
+                    $containedRequiredItemEntity = new ContainedItem();
+                }
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $requiredItem['item']['id']]);
                 $containedRequiredItemEntity->setItem($itemEntity);
                 $containedRequiredItemEntity->setCount($requiredItem['count']);
@@ -148,7 +153,10 @@ class ImportBartersCommand extends Command
 
             // Set requiredItems
             foreach ($barter['rewardItems'] as $rewardItem) {
-                $containedRewardItemEntity = new ContainedItem();
+                $containedRewardItemEntity = $containedItemRepository->findBarterRewardItemByItemId($barterEntity->getId(), $rewardItem['item']['id']);
+                if (!$containedRewardItemEntity instanceof ContainedItemInterface) {
+                    $containedRewardItemEntity = new ContainedItem();
+                }
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $rewardItem['item']['id']]);
                 $containedRewardItemEntity->setItem($itemEntity);
                 $containedRewardItemEntity->setCount($rewardItem['count']);

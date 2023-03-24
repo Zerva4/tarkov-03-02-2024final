@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Repository\MapLocationTranslateRepository;
+use App\Repository\MapLocationTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -14,7 +14,8 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Table(name: 'maps_locations_translation')]
-#[ORM\Entity(repositoryClass: MapLocationTranslateRepository::class)]
+#[ORM\Index(columns: ['locale'], name: 'maps_location_translation_idx')]
+#[ORM\Entity(repositoryClass: MapLocationTranslationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class MapLocationTranslation implements UuidPrimaryKeyInterface, TranslationInterface, TimestampableInterface
 {

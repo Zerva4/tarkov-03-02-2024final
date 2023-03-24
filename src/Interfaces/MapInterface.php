@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
+use App\Interfaces\Quest\QuestInterface;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
-use Ramsey\Uuid\UuidInterface;
 
 interface MapInterface
 {

@@ -3,9 +3,9 @@
 namespace App\Command;
 
 use App\Entity\Map;
-use App\Entity\Quests\Quest;
-use App\Entity\Quests\QuestObjective;
-use App\Entity\Trader;
+use App\Entity\Quest\Quest;
+use App\Entity\Quest\QuestObjective;
+use App\Entity\Trader\Trader;
 use App\Interfaces\GraphQLClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

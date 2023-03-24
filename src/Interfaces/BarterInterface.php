@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Interfaces;
+use App\Interfaces\Item\ContainedItemInterface;
+use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Trader\TraderInterface;
 use Doctrine\Common\Collections\Collection;
 
 interface BarterInterface

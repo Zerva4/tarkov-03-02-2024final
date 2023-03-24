@@ -36,19 +36,19 @@ class BarterCrudController extends AbstractCrudController
             ->autocomplete()
             ->setRequired(false)
         ;
-        $requiredItems = $objectives = CollectionField::new('requiredItems', t('Required items', [], 'admin.barters'))
+        $requiredItems = CollectionField::new('requiredItems', t('Required items', [], 'admin.barters'))
             ->allowAdd()
             ->allowDelete()
             ->setEntryType(ContainedItemForm::class)
             ->setEntryIsComplex(false)
-            ->setFormTypeOption('by_reference', false)
+            ->setFormTypeOption('by_reference', true)
         ;
-        $rewardItems = $objectives = CollectionField::new('rewardItems', t('Reward items', [], 'admin.barters'))
+        $rewardItems = CollectionField::new('rewardItems', t('Reward items', [], 'admin.barters'))
             ->allowAdd()
             ->allowDelete()
             ->setEntryType(ContainedItemForm::class)
             ->setEntryIsComplex(false)
-            ->setFormTypeOption('by_reference', false)
+            ->setFormTypeOption('by_reference', true)
         ;
 
         return match ($pageName) {

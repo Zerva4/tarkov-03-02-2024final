@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Quests\Quest;
+use App\Entity\Quest\Quest;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\QuestObjectiveForm;
