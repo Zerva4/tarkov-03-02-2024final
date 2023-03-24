@@ -3,7 +3,9 @@
 namespace App\Entity\Workshop;
 
 use App\Entity\TranslatableEntity;
+use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
+use App\Interfaces\Workshop\CraftInterface;
 use App\Interfaces\Workshop\PlaceInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
 use App\Interfaces\Workshop\PlaceLevelRequiredInterface;
@@ -44,12 +46,16 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     #[ORM\OneToMany(mappedBy: 'place', targetEntity: PlaceLevelRequired::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $placeRequiredLevels;
 
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Craft::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    private Collection $crafts;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
 
         $this->levels = new ArrayCollection();
         $this->placeRequiredLevels = new ArrayCollection();
+        $this->crafts = new ArrayCollection();
     }
 
     /**
@@ -198,6 +204,38 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         if (!$this->placeRequiredLevels->contains($placeLevelRequired)) {
             $this->placeRequiredLevels->add($placeLevelRequired);
             $placeLevelRequired->setPlace(null);
+        }
+
+        return $this;
+    }
+
+    public function getCrafts(): Collection
+    {
+        return $this->crafts;
+    }
+
+    public function setCrafts(Collection $crafts): PlaceInterface
+    {
+        $this->crafts = $crafts;
+
+        return $this;
+    }
+
+    public function addCraft(CraftInterface $craft): PlaceInterface
+    {
+        if (!$this->crafts->contains($craft)) {
+            $this->crafts->add($craft);
+            $craft->setPlace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCraft(CraftInterface $craft): PlaceInterface
+    {
+        if ($this->crafts->contains($craft)) {
+            $this->crafts->removeElement($craft);
+            $craft->setPlace(null);
         }
 
         return $this;
