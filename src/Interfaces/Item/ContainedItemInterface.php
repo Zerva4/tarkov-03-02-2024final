@@ -3,6 +3,7 @@
 namespace App\Interfaces\Item;
 
 use App\Interfaces\BarterInterface;
+use App\Interfaces\Workshop\CraftInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
 use Doctrine\Common\Collections\Collection;
 
@@ -30,4 +31,12 @@ interface ContainedItemInterface
     public function setRequiredForPlacesLevels(Collection $requiredForPlacesLevels): ContainedItemInterface;
     public function addRequiredForPlacesLevel(PlaceLevelInterface $placeLevel): ContainedItemInterface;
     public function removeRequiredForPlacesLevel(PlaceLevelInterface $placeLevel): ContainedItemInterface;
+    public function getRequiredInCrafts(): Collection;
+    public function setRequiredInCrafts(Collection $requiredInCrafts): ContainedItemInterface;
+    public function addRequiredInCraft(CraftInterface $craft): ContainedItemInterface;
+    public function removeRequiredInCraft(CraftInterface $craft): ContainedItemInterface;
+    public function getRewardInCrafts(): Collection;
+    public function setRewardInCrafts(Collection $rewardInCrafts): ContainedItemInterface;
+    public function addRewardInCraft(CraftInterface $craft): ContainedItemInterface;
+    public function removeRewardInCraft(CraftInterface $craft): ContainedItemInterface;
 }
