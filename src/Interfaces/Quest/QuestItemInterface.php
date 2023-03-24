@@ -2,6 +2,9 @@
 
 namespace App\Interfaces\Quest;
 
+use App\Interfaces\Workshop\CraftInterface;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * Interface for QuestItem entity.
  */
@@ -50,4 +53,27 @@ interface QuestItemInterface
      * @return QuestItemInterface
      */
     public function setHeight(int $height): QuestItemInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getRequiredInCrafts(): Collection;
+
+    /**
+     * @param Collection $requiredInCrafts
+     * @return QuestItemInterface
+     */
+    public function setRequiredInCrafts(Collection $requiredInCrafts): QuestItemInterface;
+
+    /**
+     * @param CraftInterface $craft
+     * @return QuestItemInterface
+     */
+    public function addRequiredInCraft(CraftInterface $craft): QuestItemInterface;
+
+    /**
+     * @param CraftInterface $craft
+     * @return QuestItemInterface
+     */
+    public function removeRequiredInCraft(CraftInterface $craft): QuestItemInterface;
 }
