@@ -14,6 +14,7 @@ use App\Entity\Quest\Quest;
 use App\Entity\Quest\QuestItem;
 use App\Entity\Trader\Trader;
 use App\Entity\User;
+use App\Entity\Workshop\Craft;
 use App\Entity\Workshop\Place;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -58,7 +59,7 @@ class DashboardController extends AbstractDashboardController
         ];
         $workshopMenu = [
             MenuItem::linkToCrud(t('Places', [], 'menu'), '', Place::class)->setController(PlaceCrudController::class),
-            MenuItem::linkToCrud(t('Crafts', [], 'menu'), '', Barter::class)->setController(BarterCrudController::class),
+            MenuItem::linkToCrud(t('Crafts', [], 'menu'), '', Craft::class)->setController(CraftCrudController::class),
         ];
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
