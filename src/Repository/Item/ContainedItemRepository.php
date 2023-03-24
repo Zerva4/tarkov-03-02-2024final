@@ -71,6 +71,36 @@ class ContainedItemRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findCraftRewardItemByItemId(?UuidInterface $craftId, string $apiIdItem): ?ContainedItemInterface
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.rewardInCrafts', 'rib')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('rib.id = :id')
+            ->andWhere('cii.apiId = :api_id')
+            ->setParameters([
+                'id' => $craftId,
+                'api_id' =>$apiIdItem
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findCraftRequiredItemByItemId(?UuidInterface $craftId, string $apiIdItem): ?ContainedItemInterface
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.requiredInCrafts', 'rib')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('rib.id = :id')
+            ->andWhere('cii.apiId = :api_id')
+            ->setParameters([
+                'id' => $craftId,
+                'api_id' =>$apiIdItem
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function findPlaceLevelRequiredForByItemId(?UuidInterface $placeLevelId, string $apiIdItem): ?ContainedItemInterface
     {
         return $this->createQueryBuilder('ci')
