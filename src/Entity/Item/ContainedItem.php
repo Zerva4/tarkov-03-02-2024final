@@ -3,11 +3,13 @@
 namespace App\Entity\Item;
 
 use App\Entity\Barter;
+use App\Entity\Workshop\Craft;
 use App\Entity\Workshop\PlaceLevel;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
+use App\Interfaces\Workshop\CraftInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
 use App\Repository\Item\ContainedItemRepository;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -53,6 +55,14 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     #[ORM\JoinTable(name: 'places_levels_required_items')]
     private Collection $requiredForPlacesLevels;
 
+    #[ORM\ManyToMany(targetEntity: Craft::class, mappedBy: 'requiredContainedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'crafts_required_contained_items')]
+    private Collection $requiredInCrafts;
+
+    #[ORM\ManyToMany(targetEntity: Craft::class, mappedBy: 'rewardContainedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'crafts_reward_contained_items')]
+    private Collection $rewardInCrafts;
+
     public function __construct()
     {
         $this->requiredInBarters = new ArrayCollection();
@@ -60,18 +70,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         $this->requiredForPlacesLevels = new ArrayCollection();
     }
 
-    /**
-     * @return string|null
-     */
     public function getApiId(): ?string
     {
         return $this->apiId;
     }
 
-    /**
-     * @param string|null $apiId
-     * @return ContainedItemInterface
-     */
     public function setApiId(?string $apiId): ContainedItemInterface
     {
         $this->apiId = $apiId;
@@ -79,18 +82,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @return ItemInterface|null
-     */
     public function getItem(): ?ItemInterface
     {
         return $this->item;
     }
 
-    /**
-     * @param ItemInterface|null $item
-     * @return ContainedItemInterface
-     */
     public function setItem(?ItemInterface $item): ContainedItemInterface
     {
         $this->item = $item;
@@ -98,18 +94,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @return float|null
-     */
     public function getCount(): ?float
     {
         return $this->count;
     }
 
-    /**
-     * @param float|null $count
-     * @return ContainedItemInterface
-     */
     public function setCount(?float $count): ContainedItemInterface
     {
         $this->count = $count;
@@ -117,18 +106,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @return float|null
-     */
     public function getQuantity(): ?float
     {
         return $this->quantity;
     }
 
-    /**
-     * @param float|null $quantity
-     * @return ContainedItemInterface
-     */
     public function setQuantity(?float $quantity): ContainedItemInterface
     {
         $this->quantity = $quantity;
@@ -136,18 +118,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
     public function getAttributes(): ?array
     {
         return $this->attributes;
     }
 
-    /**
-     * @param array|null $attributes
-     * @return ContainedItemInterface
-     */
     public function setAttributes(?array $attributes): ContainedItemInterface
     {
         $this->attributes = $attributes;
@@ -155,18 +130,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getRequiredInBarters(): Collection
     {
         return $this->requiredInBarters;
     }
 
-    /**
-     * @param Collection $requiredInBarters
-     * @return ContainedItemInterface
-     */
     public function setRequiredInBarters(Collection $requiredInBarters): ContainedItemInterface
     {
         $this->requiredInBarters = $requiredInBarters;
@@ -174,10 +142,6 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @param BarterInterface $barter
-     * @return ContainedItemInterface
-     */
     public function addRequiredInBarter(BarterInterface $barter): ContainedItemInterface
     {
         if (!$this->requiredInBarters->contains($barter)) {
@@ -188,10 +152,6 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @param BarterInterface $barter
-     * @return ContainedItemInterface
-     */
     public function removeRequiredInBarter(BarterInterface $barter): ContainedItemInterface
     {
         if ($this->requiredInBarters->contains($barter)) {
@@ -202,18 +162,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getRewardInBarters(): Collection
     {
         return $this->rewardInBarters;
     }
 
-    /**
-     * @param Collection $rewardInBarters
-     * @return ContainedItemInterface
-     */
     public function setRewardInBarters(Collection $rewardInBarters): ContainedItemInterface
     {
         $this->rewardInBarters = $rewardInBarters;
@@ -221,10 +174,6 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @param BarterInterface $barter
-     * @return ContainedItemInterface
-     */
     public function addRewardInBarter(BarterInterface $barter): ContainedItemInterface
     {
         if (!$this->rewardInBarters->contains($barter)) {
@@ -235,10 +184,6 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @param BarterInterface $barter
-     * @return ContainedItemInterface
-     */
     public function removeRewardInBarter(BarterInterface $barter): ContainedItemInterface
     {
         if ($this->rewardInBarters->contains($barter)) {
@@ -254,18 +199,11 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this->item->__get('title');
     }
 
-    /**
-     * @return Collection
-     */
     public function getRequiredForPlacesLevels(): Collection
     {
         return $this->requiredForPlacesLevels;
     }
 
-    /**
-     * @param Collection $requiredForPlacesLevels
-     * @return ContainedItemInterface
-     */
     public function setRequiredForPlacesLevels(Collection $requiredForPlacesLevels): ContainedItemInterface
     {
         $this->requiredForPlacesLevels = $requiredForPlacesLevels;
@@ -273,10 +211,6 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @param PlaceLevelInterface $placeLevel
-     * @return ContainedItemInterface
-     */
     public function addRequiredForPlacesLevel(PlaceLevelInterface $placeLevel): ContainedItemInterface
     {
         if (!$this->requiredForPlacesLevels->contains($placeLevel)) {
@@ -287,15 +221,75 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    /**
-     * @param PlaceLevelInterface $placeLevel
-     * @return ContainedItemInterface
-     */
     public function removeRequiredForPlacesLevel(PlaceLevelInterface $placeLevel): ContainedItemInterface
     {
         if ($this->requiredForPlacesLevels->contains($placeLevel)) {
             $this->requiredForPlacesLevels->removeElement($placeLevel);
             $placeLevel->removeRequiredItem($this);
+        }
+
+        return $this;
+    }
+
+    public function getRequiredInCrafts(): Collection
+    {
+        return $this->requiredInCrafts;
+    }
+
+    public function setRequiredInCrafts(Collection $requiredInCrafts): ContainedItemInterface
+    {
+        $this->requiredInCrafts = $requiredInCrafts;
+
+        return $this;
+    }
+
+    public function addRequiredInCraft(CraftInterface $craft): ContainedItemInterface
+    {
+        if (!$this->requiredInCrafts->contains($craft)) {
+            $this->requiredInCrafts->add($craft);
+            $craft->addRequiredContainedItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequiredInCraft(CraftInterface $craft): ContainedItemInterface
+    {
+        if ($this->requiredInCrafts->contains($craft)) {
+            $this->requiredInCrafts->removeElement($craft);
+            $craft->removeRequiredContainedItem($this);
+        }
+
+        return $this;
+    }
+
+    public function getRewardInCrafts(): Collection
+    {
+        return $this->rewardInCrafts;
+    }
+
+    public function setRewardInCrafts(Collection $rewardInCrafts): ContainedItemInterface
+    {
+        $this->rewardInCrafts = $rewardInCrafts;
+
+        return $this;
+    }
+
+    public function addRewardInCraft(CraftInterface $craft): ContainedItemInterface
+    {
+        if (!$this->rewardInCrafts->contains($craft)) {git add
+            $this->rewardInCrafts->add($craft);
+            $craft->addRewardContainedItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRewardInCraft(CraftInterface $craft): ContainedItemInterface
+    {
+        if ($this->rewardInCrafts->contains($craft)) {
+            $this->rewardInCrafts->removeElement($craft);
+            $craft->removeRewardContainedItem($this);
         }
 
         return $this;
