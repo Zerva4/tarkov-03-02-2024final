@@ -135,7 +135,7 @@ class ImportCraftsCommand extends Command
 
             // Set requiredItems
             foreach ($craft['requiredItems'] as $requiredItem) {
-                $containedRequiredItemEntity = $containedItemRepository->findCraftRewardItemByItemId($craftEntity->getId(), $requiredItem['item']['id']);
+                $containedRequiredItemEntity = $containedItemRepository->findCraftRequiredItemByItemId($craftEntity->getId(), $requiredItem['item']['id']);
 
                 if (!$containedRequiredItemEntity instanceof ContainedItemInterface) {
                     $containedRequiredItemEntity = new ContainedItem();
@@ -151,7 +151,7 @@ class ImportCraftsCommand extends Command
 
             // Set requiredItems
             foreach ($craft['rewardItems'] as $rewardItem) {
-                $containedRewardItemEntity = $containedItemRepository->findCraftRequiredItemByItemId($craftEntity->getId(), $rewardItem['item']['id']);
+                $containedRewardItemEntity = $containedItemRepository->findCraftRewardItemByItemId($craftEntity->getId(), $rewardItem['item']['id']);
                 if (!$containedRewardItemEntity instanceof ContainedItemInterface) {
                     $containedRewardItemEntity = new ContainedItem();
                 }
