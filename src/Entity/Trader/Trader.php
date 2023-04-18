@@ -71,6 +71,9 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
      */
     private ?File $imageFile = null;
 
+    #[ORM\Column(type: 'datetimetz', length: 255, nullable: true)]
+    private ?DateTime $resetTime = null;
+
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLevel::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $levels;
@@ -153,6 +156,18 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
         }
+
+        return $this;
+    }
+
+    public function getResetTime(): ?DateTime
+    {
+        return $this->resetTime;
+    }
+
+    public function setResetTime(?DateTime $resetTime): TraderInterface
+    {
+        $this->resetTime = $resetTime;
 
         return $this;
     }
@@ -266,11 +281,6 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->__get('characterType');
-    }
-
     /**
      * @return Collection
      */
@@ -308,5 +318,10 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('characterType');
     }
 }
