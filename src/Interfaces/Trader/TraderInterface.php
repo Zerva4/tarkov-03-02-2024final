@@ -6,6 +6,7 @@ namespace App\Interfaces\Trader;
 
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Quest\QuestInterface;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -65,6 +66,17 @@ interface TraderInterface
      * @return TraderInterface
      */
     public function setImageFile(?File $imageFile): TraderInterface;
+
+    /**
+     * @return DateTime|null
+     */
+    public function getResetTime(): ?DateTime;
+
+    /**
+     * @param DateTime|null $resetTime
+     * @return TraderInterface
+     */
+    public function setResetTime(?DateTime $resetTime): TraderInterface;
 
     /**
      * @return Collection
