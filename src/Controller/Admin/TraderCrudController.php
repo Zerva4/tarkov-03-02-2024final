@@ -50,7 +50,7 @@ class TraderCrudController extends BaseCrudController
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
         $resetTime = DateTimeField::new('resetTime', 'Reset time')
-            ->renderAsNativeWidget(false)
+            ->renderAsChoice()
             ->setFormat('yyyy.MM.dd G \'at\' HH:mm:ss zzz');
 
         $translationFields = [
