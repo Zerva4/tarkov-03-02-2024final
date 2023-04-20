@@ -84,7 +84,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
-    #[ORM\OneToMany(mappedBy: 'item', targetEntity: TraderRequired::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderRequired::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $requiredTraders;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
