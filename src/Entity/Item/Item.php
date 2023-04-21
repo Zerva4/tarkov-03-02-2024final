@@ -198,6 +198,9 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $cashOffers;
 
+    #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $currencyCashOffers;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -206,6 +209,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->receivedFromQuests = new ArrayCollection();
         $this->containedItems = new ArrayCollection();
         $this->cashOffers = new ArrayCollection();
+        $this->currencyCashOffers = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -608,5 +612,37 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function __toString(): string
     {
         return $this->__get('title');
+    }
+
+    public function getCurrencyCashOffers(): Collection
+    {
+        return $this->currencyCashOffers;
+    }
+
+    public function setCurrencyCashOffers(Collection $currencyCashOffers): ItemInterface
+    {
+        $this->currencyCashOffers = $currencyCashOffers;
+
+        return $this;
+    }
+
+    public function addCurrencyCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface
+    {
+        if (!$this->cashOffers->contains($cashOffer)) {
+            $this->cashOffers->add($cashOffer);
+            $cashOffer->setCurrencyItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCurrencyCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface
+    {
+        if ($this->currencyCashOffers->contains($cashOffer)) {
+            $this->currencyCashOffers->add($cashOffer);
+            $cashOffer->setCurrencyItem(null);
+        }
+
+        return $this;
     }
 }
