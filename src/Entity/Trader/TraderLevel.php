@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Trader;
 
+use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Trader\TraderLevelInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
@@ -36,6 +37,10 @@ class TraderLevel implements UuidPrimaryKeyInterface, TraderLevelInterface, Time
     #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'levels')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private TraderInterface $trader;
+
+    #[ORM\OneToMany(mappedBy: 'traderLevel', targetEntity: TraderCashOffer::class)]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?TraderCashOfferInterface $cashOffers;
 
     public function getLevel(): int
     {
@@ -93,6 +98,18 @@ class TraderLevel implements UuidPrimaryKeyInterface, TraderLevelInterface, Time
     public function setTrader(TraderInterface $trader): TraderLevelInterface
     {
         $this->trader = $trader;
+
+        return $this;
+    }
+
+    public function getCashOffers(): ?TraderCashOfferInterface
+    {
+        return $this->cashOffers;
+    }
+
+    public function setCashOffers(?TraderCashOfferInterface $cashOffers): TraderLevelInterface
+    {
+        $this->cashOffers = $cashOffers;
 
         return $this;
     }
