@@ -8,6 +8,7 @@ use App\Entity\Barter;
 use App\Entity\Item\Item;
 use App\Entity\Map;
 use App\Entity\Trader\Trader;
+use App\Entity\Trader\TraderCashOffer;
 use App\Entity\TranslatableEntity;
 use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
@@ -15,6 +16,7 @@ use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Quest\QuestObjectiveInterface;
+use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\CraftInterface;
@@ -106,6 +108,9 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
 
     #[ORM\OneToMany(mappedBy: 'unlockQuest', targetEntity: Craft::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     private Collection $unlockInCrafts;
+
+    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    private Collection $unlockInCashOffers;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -410,5 +415,37 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     public function __toString(): string
     {
         return $this->__get('title');
+    }
+
+    public function getUnlockInCashOffers(): Collection
+    {
+        return $this->unlockInCashOffers;
+    }
+
+    public function setUnlockInCashOffers(Collection $unlockInCashOffers): QuestInterface
+    {
+        $this->unlockInCashOffers = $unlockInCashOffers;
+
+        return $this;
+    }
+
+    public function addUnlockInCashOffer(TraderCashOfferInterface $cashOffer): QuestInterface
+    {
+        if (!$this->unlockInCashOffers->contains($cashOffer)) {
+            $this->unlockInCashOffers->add($cashOffer);
+            $cashOffer->setQuestUnlock($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUnlockInCashOffer(TraderCashOfferInterface $cashOffer): QuestInterface
+    {
+        if ($this->unlockInCashOffers->contains($cashOffer)) {
+            $this->unlockInCashOffers->add($cashOffer);
+            $cashOffer->setQuestUnlock(null);
+        }
+
+        return $this;
     }
 }
