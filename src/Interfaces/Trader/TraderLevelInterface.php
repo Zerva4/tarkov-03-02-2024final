@@ -63,4 +63,15 @@ interface TraderLevelInterface
      * @return TraderLevelInterface
      */
     public function setTrader(TraderInterface $trader): TraderLevelInterface;
+
+    /**
+     * @return TraderCashOfferInterface|null
+     */
+    public function getCashOffers(): ?TraderCashOfferInterface;
+
+    /**
+     * @param TraderCashOfferInterface|null $cashOffers
+     * @return TraderLevelInterface
+     */
+    public function setCashOffers(?TraderCashOfferInterface $cashOffers): TraderLevelInterface;
 }
