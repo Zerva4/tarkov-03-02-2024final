@@ -10,6 +10,8 @@ use App\Interfaces\Trader\TraderLevelInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Trader\TraderLevelRepository;
 use App\Traits\UuidPrimaryKeyTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
@@ -40,7 +42,12 @@ class TraderLevel implements UuidPrimaryKeyInterface, TraderLevelInterface, Time
 
     #[ORM\OneToMany(mappedBy: 'traderLevel', targetEntity: TraderCashOffer::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
-    private ?TraderCashOfferInterface $cashOffers;
+    private Collection $cashOffers;
+
+    public function __construct()
+    {
+        $this->cashOffers = new ArrayCollection();
+    }
 
     public function getLevel(): int
     {
@@ -102,14 +109,34 @@ class TraderLevel implements UuidPrimaryKeyInterface, TraderLevelInterface, Time
         return $this;
     }
 
-    public function getCashOffers(): ?TraderCashOfferInterface
+    public function getCashOffers(): Collection
     {
         return $this->cashOffers;
     }
 
-    public function setCashOffers(?TraderCashOfferInterface $cashOffers): TraderLevelInterface
+    public function setCashOffers(Collection $cashOffers): TraderLevelInterface
     {
         $this->cashOffers = $cashOffers;
+
+        return $this;
+    }
+
+    public function addCashOffer(TraderCashOfferInterface $cashOffer): TraderLevelInterface
+    {
+        if (!$this->cashOffers->contains($cashOffer)) {
+            $this->cashOffers->add($cashOffer);
+            $cashOffer->setTraderLevel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCashOffer(TraderCashOfferInterface $cashOffer): TraderLevelInterface
+    {
+        if (!$this->cashOffers->contains($cashOffer)) {
+            $this->cashOffers->add($cashOffer);
+            $cashOffer->setTraderLevel(null);
+        }
 
         return $this;
     }
