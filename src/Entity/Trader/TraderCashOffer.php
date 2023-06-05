@@ -24,7 +24,7 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
     use TimestampableTrait;
 
     #[ORM\ManyToOne(targetEntity: Item::class, inversedBy: 'cashOffers')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?ItemInterface $item;
 
     #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'cashOffers')]
@@ -41,8 +41,8 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
     #[ORM\Column(type: 'string', length: 10, nullable: false)]
     private string $currency;
 
-    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'currencyCashOffers')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(targetEntity: Item::class, fetch: 'EXTRA_LAZY', inversedBy: 'currencyCashOffers')]
+    #[ORM\JoinColumn(name: 'currency_item_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?ItemInterface $currencyItem;
 
     #[ORM\Column(type: 'integer', nullable: false)]

@@ -98,6 +98,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         $this->levels = new ArrayCollection();
         $this->barters = new ArrayCollection();
         $this->requiredTraders = new ArrayCollection();
+        $this->cashOffers = new ArrayCollection();
     }
 
     public function getApiId(): string
