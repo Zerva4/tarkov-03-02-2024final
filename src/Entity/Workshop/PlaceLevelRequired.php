@@ -23,7 +23,7 @@ class PlaceLevelRequired implements UuidPrimaryKeyInterface, PlaceLevelRequiredI
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $apiId = null;
 
-    #[ORM\ManyToOne(targetEntity: place::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'containedItems')]
+    #[ORM\ManyToOne(targetEntity: Place::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'placeRequiredLevels')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?PlaceInterface $place = null;
 

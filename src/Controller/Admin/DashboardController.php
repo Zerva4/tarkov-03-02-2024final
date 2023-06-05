@@ -13,6 +13,7 @@ use App\Entity\Map;
 use App\Entity\Quest\Quest;
 use App\Entity\Quest\QuestItem;
 use App\Entity\Trader\Trader;
+use App\Entity\Trader\TraderCashOffer;
 use App\Entity\User;
 use App\Entity\Workshop\Craft;
 use App\Entity\Workshop\Place;
@@ -61,9 +62,13 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud(t('Places', [], 'menu'), '', Place::class)->setController(PlaceCrudController::class),
             MenuItem::linkToCrud(t('Crafts', [], 'menu'), '', Craft::class)->setController(CraftCrudController::class),
         ];
+        $tradersMenu = [
+            MenuItem::linkToCrud(t('List', [], 'menu'), '', Trader::class)->setController(TraderCrudController::class),
+            MenuItem::linkToCrud(t('Cash offers', [], 'menu'), '', TraderCashOffer::class)->setController(TraderCashOfferCrudController::class)
+        ];
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
-        yield MenuItem::linkToCrud(t('Traders', [], 'menu'), 'fa fa-hand-holding-usd', Trader::class)->setController(TraderCrudController::class);
+        yield MenuItem::subMenu(t('Traders', [], 'menu'), 'fa fa-cubes')->setSubItems($tradersMenu);
         yield MenuItem::subMenu(t('Items', [], 'menu'), 'fa fa-cubes')->setSubItems($itemsMenu);
         yield MenuItem::subMenu(t('Workshop', [], 'menu'), 'fa fa-cubes')->setSubItems($workshopMenu);
         yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);

@@ -3,6 +3,7 @@
 namespace App\Interfaces\Item;
 
 use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Trader\TraderCashOfferInterface;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -276,4 +277,27 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function removeContainedItem(ContainedItemInterface $containedItem): ItemInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getCashOffers(): Collection;
+
+    /**
+     * @param Collection $cashOffers
+     * @return ItemInterface
+     */
+    public function setCashOffers(Collection $cashOffers): ItemInterface;
+
+    /**
+     * @param TraderCashOfferInterface $cashOffer
+     * @return ItemInterface
+     */
+    public function addCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface;
+
+    /**
+     * @param TraderCashOfferInterface $cashOffer
+     * @return ItemInterface
+     */
+    public function removeCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface;
 }

@@ -7,6 +7,7 @@ namespace App\Interfaces\Quest;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
+use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Workshop\CraftInterface;
 use Doctrine\Common\Collections\Collection;
@@ -230,4 +231,24 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function removeUnlockInCraft(CraftInterface $craft): QuestInterface;
+
+    public function getUnlockInCashOffers(): Collection;
+
+    /**
+     * @param Collection $unlockInCashOffers
+     * @return QuestInterface
+     */
+    public function setUnlockInCashOffers(Collection $unlockInCashOffers): QuestInterface;
+
+    /**
+     * @param TraderCashOfferInterface $cashOffer
+     * @return QuestInterface
+     */
+    public function addUnlockInCashOffer(TraderCashOfferInterface $cashOffer): QuestInterface;
+
+    /**
+     * @param TraderCashOfferInterface $cashOffer
+     * @return QuestInterface
+     */
+    public function removeUnlockInCashOffer(TraderCashOfferInterface $cashOffer): QuestInterface;
 }

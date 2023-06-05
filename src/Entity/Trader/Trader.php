@@ -9,6 +9,7 @@ use App\Entity\Quest\Quest;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Trader\TraderLevelInterface;
 use App\Interfaces\Trader\TraderRequiredInterface;
@@ -71,6 +72,9 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
      */
     private ?File $imageFile = null;
 
+    #[ORM\Column(type: 'datetimetz', length: 255, nullable: true)]
+    private ?DateTime $resetTime = null;
+
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderLevel::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\OrderBy(['level' => 'ASC'])]
     private Collection $levels;
@@ -81,8 +85,11 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
-    #[ORM\OneToMany(mappedBy: 'item', targetEntity: TraderRequired::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderRequired::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $requiredTraders;
+
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $cashOffers;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -91,6 +98,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         $this->levels = new ArrayCollection();
         $this->barters = new ArrayCollection();
         $this->requiredTraders = new ArrayCollection();
+        $this->cashOffers = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -153,6 +161,18 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
         }
+
+        return $this;
+    }
+
+    public function getResetTime(): ?DateTime
+    {
+        return $this->resetTime;
+    }
+
+    public function setResetTime(?DateTime $resetTime): TraderInterface
+    {
+        $this->resetTime = $resetTime;
 
         return $this;
     }
@@ -266,11 +286,6 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->__get('characterType');
-    }
-
     /**
      * @return Collection
      */
@@ -308,5 +323,42 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         }
 
         return $this;
+    }
+
+    public function getCashOffers(): Collection
+    {
+        return $this->cashOffers;
+    }
+
+    public function setCashOffers(Collection $cashOffers): TraderInterface
+    {
+        $this->cashOffers = $cashOffers;
+
+        return $this;
+    }
+
+    public function addCashOffer(TraderCashOfferInterface $cashOffer): TraderInterface
+    {
+        if (!$this->cashOffers->contains($cashOffer)) {
+            $this->cashOffers->add($cashOffer);
+            $cashOffer->setTrader($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCashOffer(TraderCashOfferInterface $cashOffer): TraderInterface
+    {
+        if (!$this->cashOffers->contains($cashOffer)) {
+            $this->cashOffers->add($cashOffer);
+            $cashOffer->setTrader(null);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('characterType');
     }
 }

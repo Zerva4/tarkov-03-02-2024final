@@ -29,7 +29,7 @@ class Skill extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $level = 0;
 
-    #[ORM\ManyToMany(targetEntity: PlaceLevel::class, mappedBy: 'requiredPlacesLevels', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: PlaceLevel::class, mappedBy: 'requiredSkills', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'places_levels_required_skills')]
     private Collection $requiredForPlacesLevels;
 

@@ -110,6 +110,8 @@ class ImportTradersCommand extends Command
                 $traderEntity->setApiId($trader['id']);
                 $traderEntity->setPublished(true);
             }
+            $resetTime = new \DateTime($trader['resetTime']);
+            $traderEntity->setResetTime($resetTime);
 
             // Set levels
             if (count($trader['levels']) > 0) {

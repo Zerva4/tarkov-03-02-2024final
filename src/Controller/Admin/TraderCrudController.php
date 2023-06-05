@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -48,6 +49,9 @@ class TraderCrudController extends BaseCrudController
         ;
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
+        $resetTime = DateTimeField::new('resetTime', 'Reset time')
+            ->renderAsChoice()
+            ->setFormat('yyyy.MM.dd G \'at\' HH:mm:ss zzz');
 
         $translationFields = [
             'characterType' => [
@@ -86,6 +90,7 @@ class TraderCrudController extends BaseCrudController
                 $avatar,
                 $published,
                 $slug->setColumns(6)->setTextAlign('left'),
+                $resetTime->setColumns(6),
                 $translations,
                 FormField::addTab(t('Levels', [], 'admin.traders')),
                 $levels->setColumns(12)
