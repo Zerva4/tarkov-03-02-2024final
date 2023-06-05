@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Item\Item;
 use App\Entity\Trader\TraderCashOffer;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -31,8 +32,8 @@ class TraderCashOfferCrudController extends AbstractCrudController
         $priceRUB = IntegerField::new('priceRUB', t('Price RUB', [], 'admin.cash.offer'));
         $currency = TextField::new('currency', t('Currency title', [], 'admin.cash.offer'));
         $currencyItem = AssociationField::new('currencyItem', t('Currency item', [], 'admin.cash.offer'))
-            ->setQueryBuilder(function (QueryBuilder $queryBuilder) {
-                    return $queryBuilder->from(Item::class, 'i')
+            ->setFormTypeOption('query_builder', function (EntityRepository $entityRepository) {
+                    return $entityRepository->createQueryBuilder('i')
                         ->andWhere('i.apiId IN (:ids)')
                         ->setParameter('ids', ['5449016a4bdc2d6f028b456f', '5696686a4bdc2da3298b456a', '569668774bdc2da2298b4568']);
             })
