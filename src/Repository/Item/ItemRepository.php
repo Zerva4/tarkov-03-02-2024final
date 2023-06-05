@@ -55,4 +55,15 @@ class ItemRepository extends ServiceEntityRepository
         ;
         return $query->getOneOrNullResult($mode);
     }
+
+    public function getCurrencyItems($mode = AbstractQuery::HYDRATE_ARRAY): mixed
+    {
+        $query = $this->createQueryBuilder('i')
+            ->andWhere('i.apiId IN (:ids)')
+            ->setParameter('ids', ['5449016a4bdc2d6f028b456f', '5696686a4bdc2da3298b456a', '569668774bdc2da2298b4568'])
+            ->getQuery()
+        ;
+
+        return $query->getResult($mode);
+    }
 }
