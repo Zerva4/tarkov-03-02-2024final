@@ -9,8 +9,10 @@ interface TraderCashOfferInterface
 {
     public function getItem(): ?ItemInterface;
     public function setItem(?ItemInterface $item): TraderCashOfferInterface;
-    public function getTraderLevel(): TraderLevelInterface;
-    public function setTraderLevel(TraderLevelInterface $traderLevel): TraderCashOfferInterface;
+    public function getTrader(): ?TraderInterface;
+    public function setTrader(?TraderInterface $trader): TraderCashOfferInterface;
+    public function getTraderLevel(): ?TraderLevelInterface;
+    public function setTraderLevel(?TraderLevelInterface $traderLevel): TraderCashOfferInterface;
     public function getPrice(): int;
     public function setPrice(int $price): TraderCashOfferInterface;
     public function getCurrency(): string;
