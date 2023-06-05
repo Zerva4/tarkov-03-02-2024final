@@ -98,7 +98,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $objectives;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'usedInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'usedInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     #[ORM\JoinTable(name: 'quests_used_items')]
     private ?Collection $usedItems;
 
