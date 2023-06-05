@@ -7,6 +7,7 @@ use App\Entity\Quest\Quest;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
+use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Trader\TraderLevelInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Trader\TraderCashOfferRepository;
@@ -22,13 +23,17 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
 
-    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'cashOffers')]
+    #[ORM\ManyToOne(targetEntity: Item::class, inversedBy: 'cashOffers')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?ItemInterface $item;
 
-    #[ORM\ManyToOne(targetEntity: TraderLevel::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'cashOffers')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'cashOffers')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
-    private TraderLevelInterface $traderLevel;
+    private ?TraderInterface $trader = null;
+
+    #[ORM\ManyToOne(targetEntity: TraderLevel::class, inversedBy: 'cashOffers')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private ?TraderLevelInterface $traderLevel = null;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $price;
@@ -43,7 +48,7 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $priceRUB;
 
-    #[ORM\ManyToOne(targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'unlockInCashOffers')]
+    #[ORM\ManyToOne(targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'unlockInCashOffers', )]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?QuestInterface $questUnlock = null;
 
@@ -59,12 +64,24 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
         return $this;
     }
 
-    public function getTraderLevel(): TraderLevelInterface
+    public function getTrader(): ?TraderInterface
+    {
+        return $this->trader;
+    }
+
+    public function setTrader(?TraderInterface $trader): TraderCashOfferInterface
+    {
+        $this->trader = $trader;
+
+        return $this;
+    }
+
+    public function getTraderLevel(): ?TraderLevelInterface
     {
         return $this->traderLevel;
     }
 
-    public function setTraderLevel(TraderLevelInterface $traderLevel): TraderCashOfferInterface
+    public function setTraderLevel(?TraderLevelInterface $traderLevel): TraderCashOfferInterface
     {
         $this->traderLevel = $traderLevel;
 
