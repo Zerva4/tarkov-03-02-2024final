@@ -9,6 +9,7 @@ use App\Entity\Quest\Quest;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Trader\TraderLevelInterface;
 use App\Interfaces\Trader\TraderRequiredInterface;
@@ -86,6 +87,9 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
 
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderRequired::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $requiredTraders;
+
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $cashOffers;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -315,6 +319,38 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         if (!$this->requiredTraders->contains($requiredTrader)) {
             $this->requiredTraders->add($requiredTrader);
             $requiredTrader->setTrader(null);
+        }
+
+        return $this;
+    }
+
+    public function getCashOffers(): Collection
+    {
+        return $this->cashOffers;
+    }
+
+    public function setCashOffers(Collection $cashOffers): TraderInterface
+    {
+        $this->cashOffers = $cashOffers;
+
+        return $this;
+    }
+
+    public function addCashOffer(TraderCashOfferInterface $cashOffer): TraderInterface
+    {
+        if (!$this->cashOffers->contains($cashOffer)) {
+            $this->cashOffers->add($cashOffer);
+            $cashOffer->setTrader($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCashOffer(TraderCashOfferInterface $cashOffer): TraderInterface
+    {
+        if (!$this->cashOffers->contains($cashOffer)) {
+            $this->cashOffers->add($cashOffer);
+            $cashOffer->setTrader(null);
         }
 
         return $this;
