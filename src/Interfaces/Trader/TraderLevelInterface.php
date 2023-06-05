@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Interfaces\Trader;
 
+use Doctrine\Common\Collections\Collection;
+
 /**
  * Interface for TraderLoyalty entity.
  */
@@ -65,13 +67,13 @@ interface TraderLevelInterface
     public function setTrader(TraderInterface $trader): TraderLevelInterface;
 
     /**
-     * @return TraderCashOfferInterface|null
+     * @return Collection
      */
-    public function getCashOffers(): ?TraderCashOfferInterface;
+    public function getCashOffers(): Collection;
 
     /**
-     * @param TraderCashOfferInterface|null $cashOffers
+     * @param Collection $cashOffers
      * @return TraderLevelInterface
      */
-    public function setCashOffers(?TraderCashOfferInterface $cashOffers): TraderLevelInterface;
+    public function setCashOffers(Collection $cashOffers): TraderLevelInterface;
 }
