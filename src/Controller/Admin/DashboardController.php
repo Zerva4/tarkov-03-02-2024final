@@ -13,6 +13,7 @@ use App\Entity\Map;
 use App\Entity\Quest\Quest;
 use App\Entity\Quest\QuestItem;
 use App\Entity\Trader\Trader;
+use App\Entity\Trader\TraderCashOffer;
 use App\Entity\User;
 use App\Entity\Workshop\Craft;
 use App\Entity\Workshop\Place;
@@ -63,7 +64,7 @@ class DashboardController extends AbstractDashboardController
         ];
         $tradersMenu = [
             MenuItem::linkToCrud(t('List', [], 'menu'), '', Trader::class)->setController(TraderCrudController::class),
-            MenuItem::linkToCrud(t('Cash offers', [], 'menu'), '', Trader::class)->setController(TraderCrudController::class)
+            MenuItem::linkToCrud(t('Cash offers', [], 'menu'), '', TraderCashOffer::class)->setController(TraderCashOfferCrudController::class)
         ];
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
