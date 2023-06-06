@@ -1,0 +1,235 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="content">
+        <section>
+            <div class="container">
+                <div class="main">
+                    <div class="directions">
+                        <a href="#" class="item">
+                            <div class="image">
+                                <img src="{{ asset('/assets/img/bullets_main.svg') }}" alt="">
+                            </div>
+                            <div class="name">
+                                Патроны
+                            </div>
+                        </a>
+                        <a href="#" class="item">
+                            <div class="image">
+                                <img src="/assets/img/maps_main.svg" alt="">
+                            </div>
+                            <div class="name">
+                                Карты
+                            </div>
+                        </a>
+                        <a href="#" class="item">
+                            <div class="image">
+                                <img src="/assets/img/mech_main.svg" alt="">
+                            </div>
+                            <div class="name">
+                                Механики
+                            </div>
+                        </a>
+                    </div>
+                    <div class="now">
+                        <div class="information">
+                            <div class="windows">
+                                <div class="window" id="window_1">
+                                    <div class="name">
+                                        Последний патч | 13.13.13.0043290
+                                    </div>
+                                    <div class="subname">
+                                        Список изменений от 01.01.2023 :
+                                    </div>
+                                    <div class="contains">
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="window active" id="window_2">
+                                    <div class="name">
+                                        Ивент
+                                    </div>
+                                    <div class="subname">
+                                        Список изменений от 01.01.2023 :
+                                    </div>
+                                    <div class="contains">
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="window" id="window_3">
+                                    <div class="name">
+                                        Отступники
+                                    </div>
+                                    <div class="subname">
+                                        Список изменений от 01.01.2023 :
+                                    </div>
+                                    <div class="contains">
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="selects">
+                                <div class="select" data-target="window_1">
+                                    Патч
+                                </div>
+                                <div class="select active" data-target="window_2">
+                                    Ивент
+                                </div>
+                                <div class="select" data-target="window_3">
+                                    Отступники
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% if traders is not empty %}
+        <section>
+            <div class="container medium">
+                <h2 class="center">Торговцы</h2>
+                <div class="traders">
+                    {% for trader in traders %}
+                        <div class="trader">
+                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="image">
+                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.characterType }}" />
+                            </a>
+                            <div class="name">
+                                <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}">{{ trader.characterType }}</a>
+                            </div>
+                            <div class="links">
+                                <a href="{{ absolute_url(path('app_quests', {})) }}/{{ trader.slug }}" class="link">Квесты</a>
+                                <a href="{{ absolute_url(path('app_items', {})) }}/{{ trader.slug }}" class="link">Товары</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <section>
+            <div class="container">
+                <h2 class="articles_header">Статьи и медиа</h2>
+                <div class="articles">
+                    <a href="#" class="article">
+                        <div class="date">
+                            04.05.2023
+                        </div>
+                        <div class="contains">
+                            <div class="name">
+                                Боссы Таркова
+                            </div>
+                            <div class="text">
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня
+                            </div>
+                        </div>
+                        <div class="image">
+                            <img src="/assets/img/article_image.png" alt="">
+                        </div>
+                    </a>
+                    <a href="#" class="article">
+                        <div class="date">
+                            04.05.2023
+                        </div>
+                        <div class="contains">
+                            <div class="name">
+                                Боссы Таркова
+                            </div>
+                            <div class="text">
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня
+                            </div>
+                        </div>
+                        <div class="image">
+                            <img src="/assets/img/article_image.png" alt="">
+                        </div>
+                    </a>
+                    <a href="#" class="article">
+                        <div class="date">
+                            04.05.2023
+                        </div>
+                        <div class="contains">
+                            <div class="name">
+                                Боссы Таркова
+                            </div>
+                            <div class="text">
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
+                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня
+                            </div>
+                        </div>
+                        <div class="image">
+                            <img src="/assets/img/article_image.png" alt="">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+{% endblock %}
