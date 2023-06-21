@@ -44,7 +44,7 @@ class ImportCraftsCommand extends Command
     {
         $this
             ->setDescription('This command allows you to import or update crafts from https://tarkov.dev./api')
-//            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
+            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
         ;
     }
 
