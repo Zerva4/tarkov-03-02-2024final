@@ -1,0 +1,205 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="content">
+        <section>
+            <div class="container">
+                <div class="main">
+                    <div class="directions">
+                        <a href="#" class="item">
+                            <div class="image">
+                                <img src="{{ asset('assets/img/bullets_main.svg') }}" alt="">
+                            </div>
+                            <div class="name">
+                                {{ 'Патроны'|trans({}, 'front.home') }}
+                            </div>
+                        </a>
+                        <a href="#" class="item">
+                            <div class="image">
+                                <img src="{{ asset('assets/img/maps_main.svg') }}" alt="">
+                            </div>
+                            <div class="name">
+                                {{ 'Карты'|trans({}, 'front.home') }}
+                            </div>
+                        </a>
+                        <a href="#" class="item">
+                            <div class="image">
+                                <img src="{{ asset('assets/img/mech_main.svg') }}" alt="">
+                            </div>
+                            <div class="name">
+                                {{ 'Механики'|trans({}, 'front.home') }}
+                            </div>
+                        </a>
+                    </div>
+                    <div class="now">
+                        <div class="main_information">
+                            <div class="windows">
+                                <div class="window" id="window_1">
+                                    <div class="name">
+                                        {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
+                                    </div>
+                                    <div class="subname">
+                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
+                                    </div>
+                                    <div class="contains">
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="window active" id="window_2">
+                                    <div class="name">
+                                        {{ 'Ивент'|trans({}, 'front.home') }}
+                                    </div>
+                                    <div class="subname">
+                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
+                                    </div>
+                                    <div class="contains">
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="window" id="window_3">
+                                    <div class="name">
+                                        {{ 'Отступники'|trans({}, 'front.home') }}
+                                    </div>
+                                    <div class="subname">
+                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
+                                    </div>
+                                    <div class="contains">
+                                        <div>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
+                                            est
+                                            blanditiis.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                                            error
+                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="selects">
+                                <div class="select" data-target="window_1">
+                                    {{ 'Патч'|trans({}, 'front.home') }}
+                                </div>
+                                <div class="select active" data-target="window_2">
+                                    {{ 'Ивент'|trans({}, 'front.home') }}
+                                </div>
+                                <div class="select" data-target="window_3">
+                                    {{ 'Отступники'|trans({}, 'front.home') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% if traders is not empty %}
+        <section>
+            <div class="container medium">
+                <h2 class="center">{{ 'Торговцы'|trans({}, 'front.home') }}</h2>
+                <div class="traders_main">
+                    {% for trader in traders %}
+                        <div class="trader">
+                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="image">
+                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.characterType }}" />
+                            </a>
+                            <div class="name">
+                                <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}">{{ trader.characterType }}</a>
+                            </div>
+                            <div class="links">
+                                <a href="{{ absolute_url(path('app_quests', {})) }}/{{ trader.slug }}" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
+                                <a href="{{ absolute_url(path('app_items', {})) }}/{{ trader.slug }}" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        {% if articles is not empty %}
+        <section>
+            <div class="container">
+                <h2 class="articles_header">{{ 'Статьи и медиа'|trans({}, 'front.home') }}</h2>
+                <div class="articles">
+                    {% for article in articles %}
+                    <a href="{{ absolute_url(path('app_quests', {})) }}/articles{{ article.slug }}" class="article">
+                        <div class="date">
+                            {{ article.updatedAt|date("d.m.Y") }}
+                        </div>
+                        <div class="contains">
+                            <div class="name">
+                                {{ article.title }}
+                            </div>
+                            <div class="text">
+                                {{ article.description|striptags('')|raw }}
+                            </div>
+                        </div>
+                        <div class="image">
+                            {% if article.imagePoster is not empty %}
+                                <img src="{{ asset('/storage/images/articles/' ~ article.imagePoster) | imagine_filter('180x134') }}" alt="{{ article.title }}">
+                            {% else %}
+                                <img src="{{ asset('/assets/img/NonImage.jpg') | imagine_filter('180x134')  }}" width="180" height="134" alt="{{ article.title }}">
+                            {% endif %}
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+    </div>
+{% endblock %}

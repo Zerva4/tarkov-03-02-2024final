@@ -2,16 +2,16 @@ vich_uploader:
     db_driver: orm
 
     mappings:
-        locations:
-            uri_prefix: '%app.locations.images.uri%'
-            upload_destination: '%app.locations.images.path%'
+        traders:
+            uri_prefix: '%app.traders.images.uri%'
+            upload_destination: '%app.traders.images.path%'
             namer: vich_uploader.namer_uniqid
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
-        traders:
-            uri_prefix: '%app.traders.images.uri%'
-            upload_destination: '%app.traders.images.path%'
+        locations:
+            uri_prefix: '%app.locations.images.uri%'
+            upload_destination: '%app.locations.images.path%'
             namer: vich_uploader.namer_uniqid
             inject_on_load: false
             delete_on_update: true

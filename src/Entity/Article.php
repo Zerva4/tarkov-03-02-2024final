@@ -37,7 +37,7 @@ class Article implements TranslatableInterface, TimestampableInterface
     private bool $published;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $imagePoster;
+    private ?string $imagePoster = null;
 
     #[Vich\UploadableField(mapping: 'articles', fileNameProperty: 'imagePoster')]
     #[Assert\Valid]

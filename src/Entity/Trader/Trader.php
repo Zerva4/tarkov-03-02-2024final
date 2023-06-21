@@ -54,7 +54,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName;
 
-    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'traders', fileNameProperty: 'imageName')]
     #[Assert\Valid]
     #[Assert\File(
         maxSize: '2M',
@@ -158,7 +158,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     {
         $this->imageFile = $imageFile;
 
-        if ($imageFile) {
+        if (null !== $imageFile) {
             $this->updatedAt = new DateTime('NOW');
         }
 

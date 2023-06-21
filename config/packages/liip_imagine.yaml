@@ -2,7 +2,7 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "imagick"
-    cache: default
+    cache: images
     data_loader: default
     default_image: null
     twig:
@@ -21,28 +21,25 @@ liip_imagine:
         post_processors: [ ]
 
     resolvers:
-        default:
+        images:
             web_path:
-                web_root: '%kernel.project_dir%/public/storage'
-                cache_prefix: "/cache"
+                web_root: '%kernel.project_dir%/public'
+                cache_prefix: "storage/cache"
 
     loaders:
-        default:
+        images:
             filesystem:
                 data_root: '%kernel.project_dir%/public/storage'
 
     filter_sets:
         cache: ~
-
-        200x200:
-            quality: 75
+        100x100:
+            cache: images
+            quality: 100
             filters:
-                thumbnail: { size: [ 200, 200 ], mode: inset }
-        70x100:
-            quality: 75
+                thumbnail: { size: [ 100, 100 ], position: center, mode: inset }
+        180x134:
+            cache: images
+            quality: 100
             filters:
-                thumbnail: { size: [ 70, 100 ], mode: inset }
-        200x160:
-            quality: 75
-            filters:
-                thumbnail: { size: [ 200, 160 ], mode: inset }
+                thumbnail: { size: [ 180, 134 ], position: center, mode: inset }
