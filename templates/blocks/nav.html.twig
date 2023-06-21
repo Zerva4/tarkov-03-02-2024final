@@ -1,42 +1,37 @@
 <nav>
     <div class="container">
         <div class="navbar">
-            <a href="{{ absolute_url(path('app_home', {})) }}" class="logo active">
+            <a href="{{ absolute_url(path('app_home', {})) }}" class="logo">
 
             </a>
             <div class="mobile_filler"></div>
-            <div class="mobile_menu_btn">
-            </div>
+            <div class="mobile_menu_btn"></div>
 
             <div class="menu">
                 <div class="item">
-                    <a href="bullets.html">Боеприпасы</a>
+                    <a href="{{ absolute_url(path('app_bullets', {})) }}">{{ 'Боеприпасы'|trans({}, 'front.nav') }}</a>
                 </div>
                 <div class="item">
-                    <a href="{{ absolute_url(path('app_quests', {})) }}">Квесты</a>
+                    <a href="{{ absolute_url(path('app_quests', {})) }}">{{ 'Квесты'|trans({}, 'front.nav') }}</a>
                 </div>
                 <div class="item">
-                    <a href="index.html">Карты</a>
+                    <a href="index.html">{{ 'Карты'|trans({}, 'front.nav') }}</a>
+                </div>
+                <div class="item active">
+                    <a href="article.html">{{ 'Механики'|trans({}, 'front.nav') }}</a>
                 </div>
                 <div class="item">
-                    <a href="article.html">Механики</a>
+                    <a href="#">{{ 'Убежище'|trans({}, 'front.nav') }}</a>
                 </div>
                 <div class="item">
-                    <a href="#">Новости</a>
-                </div>
-                <div class="item">
-                    <a href="#">Турниры</a>
+                    <a href="#">{{ 'Новости'|trans({}, 'front.nav') }}</a>
                 </div>
             </div>
             <div class="search">
-                <div class="icon">
-
-                </div>
-                <input type="text" class="input" name="search" placeholder="Поиск по сайту">
+                <div class="icon"></div>
+                <input type="text" class="input" name="search" placeholder="{{ 'Поиск по сайту'|trans({}, 'front.nav') }}">
             </div>
-            <div class="login" id="login_main">
-                Войти
-            </div>
+            <div class="login" id="login_main">{{ 'Войти'|trans({}, 'front.nav') }}</div>
 
             <div class="mobile_menu">
                 <div class="close" id="menu_mobile_close"></div>
@@ -44,56 +39,56 @@
                     <div class="item active">
                         <a href="#" class="itemlink">
                             <div class="itemlogo">
-                                <img src="/assets/img/menu_bullets.svg'" alt="">
+                                <img src="{{ asset('assets/img/menu_bullets.svg') }}" alt="">
                             </div>
-                            Боеприпасы
+                            {{ 'Боеприпасы'|trans({}, 'front.nav') }}
                         </a>
                     </div>
                     <div class="item">
                         <a href="#" class="itemlink">
                             <div class="itemlogo">
-                                <img src="/assets/img/menu_quests.svg" alt="">
+                                <img src="{{ asset('assets/img/menu_quests.svg') }}" alt="">
                             </div>
-                            Квесты
+                            {{ 'Квесты'|trans({}, 'front.nav') }}
                         </a>
                     </div>
                     <div class="item">
                         <a href="#" class="itemlink">
                             <div class="itemlogo">
-                                <img src="/assets/img/menu_maps.svg" alt="">
+                                <img src="{{ asset('assets/img/menu_maps.svg') }}" alt="">
                             </div>
-                            Карты
+                            {{ 'Карты'|trans({}, 'front.nav') }}
                         </a>
                     </div>
                     <div class="item">
                         <a href="#" class="itemlink">
                             <div class="itemlogo">
-                                <img src="/assets/img/menu_mechanics.svg" alt="">
+                                <img src="{{ asset('assets/img/menu_mechanics.svg') }}" alt="">
                             </div>
-                            Механики
+                            {{ 'Механики'|trans({}, 'front.nav') }}
                         </a>
                     </div>
                     <div class="item">
                         <a href="#" class="itemlink">
                             <div class="itemlogo">
-                                <img src="/assets/img/menu_news.svg" alt="">
+                                <img src="{{ asset('assets/img/menu_news.svg') }}" alt="">
                             </div>
-                            Новости
+                            {{ 'Новости'|trans({}, 'front.nav') }}
                         </a>
                     </div>
                     <div class="item">
                         <a href="#" class="itemlink">
                             <div class="itemlogo">
-                                <img src="/assets/img/menu_tournirs.svg" alt="">
+                                <img src="{{ asset('assets/img/menu_tournirs.svg') }}" alt="">
                             </div>
-                            Турниры
+                            {{ 'Турниры'|trans({}, 'front.nav') }}
                         </a>
                     </div>
                 </div>
                 <div class="bottom">
                     <div class="item">
                         <div class="name">
-                            Ссылки
+                            {{ 'Ссылки'|trans({}, 'front.nav') }}
                         </div>
                         <div class="links">
                             <a href="#" class="link telegram"></a>
@@ -103,7 +98,7 @@
                     </div>
                     <div class="item">
                         <div class="name">
-                            Обратная связь
+                            {{ 'Обратная связь'|trans({}, 'front.nav') }}
                         </div>
                         <div class="links">
                             <a href="#" class="link telegram"></a>
@@ -113,7 +108,7 @@
                     </div>
                     <div class="auth">
                         <div class="wrapper">
-                            <a href="#" class="button login" id="login">Вход</a>
+                            <a href="#" class="button login" id="login">{{ 'Вход'|trans({}, 'front.nav') }}</a>
                         </div>
                     </div>
                 </div>

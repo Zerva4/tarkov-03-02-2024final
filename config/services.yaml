@@ -8,7 +8,7 @@ parameters:
 
     doctrine_behaviors_translatable_fetch_mode: 'LAZY'
     doctrine_behaviors_translation_fetch_mode: 'LAZY'
-    doctrine_behaviors_timestampable_date_field_type: "datetime"
+#    doctrine_behaviors_timestampable_date_field_type: "datetimez"
 
     container.dumper.inline_factories: true
 
@@ -36,10 +36,6 @@ parameters:
     app.locations.images.path: '%app.storage.path%images/locations'
     app.locations.images.uri: '%app.storage.uri%images/locations'
 
-    # Locations image config
-    app.articles.images.path: '%app.storage.path%images/articles'
-    app.articles.images.uri: '%app.storage.uri%images/articles'
-
     # Bosses image config
     app.enemies.images.path: '%app.storage.path%images/enemies'
     app.enemies.images.uri: '%app.storage.uri%images/enemies'
@@ -55,6 +51,10 @@ parameters:
     # Quests items image config
     app.quests_items.images.path: '%app.storage.path%images/quests-items'
     app.quests_items.images.uri: '%app.storage.uri%images/quests-items'
+
+    # Articles items image config
+    app.articles.images.path: '%app.storage.path%images/articles'
+    app.articles.images.uri: '%app.storage.uri%images/articles'
 
 services:
     # default configuration for services in *this* file

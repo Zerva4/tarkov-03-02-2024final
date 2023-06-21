@@ -6,6 +6,7 @@ namespace App\Repository\Trader;
 
 use App\Entity\Trader\Trader;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,5 +40,18 @@ class TraderRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllTraders(int $mode = AbstractQuery::HYDRATE_OBJECT)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t.id, t.slug, t.imageName, lang.characterType AS characterType, lang.fullName AS fullName')
+            ->leftJoin('t.translations', 'lang')
+            ->andWhere('t.published = true')
+            ->addOrderBy('t.position', 'ASC')
+            ->getQuery()
+            ->setResultCacheLifetime(0)
+            ->getResult($mode)
+        ;
     }
 }

@@ -8,38 +8,38 @@
                     <div class="directions">
                         <a href="#" class="item">
                             <div class="image">
-                                <img src="{{ asset('/assets/img/bullets_main.svg') }}" alt="">
+                                <img src="{{ asset('assets/img/bullets_main.svg') }}" alt="">
                             </div>
                             <div class="name">
-                                Патроны
+                                {{ 'Патроны'|trans({}, 'front.home') }}
                             </div>
                         </a>
                         <a href="#" class="item">
                             <div class="image">
-                                <img src="/assets/img/maps_main.svg" alt="">
+                                <img src="{{ asset('assets/img/maps_main.svg') }}" alt="">
                             </div>
                             <div class="name">
-                                Карты
+                                {{ 'Карты'|trans({}, 'front.home') }}
                             </div>
                         </a>
                         <a href="#" class="item">
                             <div class="image">
-                                <img src="/assets/img/mech_main.svg" alt="">
+                                <img src="{{ asset('assets/img/mech_main.svg') }}" alt="">
                             </div>
                             <div class="name">
-                                Механики
+                                {{ 'Механики'|trans({}, 'front.home') }}
                             </div>
                         </a>
                     </div>
                     <div class="now">
-                        <div class="information">
+                        <div class="main_information">
                             <div class="windows">
                                 <div class="window" id="window_1">
                                     <div class="name">
-                                        Последний патч | 13.13.13.0043290
+                                        {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
                                     </div>
                                     <div class="subname">
-                                        Список изменений от 01.01.2023 :
+                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
                                     </div>
                                     <div class="contains">
                                         <div>
@@ -66,10 +66,10 @@
                                 </div>
                                 <div class="window active" id="window_2">
                                     <div class="name">
-                                        Ивент
+                                        {{ 'Ивент'|trans({}, 'front.home') }}
                                     </div>
                                     <div class="subname">
-                                        Список изменений от 01.01.2023 :
+                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
                                     </div>
                                     <div class="contains">
                                         <div>
@@ -108,10 +108,10 @@
                                 </div>
                                 <div class="window" id="window_3">
                                     <div class="name">
-                                        Отступники
+                                        {{ 'Отступники'|trans({}, 'front.home') }}
                                     </div>
                                     <div class="subname">
-                                        Список изменений от 01.01.2023 :
+                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
                                     </div>
                                     <div class="contains">
                                         <div>
@@ -130,13 +130,13 @@
                             </div>
                             <div class="selects">
                                 <div class="select" data-target="window_1">
-                                    Патч
+                                    {{ 'Патч'|trans({}, 'front.home') }}
                                 </div>
                                 <div class="select active" data-target="window_2">
-                                    Ивент
+                                    {{ 'Ивент'|trans({}, 'front.home') }}
                                 </div>
                                 <div class="select" data-target="window_3">
-                                    Отступники
+                                    {{ 'Отступники'|trans({}, 'front.home') }}
                                 </div>
                             </div>
                         </div>
@@ -148,8 +148,8 @@
         {% if traders is not empty %}
         <section>
             <div class="container medium">
-                <h2 class="center">Торговцы</h2>
-                <div class="traders">
+                <h2 class="center">{{ 'Торговцы'|trans({}, 'front.home') }}</h2>
+                <div class="traders_main">
                     {% for trader in traders %}
                         <div class="trader">
                             <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="image">
@@ -159,8 +159,8 @@
                                 <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}">{{ trader.characterType }}</a>
                             </div>
                             <div class="links">
-                                <a href="{{ absolute_url(path('app_quests', {})) }}/{{ trader.slug }}" class="link">Квесты</a>
-                                <a href="{{ absolute_url(path('app_items', {})) }}/{{ trader.slug }}" class="link">Товары</a>
+                                <a href="{{ absolute_url(path('app_quests', {})) }}/{{ trader.slug }}" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
+                                <a href="{{ absolute_url(path('app_items', {})) }}/{{ trader.slug }}" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
                             </div>
                         </div>
                     {% endfor %}
@@ -169,67 +169,37 @@
         </section>
         {% endif %}
 
+        {% if articles is not empty %}
         <section>
             <div class="container">
-                <h2 class="articles_header">Статьи и медиа</h2>
+                <h2 class="articles_header">{{ 'Статьи и медиа'|trans({}, 'front.home') }}</h2>
                 <div class="articles">
-                    <a href="#" class="article">
+                    {% for article in articles %}
+                    <a href="{{ absolute_url(path('app_quests', {})) }}/articles{{ article.slug }}" class="article">
                         <div class="date">
-                            04.05.2023
+                            {{ article.updatedAt|date("d.m.Y") }}
                         </div>
                         <div class="contains">
                             <div class="name">
-                                Боссы Таркова
+                                {{ article.title }}
                             </div>
                             <div class="text">
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня
+                                {{ article.description|striptags('')|raw }}
                             </div>
                         </div>
                         <div class="image">
-                            <img src="/assets/img/article_image.png" alt="">
+                            {% if article.imagePoster is not empty %}
+                                <img src="{{ asset('/storage/images/articles/' ~ article.imagePoster) | imagine_filter('180x134') }}" alt="{{ article.title }}">
+                            {% else %}
+                                <img src="{{ asset('/assets/img/NonImage.jpg') | imagine_filter('180x134')  }}" width="180" height="134" alt="{{ article.title }}">
+                            {% endif %}
                         </div>
                     </a>
-                    <a href="#" class="article">
-                        <div class="date">
-                            04.05.2023
-                        </div>
-                        <div class="contains">
-                            <div class="name">
-                                Боссы Таркова
-                            </div>
-                            <div class="text">
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня
-                            </div>
-                        </div>
-                        <div class="image">
-                            <img src="/assets/img/article_image.png" alt="">
-                        </div>
-                    </a>
-                    <a href="#" class="article">
-                        <div class="date">
-                            04.05.2023
-                        </div>
-                        <div class="contains">
-                            <div class="name">
-                                Боссы Таркова
-                            </div>
-                            <div class="text">
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня.
-                                Методы пропажи с радаров и четкие действия по скрытию себя от вражеского огня
-                            </div>
-                        </div>
-                        <div class="image">
-                            <img src="/assets/img/article_image.png" alt="">
-                        </div>
-                    </a>
+                    {% endfor %}
                 </div>
             </div>
         </section>
+        {% endif %}
 
     </div>
 {% endblock %}
