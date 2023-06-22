@@ -19,6 +19,10 @@ parameters:
     # GraphQL url address
     app.graphql_api_url: '%env(GRAPHQL_API_URL)%'
 
+    # REST API import weather
+    app.import.weather.url: '%env(IMPORT_WATHER_URL)%'
+    app.import.weather.token: '%env(IMPORT_WEATHER_TOKEN)%'
+
     # Define storage paths
     app.storage.path: '%kernel.project_dir%/public/storage/'
     app.storage.uri: '%app_dir%/storage/'
