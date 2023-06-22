@@ -24,7 +24,7 @@ class TradersController extends AbstractController
     #[Route('/traders', name: 'app_traders')]
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
+        return $this->render('traders/index.html.twig', [
             'traders' => $this->traders,
         ]);
     }
