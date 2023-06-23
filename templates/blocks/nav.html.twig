@@ -37,7 +37,7 @@
                 <div class="close" id="menu_mobile_close"></div>
                 <div class="top">
                     <div class="item active">
-                        <a href="#" class="itemlink">
+                        <a href="{{ absolute_url(path('app_bullets', {})) }}" class="itemlink">
                             <div class="itemlogo">
                                 <img src="{{ asset('assets/img/menu_bullets.svg') }}" alt="">
                             </div>
@@ -45,7 +45,7 @@
                         </a>
                     </div>
                     <div class="item">
-                        <a href="#" class="itemlink">
+                        <a href="{{ absolute_url(path('app_traders', {})) }}" class="itemlink">
                             <div class="itemlogo">
                                 <img src="{{ asset('assets/img/menu_quests.svg') }}" alt="">
                             </div>
