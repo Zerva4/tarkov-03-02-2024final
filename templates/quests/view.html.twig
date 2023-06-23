@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="content">
+        <section>
+            <div class="container">
+                {% if quest %}
+                <div class="information">
+                    {% if tasks %}
+                    <div class="tasks">
+                        <h2>Задачи</h2>
+                        <ul class="list">
+                            <li class="item">
+                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
+                            </li>
+                            <li class="item">
+                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
+                            </li>
+                            <li class="item">
+                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
+                            </li>
+                            <li class="item">
+                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
+                            </li>
+                            <li class="item">
+                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
+                            </li>
+                            <li class="item">
+                                Передать 2 ружья
+                                <span class="popped">
+									МР-133
+									&nbsp;
+									<div class="pop">
+										<div class="image">
+											<img src="media/gun.png" alt="">
+										</div>
+										<div class="text">
+											Гладкоствольное многозарядное ружьё MP-133 с продольно скользящим
+											цевьём.
+											Ружьё
+											разработано на базе ружья ИЖ-81 и серийно выпускалось Ижевским
+											механическим
+											заводом
+											(ИжМех) с 2000 года. Уникально в своем роде благодаря наличию затворной
+											задержки.
+											Надёжное и удобное оружие для охоты и самообороны.
+										</div>
+										<a href="#" class="link">Подробнее</a>
+									</div>
+								</span>
+                                Прапору
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <div class="card">
+                        <h2>
+                            {{ quest.title }}
+                        </h2>
+                        <div class="image">
+                            {% if quest.imageName %}
+                                <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.title }}">
+                            {% else %}
+                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('360x210') }}" alt="{{ quest.title }}">
+                            {% endif %}
+                        </div>
+                        <div class="text">
+                            <div class="item">
+                                <div class="name">
+                                    {{ 'Требуемый уровень'|trans({}, 'front.quests') }}
+                                </div>
+                                <div class="value">
+                                    {{ quest.minPlayerLevel }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="name">
+                                    {{ 'Выдал'|trans({}, 'front.quests') }}
+                                </div>
+                                <div class="value">
+                                    {{ quest.trader }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="name">
+                                    {{ 'Требуется для каппы'|trans({}, 'front.quests') }}
+                                </div>
+                                <div class="value">
+                                    Да
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+{% endblock %}
