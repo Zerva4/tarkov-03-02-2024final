@@ -120,7 +120,7 @@
                                         {% if quest.imageName %}
                                             <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.title }}">
                                         {% else %}
-                                            <img src="{{ asset('/assets/img/NoImage.png') | imagine_filter('250x148') }}" alt="{{ quest.title }}">
+                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('250x148') }}" alt="">
                                         {% endif %}
                                     </div>
                                     <div class="name">{{ quest.title }}</div>

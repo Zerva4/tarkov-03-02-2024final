@@ -24,7 +24,7 @@ liip_imagine:
         images:
             web_path:
                 web_root: '%kernel.project_dir%/public'
-                cache_prefix: "storage/cache"
+                cache_prefix: "/storage/cache"
 
     loaders:
         images:
