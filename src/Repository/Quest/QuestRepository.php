@@ -47,12 +47,12 @@ class QuestRepository extends ServiceEntityRepository
     public function findQuestsByTraderId(UuidInterface $uuid, int $mode = AbstractQuery::HYDRATE_OBJECT): ?array
     {
         return $this->createQueryBuilder('q')
-            ->select('t.id, t.title, t.description, t.howToComplete, q.imageName, q.position, q.slug')
-            ->leftJoin('q.translations', 't')
+            ->select('l.id, l.title, l.description, l.howToComplete, q.imageName, q.position, q.slug')
+            ->leftJoin('q.minPlayerLevel, q.translations', 'l')
             ->andWhere('q.published = true')
             ->andWhere('q.trader = :trader')
             ->setParameter('trader', $uuid)
-            ->addOrderBy('q.position, t.title', 'ASC')
+            ->addOrderBy('tq.position, t.title', 'ASC')
             ->getQuery()
             ->getResult($mode)
         ;
