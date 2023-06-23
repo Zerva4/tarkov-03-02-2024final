@@ -5,17 +5,7 @@
     {% if traders is not empty %}
     <section>
         <div class="container">
-            <div class="desctop_traders_container">
-                <h2 class="center">{{ 'Выбор торговца'|trans({}, 'front.traders') }}</h2>
-                <div class="traders">
-                {% for trader in traders %}
-                    <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/" class="trader">
-                        <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('80x80') }}" alt="{{ trader.characterType }}">
-                    </a>
-                {% endfor %}
-                </div>
-            </div>
-            <div class="reference active mobile_traders_container">
+            <div class="reference active page_traders">
                 <div class="header">
                     <h2 class="h">{{ 'Выбор торговца'|trans({}, 'front.traders') }}</h2>
                     <div class="line"></div>
@@ -23,11 +13,11 @@
                     </div>
                 </div>
                 <div class="text">
-                    <div class="mobile_traders">
+                    <div class="traders">
                         {% for trader in traders %}
-                        <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/" class="trader">
-                            <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }}" alt="{{ trader.characterType }}">
-                        </a>
+                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="trader">
+                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('80x80') }}" alt="{{ trader.characterType }}">
+                            </a>
                         {% endfor %}
                     </div>
                 </div>
