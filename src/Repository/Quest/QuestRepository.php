@@ -48,13 +48,14 @@ class QuestRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('q')
             ->select('l.id, l.title, l.description, l.howToComplete, q.imageName, q.position, q.slug')
-            ->leftJoin('q.minPlayerLevel, q.translations', 'l')
+            ->leftJoin('q.translations', 'l')
             ->andWhere('q.published = true')
             ->andWhere('q.trader = :trader')
             ->setParameter('trader', $uuid)
-            ->addOrderBy('tq.position, t.title', 'ASC')
+            ->addOrderBy('q.minPlayerLevel, q.position, t.title', 'ASC')
             ->getQuery()
             ->getResult($mode)
         ;
+
     }
 }
