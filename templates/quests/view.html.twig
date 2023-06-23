@@ -4,55 +4,20 @@
     <div class="content">
         <section>
             <div class="container">
-                {% if quest %}
+                {% if quest is not empty  %}
                 <div class="information">
-                    {% if tasks %}
                     <div class="tasks">
+                        {% if objectives is not empty %}
                         <h2>Задачи</h2>
                         <ul class="list">
+                            {% for objective in objectives %}
                             <li class="item">
-                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
+                                {{ objective.description }}
                             </li>
-                            <li class="item">
-                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
-                            </li>
-                            <li class="item">
-                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
-                            </li>
-                            <li class="item">
-                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
-                            </li>
-                            <li class="item">
-                                Убить 3 ЧВК выстрелом в голову с расстояния не меньше 125 метров на локации Лес
-                            </li>
-                            <li class="item">
-                                Передать 2 ружья
-                                <span class="popped">
-									МР-133
-									&nbsp;
-									<div class="pop">
-										<div class="image">
-											<img src="media/gun.png" alt="">
-										</div>
-										<div class="text">
-											Гладкоствольное многозарядное ружьё MP-133 с продольно скользящим
-											цевьём.
-											Ружьё
-											разработано на базе ружья ИЖ-81 и серийно выпускалось Ижевским
-											механическим
-											заводом
-											(ИжМех) с 2000 года. Уникально в своем роде благодаря наличию затворной
-											задержки.
-											Надёжное и удобное оружие для охоты и самообороны.
-										</div>
-										<a href="#" class="link">Подробнее</a>
-									</div>
-								</span>
-                                Прапору
-                            </li>
+                            {% endfor %}
                         </ul>
+                        {% endif %}
                     </div>
-                    {% endif %}
                     <div class="card">
                         <h2>
                             {{ quest.title }}
@@ -78,17 +43,17 @@
                                     {{ 'Выдал'|trans({}, 'front.quests') }}
                                 </div>
                                 <div class="value">
-                                    {{ quest.trader }}
+{#                                    {{ quest.trader }}#}
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="name">
-                                    {{ 'Требуется для каппы'|trans({}, 'front.quests') }}
-                                </div>
-                                <div class="value">
-                                    Да
-                                </div>
-                            </div>
+{#                            <div class="item">#}
+{#                                <div class="name">#}
+{#                                    {{ 'Требуется для каппы'|trans({}, 'front.quests') }}#}
+{#                                </div>#}
+{#                                <div class="value">#}
+{#                                    {% if quest.optional %}Да{% else %}Нет{% endif %}#}
+{#                                </div>#}
+{#                            </div>#}
                         </div>
                     </div>
                 </div>
