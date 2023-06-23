@@ -21,40 +21,40 @@ liip_imagine:
         post_processors: [ ]
 
     resolvers:
-        images:
+        default:
             web_path:
                 web_root: '%kernel.project_dir%/public'
-                cache_prefix: "/storage/cache"
+                cache_prefix: "storage/cache"
 
     loaders:
-        images:
+        default:
             filesystem:
-                data_root: '%kernel.project_dir%/public/storage'
+                data_root: '%kernel.project_dir%/public'
 
     filter_sets:
         cache: ~
         100x100:
-            cache: images
+            cache: default
             quality: 100
             filters:
                 thumbnail: { size: [ 100, 100 ], position: center, mode: inset }
         180x134:
-            cache: images
+            cache: default
             quality: 100
             filters:
                 thumbnail: { size: [ 180, 134 ], position: center, mode: inset }
         80x80:
-            cache: images
+            cache: default
             quality: 100
             filters:
                 thumbnail: { size: [ 158, 158 ], position: center, mode: inset }
         178x178:
-            cache: images
+            cache: default
             quality: 100
             filters:
                 thumbnail: { size: [ 178, 178 ], position: center, mode: inset }
         250x148:
-            cache: images
+            cache: default
             quality: 100
             filters:
                 thumbnail: { size: [ 250, 148 ], position: center, mode: inset }
