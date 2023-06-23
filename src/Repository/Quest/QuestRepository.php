@@ -56,6 +56,19 @@ class QuestRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult($mode)
         ;
+    }
 
+    public function findQuestBySlug(string $slug, int $mode = AbstractQuery::HYDRATE_OBJECT): ?array
+    {
+        return $this->createQueryBuilder('q')
+            ->select('q.id, l.title, l.description, l.howToComplete, q.imageName, q.position, q.experience, q.minPlayerLevel')
+            ->leftJoin('q.translations', 'l')
+            ->leftJoin('q.trader', 't')
+            ->andWhere('q.published = true')
+            ->andWhere('q.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult($mode)
+            ;
     }
 }
