@@ -4,7 +4,10 @@ namespace App\Repository\Trader;
 
 use App\Entity\Trader\TraderLevel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<TraderLevel>
@@ -37,5 +40,15 @@ class TraderLevelRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findLevelsByTraderId(UuidInterface $uuid, int $mode = AbstractQuery::HYDRATE_OBJECT): ?array
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.trader = :trader')
+            ->setParameter('trader', $uuid)
+            ->getQuery()
+            ->getResult($mode)
+            ;
     }
 }

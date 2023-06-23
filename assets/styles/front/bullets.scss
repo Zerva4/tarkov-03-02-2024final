@@ -87,72 +87,47 @@
 
     .wrapper {
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: row wrap;
         gap: 8px;
         justify-content: flex-start;
         align-items: flex-start;
 
-        @media (min-width:320px) and (max-width:1080px) {
-            display: block;
-        }
+        .ammo {
+            min-width: 110px;
+            background: #1E1E1E;
+            border-radius: 5px;
+            margin-bottom: 4px;
+            display: inline-block;
+            padding: 8px 8px 8px 24px;
+            text-align: center;
+            position: relative;
+            width: max-content;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.5s ease;
 
-        .column {
-            flex: none;
-            display: flex;
-            flex-flow: column nowrap;
-
-            @media (min-width:320px) and (max-width:1080px) {
-                margin: 8px 0;
-                display: flex;
-                flex-flow: row wrap;
-                gap: 4px;
-
-                &:first-child {
-                    margin-top: 0;
-                }
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
+            &::before {
+                position: absolute;
+                content: "";
+                width: 4px;
+                height: 4px;
+                background: $color-text;
+                border-radius: 50%;
+                top: calc(50% - 2px);
+                left: 8px;
             }
 
-            .ammo {
-                min-width: 110px;
-                background: #1E1E1E;
-                border-radius: 5px;
-                margin-bottom: 4px;
-                display: inline-block;
-                padding: 8px 8px 8px 24px;
-                text-align: center;
-                position: relative;
-                width: max-content;
-                cursor: pointer;
-                user-select: none;
-                transition: 0.5s ease;
+            &.active {
+                background: #483013;
+            }
 
-                &::before {
-                    position: absolute;
-                    content: "";
-                    width: 4px;
-                    height: 4px;
-                    background: $color-text;
-                    border-radius: 50%;
-                    top: calc(50% - 2px);
-                    left: 8px;
-                }
+            &:hover {
+                background: #483013;
+            }
 
-                &.active {
-                    background: #483013;
-                }
-
-                &:hover {
-                    background: #483013;
-                }
-
-                @media (min-width:320px) and (max-width:1080px) {
-                    margin-bottom: 0;
-                    min-width: 80px;
-                }
+            @media (min-width:320px) and (max-width:1080px) {
+                margin-bottom: 0;
+                min-width: 80px;
             }
         }
     }

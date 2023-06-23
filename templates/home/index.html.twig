@@ -152,7 +152,7 @@
                 <div class="traders_main">
                     {% for trader in traders %}
                         <div class="trader">
-                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="image">
+                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/" class="image">
                                 <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.characterType }}" />
                             </a>
                             <div class="name">
@@ -175,7 +175,7 @@
                 <h2 class="articles_header">{{ 'Статьи и медиа'|trans({}, 'front.home') }}</h2>
                 <div class="articles">
                     {% for article in articles %}
-                    <a href="{{ absolute_url(path('app_quests', {})) }}/articles{{ article.slug }}" class="article">
+                    <a href="{{ absolute_url(path('app_quests', {})) }}/articles{{ article.slug }}/" class="article">
                         <div class="date">
                             {{ article.updatedAt|date("d.m.Y") }}
                         </div>

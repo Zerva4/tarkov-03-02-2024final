@@ -43,3 +43,18 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [ 180, 134 ], position: center, mode: inset }
+        80x80:
+            cache: images
+            quality: 100
+            filters:
+                thumbnail: { size: [ 158, 158 ], position: center, mode: inset }
+        178x178:
+            cache: images
+            quality: 100
+            filters:
+                thumbnail: { size: [ 178, 178 ], position: center, mode: inset }
+        250x148:
+            cache: images
+            quality: 100
+            filters:
+                thumbnail: { size: [ 250, 148 ], position: center, mode: inset }
