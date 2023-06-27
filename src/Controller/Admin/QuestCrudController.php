@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Quest\Quest;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
+use App\Form\QuestKeyFormType;
 use App\Form\QuestObjectiveForm;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -98,6 +99,20 @@ class QuestCrudController extends BaseCrudController
                 'field_type' => CKEditorType::class,
                 'label' => t('How to complete', [], 'admin.quests')
             ],
+            'startDialog' => [
+                'attr' => [
+                    'class' => 'ckeditor'
+                ],
+                'field_type' => CKEditorType::class,
+                'label' => t('Start dialog', [], 'admin.quests')
+            ],
+            'successfulDialog' => [
+                'attr' => [
+                    'class' => 'ckeditor'
+                ],
+                'field_type' => CKEditorType::class,
+                'label' => t('Successful dialog', [], 'admin.quests')
+            ]
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin.quests'), $translationFields)
             ->setFormTypeOptions([
@@ -107,10 +122,17 @@ class QuestCrudController extends BaseCrudController
         $slug = SlugField::new('slug', t('Slug', [], 'admin.quests'))
             ->setTargetFieldName('slug')
             ->setRequired(true);
-        $objectives = CollectionField::new('objectives', t('Objectives', [], 'admin.traders'))
+        $objectives = CollectionField::new('objectives', t('Objectives', [], 'admin.quests'))
             ->allowAdd()
             ->allowDelete()
             ->setEntryType(QuestObjectiveForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', false)
+        ;
+        $keys = CollectionField::new('neededKeys', t('Keys', [], 'admin.quests'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(QuestKeyFormType::class)
             ->setEntryIsComplex(false)
             ->setFormTypeOption('by_reference', false)
         ;
@@ -132,6 +154,7 @@ class QuestCrudController extends BaseCrudController
                 FormField::addTab(t('Objectives', [], 'admin.quests')),
                 $objectives->setColumns(12),
                 FormField::addTab(t('Keys', [], 'admin.quests')),
+                $keys->setColumns(12),
             ],
             default => [
                 $title->setSortable(true)->setTemplatePath('admin/field/link-edit.html.twig'),
