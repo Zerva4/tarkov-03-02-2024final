@@ -17,7 +17,7 @@ class QuestKeyFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('key', EntityType::class, [
+            ->add('item', EntityType::class, [
                 'label' => t('Key', [], 'admin.quests'),
                 'class' => Item::class,
                 'placeholder' => t('Select item', [], 'admin'),

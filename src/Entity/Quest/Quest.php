@@ -478,7 +478,6 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     {
         if ($this->neededKeys->contains($questKey)) {
             $this->neededKeys->removeElement($questKey);
-            $questKey->setQuest(null);
         }
 
         return $this;

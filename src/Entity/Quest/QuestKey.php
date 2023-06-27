@@ -23,26 +23,26 @@ class QuestKey implements UuidPrimaryKeyInterface, TimestampableInterface, Quest
     use TimestampableTrait;
 
     #[ORM\ManyToOne(targetEntity: Item::class, inversedBy: 'questsKeys')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'DELETE')]
-    private ?ItemInterface $key;
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private ?ItemInterface $item;
 
     #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'quests')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'DELETE')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?MapInterface $map = null;
 
     #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'neededKeys')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?QuestInterface $quest = null;
 
-    public function getKey(): ItemInterface
+    public function getItem(): ItemInterface
     {
-        return $this->key;
+        return $this->item;
     }
 
-    public function setKey(?ItemInterface $key): QuestKeyInterface
+    public function setItem(?ItemInterface $item): QuestKeyInterface
     {
-        $this->key = $key;
-        $key->addKeyQuest($this);
+        $this->item = $item;
+        $item->addKeyQuest($this);
 
         return $this;
     }
@@ -55,7 +55,7 @@ class QuestKey implements UuidPrimaryKeyInterface, TimestampableInterface, Quest
     public function setMap(?MapInterface $map): QuestKeyInterface
     {
         $this->map = $map;
-        $map->addQuestsKey($this);
+//        $map->addQuestsKey($this);
 
         return $this;
     }
@@ -74,6 +74,6 @@ class QuestKey implements UuidPrimaryKeyInterface, TimestampableInterface, Quest
 
     public function __toString(): string
     {
-        return $this->key->__get('title');
+        return $this->item->__get('title');
     }
 }

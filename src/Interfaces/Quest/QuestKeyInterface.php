@@ -10,13 +10,13 @@ interface QuestKeyInterface
     /**
      * @return ItemInterface|null
      */
-    public function getKey(): ?ItemInterface;
+    public function getItem(): ?ItemInterface;
 
     /**
-     * @param ItemInterface|null $key
+     * @param ItemInterface|null $item
      * @return QuestKeyInterface
      */
-    public function setKey(?ItemInterface $key): QuestKeyInterface;
+    public function setItem(?ItemInterface $item): QuestKeyInterface;
 
     /**
      * @return MapInterface|null

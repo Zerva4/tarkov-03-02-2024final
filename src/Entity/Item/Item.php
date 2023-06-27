@@ -664,7 +664,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     {
         if (!$this->keyQuests->contains($questKey)) {
             $this->keyQuests->add($questKey);
-            $questKey->setKey($this);
+            $questKey->setItem($this);
         }
 
         return $this;
@@ -674,7 +674,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     {
         if ($this->keyQuests->contains($questKey)) {
             $this->keyQuests->removeElement($questKey);
-            $questKey->setKey(null);
+            $questKey->setItem(null);
         }
 
         return $this;
