@@ -3,11 +3,13 @@
 namespace App\Entity\Item;
 
 use App\Entity\Barter;
+use App\Entity\Quest\Quest;
 use App\Entity\Workshop\Craft;
 use App\Entity\Workshop\PlaceLevel;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
+use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\CraftInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
@@ -63,6 +65,14 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     #[ORM\JoinTable(name: 'crafts_reward_contained_items')]
     private Collection $rewardInCrafts;
 
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'usedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_used_items')]
+    private Collection|ArrayCollection|null $usedInQuests;
+
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_received_items')]
+    private Collection|ArrayCollection|null $receivedFromQuests;
+
     public function __construct()
     {
         $this->requiredInBarters = new ArrayCollection();
@@ -70,6 +80,8 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         $this->requiredForPlacesLevels = new ArrayCollection();
         $this->requiredInCrafts = new ArrayCollection();
         $this->rewardInCrafts = new ArrayCollection();
+        $this->usedInQuests = new ArrayCollection();
+        $this->receivedFromQuests = new ArrayCollection();
     }
 
     public function getApiId(): ?string
@@ -196,11 +208,6 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->item->__get('title');
-    }
-
     public function getRequiredForPlacesLevels(): Collection
     {
         return $this->requiredForPlacesLevels;
@@ -295,5 +302,81 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
         }
 
         return $this;
+    }
+
+    public function setLoudness(?int $loudness): ContainedItemInterface
+    {
+        $this->loudness = $loudness;
+
+        return $this;
+    }
+
+    public function getUsedInQuests(): ?Collection
+    {
+        return $this->usedInQuests;
+    }
+
+    public function setUsedInQuests(?Collection $usedInQuests): ContainedItemInterface
+    {
+        $this->usedInQuests = $usedInQuests;
+
+        return $this;
+    }
+
+    public function addUsedInQuest(QuestInterface $quest): ContainedItemInterface
+    {
+        if (!$this->usedInQuests->contains($quest)) {
+            $this->usedInQuests->add($quest);
+            $quest->addUsedItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsedInQuest(QuestInterface $quest): ContainedItemInterface
+    {
+        if ($this->usedInQuests->contains($quest)) {
+            $this->usedInQuests->removeElement($quest);
+            $quest->removeUsedItem($this);
+        }
+
+        return $this;
+    }
+
+    public function getReceivedFromQuests(): ?Collection
+    {
+        return $this->receivedFromQuests;
+    }
+
+    public function setReceivedFromQuests(?Collection $receivedFromQuests): ContainedItemInterface
+    {
+        $this->receivedFromQuests = $receivedFromQuests;
+
+        return $this;
+    }
+
+    public function addReceivedFromQuest(QuestInterface $quest): ContainedItemInterface
+    {
+        if (!$this->receivedFromQuests->contains($quest)) {
+            $this->receivedFromQuests->add($quest);
+            $quest->addReceivedItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceivedFromQuest(QuestInterface $quest): ContainedItemInterface
+    {
+        if ($this->receivedFromQuests->contains($quest)) {
+            $this->receivedFromQuests->removeElement($quest);
+            $quest->removeReceivedItem($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->item->__get('title');
     }
 }

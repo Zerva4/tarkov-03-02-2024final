@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Quest;
 
 use App\Entity\Barter;
+use App\Entity\Item\ContainedItem;
 use App\Entity\Item\Item;
 use App\Entity\Map;
 use App\Entity\Trader\Trader;
@@ -12,6 +13,7 @@ use App\Entity\Trader\TraderCashOffer;
 use App\Entity\TranslatableEntity;
 use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
+use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Quest\QuestInterface;
@@ -100,11 +102,11 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $objectives;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'usedInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'usedInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     #[ORM\JoinTable(name: 'quests_used_items')]
     private ?Collection $usedItems;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'receivedFromQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'receivedFromQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection $receivedItems;
 
@@ -289,7 +291,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
         return $this;
     }
 
-    public function addUsedItem(ItemInterface $item): QuestInterface
+    public function addUsedItem(ContainedItemInterface $item): QuestInterface
     {
         if (!$this->usedItems->contains($item)) {
             $this->usedItems->add($item);
@@ -299,7 +301,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
         return $this;
     }
 
-    public function removeUsedItem(ItemInterface $item): QuestInterface
+    public function removeUsedItem(ContainedItemInterface $item): QuestInterface
     {
         if ($this->usedItems->contains($item)) {
             $this->usedItems->removeElement($item);
@@ -321,7 +323,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
         return $this;
     }
 
-    public function addReceivedItem(ItemInterface $item): QuestInterface
+    public function addReceivedItem(ContainedItemInterface $item): QuestInterface
     {
         if (!$this->receivedItems->contains($item)) {
             $this->receivedItems->add($item);
@@ -331,7 +333,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
         return $this;
     }
 
-    public function removeReceivedItem(ItemInterface $item): QuestInterface
+    public function removeReceivedItem(ContainedItemInterface $item): QuestInterface
     {
         if ($this->receivedItems->contains($item)) {
             $this->receivedItems->removeElement($item);
