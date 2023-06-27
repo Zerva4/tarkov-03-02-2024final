@@ -300,4 +300,27 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function removeCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface;
+
+    /**
+     * @return Collection|null
+     */
+    public function getNeededInQuests(): ?Collection;
+
+    /**
+     * @param Collection|null $neededInQuests
+     * @return ItemInterface
+     */
+    public function setNeededInQuests(?Collection $neededInQuests): ItemInterface;
+
+    /**
+     * @param QuestInterface $quest
+     * @return ItemInterface
+     */
+    public function addNeededInQuest(QuestInterface $quest): ItemInterface;
+
+    /**
+     * @param QuestInterface $quest
+     * @return ItemInterface
+     */
+    public function removeNeededInQuest(QuestInterface $quest): ItemInterface;
 }
