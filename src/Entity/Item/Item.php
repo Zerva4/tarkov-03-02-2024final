@@ -201,6 +201,10 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $currencyCashOffers;
 
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'neededKeys', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_needed_keys')]
+    private ?Collection $neededInQuests;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -210,6 +214,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->containedItems = new ArrayCollection();
         $this->cashOffers = new ArrayCollection();
         $this->currencyCashOffers = new ArrayCollection();
+        $this->neededInQuests = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -609,11 +614,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->__get('title');
-    }
-
     public function getCurrencyCashOffers(): Collection
     {
         return $this->currencyCashOffers;
@@ -644,5 +644,42 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         }
 
         return $this;
+    }
+
+    public function getNeededInQuests(): ?Collection
+    {
+        return $this->neededInQuests;
+    }
+
+    public function setNeededInQuests(?Collection $neededInQuests): ItemInterface
+    {
+        $this->neededInQuests = $neededInQuests;
+
+        return $this;
+    }
+
+    public function addNeededInQuest(QuestInterface $quest): ItemInterface
+    {
+        if (!$this->neededInQuests->contains($quest)) {
+            $this->neededInQuests->add($quest);
+            $quest->addNeededKey($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNeededInQuest(QuestInterface $quest): ItemInterface
+    {
+        if ($this->neededInQuests->contains($quest)) {
+            $this->neededInQuests->removeElement($quest);
+            $quest->removeNeededKey($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('title');
     }
 }
