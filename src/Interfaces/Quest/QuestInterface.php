@@ -264,10 +264,14 @@ interface QuestInterface
     public function setNeededKeys(?Collection $neededKeys): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param QuestKeyInterface $questKey
      * @return QuestInterface
      */
-    public function addNeededKey(ItemInterface $item): QuestInterface;
+    public function addNeededKey(QuestKeyInterface $questKey): QuestInterface;
 
-    public function removeNeededKey(ItemInterface $item): QuestInterface;
+    /**
+     * @param QuestKeyInterface $questKey
+     * @return QuestInterface
+     */
+    public function removeNeededKey(QuestKeyInterface $questKey): QuestInterface;
 }

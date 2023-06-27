@@ -3,6 +3,7 @@
 namespace App\Interfaces\Item;
 
 use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use Doctrine\Common\Collections\Collection;
 
@@ -304,23 +305,23 @@ interface ItemInterface
     /**
      * @return Collection|null
      */
-    public function getNeededInQuests(): ?Collection;
+    public function getKeyQuests(): ?Collection;
 
     /**
      * @param Collection|null $neededInQuests
      * @return ItemInterface
      */
-    public function setNeededInQuests(?Collection $neededInQuests): ItemInterface;
+    public function setKeyQuests(?Collection $neededInQuests): ItemInterface;
 
     /**
-     * @param QuestInterface $quest
+     * @param QuestKeyInterface $questKey
      * @return ItemInterface
      */
-    public function addNeededInQuest(QuestInterface $quest): ItemInterface;
+    public function addKeyQuest(QuestKeyInterface $questKey): ItemInterface;
 
     /**
-     * @param QuestInterface $quest
+     * @param QuestKeyInterface $questKey
      * @return ItemInterface
      */
-    public function removeNeededInQuest(QuestInterface $quest): ItemInterface;
+    public function removeKeyQuest(QuestKeyInterface $questKey): ItemInterface;
 }
