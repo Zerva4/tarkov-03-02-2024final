@@ -15,6 +15,7 @@ use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Quest\QuestObjectiveInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
@@ -113,7 +114,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     private Collection $unlockInCashOffers;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'neededInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToMany(targetEntity: QuestKey::class, inversedBy: 'quest', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     #[ORM\JoinTable(name: 'quests_needed_keys')]
     private ?Collection $neededKeys;
 
@@ -197,6 +198,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     public function setMap(?MapInterface $map): QuestInterface
     {
         $this->map = $map;
+        $map->addQuest($this);
 
         return $this;
     }
@@ -462,21 +464,21 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
         return $this;
     }
 
-    public function addNeededKey(ItemInterface $item): QuestInterface
+    public function addNeededKey(QuestKeyInterface $questKey): QuestInterface
     {
-        if (!$this->neededKeys->contains($item)) {
-            $this->neededKeys->add($item);
-            $item->addNeededInQuest($this);
+        if (!$this->neededKeys->contains($questKey)) {
+            $this->neededKeys->add($questKey);
+            $questKey->setQuest($this);
         }
 
         return $this;
     }
 
-    public function removeNeededKey(ItemInterface $item): QuestInterface
+    public function removeNeededKey(QuestKeyInterface $questKey): QuestInterface
     {
-        if ($this->neededKeys->contains($item)) {
-            $this->neededKeys->removeElement($item);
-            $item->removeNeededInQuest($this);
+        if ($this->neededKeys->contains($questKey)) {
+            $this->neededKeys->removeElement($questKey);
+            $questKey->setQuest(null);
         }
 
         return $this;
