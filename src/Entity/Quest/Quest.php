@@ -27,6 +27,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -41,7 +42,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestInterface
+class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, TimestampableInterface, QuestInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -112,6 +113,10 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     private Collection $unlockInCashOffers;
 
+    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'neededInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinTable(name: 'quests_needed_keys')]
+    private ?Collection $neededKeys;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -121,6 +126,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         $this->receivedItems = new ArrayCollection();
         $this->unlockInBarter = new ArrayCollection();
         $this->unlockInCrafts = new ArrayCollection();
+        $this->neededKeys = new ArrayCollection();
     }
 
     public function getApiId(): ?string
@@ -412,11 +418,6 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->__get('title');
-    }
-
     public function getUnlockInCashOffers(): Collection
     {
         return $this->unlockInCashOffers;
@@ -447,5 +448,42 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         }
 
         return $this;
+    }
+
+    public function getNeededKeys(): ?Collection
+    {
+        return $this->neededKeys;
+    }
+
+    public function setNeededKeys(?Collection $neededKeys): QuestInterface
+    {
+        $this->neededKeys = $neededKeys;
+
+        return $this;
+    }
+
+    public function addNeededKey(ItemInterface $item): QuestInterface
+    {
+        if (!$this->neededKeys->contains($item)) {
+            $this->neededKeys->add($item);
+            $item->addNeededInQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNeededKey(ItemInterface $item): QuestInterface
+    {
+        if ($this->neededKeys->contains($item)) {
+            $this->neededKeys->removeElement($item);
+            $item->removeNeededInQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('title');
     }
 }
