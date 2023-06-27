@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Quest\Quest;
+use App\Form\ContainedItemForm;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\QuestKeyFormType;
@@ -136,6 +137,20 @@ class QuestCrudController extends BaseCrudController
             ->setEntryIsComplex(false)
             ->setFormTypeOption('by_reference', false)
         ;
+        $usedItems = CollectionField::new('usedItems', t('Required items', [], 'admin.barters'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(ContainedItemForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', true)
+        ;
+        $receivedItems = CollectionField::new('receivedItems', t('Reward items', [], 'admin.barters'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(ContainedItemForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', true)
+        ;
 
         $createdAt = DateField::new('createdAt', 'Created')->setTextAlign('center');
         $updatedAt = DateField::new('updatedAt', 'Updated')->setTextAlign('center');
@@ -153,6 +168,9 @@ class QuestCrudController extends BaseCrudController
                 $translations,
                 FormField::addTab(t('Objectives', [], 'admin.quests')),
                 $objectives->setColumns(12),
+                FormField::addTab(t('Items', [], 'admin.quests')),
+                $usedItems->setColumns(6),
+                $receivedItems->setColumns(6),
                 FormField::addTab(t('Keys', [], 'admin.quests')),
                 $keys->setColumns(12),
             ],
