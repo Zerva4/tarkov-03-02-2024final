@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Interfaces\Quest;
 
 use App\Interfaces\BarterInterface;
+use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
@@ -175,16 +176,16 @@ interface QuestInterface
     public function setUsedItems(?Collection $usedItems): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return QuestInterface
      */
-    public function addUsedItem(ItemInterface $item): QuestInterface;
+    public function addUsedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return QuestInterface
      */
-    public function removeUsedItem(ItemInterface $item): QuestInterface;
+    public function removeUsedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
      * @return Collection|null
@@ -198,16 +199,16 @@ interface QuestInterface
     public function setReceivedItems(?Collection $receivedItems): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return QuestInterface
      */
-    public function addReceivedItem(ItemInterface $item): QuestInterface;
+    public function addReceivedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return QuestInterface
      */
-    public function removeReceivedItem(ItemInterface $item): QuestInterface;
+    public function removeReceivedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
      * @return Collection

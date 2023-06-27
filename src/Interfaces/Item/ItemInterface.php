@@ -211,52 +211,6 @@ interface ItemInterface
     public function setLoudness(?int $loudness): ItemInterface;
 
     /**
-     * @return Collection|null
-     */
-    public function getUsedInQuests(): ?Collection;
-
-    /**
-     * @param Collection|null $usedInQuests
-     * @return ItemInterface
-     */
-    public function setUsedInQuests(?Collection $usedInQuests): ItemInterface;
-
-    /**
-     * @param QuestInterface $quest
-     * @return ItemInterface
-     */
-    public function addUsedInQuest(QuestInterface $quest): ItemInterface;
-
-    /**
-     * @param QuestInterface $quest
-     * @return ItemInterface
-     */
-    public function removeUsedInQuest(QuestInterface $quest): ItemInterface;
-
-    /**
-     * @return Collection|null
-     */
-    public function getReceivedFromQuests(): ?Collection;
-
-    /**
-     * @param Collection|null $receivedFromQuests
-     * @return ItemInterface
-     */
-    public function setReceivedFromQuests(?Collection $receivedFromQuests): ItemInterface;
-
-    /**
-     * @param QuestInterface $quest
-     * @return ItemInterface
-     */
-    public function addReceivedFromQuest(QuestInterface $quest): ItemInterface;
-
-    /**
-     * @param QuestInterface $quest
-     * @return ItemInterface
-     */
-    public function removeReceivedFromQuest(QuestInterface $quest): ItemInterface;
-
-    /**
      * @return Collection
      */
     public function getContainedItems(): Collection;
