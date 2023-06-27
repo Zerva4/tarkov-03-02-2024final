@@ -251,4 +251,23 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function removeUnlockInCashOffer(TraderCashOfferInterface $cashOffer): QuestInterface;
+
+    /**
+     * @return Collection|null
+     */
+    public function getNeededKeys(): ?Collection;
+
+    /**
+     * @param Collection|null $neededKeys
+     * @return QuestInterface
+     */
+    public function setNeededKeys(?Collection $neededKeys): QuestInterface;
+
+    /**
+     * @param ItemInterface $item
+     * @return QuestInterface
+     */
+    public function addNeededKey(ItemInterface $item): QuestInterface;
+
+    public function removeNeededKey(ItemInterface $item): QuestInterface;
 }
