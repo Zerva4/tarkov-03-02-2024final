@@ -3,11 +3,13 @@
 namespace App\Entity\Item;
 
 use App\Entity\Quest\Quest;
+use App\Entity\Quest\QuestKey;
 use App\Entity\Trader\TraderCashOffer;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\ItemRepository;
@@ -201,9 +203,9 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $currencyCashOffers;
 
-    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'neededKeys', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinTable(name: 'quests_needed_keys')]
-    private ?Collection $neededInQuests;
+    #[ORM\OneToMany(mappedBy: 'keys', targetEntity: QuestKey::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_keys_items')]
+    private ?Collection $keyQuests;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -214,7 +216,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->containedItems = new ArrayCollection();
         $this->cashOffers = new ArrayCollection();
         $this->currencyCashOffers = new ArrayCollection();
-        $this->neededInQuests = new ArrayCollection();
+        $this->keyQuests = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -646,33 +648,33 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    public function getNeededInQuests(): ?Collection
+    public function getKeyQuests(): ?Collection
     {
-        return $this->neededInQuests;
+        return $this->keyQuests;
     }
 
-    public function setNeededInQuests(?Collection $neededInQuests): ItemInterface
+    public function setKeyQuests(?Collection $keyQuests): ItemInterface
     {
-        $this->neededInQuests = $neededInQuests;
+        $this->keyQuests = $keyQuests;
 
         return $this;
     }
 
-    public function addNeededInQuest(QuestInterface $quest): ItemInterface
+    public function addKeyQuest(QuestKeyInterface $questKey): ItemInterface
     {
-        if (!$this->neededInQuests->contains($quest)) {
-            $this->neededInQuests->add($quest);
-            $quest->addNeededKey($this);
+        if (!$this->keyQuests->contains($questKey)) {
+            $this->keyQuests->add($questKey);
+            $questKey->setKey($this);
         }
 
         return $this;
     }
 
-    public function removeNeededInQuest(QuestInterface $quest): ItemInterface
+    public function removeKeyQuest(QuestKeyInterface $questKey): ItemInterface
     {
-        if ($this->neededInQuests->contains($quest)) {
-            $this->neededInQuests->removeElement($quest);
-            $quest->removeNeededKey($this);
+        if ($this->keyQuests->contains($questKey)) {
+            $this->keyQuests->removeElement($questKey);
+            $questKey->setKey(null);
         }
 
         return $this;
