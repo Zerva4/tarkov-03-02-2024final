@@ -65,13 +65,13 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
     #[ORM\JoinTable(name: 'crafts_reward_contained_items')]
     private Collection $rewardInCrafts;
 
-    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'usedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'usedItems', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'quests_used_items')]
-    private Collection|ArrayCollection|null $usedInQuests;
+    private Collection|null $usedInQuests;
 
-    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedItems', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'quests_received_items')]
-    private Collection|ArrayCollection|null $receivedFromQuests;
+    private Collection|null $receivedFromQuests;
 
     public function __construct()
     {

@@ -165,15 +165,15 @@ interface QuestInterface
     public function setMinPlayerLevel(int $minPlayerLevel): QuestInterface;
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getUsedItems(): ?Collection;
+    public function getUsedItems(): Collection;
 
     /**
-     * @param Collection|null $usedItems
+     * @param Collection $usedItems
      * @return QuestInterface
      */
-    public function setUsedItems(?Collection $usedItems): QuestInterface;
+    public function setUsedItems(Collection $usedItems): QuestInterface;
 
     /**
      * @param ContainedItemInterface $item
@@ -188,15 +188,15 @@ interface QuestInterface
     public function removeUsedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getReceivedItems(): ?Collection;
+    public function getReceivedItems(): Collection;
 
     /**
-     * @param Collection|null $receivedItems
+     * @param Collection $receivedItems
      * @return QuestInterface
      */
-    public function setReceivedItems(?Collection $receivedItems): QuestInterface;
+    public function setReceivedItems(Collection $receivedItems): QuestInterface;
 
     /**
      * @param ContainedItemInterface $item
