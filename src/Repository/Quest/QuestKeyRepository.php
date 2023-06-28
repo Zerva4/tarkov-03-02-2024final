@@ -3,8 +3,10 @@
 namespace App\Repository\Quest;
 
 use App\Entity\Quest\QuestKey;
+use App\Interfaces\Quest\QuestKeyInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<QuestKey>
@@ -39,28 +41,18 @@ class QuestKeyRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return QuestNeededKey[] Returns an array of QuestNeededKey objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('q')
-//            ->andWhere('q.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('q.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?QuestNeededKey
-//    {
-//        return $this->createQueryBuilder('q')
-//            ->andWhere('q.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findByQuestAndItemIds(?UuidInterface $questId, string $apiIdItem): ?QuestKeyInterface
+    {
+        return $this->createQueryBuilder('qk')
+            ->leftJoin('qk.quest', 'qkq')
+            ->leftJoin('qk.item', 'qki')
+            ->andWhere('qkq.id = :id')
+            ->andWhere('qki.apiId = :api_id')
+            ->setParameters([
+                'id' => $questId,
+                'api_id' =>$apiIdItem
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
