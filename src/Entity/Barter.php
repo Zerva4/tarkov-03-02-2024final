@@ -40,7 +40,7 @@ class Barter implements UuidPrimaryKeyInterface, TimestampableInterface, BarterI
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $traderLevel;
 
-    #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'unlockInBarter')]
+    #[ORM\ManyToOne(targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'unlockInBarter')]
     #[ORM\JoinColumn(name: 'quest_unlock', referencedColumnName: 'id')]
     private ?QuestInterface $questUnlock = null;
 
