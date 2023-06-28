@@ -598,6 +598,8 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
 
     public function setLoudness(?int $loudness): ItemInterface
     {
-        // TODO: Implement setLoudness() method.
+        $this->loudness = $loudness;
+
+        return $this;
     }
 }
