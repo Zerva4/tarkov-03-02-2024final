@@ -95,28 +95,28 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?MapInterface $map = null;
 
-    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: Barter::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: Barter::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinColumn(name: 'quest_unlock', referencedColumnName: 'id')]
     private ?Collection $unlockInBarter = null;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $objectives;
 
-    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'usedInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'usedInQuests', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'quests_used_items')]
-    private ?Collection $usedItems;
+    private Collection $usedItems;
 
-    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'receivedFromQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'receivedFromQuests', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection $receivedItems;
 
-    #[ORM\OneToMany(mappedBy: 'unlockQuest', targetEntity: Craft::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'unlockQuest', targetEntity: Craft::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $unlockInCrafts;
 
-    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $unlockInCashOffers;
 
-    #[ORM\ManyToMany(targetEntity: QuestKey::class, inversedBy: 'quest', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToMany(targetEntity: QuestKey::class, inversedBy: 'quest', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'quests_needed_keys')]
     private ?Collection $neededKeys;
 
@@ -279,12 +279,12 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
         return $this;
     }
 
-    public function getUsedItems(): ?Collection
+    public function getUsedItems(): Collection
     {
         return $this->usedItems;
     }
 
-    public function setUsedItems(?Collection $usedItems): QuestInterface
+    public function setUsedItems(Collection $usedItems): QuestInterface
     {
         $this->usedItems = $usedItems;
 
@@ -311,7 +311,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
         return $this;
     }
 
-    public function getReceivedItems(): ?Collection
+    public function getReceivedItems(): Collection
     {
         return $this->receivedItems;
     }
