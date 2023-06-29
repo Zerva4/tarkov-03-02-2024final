@@ -187,9 +187,9 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $currencyCashOffers;
 
-    #[ORM\OneToMany(mappedBy: 'keys', targetEntity: QuestKey::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: QuestKey::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'quests_keys_items')]
-    private ?Collection $keyQuests;
+    private ?Collection $questsKeys;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -198,7 +198,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->containedItems = new ArrayCollection();
         $this->cashOffers = new ArrayCollection();
         $this->currencyCashOffers = new ArrayCollection();
-        $this->keyQuests = new ArrayCollection();
+        $this->questsKeys = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -559,32 +559,32 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    public function getKeyQuests(): ?Collection
+    public function getQuestsKeys(): ?Collection
     {
-        return $this->keyQuests;
+        return $this->questsKeys;
     }
 
-    public function setKeyQuests(?Collection $keyQuests): ItemInterface
+    public function setQuestsKeys(?Collection $questsKeys): ItemInterface
     {
-        $this->keyQuests = $keyQuests;
+        $this->questsKeys = $questsKeys;
 
         return $this;
     }
 
-    public function addKeyQuest(QuestKeyInterface $questKey): ItemInterface
+    public function addQuestsKey(QuestKeyInterface $questKey): ItemInterface
     {
-        if (!$this->keyQuests->contains($questKey)) {
-            $this->keyQuests->add($questKey);
+        if (!$this->questsKeys->contains($questKey)) {
+            $this->questsKeys->add($questKey);
             $questKey->setItem($this);
         }
 
         return $this;
     }
 
-    public function removeKeyQuest(QuestKeyInterface $questKey): ItemInterface
+    public function removeQuestsKey(QuestKeyInterface $questKey): ItemInterface
     {
-        if ($this->keyQuests->contains($questKey)) {
-            $this->keyQuests->removeElement($questKey);
+        if ($this->questsKeys->contains($questKey)) {
+            $this->questsKeys->removeElement($questKey);
             $questKey->setItem(null);
         }
 

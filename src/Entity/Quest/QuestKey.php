@@ -26,7 +26,7 @@ class QuestKey implements UuidPrimaryKeyInterface, TimestampableInterface, Quest
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?ItemInterface $item;
 
-    #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'quests')]
+    #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'questsKeys')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?MapInterface $map = null;
 
@@ -42,7 +42,7 @@ class QuestKey implements UuidPrimaryKeyInterface, TimestampableInterface, Quest
     public function setItem(?ItemInterface $item): QuestKeyInterface
     {
         $this->item = $item;
-        $item->addKeyQuest($this);
+        $item->addQuestsKey($this);
 
         return $this;
     }
