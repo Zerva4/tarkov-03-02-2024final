@@ -81,6 +81,9 @@ class ImportQuestsCommand extends Command
                     normalizedName,
                     experience,
                     minPlayerLevel,
+                    restartable,
+                    kappaRequired,
+                    lightkeeperRequired,
                     descriptionMessageId,
                     startMessageId,
                     successMessageId,
@@ -183,6 +186,9 @@ class ImportQuestsCommand extends Command
                 ->setPublished(true)
                 ->setExperience($quest['experience'])
                 ->setMinPlayerLevel($quest['minPlayerLevel'])
+                ->setRestartable($quest['restartable'])
+                ->setKappaRequired($quest['kappaRequired'])
+                ->setLightkeeperRequired($quest['lightkeeperRequired'])
                 ->setSlug($questSlugName)
             ;
 
