@@ -56,6 +56,9 @@ class QuestCrudController extends BaseCrudController
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.quests'));
+        $restartable = BooleanField::new('restartable', t('Restartable', [], 'admin.quests'));
+        $kappaRequired = BooleanField::new('kappaRequired', t('Kappa required', [], 'admin.quests'));
+        $lightkeeperRequired = BooleanField::new('lightkeeperRequired', t('Lightkeeper required', [], 'admin.quests'));
         $title = TextField::new('title', t('Title', [], 'admin.quests'));
         $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.quests')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
@@ -163,7 +166,10 @@ class QuestCrudController extends BaseCrudController
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 FormField::addTab(t('Basic', [], 'admin.quests')),
                 $locationImage,
-                $published,
+                $published->setColumns(3),
+                $restartable->setColumns(3),
+                $kappaRequired->setColumns(3),
+                $lightkeeperRequired->setColumns(3),
                 $experience->setColumns(6),
                 $minPlayerLevel->setColumns(6),
                 $trader->setColumns(6),
@@ -181,6 +187,7 @@ class QuestCrudController extends BaseCrudController
             default => [
                 $title->setSortable(true)->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published,
+                $restartable,
                 $trader,
                 $experience->setTextAlign('center'),
                 $minPlayerLevel->setTextAlign('center'),
