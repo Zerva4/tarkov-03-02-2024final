@@ -63,6 +63,18 @@ interface QuestInterface
      */
     public function setImageName(?string $imageName): QuestInterface;
 
+    public function isRestartable(): bool;
+
+    public function setRestartable(bool $restartable): QuestInterface;
+
+    public function isKappaRequired(): bool;
+
+    public function setKappaRequired(bool $kappaRequired): QuestInterface;
+
+    public function isLightkeeperRequired(): bool;
+
+    public function setLightkeeperRequired(bool $lightkeeperRequired): QuestInterface;
+
     /**
      * @return TraderInterface|null
      */
