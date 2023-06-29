@@ -359,6 +359,6 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
 
     public function __toString(): string
     {
-        return $this->__get('characterType');
+        return $this->getShortName();
     }
 }
