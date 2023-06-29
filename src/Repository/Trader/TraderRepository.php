@@ -45,7 +45,7 @@ class TraderRepository extends ServiceEntityRepository
     public function findAllTraders(int $mode = AbstractQuery::HYDRATE_OBJECT)
     {
         return $this->createQueryBuilder('t')
-            ->select('t.id, t.slug, t.imageName, t.resetTime, lang.characterType AS characterType, lang.fullName AS fullName')
+            ->select('t.id, t.slug, t.imageName, t.resetTime, lang.shortName AS shortName, lang.fullName AS fullName')
             ->leftJoin('t.translations', 'lang')
             ->andWhere('t.published = true')
             ->addOrderBy('t.position', 'ASC')
@@ -57,7 +57,7 @@ class TraderRepository extends ServiceEntityRepository
     public function findTraderBySlug(string $traderSlug, int $mode = AbstractQuery::HYDRATE_OBJECT): mixed
     {
         return $this->createQueryBuilder('t')
-            ->select('t.id, t.slug, t.imageName, lang.characterType AS characterType, lang.fullName AS fullName')
+            ->select('t.id, t.slug, t.imageName, lang.shortName AS shortName, lang.fullName AS fullName')
             ->leftJoin('t.translations', 'lang')
             ->andWhere('t.published = true')
             ->andWhere('t.slug = :slug')
