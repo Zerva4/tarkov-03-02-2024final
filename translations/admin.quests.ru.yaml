@@ -37,5 +37,5 @@ TYPE_SKILL: Достичь
 TYPE_EXPERIENCE: Опыт
 Items: Предметы
 Restartable: Перезапускаемый
-Kappa required: Требуется каппа
-Lightkeeper required: Требуется смотритель
+Kappa required: Требуется для каппы
+Lightkeeper required: Требуется для смотрителя
