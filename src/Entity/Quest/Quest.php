@@ -87,13 +87,13 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $minPlayerLevel = 1;
 
-    #[ORM\Column(type: 'boolean', nullable: false)]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ["default" => false])]
     private bool $restartable = false;
 
-    #[ORM\Column(type: 'boolean', nullable: false)]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ["default" => false])]
     private bool $kappaRequired = false;
 
-    #[ORM\Column(type: 'boolean', nullable: false)]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ["default" => false])]
     private bool $lightkeeperRequired = false;
 
     #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'quests')]
