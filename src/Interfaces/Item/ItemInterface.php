@@ -259,23 +259,23 @@ interface ItemInterface
     /**
      * @return Collection|null
      */
-    public function getKeyQuests(): ?Collection;
+    public function getQuestsKeys(): ?Collection;
 
     /**
      * @param Collection|null $neededInQuests
      * @return ItemInterface
      */
-    public function setKeyQuests(?Collection $neededInQuests): ItemInterface;
+    public function setQuestsKeys(?Collection $neededInQuests): ItemInterface;
 
     /**
      * @param QuestKeyInterface $questKey
      * @return ItemInterface
      */
-    public function addKeyQuest(QuestKeyInterface $questKey): ItemInterface;
+    public function addQuestsKey(QuestKeyInterface $questKey): ItemInterface;
 
     /**
      * @param QuestKeyInterface $questKey
      * @return ItemInterface
      */
-    public function removeKeyQuest(QuestKeyInterface $questKey): ItemInterface;
+    public function removeQuestsKey(QuestKeyInterface $questKey): ItemInterface;
 }
