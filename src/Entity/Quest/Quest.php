@@ -87,6 +87,15 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $minPlayerLevel = 1;
 
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $restartable = false;
+
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $kappaRequired = false;
+
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $lightkeeperRequired = false;
+
     #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'quests')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?TraderInterface $trader = null;
@@ -217,6 +226,42 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
         }
+
+        return $this;
+    }
+
+    public function isRestartable(): bool
+    {
+        return $this->restartable;
+    }
+
+    public function setRestartable(bool $restartable): QuestInterface
+    {
+        $this->restartable = $restartable;
+
+        return $this;
+    }
+
+    public function isKappaRequired(): bool
+    {
+        return $this->kappaRequired;
+    }
+
+    public function setKappaRequired(bool $kappaRequired): QuestInterface
+    {
+        $this->kappaRequired = $kappaRequired;
+
+        return $this;
+    }
+
+    public function isLightkeeperRequired(): bool
+    {
+        return $this->lightkeeperRequired;
+    }
+
+    public function setLightkeeperRequired(bool $lightkeeperRequired): QuestInterface
+    {
+        $this->lightkeeperRequired = $lightkeeperRequired;
 
         return $this;
     }
