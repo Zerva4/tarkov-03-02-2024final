@@ -38,7 +38,7 @@ class TraderCrudController extends BaseCrudController
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.traders'));
         $fullName = TextField::new('fullName', t('Full name', [], 'admin.traders'));
-        $characterType = TextField::new('characterType', t('Character type', [], 'admin.traders'));
+        $shortName = TextField::new('shortName', t('Short name', [], 'admin.traders'));
         $slug = SlugField::new('slug', t('Slug', [], 'admin.traders'))
             ->setTargetFieldName('slug')
             ->setRequired(true);
@@ -54,9 +54,9 @@ class TraderCrudController extends BaseCrudController
             ->setFormat('yyyy.MM.dd G \'at\' HH:mm:ss zzz');
 
         $translationFields = [
-            'characterType' => [
+            'shortName' => [
                 'field_type' => TextType::class,
-                'label' => t('Character type', [], 'admin.traders'),
+                'label' => t('Short name', [], 'admin.traders'),
             ],
             'fullName' => [
                 'field_type' => TextType::class,
@@ -96,7 +96,7 @@ class TraderCrudController extends BaseCrudController
                 $levels->setColumns(12)
             ],
             default => [
-                $characterType->setTemplatePath('admin/field/link-edit.html.twig'),
+                $shortName->setTemplatePath('admin/field/link-edit.html.twig'),
                 $fullName,
                 $published, $createdAt, $updatedAt],
         };
