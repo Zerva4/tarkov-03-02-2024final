@@ -54,7 +54,7 @@ class QuestRepository extends ServiceEntityRepository
             ->andWhere('q.published = true')
             ->andWhere('q.trader = :trader')
             ->setParameter('trader', $uuid)
-            ->addOrderBy('q.minPlayerLevel, q.position, l.title', 'ASC')
+            ->addOrderBy('q.minPlayerLevel, q.position', 'ASC')
             ->getQuery()
             ->getResult($mode)
         ;
