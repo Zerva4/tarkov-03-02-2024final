@@ -131,6 +131,19 @@ class ContainedItemRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findQuestUsedItems(?UuidInterface $questId): mixed
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.usedInQuests', 'uiq')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('uiq.id = :id')
+            ->setParameters([
+                'id' => $questId,
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findReceivedItemByQuestAndItemId(?UuidInterface $questId, string $apiIdItem): ?ContainedItemInterface
     {
         return $this->createQueryBuilder('ci')
