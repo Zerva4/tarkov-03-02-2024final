@@ -153,10 +153,10 @@
                     {% for trader in traders %}
                         <div class="trader">
                             <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/" class="image">
-                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.characterType }}" />
+                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.shortName }}" />
                             </a>
                             <div class="name">
-                                <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}">{{ trader.characterType }}</a>
+                                <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}">{{ trader.shortName }}</a>
                             </div>
                             <div class="links">
                                 <a href="{{ absolute_url(path('app_quests', {})) }}/{{ trader.slug }}" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
