@@ -48,13 +48,33 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [ 158, 158 ], position: center, mode: inset }
+        110x90:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 110, 90 ], position: center, mode: inset }
+        118x118:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 118, 118 ], position: center, mode: inset }
         178x178:
             cache: default
             quality: 100
             filters:
                 thumbnail: { size: [ 178, 178 ], position: center, mode: inset }
+        180x90:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 180, 90 ], position: center, mode: inset }
         250x148:
             cache: default
             quality: 100
             filters:
                 thumbnail: { size: [ 250, 148 ], position: center, mode: inset }
+        360x210:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 360, 210 ], position: center, mode: inset }

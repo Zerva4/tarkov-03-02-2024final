@@ -4,8 +4,11 @@ Photo: Фото
 Description: Описание
 Localization: Переводы
 How to complete: Описание прохождения
+Start dialog: Начало диалога
+Successful dialog: Успешно выполненное задание
 Goals: Цели
 Trader: Торговец
+Key: Ключ
 Map: Карта
 Slug: Слаг
 Basic: Основное
@@ -32,3 +35,7 @@ TYPE_TASK_STATUS: Цель задачи
 TYPE_VISIT: Посетить
 TYPE_SKILL: Достичь
 TYPE_EXPERIENCE: Опыт
+Items: Предметы
+Restartable: Перезапускаемый
+Kappa required: Требуется для каппы
+Lightkeeper required: Требуется для смотрителя

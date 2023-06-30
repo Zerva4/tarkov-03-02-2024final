@@ -48,7 +48,7 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $priceRUB;
 
-    #[ORM\ManyToOne(targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'unlockInCashOffers', )]
+    #[ORM\ManyToOne(targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'unlockInCashOffers')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?QuestInterface $questUnlock = null;
 

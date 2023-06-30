@@ -11,7 +11,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use function Symfony\Component\Translation\t;
 
 class BarterCrudController extends AbstractCrudController
@@ -32,7 +31,7 @@ class BarterCrudController extends AbstractCrudController
         $trader = AssociationField::new('trader', t('Trader', [], 'admin.barters'))
             ->autocomplete()
         ;
-        $questUnlock= AssociationField::new('questUnlock', t('Quest unlock', [], 'admin.barters'))
+        $questUnlock= AssociationField::new('unlockInQuest', t('Quest unlock', [], 'admin.barters'))
             ->autocomplete()
             ->setRequired(false)
         ;

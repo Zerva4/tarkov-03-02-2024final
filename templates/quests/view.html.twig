@@ -1,0 +1,392 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="content">
+        <section>
+            <div class="container">
+                {% if quest is not empty  %}
+                <div class="information">
+                    <div class="tasks">
+                        {% if quest.objectives is not empty %}
+                        <h2>Задачи</h2>
+                        <ul class="list">
+                            {% for objective in quest.objectives %}
+                            <li class="item">
+                                {{ objective.description }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="card">
+                        <h2>
+                            {{ quest.title }}
+                        </h2>
+                        <div class="image">
+                            {% if quest.imageName %}
+                                <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.title }}">
+                            {% else %}
+                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('360x210') }}" alt="{{ quest.title }}">
+                            {% endif %}
+                        </div>
+                        <div class="text">
+                            <div class="item">
+                                <div class="name">
+                                    {{ 'Требуемый уровень'|trans({}, 'front.quests') }}
+                                </div>
+                                <div class="value">
+                                    {{ quest.minPlayerLevel }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="name">
+                                    {{ 'Выдал'|trans({}, 'front.quests') }}
+                                </div>
+                                <div class="value">
+                                    {{ quest.trader.shortName }}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="name">
+                                    {{ 'Требуется для каппы'|trans({}, 'front.quests') }}
+                                </div>
+                                <div class="value">
+                                    {% if quest.kappaRequired %}Да{% else %}Нет{% endif %}
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="name">
+                                    {{ 'Требуется для смотрителя'|trans({}, 'front.quests') }}
+                                </div>
+                                <div class="value">
+                                    {% if quest.lightkeeperRequired %}Да{% else %}Нет{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+        {% if quest.howToComplete %}
+        <section>
+            <div class="container">
+                <div class="reference active">
+                    <div class="header">
+                        <h2 class="h">{{ 'Выполнение'|trans({}, 'front.quests') }}</h2>
+                        <div class="line"></div>
+                        <div class="btn">
+                        </div>
+                    </div>
+                    <div class="text">
+                        <div class="execution">
+                            <div class="text">
+                                {{ quest.howToComplete | raw }}
+                            </div>
+{#                            <div class="locations">#}
+{#                                <div class="location">#}
+{#                                    <div class="image">#}
+{#                                        <img src="media/location.png" alt="">#}
+{#                                    </div>#}
+{#                                    <div class="name">#}
+{#                                        Таможенный терминал#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="location">#}
+{#                                    <div class="image">#}
+{#                                        <img src="media/location.png" alt="">#}
+{#                                    </div>#}
+{#                                    <div class="name">#}
+{#                                        Таможенный терминал#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="location">#}
+{#                                    <div class="image">#}
+{#                                        <img src="media/location.png" alt="">#}
+{#                                    </div>#}
+{#                                    <div class="name">#}
+{#                                        Таможенный терминал#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        <section>
+            <div class="container">
+                <div class="note">
+                    <div class="icon"></div>
+                    <div class="text">
+                        Пробежка не прерывает квест, вам просто не засчитают прохождение локации.
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="reference active">
+                    <div class="header">
+                        <h2 class="h">{{ 'Награды'|trans({}, 'front.quests') }}</h2>
+                        <div class="line"></div>
+                        <div class="btn">
+                        </div>
+                    </div>
+                    <div class="text">
+                        <div class="awards">
+                            <div class="properties">
+                                <div class="prop">
+                                    <div class="name">
+                                        {{ 'Опыт'|trans({}, 'front.quests') }}
+                                    </div>
+                                    <div class="val">
+                                        +{{ quest.experience }}
+                                    </div>
+                                </div>
+                                <div class="prop">
+                                    <div class="name">
+                                        {{ 'Репутация'|trans({}, 'front.quests') }}
+                                    </div>
+                                    <div class="val value_options">
+                                        <div>
+                                            <span class="option">Прапор</span>
+                                            <span class="text">+0.02</span>
+                                        </div>
+                                        <div>
+                                            <span class="option">Егерь</span>
+                                            <span class="text">+0.01</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="prop">
+                                    <div class="name">
+                                        Деньги
+                                    </div>
+                                    <div class="val">
+                                        +15000 рублей
+                                        <div class="info">
+                                            i
+                                            <div class="ref">
+                                                <div class="ref_item">
+                                                    <div class="property">Развед. центр ур. 1</div>
+                                                    <div class="value">+15750 рублей</div>
+                                                </div>
+                                                <div class="ref_item">
+                                                    <div class="property">Развед. центр ур. 2</div>
+                                                    <div class="value">+17250 рублей</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="prop">
+                                    <div class="name">
+                                        Навыки
+                                    </div>
+                                    <div class="val">
+                                        + 3 навыка <a href="#">снайперские винтовки</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if quest.usedItems %}
+                                <h4 class="center">{{ 'Необходимо для задания'|trans({}, 'front.quests') }}</h4>
+                                <div class="container small">
+                                    <div class="crafts">
+                                        {% for usedItem in quest.usedItems %}
+                                            <div class="craft">
+                                                <div class="image">
+                                                    {% if usedItem.item.imageName %}
+                                                        <img src="{{ asset('/storage/images/items/' ~ usedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ usedItem.item.getTitle }}">
+                                                    {% else %}
+                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ usedItem.item.getTitle }}">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="contains">
+                                                    <div class="x">x {{ usedItem.count }}</div>
+                                                    <div class="name">{{ usedItem.item.getShortTitle }}</div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if quest.receivedItems %}
+                            <h4 class="center">{{ 'Выдается за задание'|trans({}, 'front.quests') }}</h4>
+                            <div class="container small">
+                                <div class="crafts">
+                                    {% for receivedItem in quest.receivedItems %}
+                                    <div class="craft">
+                                        <div class="image">
+                                            {% if receivedItem.item.imageName %}
+                                                <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
+                                            {% else %}
+                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
+                                            {% endif %}
+                                        </div>
+                                        <div class="contains">
+                                            <div class="x">x {{ receivedItem.count }}</div>
+                                            <div class="name">{{ receivedItem.item.getShortTitle }}</div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="lock">
+                                <div class="divider"></div>
+                                <div class="lock_icon"></div>
+                                <div class="divider"></div>
+                            </div>
+                            {% if quest.unlockInCashOffers %}
+                            <div class="header_lock">
+                                <div class="header_lock_icon"></div>
+                                <h4>{{ 'Открывает к покупке'|trans({}, 'front.quests') }}</h4>
+                            </div>
+                            <div class="weapons">
+                                {% for unlockInCashOffer in quest.unlockInCashOffers %}
+                                <div class="weapon">
+                                    <div class="info">
+                                        i
+                                        <div class="ref">
+                                            Открывает покупку на <span class="hl">{{ unlockInCashOffer.traderLevel}} уровне</span> лоявльности
+                                        </div>
+                                    </div>
+                                    <div class="top">
+                                        <div class="image">
+                                            {% if unlockInCashOffer.item.imageName %}
+                                                <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.getTitle }}">
+                                            {% else %}
+                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.getTitle }}">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="name">
+                                        {{ unlockInCashOffer.item.getTitle }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if quest.unlockBarters %}
+                            <div class="header_lock">
+                                <div class="header_lock_icon"></div>
+                                <h4>{{ 'Открывает к бартеру'|trans({}, 'front.quests') }}</h4>
+                            </div>
+                            <div class="weapons">
+                                {% for unlockBarters in quest.unlockBarters %}
+                                {% for rewardItem in unlockBarters.rewardItems %}
+                                <div class="weapon">
+                                    <div class="info">
+                                        i
+                                        <div class="ref">
+                                            Открывает покупку на <span class="hl">{{ unlockBarters.traderLevel }} уровне</span> лоявльности
+                                        </div>
+                                    </div>
+                                    <div class="top">
+                                        <div class="x">x {{ rewardItem.count }}</div>
+                                        <div class="image">
+                                            {% if rewardItem.item.imageName %}
+                                                <img src="{{ asset('/storage/images/items/' ~ rewardItem.item.imageName) | imagine_filter('180x90') }}" alt="{{ rewardItem.item.getTitle }}">
+                                            {% else %}
+                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ rewardItem.item.getTitle }}">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="name">
+                                        {{ rewardItem.item.getTitle }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        {% if (quest.startDialog or quest.successfulDialog) %}
+        <section>
+            <div class="container">
+                <div class="reference active">
+                    <div class="header">
+                        <h2 class="h">{{ 'Линия квеста'|trans({}, 'front.quests') }}</h2>
+                        <div class="line"></div>
+                        <div class="btn">
+                        </div>
+                    </div>
+                    <div class="text">
+                        <div class="dialog">
+                            <div class="trader">
+                                <div class="image">
+                                    {% if quest.imageName %}
+                                        <img src="{{ asset('/storage/images/traders/' ~ quest.trader.imageName) | imagine_filter('118x118') }}" alt="{{ quest.trader.shortName }}">
+                                    {% else %}
+                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('118x118') }}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="name">
+                                    {{ quest.trader.shortName }}
+                                </div>
+                            </div>
+                            <div class="dialog_info">
+                                {% if quest.startDialog %}
+                                <div class="block">
+                                    <div class="name">
+                                        {{ 'Начало диалога'|trans({}, 'front.quests') }}
+                                    </div>
+                                    <div class="text">
+                                        {{ quest.startDialog | raw }}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if quest.successfulDialog %}
+                                <div class="block">
+                                    <div class="name">
+                                        {{ 'Успешно выполненное задание'|trans({}, 'front.quests') }}
+                                    </div>
+                                    <div class="text">
+                                        {{ quest.successfulDialog | raw }}
+                                    </div>
+                                </div>
+                                {% endif %}
+{#                                <div class="controls">#}
+{#                                    <div class="prev">#}
+{#                                        <div class="name">#}
+{#                                            Предыдущие квест(ы)#}
+{#                                        </div>#}
+{#                                        <div class="btns">#}
+{#                                            <a href="#" class="button">#}
+{#                                                "Проверка на вшивость"#}
+{#                                            </a>#}
+{#                                            <a href="#" class="button">#}
+{#                                                "Поисковая миссия"#}
+{#                                            </a>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="next">#}
+{#                                        <div class="name">#}
+{#                                            Следующие квест(ы)#}
+{#                                        </div>#}
+{#                                        <div class="btns">#}
+{#                                            <a href="#" class="button">#}
+{#                                                "Проверка на вшивость"#}
+{#                                            </a href="#">#}
+{#                                            <a href="#" class="button">#}
+{#                                                "Поисковая миссия"#}
+{#                                            </a>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Quest\Quest;
+use App\Form\ContainedItemForm;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
+use App\Form\QuestKeyFormType;
 use App\Form\QuestObjectiveForm;
+use App\Repository\Item\ContainedItemRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -53,6 +56,9 @@ class QuestCrudController extends BaseCrudController
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.quests'));
+        $restartable = BooleanField::new('restartable', t('Restartable', [], 'admin.quests'));
+        $kappaRequired = BooleanField::new('kappaRequired', t('Kappa required', [], 'admin.quests'));
+        $lightkeeperRequired = BooleanField::new('lightkeeperRequired', t('Lightkeeper required', [], 'admin.quests'));
         $title = TextField::new('title', t('Title', [], 'admin.quests'));
         $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.quests')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
@@ -98,6 +104,20 @@ class QuestCrudController extends BaseCrudController
                 'field_type' => CKEditorType::class,
                 'label' => t('How to complete', [], 'admin.quests')
             ],
+            'startDialog' => [
+                'attr' => [
+                    'class' => 'ckeditor'
+                ],
+                'field_type' => CKEditorType::class,
+                'label' => t('Start dialog', [], 'admin.quests')
+            ],
+            'successfulDialog' => [
+                'attr' => [
+                    'class' => 'ckeditor'
+                ],
+                'field_type' => CKEditorType::class,
+                'label' => t('Successful dialog', [], 'admin.quests')
+            ]
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin.quests'), $translationFields)
             ->setFormTypeOptions([
@@ -107,22 +127,49 @@ class QuestCrudController extends BaseCrudController
         $slug = SlugField::new('slug', t('Slug', [], 'admin.quests'))
             ->setTargetFieldName('slug')
             ->setRequired(true);
-        $objectives = CollectionField::new('objectives', t('Objectives', [], 'admin.traders'))
+        $objectives = CollectionField::new('objectives', t('Objectives', [], 'admin.quests'))
             ->allowAdd()
             ->allowDelete()
             ->setEntryType(QuestObjectiveForm::class)
             ->setEntryIsComplex(false)
             ->setFormTypeOption('by_reference', false)
         ;
+        $keys = CollectionField::new('neededKeys', t('Keys', [], 'admin.quests'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(QuestKeyFormType::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', false)
+        ;
+        $usedItems = CollectionField::new('usedItems', t('Required items', [], 'admin.barters'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(ContainedItemForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', true)
+        ;
+        $receivedItems = CollectionField::new('receivedItems', t('Reward items', [], 'admin.barters'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(ContainedItemForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', true)
+        ;
 
         $createdAt = DateField::new('createdAt', 'Created')->setTextAlign('center');
         $updatedAt = DateField::new('updatedAt', 'Updated')->setTextAlign('center');
+
+//        $ciRepo = $this->get(ContainedItemRepository::class);
+//        $ciRepo->Test('f89277e7-ba90-4b52-a48d-d5c87cb7e475', '5a7c147ce899ef00150bd8b8');
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 FormField::addTab(t('Basic', [], 'admin.quests')),
                 $locationImage,
-                $published,
+                $published->setColumns(3),
+                $restartable->setColumns(3),
+                $kappaRequired->setColumns(3),
+                $lightkeeperRequired->setColumns(3),
                 $experience->setColumns(6),
                 $minPlayerLevel->setColumns(6),
                 $trader->setColumns(6),
@@ -131,11 +178,16 @@ class QuestCrudController extends BaseCrudController
                 $translations,
                 FormField::addTab(t('Objectives', [], 'admin.quests')),
                 $objectives->setColumns(12),
+                FormField::addTab(t('Items', [], 'admin.quests')),
+                $usedItems->setColumns(6),
+                $receivedItems->setColumns(6),
                 FormField::addTab(t('Keys', [], 'admin.quests')),
+                $keys->setColumns(12),
             ],
             default => [
                 $title->setSortable(true)->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published,
+                $restartable,
                 $trader,
                 $experience->setTextAlign('center'),
                 $minPlayerLevel->setTextAlign('center'),

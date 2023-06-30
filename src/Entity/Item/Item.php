@@ -2,12 +2,12 @@
 
 namespace App\Entity\Item;
 
-use App\Entity\Quest\Quest;
+use App\Entity\Quest\QuestKey;
 use App\Entity\Trader\TraderCashOffer;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
-use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\ItemRepository;
@@ -178,20 +178,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $loudness = null;
 
-    /**
-     * @var ArrayCollection|Collection|null
-     */
-    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'usedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinTable(name: 'quests_used_items')]
-    private Collection|ArrayCollection|null $usedInQuests;
-
-    /**
-     * @var ArrayCollection|Collection|null
-     */
-    #[ORM\ManyToMany(targetEntity: Quest::class, mappedBy: 'receivedItems', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
-    #[ORM\JoinTable(name: 'quests_received_items')]
-    private Collection|ArrayCollection|null $receivedFromQuests;
-
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: ContainedItem::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $containedItems;
 
@@ -201,15 +187,18 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $currencyCashOffers;
 
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: QuestKey::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinTable(name: 'quests_keys_items')]
+    private ?Collection $questsKeys;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
 
-        $this->usedInQuests = new ArrayCollection();
-        $this->receivedFromQuests = new ArrayCollection();
         $this->containedItems = new ArrayCollection();
         $this->cashOffers = new ArrayCollection();
         $this->currencyCashOffers = new ArrayCollection();
+        $this->questsKeys = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -416,77 +405,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this->loudness;
     }
 
-    public function setLoudness(?int $loudness): ItemInterface
-    {
-        $this->loudness = $loudness;
-
-        return $this;
-    }
-
-    public function getUsedInQuests(): ?Collection
-    {
-        return $this->usedInQuests;
-    }
-
-    public function setUsedInQuests(?Collection $usedInQuests): ItemInterface
-    {
-        $this->usedInQuests = $usedInQuests;
-
-        return $this;
-    }
-
-    public function addUsedInQuest(QuestInterface $quest): ItemInterface
-    {
-        if (!$this->usedInQuests->contains($quest)) {
-            $this->usedInQuests->add($quest);
-            $quest->addUsedItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUsedInQuest(QuestInterface $quest): ItemInterface
-    {
-        if ($this->usedInQuests->contains($quest)) {
-            $this->usedInQuests->removeElement($quest);
-            $quest->removeUsedItem($this);
-        }
-
-        return $this;
-    }
-
-    public function getReceivedFromQuests(): ?Collection
-    {
-        return $this->receivedFromQuests;
-    }
-
-    public function setReceivedFromQuests(?Collection $receivedFromQuests): ItemInterface
-    {
-        $this->receivedFromQuests = $receivedFromQuests;
-
-        return $this;
-    }
-
-    public function addReceivedFromQuest(QuestInterface $quest): ItemInterface
-    {
-        if (!$this->receivedFromQuests->contains($quest)) {
-            $this->receivedFromQuests->add($quest);
-            $quest->addReceivedItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReceivedFromQuest(QuestInterface $quest): ItemInterface
-    {
-        if ($this->receivedFromQuests->contains($quest)) {
-            $this->receivedFromQuests->removeElement($quest);
-            $quest->removeReceivedItem($this);
-        }
-
-        return $this;
-    }
-
     /**
      * @return string|null
      */
@@ -609,11 +527,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->__get('title');
-    }
-
     public function getCurrencyCashOffers(): Collection
     {
         return $this->currencyCashOffers;
@@ -642,6 +555,50 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
             $this->currencyCashOffers->add($cashOffer);
             $cashOffer->setCurrencyItem(null);
         }
+
+        return $this;
+    }
+
+    public function getQuestsKeys(): ?Collection
+    {
+        return $this->questsKeys;
+    }
+
+    public function setQuestsKeys(?Collection $questsKeys): ItemInterface
+    {
+        $this->questsKeys = $questsKeys;
+
+        return $this;
+    }
+
+    public function addQuestsKey(QuestKeyInterface $questKey): ItemInterface
+    {
+        if (!$this->questsKeys->contains($questKey)) {
+            $this->questsKeys->add($questKey);
+            $questKey->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestsKey(QuestKeyInterface $questKey): ItemInterface
+    {
+        if ($this->questsKeys->contains($questKey)) {
+            $this->questsKeys->removeElement($questKey);
+            $questKey->setItem(null);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('title');
+    }
+
+    public function setLoudness(?int $loudness): ItemInterface
+    {
+        $this->loudness = $loudness;
 
         return $this;
     }

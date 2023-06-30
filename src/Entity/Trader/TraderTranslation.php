@@ -27,7 +27,7 @@ class TraderTranslation implements UuidPrimaryKeyInterface, TranslationInterface
     private ?string $fullName = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private string $characterType;
+    private string $shortName;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
@@ -44,14 +44,14 @@ class TraderTranslation implements UuidPrimaryKeyInterface, TranslationInterface
         return $this;
     }
 
-    public function getCharacterType(): ?string
+    public function getShortName(): ?string
     {
-        return $this->characterType;
+        return $this->shortName;
     }
 
-    public function setCharacterType(string $characterType): self
+    public function setShortName(string $shortName): self
     {
-        $this->characterType = $characterType;
+        $this->shortName = $shortName;
 
         return $this;
     }

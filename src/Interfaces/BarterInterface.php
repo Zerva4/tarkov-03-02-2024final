@@ -16,8 +16,8 @@ interface BarterInterface
     public function setTrader(TraderInterface $trader): BarterInterface;
     public function getTraderLevel(): int;
     public function setTraderLevel(int $traderLevel): BarterInterface;
-    public function getQuestUnlock(): ?QuestInterface;
-    public function setQuestUnlock(?QuestInterface $questUnlock): BarterInterface;
+    public function getUnlockInQuest(): ?QuestInterface;
+    public function setUnlockInQuest(?QuestInterface $quest): BarterInterface;
     public function getRequiredItems(): Collection;
     public function addRequiredItem(ContainedItemInterface $item): BarterInterface;
     public function removeRequiredItem(ContainedItemInterface $item): BarterInterface;

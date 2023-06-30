@@ -178,6 +178,12 @@ class ImportItemsCommand extends Command
               centerOfImpact
               deviationCurve
               deviationMax
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
             
             fragment ChestRig on ItemPropertiesChestRig {
@@ -261,6 +267,12 @@ class ImportItemsCommand extends Command
               ricochetX
               ricochetY
               ricochetZ
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
             
             fragment Key on ItemPropertiesKey {
@@ -276,6 +288,12 @@ class ImportItemsCommand extends Command
               malfunctionChance
               allowedAmmo {
                 id
+              }
+              slots {
+                id
+                name
+                nameId
+                required
               }
             }
             
@@ -322,6 +340,12 @@ class ImportItemsCommand extends Command
               sightingRange
               recoilModifier
               zoomLevels
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
             
             fragment SurgicalKit on ItemPropertiesSurgicalKit {
@@ -361,12 +385,24 @@ class ImportItemsCommand extends Command
               allowedAmmo {
                 id
               }
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
             
             fragment WeaponMod on ItemPropertiesWeaponMod {
               ergonomics
               recoilModifier
               accuracyModifier
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
         GRAPHQL;
 
@@ -393,12 +429,14 @@ class ImportItemsCommand extends Command
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
+                $itemEntity->translate($lang, false)->setShortTitle($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemDefaultProperty';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
+                $itemEntity->translate($lang, false)->setShortTitle($item['shortName']);
                 $itemEntity->setApiId($item['id']);
                 $itemEntity->setTypeProperties($typeName);
             }

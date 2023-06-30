@@ -115,4 +115,47 @@ class ContainedItemRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findQuestUsedItemByItemId(?UuidInterface $questId, string $apiIdItem): ?ContainedItemInterface
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.usedInQuests', 'uiq')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('uiq.id = :id')
+            ->andWhere('cii.apiId = :api_id')
+            ->setParameters([
+                'id' => $questId,
+                'api_id' =>$apiIdItem
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findQuestUsedItems(?UuidInterface $questId): mixed
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.usedInQuests', 'uiq')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('uiq.id = :id')
+            ->setParameters([
+                'id' => $questId,
+            ])
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findReceivedItemByQuestAndItemId(?UuidInterface $questId, string $apiIdItem): ?ContainedItemInterface
+    {
+        return $this->createQueryBuilder('ci')
+            ->leftJoin('ci.receivedFromQuests', 'riq')
+            ->leftJoin('ci.item', 'cii')
+            ->andWhere('riq.id = :id')
+            ->andWhere('cii.apiId = :api_id')
+            ->setParameters([
+                'id' => $questId,
+                'api_id' =>$apiIdItem
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

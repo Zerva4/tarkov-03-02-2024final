@@ -5,7 +5,7 @@
     {% if traders is not empty %}
     <section>
         <div class="container">
-            <div class="reference active page_traders">
+            <div class="reference page_traders">
                 <div class="header">
                     <h2 class="h">{{ 'Выбор торговца'|trans({}, 'front.traders') }}</h2>
                     <div class="line"></div>
@@ -16,7 +16,11 @@
                     <div class="traders">
                         {% for trader in traders %}
                             <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="trader">
-                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('80x80') }}" alt="{{ trader.characterType }}">
+                                {% if trader.imageName %}
+                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('80x80') }}" alt="{{ trader.shortName }}">
+                                {% else %}
+                                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('80x80') }}" alt="">
+                                {% endif %}
                             </a>
                         {% endfor %}
                     </div>
@@ -31,12 +35,16 @@
             <div class="trader_info">
                 <div class="information">
                     <div class="image">
-                        <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('178x178') }}" alt="{{ trader.characterType }}">
+                        {% if trader.imageName %}
+                        <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('178x178') }}" alt="{{ trader.shortName }}">
+                        {% else %}
+                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('178x178') }}" alt="">
+                        {% endif %}
                     </div>
                     <div class="contains">
                         <div class="top">
                             <div class="name">
-                                {{ trader.characterType }}
+                                {{ trader.shortName }}
                             </div>
                             <div class="subname">
                                 {{ trader.fullName }}
@@ -134,4 +142,6 @@
             </div>
         </div>
     </section>
+
+    </div>
 {% endblock %}

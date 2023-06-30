@@ -3,6 +3,7 @@
 namespace App\Interfaces\Item;
 
 use App\Interfaces\BarterInterface;
+use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Workshop\CraftInterface;
 use App\Interfaces\Workshop\PlaceLevelInterface;
 use Doctrine\Common\Collections\Collection;
@@ -39,4 +40,12 @@ interface ContainedItemInterface
     public function setRewardInCrafts(Collection $rewardInCrafts): ContainedItemInterface;
     public function addRewardInCraft(CraftInterface $craft): ContainedItemInterface;
     public function removeRewardInCraft(CraftInterface $craft): ContainedItemInterface;
+    public function getUsedInQuests(): ?Collection;
+    public function setUsedInQuests(?Collection $usedInQuests): ContainedItemInterface;
+    public function addUsedInQuest(QuestInterface $quest): ContainedItemInterface;
+    public function removeUsedInQuest(QuestInterface $quest): ContainedItemInterface;
+    public function getReceivedFromQuests(): ?Collection;
+    public function setReceivedFromQuests(?Collection $receivedFromQuests): ContainedItemInterface;
+    public function addReceivedFromQuest(QuestInterface $quest): ContainedItemInterface;
+    public function removeReceivedFromQuest(QuestInterface $quest): ContainedItemInterface;
 }

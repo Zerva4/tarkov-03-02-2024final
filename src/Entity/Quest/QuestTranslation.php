@@ -32,6 +32,12 @@ class QuestTranslation implements UuidPrimaryKeyInterface, TranslationInterface,
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $howToComplete = null;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $startDialog = null;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $successfulDialog = null;
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -64,6 +70,44 @@ class QuestTranslation implements UuidPrimaryKeyInterface, TranslationInterface,
     public function setHowToComplete(string $howToComplete): self
     {
         $this->howToComplete = $howToComplete;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStartDialog(): ?string
+    {
+        return $this->startDialog;
+    }
+
+    /**
+     * @param string|null $startDialog
+     * @return QuestTranslation
+     */
+    public function setStartDialog(?string $startDialog): self
+    {
+        $this->startDialog = $startDialog;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSuccessfulDialog(): ?string
+    {
+        return $this->successfulDialog;
+    }
+
+    /**
+     * @param string|null $successfulDialog
+     * @return QuestTranslation
+     */
+    public function setSuccessfulDialog(?string $successfulDialog): self
+    {
+        $this->successfulDialog = $successfulDialog;
 
         return $this;
     }

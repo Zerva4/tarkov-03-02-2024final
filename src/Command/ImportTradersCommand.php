@@ -98,7 +98,7 @@ class ImportTradersCommand extends Command
 
             if ($traderEntity instanceof Trader) {
                 $traderEntity->setDefaultLocale($lang);
-                $traderEntity->translate($lang, false)->setCharacterType($trader['name']);
+                $traderEntity->translate($lang, false)->setShortName($trader['name']);
                 $traderEntity->setPosition($order);
             } else {
                 /** @var TraderInterface $traderEntity */
@@ -106,7 +106,7 @@ class ImportTradersCommand extends Command
                 $traderEntity->setDefaultLocale($lang);
                 $traderEntity->setPosition($order);
                 $traderEntity->translate($lang, false)->setFullName(null);
-                $traderEntity->translate($lang, false)->setCharacterType($trader['name']);
+                $traderEntity->translate($lang, false)->setShortName($trader['name']);
                 $traderEntity->setApiId($trader['id']);
                 $traderEntity->setPublished(true);
             }

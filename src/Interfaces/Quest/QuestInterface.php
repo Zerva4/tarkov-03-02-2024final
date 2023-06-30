@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Interfaces\Quest;
 
 use App\Interfaces\BarterInterface;
+use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
@@ -62,6 +63,18 @@ interface QuestInterface
      */
     public function setImageName(?string $imageName): QuestInterface;
 
+    public function isRestartable(): bool;
+
+    public function setRestartable(bool $restartable): QuestInterface;
+
+    public function isKappaRequired(): bool;
+
+    public function setKappaRequired(bool $kappaRequired): QuestInterface;
+
+    public function isLightkeeperRequired(): bool;
+
+    public function setLightkeeperRequired(bool $lightkeeperRequired): QuestInterface;
+
     /**
      * @return TraderInterface|null
      */
@@ -79,27 +92,27 @@ interface QuestInterface
     public function getMap(): ?MapInterface;
 
     /**
-     * @return BarterInterface|null
+     * @return Collection
      */
-    public function getUnlockInBarter(): ?Collection;
+    public function getUnlockBarters(): Collection;
 
     /**
-     * @param Collection|null $unlockInBarter
+     * @param Collection $unlockBarters
      * @return QuestInterface
      */
-    public function setUnlockInBarter(?Collection $unlockInBarter): QuestInterface;
-
-    /**
-     * @param BarterInterface $barter
-     * @return QuestInterface
-     */
-    public function addUnlockInBarter(BarterInterface $barter): QuestInterface;
+    public function setUnlockBarters(Collection $unlockBarters): QuestInterface;
 
     /**
      * @param BarterInterface $barter
      * @return QuestInterface
      */
-    public function removeUnlockInBarter(BarterInterface $barter): QuestInterface;
+    public function addUnlockBarter(BarterInterface $barter): QuestInterface;
+
+    /**
+     * @param BarterInterface $barter
+     * @return QuestInterface
+     */
+    public function removeUnlockBarter(BarterInterface $barter): QuestInterface;
 
     /**
      * @param MapInterface|null $map
@@ -164,50 +177,50 @@ interface QuestInterface
     public function setMinPlayerLevel(int $minPlayerLevel): QuestInterface;
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getUsedItems(): ?Collection;
+    public function getUsedItems(): Collection;
 
     /**
-     * @param Collection|null $usedItems
+     * @param Collection $usedItems
      * @return QuestInterface
      */
-    public function setUsedItems(?Collection $usedItems): QuestInterface;
+    public function setUsedItems(Collection $usedItems): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return QuestInterface
      */
-    public function addUsedItem(ItemInterface $item): QuestInterface;
+    public function addUsedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return QuestInterface
      */
-    public function removeUsedItem(ItemInterface $item): QuestInterface;
+    public function removeUsedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getReceivedItems(): ?Collection;
+    public function getReceivedItems(): Collection;
 
     /**
-     * @param Collection|null $receivedItems
+     * @param Collection $receivedItems
      * @return QuestInterface
      */
-    public function setReceivedItems(?Collection $receivedItems): QuestInterface;
+    public function setReceivedItems(Collection $receivedItems): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return QuestInterface
      */
-    public function addReceivedItem(ItemInterface $item): QuestInterface;
+    public function addReceivedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
-     * @param ItemInterface $item
+     * @param ContainedItemInterface $item
      * @return QuestInterface
      */
-    public function removeReceivedItem(ItemInterface $item): QuestInterface;
+    public function removeReceivedItem(ContainedItemInterface $item): QuestInterface;
 
     /**
      * @return Collection
@@ -251,4 +264,27 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function removeUnlockInCashOffer(TraderCashOfferInterface $cashOffer): QuestInterface;
+
+    /**
+     * @return Collection|null
+     */
+    public function getNeededKeys(): ?Collection;
+
+    /**
+     * @param Collection|null $neededKeys
+     * @return QuestInterface
+     */
+    public function setNeededKeys(?Collection $neededKeys): QuestInterface;
+
+    /**
+     * @param QuestKeyInterface $questKey
+     * @return QuestInterface
+     */
+    public function addNeededKey(QuestKeyInterface $questKey): QuestInterface;
+
+    /**
+     * @param QuestKeyInterface $questKey
+     * @return QuestInterface
+     */
+    public function removeNeededKey(QuestKeyInterface $questKey): QuestInterface;
 }

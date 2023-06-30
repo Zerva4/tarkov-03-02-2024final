@@ -4,7 +4,9 @@ namespace App\Repository\Quest;
 
 use App\Entity\Quest\QuestObjective;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<QuestObjective>
@@ -39,28 +41,15 @@ class QuestObjectiveRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return QuestObjective[] Returns an array of QuestObjective objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('q')
-//            ->andWhere('q.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('q.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?QuestObjective
-//    {
-//        return $this->createQueryBuilder('q')
-//            ->andWhere('q.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findObjectivesByQuestId(UuidInterface $uuid, int $mode = AbstractQuery::HYDRATE_OBJECT): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('t.description, o.optional')
+            ->leftJoin('o.translations', 't')
+            ->andWhere('o.quest = :quest')
+            ->setParameter('quest', $uuid)
+            ->getQuery()
+            ->getResult($mode)
+        ;
+    }
 }

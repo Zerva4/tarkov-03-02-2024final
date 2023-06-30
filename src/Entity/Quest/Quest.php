@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Quest;
 
 use App\Entity\Barter;
+use App\Entity\Item\ContainedItem;
 use App\Entity\Item\Item;
 use App\Entity\Map;
 use App\Entity\Trader\Trader;
@@ -12,9 +13,11 @@ use App\Entity\Trader\TraderCashOffer;
 use App\Entity\TranslatableEntity;
 use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
+use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Quest\QuestObjectiveInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
@@ -27,6 +30,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -41,7 +45,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, QuestInterface
+class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, TimestampableInterface, QuestInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -83,6 +87,15 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $minPlayerLevel = 1;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ["default" => false])]
+    private bool $restartable = false;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ["default" => false])]
+    private bool $kappaRequired = false;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ["default" => false])]
+    private bool $lightkeeperRequired = false;
+
     #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'quests')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?TraderInterface $trader = null;
@@ -91,26 +104,31 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?MapInterface $map = null;
 
-    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: Barter::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
-    #[ORM\JoinColumn(name: 'quest_unlock', referencedColumnName: 'id')]
-    private ?Collection $unlockInBarter = null;
+    #[ORM\OneToMany(mappedBy: 'unlockInQuest', targetEntity: Barter::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\JoinColumn(name: 'quest_unlock', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ORM\JoinTable(name: 'quests_unlock_barters')]
+    private Collection $unlockBarters;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestObjective::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $objectives;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'usedInQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'usedInQuests', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'quests_used_items')]
-    private ?Collection $usedItems;
+    private Collection $usedItems;
 
-    #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'receivedFromQuests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: ContainedItem::class, inversedBy: 'receivedFromQuests', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'quests_received_items')]
     private Collection $receivedItems;
 
-    #[ORM\OneToMany(mappedBy: 'unlockQuest', targetEntity: Craft::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'unlockQuest', targetEntity: Craft::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $unlockInCrafts;
 
-    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'questUnlock', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $unlockInCashOffers;
+
+    #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestKey::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'quests_needed_keys')]
+    private ?Collection $neededKeys;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -119,8 +137,9 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         $this->objectives = new ArrayCollection();
         $this->usedItems = new ArrayCollection();
         $this->receivedItems = new ArrayCollection();
-        $this->unlockInBarter = new ArrayCollection();
+        $this->unlockBarters = new ArrayCollection();
         $this->unlockInCrafts = new ArrayCollection();
+        $this->neededKeys = new ArrayCollection();
     }
 
     public function getApiId(): ?string
@@ -191,6 +210,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     public function setMap(?MapInterface $map): QuestInterface
     {
         $this->map = $map;
+        $map->addQuest($this);
 
         return $this;
     }
@@ -207,6 +227,42 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         if ($imageFile) {
             $this->updatedAt = new DateTime('NOW');
         }
+
+        return $this;
+    }
+
+    public function isRestartable(): bool
+    {
+        return $this->restartable;
+    }
+
+    public function setRestartable(bool $restartable): QuestInterface
+    {
+        $this->restartable = $restartable;
+
+        return $this;
+    }
+
+    public function isKappaRequired(): bool
+    {
+        return $this->kappaRequired;
+    }
+
+    public function setKappaRequired(bool $kappaRequired): QuestInterface
+    {
+        $this->kappaRequired = $kappaRequired;
+
+        return $this;
+    }
+
+    public function isLightkeeperRequired(): bool
+    {
+        return $this->lightkeeperRequired;
+    }
+
+    public function setLightkeeperRequired(bool $lightkeeperRequired): QuestInterface
+    {
+        $this->lightkeeperRequired = $lightkeeperRequired;
 
         return $this;
     }
@@ -269,19 +325,19 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         return $this;
     }
 
-    public function getUsedItems(): ?Collection
+    public function getUsedItems(): Collection
     {
         return $this->usedItems;
     }
 
-    public function setUsedItems(?Collection $usedItems): QuestInterface
+    public function setUsedItems(Collection $usedItems): QuestInterface
     {
         $this->usedItems = $usedItems;
 
         return $this;
     }
 
-    public function addUsedItem(ItemInterface $item): QuestInterface
+    public function addUsedItem(ContainedItemInterface $item): QuestInterface
     {
         if (!$this->usedItems->contains($item)) {
             $this->usedItems->add($item);
@@ -291,7 +347,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         return $this;
     }
 
-    public function removeUsedItem(ItemInterface $item): QuestInterface
+    public function removeUsedItem(ContainedItemInterface $item): QuestInterface
     {
         if ($this->usedItems->contains($item)) {
             $this->usedItems->removeElement($item);
@@ -301,7 +357,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         return $this;
     }
 
-    public function getReceivedItems(): ?Collection
+    public function getReceivedItems(): Collection
     {
         return $this->receivedItems;
     }
@@ -313,7 +369,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         return $this;
     }
 
-    public function addReceivedItem(ItemInterface $item): QuestInterface
+    public function addReceivedItem(ContainedItemInterface $item): QuestInterface
     {
         if (!$this->receivedItems->contains($item)) {
             $this->receivedItems->add($item);
@@ -323,7 +379,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         return $this;
     }
 
-    public function removeReceivedItem(ItemInterface $item): QuestInterface
+    public function removeReceivedItem(ContainedItemInterface $item): QuestInterface
     {
         if ($this->receivedItems->contains($item)) {
             $this->receivedItems->removeElement($item);
@@ -334,20 +390,20 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
     }
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function getUnlockInBarter(): ?Collection
+    public function getUnlockBarters(): Collection
     {
-        return $this->unlockInBarter;
+        return $this->unlockBarters;
     }
 
     /**
-     * @param Collection|null $unlockInBarter
+     * @param Collection $unlockBarters
      * @return QuestInterface
      */
-    public function setUnlockInBarter(?Collection $unlockInBarter): QuestInterface
+    public function setUnlockBarters(Collection $unlockBarters): QuestInterface
     {
-        $this->unlockInBarter = $unlockInBarter;
+        $this->unlockBarters = $unlockBarters;
 
         return $this;
     }
@@ -356,11 +412,11 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
      * @param BarterInterface $barter
      * @return QuestInterface
      */
-    public function addUnlockInBarter(BarterInterface $barter): QuestInterface
+    public function addUnlockBarter(BarterInterface $barter): QuestInterface
     {
-        if (!$this->unlockInBarter->contains($barter)) {
-            $this->unlockInBarter->add($barter);
-            $barter->setQuestUnlock($this);
+        if (!$this->unlockBarters->contains($barter)) {
+            $this->unlockBarters->add($barter);
+            $barter->setUnlockInQuest($this);
         }
 
         return $this;
@@ -370,11 +426,11 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
      * @param BarterInterface $barter
      * @return QuestInterface
      */
-    public function removeUnlockInBarter(BarterInterface $barter): QuestInterface
+    public function removeUnlockBarter(BarterInterface $barter): QuestInterface
     {
-        if ($this->unlockInBarter->contains($barter)) {
-            $this->unlockInBarter->add($barter);
-            $barter->setQuestUnlock($this);
+        if ($this->unlockBarters->contains($barter)) {
+            $this->unlockBarters->add($barter);
+            $barter->setUnlockInQuest(null);
         }
 
         return $this;
@@ -412,11 +468,6 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->__get('title');
-    }
-
     public function getUnlockInCashOffers(): Collection
     {
         return $this->unlockInCashOffers;
@@ -447,5 +498,41 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Quest
         }
 
         return $this;
+    }
+
+    public function getNeededKeys(): ?Collection
+    {
+        return $this->neededKeys;
+    }
+
+    public function setNeededKeys(?Collection $neededKeys): QuestInterface
+    {
+        $this->neededKeys = $neededKeys;
+
+        return $this;
+    }
+
+    public function addNeededKey(QuestKeyInterface $questKey): QuestInterface
+    {
+        if (!$this->neededKeys->contains($questKey)) {
+            $this->neededKeys->add($questKey);
+            $questKey->setQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNeededKey(QuestKeyInterface $questKey): QuestInterface
+    {
+        if ($this->neededKeys->contains($questKey)) {
+            $this->neededKeys->removeElement($questKey);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->__get('title');
     }
 }

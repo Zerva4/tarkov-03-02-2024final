@@ -23,8 +23,11 @@ class ItemTranslation implements UuidPrimaryKeyInterface, TranslationInterface, 
     use TranslationTrait;
     use TimestampableTrait;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $title = null;
+
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $title;
+    private ?string $shortTitle;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
@@ -39,6 +42,22 @@ class ItemTranslation implements UuidPrimaryKeyInterface, TranslationInterface, 
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getShortTitle(): ?string
+    {
+        return $this->shortTitle;
+    }
+
+    /**
+     * @param string|null $shortTitle
+     */
+    public function setShortTitle(?string $shortTitle): void
+    {
+        $this->shortTitle = $shortTitle;
     }
 
     /**
