@@ -153,7 +153,11 @@
                     {% for trader in traders %}
                         <div class="trader">
                             <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/" class="image">
-                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.shortName }}" />
+                                {% if trader.imageName %}
+                                    <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.shortName }}" />
+                                {% else %}
+                                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('100x100') }}" alt="">
+                                {% endif %}
                             </a>
                             <div class="name">
                                 <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}">{{ trader.shortName }}</a>
