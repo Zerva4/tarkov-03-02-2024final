@@ -131,7 +131,7 @@ class ImportBartersCommand extends Command
             // Set unlock task
             if (null !== $barter['taskUnlock']) {
                 $questEntity = $questRepository->findOneBy(['apiId' => $barter['taskUnlock']['id']]);
-                $barterEntity->setQuestUnlock($questEntity);
+                $barterEntity->setUnlockInQuest($questEntity);
             }
 
             // Set requiredItems
