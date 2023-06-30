@@ -31,7 +31,7 @@ class BarterCrudController extends AbstractCrudController
         $trader = AssociationField::new('trader', t('Trader', [], 'admin.barters'))
             ->autocomplete()
         ;
-        $questUnlock= AssociationField::new('questUnlock', t('Quest unlock', [], 'admin.barters'))
+        $questUnlock= AssociationField::new('unlockInQuest', t('Quest unlock', [], 'admin.barters'))
             ->autocomplete()
             ->setRequired(false)
         ;
