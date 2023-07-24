@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(TraderRepository $traderRepository, ArticleRepository $articleRepository, EntityManagerInterface $entityManager): Response
+    public function index(TraderRepository $traderRepository, ArticleRepository $articleRepository): Response
     {
         $tradersList = $traderRepository->findAllTraders();
         $articlesList = $articleRepository->findLastHomeArticles(3);
