@@ -109,9 +109,9 @@ class UserCrudController extends AbstractCrudController
     #[NoReturn]
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        var_dump($entityInstance);
-        die();
-        //$clearPassword = trim($this->getCurrentRequest()->request->all()['User']['clearpassword']);
+//        var_dump($entityInstance);
+//        die();
+        $clearPassword = trim($this->getCurrentRequest()->request->all()['User']['clearpassword']);
     }
 
     /**
@@ -126,7 +126,7 @@ class UserCrudController extends AbstractCrudController
     {
         $entity = parent::createEntity($entityFqcn);
 
-        var_dump($this->getUser());
+//        var_dump($this->getUser());
         die();
     }
 }
