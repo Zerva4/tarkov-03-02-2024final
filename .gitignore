@@ -42,6 +42,7 @@ info/
 .yarnrc
 package-lock.json
 yarn.lock
+symfony.lock
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
