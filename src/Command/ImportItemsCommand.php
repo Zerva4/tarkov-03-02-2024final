@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Entity\Item\ContainedItem;
 use App\Entity\Item\Item;
 use App\Entity\Quest\Quest;
 use App\Interfaces\GraphQLClientInterface;
@@ -30,6 +31,8 @@ class ImportItemsCommand extends Command
     private EntityManagerInterface $em;
     private GraphQLClientInterface $client;
     protected string $storageDir;
+
+    protected array $moneyArray = ['5449016a4bdc2d6f028b456f', '5696686a4bdc2da3298b456a', '569668774bdc2da2298b4568'];
 
     public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel) {
         parent::__construct();
@@ -471,6 +474,7 @@ class ImportItemsCommand extends Command
             // Set another params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
             $blocksHeadphones = (null !== $item['blocksHeadphones']) ? $item['blocksHeadphones'] : false;
+            if ($this->isMoney($item['id'])) $item['types'][] = 'money';
             $itemEntity->setPublished(true)
                 ->setSlug($item['normalizedName'])
                 ->setTypes($item['types'])
@@ -492,24 +496,30 @@ class ImportItemsCommand extends Command
             $this->em->persist($itemEntity);
 
             // Set received from quests
-            if (is_array($item['receivedFromTasks']) && count($item['receivedFromTasks']) > 0) {
-                foreach ($item['receivedFromTasks'] as $key => $receivedFromQuest) {
-                    $questEntity = $questRepository->findOneBy(['apiId' => $receivedFromQuest['id']]);
-                    if ($questEntity instanceof QuestInterface) {
-                        $itemEntity->addReceivedFromQuest($questEntity);
-                    }
-                }
-            }
+//            if (is_array($item['receivedFromTasks']) && count($item['receivedFromTasks']) > 0) {
+//                foreach ($item['receivedFromTasks'] as $key => $receivedFromQuest) {
+//                    $questEntity = $questRepository->findOneBy(['apiId' => $receivedFromQuest['id']]);
+//                    if ($questEntity instanceof QuestInterface) {
+//                        $containedItemEntity = new ContainedItem();
+//                        $containedItemEntity->addReceivedFromQuest($questEntity);
+//                        $this->em->persist($containedItemEntity);
+//                        unset($containedItemEntity);
+//                    }
+//                }
+//            }
 
             // Set used in quest
-            if (is_array($item['usedInTasks']) && count($item['usedInTasks']) > 0) {
-                foreach ($item['usedInTasks'] as $usedInTask) {
-                    $questEntity = $questRepository->findOneBy(['apiId' => $usedInTask['id']]);
-                    if ($questEntity instanceof QuestInterface) {
-                        $itemEntity->addUsedInQuest($questEntity);
-                    }
-                }
-            }
+//            if (is_array($item['usedInTasks']) && count($item['usedInTasks']) > 0) {
+//                foreach ($item['usedInTasks'] as $usedInTask) {
+//                    $questEntity = $questRepository->findOneBy(['apiId' => $usedInTask['id']]);
+//                    if ($questEntity instanceof QuestInterface) {
+//                        $containedItemEntity = new ContainedItem();
+//                        $containedItemEntity->addUsedInQuest($questEntity);
+//                        $this->em->persist($containedItemEntity);
+//                        unset($containedItemEntity);
+//                    }
+//                }
+//            }
 
             $progressBar->advance();
             $this->em->flush();
@@ -519,5 +529,10 @@ class ImportItemsCommand extends Command
         $io->success('Items imported.');
 
         return Command::SUCCESS;
+    }
+
+    protected function isMoney(string $apiId): bool
+    {
+        return in_array($apiId, $this->moneyArray);
     }
 }
