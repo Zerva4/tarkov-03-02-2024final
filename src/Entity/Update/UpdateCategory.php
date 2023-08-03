@@ -79,4 +79,9 @@ class UpdateCategory extends TranslatableEntity implements UpdateCategoryInterfa
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
 }
