@@ -12,8 +12,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
 
 class UpdateCrudController extends BaseCrudController
@@ -27,14 +25,15 @@ class UpdateCrudController extends BaseCrudController
     {
         return parent::configureCrud($crud)->setSearchFields([
             'translations.description']
-        );
+        )->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
+            ;
     }
 
     public function configureFields(string $pageName): iterable
     {
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
-        $description = TextField::new('description', t('Description', [], 'admin'));
+        $description = TextareaField::new('description', t('Description', [], 'admin'));
         $category = AssociationField::new('category', t('Category', [], 'admin'))
             ->setQueryBuilder(function($queryBuilder) {
                 return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
@@ -47,7 +46,7 @@ class UpdateCrudController extends BaseCrudController
         ;
         $translationFields = [
             'description' => [
-                'field_type' => TextareaType::class,
+                'field_type' => CKEditorType::class,
                 'label' => t('Description', [], 'admin'),
             ],
         ];
