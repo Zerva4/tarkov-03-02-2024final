@@ -7,7 +7,6 @@ use App\Interfaces\Update\UpdateCategoryInterface;
 use App\Interfaces\Update\UpdateInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Update\UpdateCategoryRepository;
-use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
