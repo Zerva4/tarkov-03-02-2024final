@@ -60,6 +60,7 @@ class UpdateCrudController extends AbstractCrudController
             ],
             default => [
                 $description->setTemplatePath('admin/field/link-edit.html.twig'),
+                $category,
                 $createdAt, $updatedAt],
         };
     }
