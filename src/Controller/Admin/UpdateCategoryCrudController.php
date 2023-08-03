@@ -12,7 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
 
-class UpdateCategoryCrudController extends AbstractCrudController
+class UpdateCategoryCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {
