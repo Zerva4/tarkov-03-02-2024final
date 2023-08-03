@@ -18,21 +18,15 @@ class UpdateCategoryTranslation implements UuidPrimaryKeyInterface, TranslationI
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
     use TranslationTrait;
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $name;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $name;
 
-    /**
-     * @return string
-     */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
