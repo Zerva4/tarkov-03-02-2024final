@@ -14,6 +14,7 @@ use App\Entity\Quest\Quest;
 use App\Entity\Quest\QuestItem;
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
+use App\Entity\Update\UpdateCategory;
 use App\Entity\User;
 use App\Entity\Workshop\Craft;
 use App\Entity\Workshop\Place;
@@ -66,6 +67,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud(t('List', [], 'menu'), '', Trader::class)->setController(TraderCrudController::class),
             MenuItem::linkToCrud(t('Cash offers', [], 'menu'), '', TraderCashOffer::class)->setController(TraderCashOfferCrudController::class)
         ];
+        $updatesMenu = [
+            MenuItem::linkToCrud(t('List', [], 'menu'), '', UpdateCategory::class)->setController(UpdateCrudController::class),
+            MenuItem::linkToCrud(t('Categories', [], 'menu'), '', UpdateCategory::class)->setController(UpdateCategoryCrudController::class)
+        ];
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
         yield MenuItem::subMenu(t('Traders', [], 'menu'), 'fa fa-cubes')->setSubItems($tradersMenu);
@@ -73,7 +78,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu(t('Workshop', [], 'menu'), 'fa fa-cubes')->setSubItems($workshopMenu);
         yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);
         yield MenuItem::linkToCrud(t('Enemies', [], 'menu'), 'fa fa-skull', Boss::class)->setController(BossCrudController::class);
-        yield MenuItem::linkToDashboard(t('Updates', [], 'menu'), 'fa fa-sync');
+        yield MenuItem::subMenu(t('Updates', [], 'menu'), 'fa fa-sync')->setSubItems($updatesMenu);
         yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);
         yield MenuItem::section(t('Materials', [], 'menu'), '');
         yield MenuItem::linkToDashboard(t('Photos', [], 'menu'), 'fa fa-camera');
