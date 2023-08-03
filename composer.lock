@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "903d17a8e59416ad9d0259a545a3ed6f",
+    "content-hash": "04d9654195cdfe6f020a771e7212e8d6",
     "packages": [
         {
             "name": "a2lix/auto-form-bundle",
@@ -1665,16 +1665,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.4.5",
+            "version": "v4.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "abf018d4f05547b6640a41c911095d2894a23d17"
+                "reference": "ef10d412109429cf47bb5a406bbba6a256255350"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/abf018d4f05547b6640a41c911095d2894a23d17",
-                "reference": "abf018d4f05547b6640a41c911095d2894a23d17",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/ef10d412109429cf47bb5a406bbba6a256255350",
+                "reference": "ef10d412109429cf47bb5a406bbba6a256255350",
                 "shasum": ""
             },
             "require": {
@@ -1713,6 +1713,7 @@
                 "psr/log": "^1.0",
                 "symfony/browser-kit": "^5.4|^6.0",
                 "symfony/css-selector": "^5.4|^6.0",
+                "symfony/debug-bundle": "^5.4|^6.0",
                 "symfony/dom-crawler": "^5.4|^6.0",
                 "symfony/phpunit-bridge": "^5.4|^6.0"
             },
@@ -1746,7 +1747,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.4.5"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.6.6"
             },
             "funding": [
                 {
@@ -1754,7 +1755,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-14T19:16:19+00:00"
+            "time": "2023-05-30T18:19:51+00:00"
         },
         {
             "name": "egulias/email-validator",
