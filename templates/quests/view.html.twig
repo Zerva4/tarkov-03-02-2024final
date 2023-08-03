@@ -160,10 +160,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% if quest.receivedItems %}
                                 <div class="prop">
                                     <div class="name">
                                         Деньги
                                     </div>
+{#                                    {% if 'money' not in receivedItem.items.types %}#}
                                     <div class="val">
                                         +15000 рублей
                                         <div class="info">
@@ -180,7 +182,9 @@
                                             </div>
                                         </div>
                                     </div>
+{#                                    {% endif %}#}
                                 </div>
+                                {% endif %}
                                 <div class="prop">
                                     <div class="name">
                                         Навыки
@@ -217,19 +221,22 @@
                             <div class="container small">
                                 <div class="crafts">
                                     {% for receivedItem in quest.receivedItems %}
-                                    <div class="craft">
-                                        <div class="image">
-                                            {% if receivedItem.item.imageName %}
-                                                <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
-                                            {% else %}
-                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
-                                            {% endif %}
-                                        </div>
-                                        <div class="contains">
-                                            <div class="x">x {{ receivedItem.count }}</div>
-                                            <div class="name">{{ receivedItem.item.getShortTitle }}</div>
-                                        </div>
-                                    </div>
+{#                                        {% dump(receivedItem.item.types) %}#}
+                                        {% if 'money' not in receivedItem.item.types %}
+                                            <div class="craft">
+                                                <div class="image">
+                                                    {% if receivedItem.item.imageName %}
+                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
+                                                    {% else %}
+                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="contains">
+                                                    <div class="x">x {{ receivedItem.count }}</div>
+                                                    <div class="name">{{ receivedItem.item.getShortTitle }}</div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
