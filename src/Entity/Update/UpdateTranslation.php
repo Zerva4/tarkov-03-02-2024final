@@ -19,21 +19,15 @@ class UpdateTranslation  implements UuidPrimaryKeyInterface, TranslationInterfac
     use TimestampableTrait;
     use TranslationTrait;
 
-    #[ORM\Column(type: 'text', nullable: false)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private string $description;
 
-    /**
-     * @return string
-     */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
