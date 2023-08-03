@@ -5,14 +5,13 @@ namespace App\Controller\Admin;
 use App\Entity\Update\UpdateCategory;
 use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
 
-class UpdateCategoryCrudController extends AbstractCrudController
+class UpdateCategoryCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {
@@ -38,9 +37,10 @@ class UpdateCategoryCrudController extends AbstractCrudController
                 'label' => t('Name', [], 'admin'),
             ],
         ];
+
         $translations = TranslationField::new('translations', t('Localization', [], 'admin'), $translationFields)
             ->setFormTypeOptions([
-                'excluded_fields' => ['lang', 'published', 'createdAt', 'updatedAt']
+                'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
         ;
 

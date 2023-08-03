@@ -45,7 +45,7 @@ class TraderCrudController extends BaseCrudController
         $avatar = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.traders.images.uri'))
-            ->setFormTypeOption('required', false);
+            ->setFormTypeOption('required', false)
         ;
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
