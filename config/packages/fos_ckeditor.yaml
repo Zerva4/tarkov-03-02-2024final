@@ -1,6 +1,8 @@
 # Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
 fos_ck_editor:
     default_config: eft_config
+    base_path: '../bundles/fosckeditor'
+    js_path:   '../bundles/fosckeditor/ckeditor.js'
     configs:
         eft_config:
             toolbar: [
