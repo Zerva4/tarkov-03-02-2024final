@@ -6,6 +6,7 @@ use App\Entity\Update\Update;
 use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -31,6 +32,15 @@ class UpdateCrudController extends AbstractCrudController
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
         $description = TextField::new('description', t('Description', [], 'admin'));
+        $category = AssociationField::new('category', t('Category', [], 'admin'))
+            ->setQueryBuilder(function($queryBuilder) {
+                return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
+                    ->addSelect('lt')
+                    ->andWhere('lt.locale = :locale')
+                    ->setParameter('locale', $this->container->get('request_stack')->getCurrentRequest()->getLocale())
+                    ;
+            })
+        ;
         $translationFields = [
             'description' => [
                 'field_type' => TextType::class,
@@ -45,6 +55,7 @@ class UpdateCrudController extends AbstractCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
+                $category,
                 $translations,
             ],
             default => [
