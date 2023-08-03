@@ -22,7 +22,6 @@ class UpdateCategory extends TranslatableEntity implements UpdateCategoryInterfa
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
-    use SlugTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
