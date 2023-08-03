@@ -10,7 +10,6 @@ use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\QuestKeyFormType;
 use App\Form\QuestObjectiveForm;
-use App\Repository\Item\ContainedItemRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;

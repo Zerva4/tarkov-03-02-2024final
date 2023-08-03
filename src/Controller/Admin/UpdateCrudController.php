@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Update\Update;
 use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use function Symfony\Component\Translation\t;
 
-class UpdateCrudController extends AbstractCrudController
+class UpdateCrudController extends BaseCrudController
 {
     public static function getEntityFqcn(): string
     {
@@ -22,16 +24,20 @@ class UpdateCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return parent::configureCrud($crud)->setSearchFields([
-            'translations.description'
-        ]);
+//        parent::configureCrud($crud);
+
+        return $crud->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
+            ->setSearchFields([
+            'translations.description']);
     }
 
     public function configureFields(string $pageName): iterable
     {
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
-        $description = TextField::new('description', t('Description', [], 'admin'));
+        $description = TextField::new('description', t('Description', [], 'admin'))
+            ->setColumns(12)
+        ;
         $category = AssociationField::new('category', t('Category', [], 'admin'))
             ->setQueryBuilder(function($queryBuilder) {
                 return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
@@ -40,16 +46,17 @@ class UpdateCrudController extends AbstractCrudController
                     ->setParameter('locale', $this->container->get('request_stack')->getCurrentRequest()->getLocale())
                     ;
             })
+            ->setColumns(12)
         ;
         $translationFields = [
             'description' => [
-                'field_type' => TextType::class,
+                'field_type' => CKEditorType::class,
                 'label' => t('Description', [], 'admin'),
             ],
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin'), $translationFields)
             ->setFormTypeOptions([
-                'excluded_fields' => ['lang', 'published', 'createdAt', 'updatedAt']
+                'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
         ;
 

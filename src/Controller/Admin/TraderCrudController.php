@@ -70,7 +70,7 @@ class TraderCrudController extends BaseCrudController
                 'label' => t('Description', [], 'admin.traders')
             ],
         ];
-        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
@@ -89,8 +89,8 @@ class TraderCrudController extends BaseCrudController
                 FormField::addTab(t('Basic', [], 'admin.traders')),
                 $avatar,
                 $published,
-                $slug->setColumns(6)->setTextAlign('left'),
-                $resetTime->setColumns(6),
+                $slug->setColumns(9)->setTextAlign('left'),
+                $resetTime->setColumns(3),
                 $translations,
                 FormField::addTab(t('Levels', [], 'admin.traders')),
                 $levels->setColumns(12)
