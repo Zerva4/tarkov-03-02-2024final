@@ -20,7 +20,6 @@ class Update  extends TranslatableEntity implements UpdateInterface, UuidPrimary
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
-    use SlugTrait;
 
     #[ORM\ManyToOne(targetEntity: UpdateCategory::class, cascade: ['persist'], inversedBy: 'updates')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
