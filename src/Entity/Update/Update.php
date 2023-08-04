@@ -31,6 +31,9 @@ class Update  extends TranslatableEntity implements UpdateInterface, UuidPrimary
     #[ORM\Column(type: 'datetime', nullable: false, options: ["default" => "CURRENT_TIMESTAMP"])]
     private DateTime $dateAdded;
 
+    #[ORM\Column(type: 'datetime', nullable: false, options: ["default" => "CURRENT_TIMESTAMP"])]
+    private DateTime $dateAdded2;
+
     #[ORM\ManyToOne(targetEntity: UpdateCategory::class, cascade: ['persist'], inversedBy: 'updates')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?UpdateCategoryInterface $category;
@@ -60,6 +63,18 @@ class Update  extends TranslatableEntity implements UpdateInterface, UuidPrimary
     public function setDateAdded(DateTime $dateAdded): UpdateInterface
     {
         $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
+
+    public function getDateAdded2(): DateTime
+    {
+        return $this->dateAdded;
+    }
+
+    public function setDateAdded2(DateTime $dateAdded): UpdateInterface
+    {
+        $this->dateAdded2 = $dateAdded;
 
         return $this;
     }
