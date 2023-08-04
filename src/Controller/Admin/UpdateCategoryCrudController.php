@@ -7,6 +7,7 @@ use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
@@ -30,6 +31,10 @@ class UpdateCategoryCrudController extends BaseCrudController
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
         $published = BooleanField::new('published', t('Published', [], 'admin'));
+        $slug = SlugField::new('slug', t('Slug', [], 'admin'))
+            ->setTargetFieldName('slug')
+            ->setDisabled(false)
+        ;
         $name = TextField::new('name', t('Name', [], 'admin'));
         $translationFields = [
             'name' => [
@@ -47,6 +52,7 @@ class UpdateCategoryCrudController extends BaseCrudController
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $published,
+                $slug->setColumns(12)->setDisabled(false),
                 $translations,
             ],
             default => [

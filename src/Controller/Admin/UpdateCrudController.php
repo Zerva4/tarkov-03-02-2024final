@@ -9,9 +9,11 @@ use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
 
 class UpdateCrudController extends BaseCrudController
@@ -33,6 +35,10 @@ class UpdateCrudController extends BaseCrudController
     {
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
+        $dateAdded = DateField::new('dateAdded', 'Updated');
+        $slug = SlugField::new('slug', t('Slug', [], 'admin'))
+            ->setTargetFieldName('slug')
+            ->setRequired(true);
         $description = TextareaField::new('description', t('Description', [], 'admin'));
         $category = AssociationField::new('category', t('Category', [], 'admin'))
             ->setQueryBuilder(function($queryBuilder) {
@@ -45,6 +51,10 @@ class UpdateCrudController extends BaseCrudController
             ->setColumns(12)
         ;
         $translationFields = [
+            'title' => [
+                'field_type' => TextType::class,
+                'label' => t('Name', [], 'admin'),
+            ],
             'description' => [
                 'field_type' => CKEditorType::class,
                 'label' => t('Description', [], 'admin'),
@@ -53,13 +63,15 @@ class UpdateCrudController extends BaseCrudController
 
         $translations = TranslationField::new('translations', t('Localization', [], 'admin'), $translationFields)
             ->setFormTypeOptions([
-                'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
+                'excluded_fields' => ['slug','lang', 'createdAt', 'updatedAt']
             ])
         ;
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
-                $category,
+                $dateAdded->setColumns(2),
+                $category->setColumns(5),
+                $slug->setColumns(5),
                 $translations,
             ],
             default => [
