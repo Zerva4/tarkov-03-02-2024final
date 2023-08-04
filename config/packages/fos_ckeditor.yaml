@@ -2,8 +2,6 @@ fos_ck_editor:
     base_path: '../bundles/fosckeditor'
     js_path:   '../bundles/fosckeditor/ckeditor.js'
     default_config: eft_config
-    base_path: '../bundles/fosckeditor'
-    js_path:   '../bundles/fosckeditor/ckeditor.js'
     configs:
         eft_config:
             toolbar: [
