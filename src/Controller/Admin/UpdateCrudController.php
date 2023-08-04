@@ -35,13 +35,12 @@ class UpdateCrudController extends BaseCrudController
     {
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
-        $dateAdded = DateField::new('dateAdded', 'Select date 1');
-        $dateAdded2 = DateField::new('dateAdded2', 'Select date 2');
+        $dateAdded = DateField::new('dateAdded', t('Select date 1', [], 'admin.update'));
+        $dateAdded2 = DateField::new('dateAdded2', t('Select date 2', [], 'admin.update'));
         $slug = SlugField::new('slug', t('Slug', [], 'admin'))
             ->setTargetFieldName('slug')
             ->setRequired(true);
-        $title = TextField::new('title', t('Title', [], 'admin'));
-        $description = TextareaField::new('description', t('Description', [], 'admin'));
+        $title = TextField::new('title', t('Title', [], 'admin.updates'));
         $category = AssociationField::new('category', t('Category', [], 'admin'))
             ->setQueryBuilder(function($queryBuilder) {
                 return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
@@ -55,11 +54,11 @@ class UpdateCrudController extends BaseCrudController
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,
-                'label' => t('Name', [], 'admin'),
+                'label' => t('Title', [], 'admin.update'),
             ],
             'description' => [
                 'field_type' => CKEditorType::class,
-                'label' => t('Description', [], 'admin'),
+                'label' => t('Description', [], 'admin.update'),
             ],
         ];
 
@@ -73,9 +72,8 @@ class UpdateCrudController extends BaseCrudController
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $dateAdded->setColumns(2),
                 $dateAdded2->setColumns(2),
-                $category->setColumns(2),
-                $slug->setColumns(2),
-                $title,
+                $category->setColumns(4),
+                $slug->setColumns(4),
                 $translations,
             ],
             default => [
