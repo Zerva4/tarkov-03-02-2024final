@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,5 +40,19 @@ class ArticleRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findLastHomeArticles(int $maxItem = 3, int $mode = AbstractQuery::HYDRATE_OBJECT)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id, a.slug,  a.createdAt, a.updatedAt, a.imagePoster, t.title AS title, t.description AS description')
+            ->leftJoin('a.translations', 't')
+            ->andWhere('a.published = true')
+            ->setFirstResult(0)
+            ->setMaxResults($maxItem)
+            ->getQuery()
+            ->setResultCacheLifetime(0)
+            ->getResult($mode)
+        ;
     }
 }

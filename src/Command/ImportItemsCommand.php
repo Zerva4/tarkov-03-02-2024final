@@ -2,16 +2,17 @@
 
 namespace App\Command;
 
-use App\Entity\Item;
-use App\Entity\Quest;
-use App\Interfaces\ItemInterface;
-use App\Interfaces\QuestInterface;
+use App\Entity\Item\ContainedItem;
+use App\Entity\Item\Item;
+use App\Entity\Quest\Quest;
+use App\Interfaces\GraphQLClientInterface;
+use App\Interfaces\Item\ItemInterface;
+use App\Interfaces\Quest\QuestInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
-use JetBrains\PhpStorm\NoReturn;
-use MartinGeorgiev\Doctrine\DBAL\Types\Jsonb;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -27,14 +28,18 @@ use Symfony\Component\HttpKernel\KernelInterface;
 )]
 class ImportItemsCommand extends Command
 {
-    protected static array $headers = ['Content-Type: application/json'];
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
+    private GraphQLClientInterface $client;
     protected string $storageDir;
 
-    public function __construct(EntityManagerInterface $em, KernelInterface $kernel) {
+    protected array $moneyArray = ['5449016a4bdc2d6f028b456f', '5696686a4bdc2da3298b456a', '569668774bdc2da2298b4568'];
+
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel) {
         parent::__construct();
+
         $this->em = $em;
-        $this->storageDir = $kernel->getProjectDir().'/public/storage/images/items/';
+        $this->client = $client;
+        $this->storageDir = $kernel->getContainer()->getParameter('app.items.images.path') . '/';
     }
 
     protected function configure(): void
@@ -176,6 +181,12 @@ class ImportItemsCommand extends Command
               centerOfImpact
               deviationCurve
               deviationMax
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
             
             fragment ChestRig on ItemPropertiesChestRig {
@@ -259,6 +270,12 @@ class ImportItemsCommand extends Command
               ricochetX
               ricochetY
               ricochetZ
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
             
             fragment Key on ItemPropertiesKey {
@@ -274,6 +291,12 @@ class ImportItemsCommand extends Command
               malfunctionChance
               allowedAmmo {
                 id
+              }
+              slots {
+                id
+                name
+                nameId
+                required
               }
             }
             
@@ -320,6 +343,12 @@ class ImportItemsCommand extends Command
               sightingRange
               recoilModifier
               zoomLevels
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
             
             fragment SurgicalKit on ItemPropertiesSurgicalKit {
@@ -359,24 +388,35 @@ class ImportItemsCommand extends Command
               allowedAmmo {
                 id
               }
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
             
             fragment WeaponMod on ItemPropertiesWeaponMod {
               ergonomics
               recoilModifier
               accuracyModifier
+              slots {
+                id
+                name
+                nameId
+                required
+              }
             }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
+        try {
+            $response = $this->client->query($query);
+            $items = $response['data']['items'];
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
 
-        $items = (json_decode($data, true)['data']['items']);
         if (null === $items) {
             $io->warning('Nothing to import or update.');
         }
@@ -392,17 +432,20 @@ class ImportItemsCommand extends Command
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
+                $itemEntity->translate($lang, false)->setShortTitle($item['shortName']);
             } else {
+                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemDefaultProperty';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setTitle($item['name']);
+                $itemEntity->translate($lang, false)->setShortTitle($item['shortName']);
                 $itemEntity->setApiId($item['id']);
-
-
+                $itemEntity->setTypeProperties($typeName);
             }
 
             // Download file
+            @unlink($this->storageDir.'*.webp');
             if (!$itemEntity->getImageFile()) {
                 $curlHandle = curl_init($item['image512pxLink']);
                 $fileName = basename($item['image512pxLink']);
@@ -431,9 +474,11 @@ class ImportItemsCommand extends Command
             // Set another params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
             $blocksHeadphones = (null !== $item['blocksHeadphones']) ? $item['blocksHeadphones'] : false;
+            if ($this->isMoney($item['id'])) $item['types'][] = 'money';
             $itemEntity->setPublished(true)
                 ->setSlug($item['normalizedName'])
                 ->setTypes($item['types'])
+                ->setProperties($item['properties'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])
                 ->setHeight($item['height'])
@@ -451,24 +496,30 @@ class ImportItemsCommand extends Command
             $this->em->persist($itemEntity);
 
             // Set received from quests
-            if (is_array($item['receivedFromTasks']) && count($item['receivedFromTasks']) > 0) {
-                foreach ($item['receivedFromTasks'] as $key => $receivedFromQuest) {
-                    $questEntity = $questRepository->findOneBy(['apiId' => $receivedFromQuest['id']]);
-                    if ($questEntity instanceof QuestInterface) {
-                        $itemEntity->addReceivedFromQuest($questEntity);
-                    }
-                }
-            }
+//            if (is_array($item['receivedFromTasks']) && count($item['receivedFromTasks']) > 0) {
+//                foreach ($item['receivedFromTasks'] as $key => $receivedFromQuest) {
+//                    $questEntity = $questRepository->findOneBy(['apiId' => $receivedFromQuest['id']]);
+//                    if ($questEntity instanceof QuestInterface) {
+//                        $containedItemEntity = new ContainedItem();
+//                        $containedItemEntity->addReceivedFromQuest($questEntity);
+//                        $this->em->persist($containedItemEntity);
+//                        unset($containedItemEntity);
+//                    }
+//                }
+//            }
 
             // Set used in quest
-            if (is_array($item['usedInTasks']) && count($item['usedInTasks']) > 0) {
-                foreach ($item['usedInTasks'] as $usedInTask) {
-                    $questEntity = $questRepository->findOneBy(['apiId' => $usedInTask['id']]);
-                    if ($questEntity instanceof QuestInterface) {
-                        $itemEntity->addUsedInQuest($questEntity);
-                    }
-                }
-            }
+//            if (is_array($item['usedInTasks']) && count($item['usedInTasks']) > 0) {
+//                foreach ($item['usedInTasks'] as $usedInTask) {
+//                    $questEntity = $questRepository->findOneBy(['apiId' => $usedInTask['id']]);
+//                    if ($questEntity instanceof QuestInterface) {
+//                        $containedItemEntity = new ContainedItem();
+//                        $containedItemEntity->addUsedInQuest($questEntity);
+//                        $this->em->persist($containedItemEntity);
+//                        unset($containedItemEntity);
+//                    }
+//                }
+//            }
 
             $progressBar->advance();
             $this->em->flush();
@@ -478,5 +529,10 @@ class ImportItemsCommand extends Command
         $io->success('Items imported.');
 
         return Command::SUCCESS;
+    }
+
+    protected function isMoney(string $apiId): bool
+    {
+        return in_array($apiId, $this->moneyArray);
     }
 }

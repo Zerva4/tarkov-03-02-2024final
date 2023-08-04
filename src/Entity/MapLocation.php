@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Table(name: 'maps_locations')]
@@ -27,61 +28,61 @@ class MapLocation extends TranslatableEntity implements UuidPrimaryKeyInterface,
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
 
-//    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-//    private ?string $imageName;
-//
-//    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
-//    #[Assert\Valid]
-//    #[Assert\File(
-//        maxSize: '2M',
-//        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
-//    )]
-//    /**
-//     * @Vich\UploadableField(mapping="traders", fileNameProperty="imageName")
-//     * @Assert\Valid
-//     * @Assert\File(
-//     *     maxSize="2M",
-//     *     mimeTypes={
-//     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
-//     *     }
-//     * )
-//     */
-//    private ?File $imageFile = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $imageName;
+
+    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Assert\Valid]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
+    )]
+    /**
+     * @Vich\UploadableField(mapping="traders", fileNameProperty="imageName")
+     * @Assert\Valid
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={
+     *         "image/jpg", "image/gif", "image/jpeg", "image/png"
+     *     }
+     * )
+     */
+    private ?File $imageFile = null;
 
     #[ORM\ManyToOne(targetEntity: Map::class, inversedBy: 'locations')]
     private ?MapInterface $map = null;
-//
-//    /**
-//     * @return string|null
-//     */
-//    public function getImageName(): ?string
-//    {
-//        return $this->imageName;
-//    }
-//
-//    /**
-//     * @param string|null $imageName
-//     */
-//    public function setImageName(?string $imageName): void
-//    {
-//        $this->imageName = $imageName;
-//    }
-//
-//    /**
-//     * @return File|null
-//     */
-//    public function getImageFile(): ?File
-//    {
-//        return $this->imageFile;
-//    }
-//
-//    /**
-//     * @param File|null $imageFile
-//     */
-//    public function setImageFile(?File $imageFile): void
-//    {
-//        $this->imageFile = $imageFile;
-//    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param string|null $imageName
+     */
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+    }
 
     /**
      * @return MapInterface|null

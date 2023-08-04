@@ -1,0 +1,249 @@
+.traders {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 24px;
+
+    @media (min-width:320px) and (max-width:1080px) {
+        gap: 24px 12px;
+    }
+
+    .trader {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        border: 1px solid #FFFFFF;
+        border-radius: 5px;
+        overflow: hidden;
+        transition: all 0.2s ease;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &:hover {
+            border: 1px solid #DF870A;
+        }
+    }
+}
+
+.trader_info {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 24px 0;
+
+    @media (min-width: 320px) and (max-width: 1080px) {
+        flex-flow: row wrap;
+    }
+
+    .information {
+        display: flex;
+        flex-flow: row nowrap;
+        background: #151515;
+        border-radius: 10px;
+        overflow: hidden;
+        padding: 16px 24px;
+        gap: 24px;
+        flex: 1;
+
+        @media (min-width: 320px) and (max-width: 1080px) {
+            padding: 16px 8px;
+        }
+
+        .image {
+            width: 178px;
+            height: 178px;
+            position: relative;
+            border: 1px solid #FFFFFF;
+            border-radius: 5px;
+            overflow: hidden;
+
+            @media (min-width: 320px) and (max-width: 660px) {
+                width: 120px;
+                height: 120px;
+            }
+
+            @media (min-width: 660.1px) and (max-width: 1080px) {
+                width: 178px;
+                height: 178px;
+            }
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .contains {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            flex: 1;
+
+            .top {
+                .name {
+                    font-size: 24px;
+                    margin-bottom: 8px;
+                }
+
+                .subname {
+                    color: #828282;
+                }
+            }
+
+            .bottom {
+                .name {
+                    font-size: 16px;
+                    margin-bottom: 8px;
+                    color: #DF870A;
+                }
+
+                .date {
+                    color: #828282;
+                }
+            }
+        }
+    }
+
+    .loality {
+        border-radius: 10px;
+        overflow: hidden;
+
+        .loality_header {
+            border-bottom: 2px #070707;
+            font-size: 20px;
+
+            @media (min-width: 320px) and (max-width: 1080px) {
+                font-size: 14px !important;
+            }
+        }
+    }
+
+    .table td {
+        padding: 8px 0;
+
+        @media (min-width: 320px) and (max-width: 1080px) {
+            font-size: 10px;
+        }
+    }
+
+    .table th {
+        @media (min-width: 320px) and (max-width: 1080px) {
+            font-size: 10px;
+            border-bottom: 1px solid #070707 !important;
+        }
+    }
+}
+
+.quests {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+
+    .quest {
+        display: block;
+        flex: 0 0 calc(25% - 18px);
+
+        @media (min-width: 320px) and (max-width: 660px) {
+            flex: 0 0 100%;
+        }
+
+        @media (min-width: 660.1px) and (max-width: 1080px) {
+            flex: 0 0 calc(50% - 12px);
+        }
+
+        .image {
+            height: 150px;
+            border: 1px solid #FFFFFF;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .name {
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        &:hover .image {
+            border-bottom: 1px solid #DF870A;
+        }
+    }
+}
+
+.page_traders {
+    @media (min-width: 1080.1px) {
+        .text {
+            opacity: 1 !important;
+            transform: scaleY(1) !important;
+            max-height: 2000px !important;
+            margin-bottom: 0 !important;
+        }
+
+        .header {
+            .line {
+                display: none;
+            }
+
+            .btn {
+                display: none;
+            }
+
+            .h {
+                margin: 0 auto;
+            }
+        }
+    }
+}
+
+.page_traders {
+    .traders {
+        @media (min-width: 660.1px) and (max-width: 1080px) {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 16px;
+            justify-content: center;
+    
+            .trader {
+                border: 1px solid #FFFFFF;
+                border-radius: 5px;
+                overflow: hidden;
+                position: relative;
+                width: 100px;
+                height: 100px;
+    
+                img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}

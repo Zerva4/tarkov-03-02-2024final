@@ -2,10 +2,12 @@
 
 namespace App\Command;
 
-use App\Entity\QuestItem;
-use App\Interfaces\ItemInterface;
-use App\Interfaces\QuestItemInterface;
+use App\Entity\Quest\QuestItem;
+use App\Interfaces\GraphQLClientInterface;
+use App\Interfaces\Item\ItemInterface;
+use App\Interfaces\Quest\QuestItemInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
@@ -24,14 +26,15 @@ use Symfony\Component\HttpKernel\KernelInterface;
 )]
 class ImportQuestItemsCommand extends Command
 {
-    protected static array $headers = ['Content-Type: application/json'];
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
+    private GraphQLClientInterface $client;
     protected string $storageDir;
 
-    public function __construct(EntityManagerInterface $em, KernelInterface $kernel) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel) {
         parent::__construct();
         $this->em = $em;
-        $this->storageDir = $kernel->getProjectDir().'/public/storage/images/quests-items/';
+        $this->client = $client;
+        $this->storageDir = $kernel->getContainer()->getParameter('app.quests_items.images.path') . '/';
     }
 
     protected function configure(): void
@@ -70,15 +73,14 @@ class ImportQuestItemsCommand extends Command
             }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
+        try {
+            $response = $this->client->query($query);
+            $questItems = $response['data']['questItems'];
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
 
-        $questItems = (json_decode($data, true)['data']['questItems']);
         if (null === $questItems) {
             $io->warning('Nothing to import or update.');
         }
@@ -103,11 +105,10 @@ class ImportQuestItemsCommand extends Command
                 $questItemEntity->translate($lang, false)->setShortTitle($item['shortName']);
                 $questItemEntity->translate($lang, false)->setDescription($item['description']);
                 $questItemEntity->setApiId($item['id']);
-
-
             }
 
             // Download file
+            @unlink($this->storageDir.'*.webp');
             if (!$questItemEntity->getImageFile()) {
                 $curlHandle = curl_init($item['image512pxLink']);
                 $fileName = basename($item['image512pxLink']);

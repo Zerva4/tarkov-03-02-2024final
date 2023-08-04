@@ -4,8 +4,11 @@ Photo: Фото
 Description: Описание
 Localization: Переводы
 How to complete: Описание прохождения
+Start dialog: Начало диалога
+Successful dialog: Успешно выполненное задание
 Goals: Цели
 Trader: Торговец
+Key: Ключ
 Map: Карта
 Slug: Слаг
 Basic: Основное
@@ -16,19 +19,23 @@ Keys: Ключи
 Type: Тип задачи
 Optional: Обязательная цель?
 TYPE_NULL: Не определен
-TYPE_PLANT_ITEM: Plant item
-TYPE_SHOOT: Стрелять
+TYPE_PLANT_ITEM: Оставить
+TYPE_SHOOT: Убить
 TYPE_TRADER_LEVEL: Уровень трейдера
 TYPE_FIND_ITEM: Найти предмет
 TYPE_GIVE_QUEST_ITEM: Отдать квестовый предмет
-TYPE_PLANT_QUEST_ITEM: Обычный квестовый предмет
+TYPE_PLANT_QUEST_ITEM: Оставить квестовый предмет
 TYPE_MARK: Пометить
 TYPE_FIND_QUEST_ITEM: Найти квестовый предмет
 TYPE_GIVE_ITEM: Отдать предмет
 TYPE_PLAYER_LEVEL: Уровень игрока
 TYPE_BUILD_WEAPON: Создать оружие
 TYPE_EXTRACT: Извлечь
-TYPE_TASK_STATUS: Статус задачи
+TYPE_TASK_STATUS: Цель задачи
 TYPE_VISIT: Посетить
-TYPE_SKILL: Навык
+TYPE_SKILL: Достичь
 TYPE_EXPERIENCE: Опыт
+Items: Предметы
+Restartable: Перезапускаемый
+Kappa required: Требуется для каппы
+Lightkeeper required: Требуется для смотрителя

@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Traits;
 
 use App\Entity\Article;
-use App\Entity\Enemy;
-use App\Entity\Item;
+use App\Entity\Boss;
+use App\Entity\Item\Item;
 use App\Entity\Map;
-use App\Entity\Quest;
-use App\Entity\Trader;
+use App\Entity\Quest\Quest;
+use App\Entity\Trader\Trader;
+use App\Entity\Workshop\Place;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -30,7 +31,7 @@ trait SlugTrait
 
     /**
      * @param string $slug
-     * @return SlugTrait|Article|Enemy|Item|Map|Quest|Trader
+     * @return Quest|Article|Boss|Item|Map|Trader|Place|SlugTrait
      */
     public function setSlug(string $slug): self
     {

@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Trader;
+use App\Entity\Trader\Trader;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\TraderLevelForm;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -37,22 +38,25 @@ class TraderCrudController extends BaseCrudController
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.traders'));
         $fullName = TextField::new('fullName', t('Full name', [], 'admin.traders'));
-        $characterType = TextField::new('characterType', t('Character type', [], 'admin.traders'));
+        $shortName = TextField::new('shortName', t('Short name', [], 'admin.traders'));
         $slug = SlugField::new('slug', t('Slug', [], 'admin.traders'))
             ->setTargetFieldName('slug')
             ->setRequired(true);
         $avatar = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.traders.images.uri'))
-            ->setFormTypeOption('required', false);
+            ->setFormTypeOption('required', false)
         ;
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
+        $resetTime = DateTimeField::new('resetTime', 'Reset time')
+            ->renderAsChoice()
+            ->setFormat('yyyy.MM.dd G \'at\' HH:mm:ss zzz');
 
         $translationFields = [
-            'characterType' => [
+            'shortName' => [
                 'field_type' => TextType::class,
-                'label' => t('Character type', [], 'admin.traders'),
+                'label' => t('Short name', [], 'admin.traders'),
             ],
             'fullName' => [
                 'field_type' => TextType::class,
@@ -66,7 +70,7 @@ class TraderCrudController extends BaseCrudController
                 'label' => t('Description', [], 'admin.traders')
             ],
         ];
-        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
@@ -85,13 +89,14 @@ class TraderCrudController extends BaseCrudController
                 FormField::addTab(t('Basic', [], 'admin.traders')),
                 $avatar,
                 $published,
-                $slug->setColumns(6)->setTextAlign('left'),
+                $slug->setColumns(9)->setTextAlign('left'),
+                $resetTime->setColumns(3),
                 $translations,
                 FormField::addTab(t('Levels', [], 'admin.traders')),
                 $levels->setColumns(12)
             ],
             default => [
-                $characterType->setTemplatePath('admin/field/link-edit.html.twig'),
+                $shortName->setTemplatePath('admin/field/link-edit.html.twig'),
                 $fullName,
                 $published, $createdAt, $updatedAt],
         };

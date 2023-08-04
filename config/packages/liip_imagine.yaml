@@ -2,7 +2,7 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "imagick"
-    cache: default
+    cache: images
     data_loader: default
     default_image: null
     twig:
@@ -23,26 +23,58 @@ liip_imagine:
     resolvers:
         default:
             web_path:
-                web_root: '%kernel.project_dir%/public/storage'
-                cache_prefix: "/cache"
+                web_root: '%kernel.project_dir%/public'
+                cache_prefix: "storage/cache"
 
     loaders:
         default:
             filesystem:
-                data_root: '%kernel.project_dir%/public/storage'
+                data_root: '%kernel.project_dir%/public'
 
     filter_sets:
         cache: ~
-
-        200x200:
-            quality: 75
+        100x100:
+            cache: default
+            quality: 100
             filters:
-                thumbnail: { size: [ 200, 200 ], mode: inset }
-        70x100:
-            quality: 75
+                thumbnail: { size: [ 100, 100 ], position: center, mode: inset }
+        180x134:
+            cache: default
+            quality: 100
             filters:
-                thumbnail: { size: [ 70, 100 ], mode: inset }
-        200x160:
-            quality: 75
+                thumbnail: { size: [ 180, 134 ], position: center, mode: inset }
+        80x80:
+            cache: default
+            quality: 100
             filters:
-                thumbnail: { size: [ 200, 160 ], mode: inset }
+                thumbnail: { size: [ 158, 158 ], position: center, mode: inset }
+        110x90:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 110, 90 ], position: center, mode: inset }
+        118x118:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 118, 118 ], position: center, mode: inset }
+        178x178:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 178, 178 ], position: center, mode: inset }
+        180x90:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 180, 90 ], position: center, mode: inset }
+        250x148:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 250, 148 ], position: center, mode: inset }
+        360x210:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 360, 210 ], position: center, mode: inset }

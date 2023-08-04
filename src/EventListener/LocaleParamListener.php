@@ -18,7 +18,7 @@ class LocaleParamListener implements EventSubscriberInterface
     private array $additionalLocales;
     private string $localeRouteParam;
 
-    public function __construct(RouterInterface $router, $defaultLocale = 'ru', string $additionalLocales = '', $localeRouteParam = '_locale')
+    public function __construct(RouterInterface $router, $defaultLocale = 'ru', string $additionalLocales = '', $localeRouteParam = 'locale')
     {
         $this->router = $router;
         $this->defaultLocale = $defaultLocale;

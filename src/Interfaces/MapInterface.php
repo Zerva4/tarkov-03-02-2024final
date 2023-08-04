@@ -4,23 +4,13 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
+use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Quest\QuestKeyInterface;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
-use Ramsey\Uuid\UuidInterface;
 
 interface MapInterface
 {
-    /**
-     * @return UuidInterface
-     */
-    public function getId(): UuidInterface;
-
-    /**
-     * @param UuidInterface $id
-     * @return void
-     */
-    public function setId(UuidInterface $id): void;
-
     /**
      * @return bool|null
      */
@@ -143,4 +133,27 @@ interface MapInterface
      * @return MapInterface
      */
     public function removeLocation(MapLocationInterface $location): MapInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getQuestsKeys(): Collection;
+
+    /**
+     * @param Collection $questsKeys
+     * @return MapInterface
+     */
+    public function setQuestsKeys(Collection $questsKeys): MapInterface;
+
+    /**
+     * @param QuestKeyInterface $questKey
+     * @return MapInterface
+     */
+    public function addQuestsKey(QuestKeyInterface $questKey): MapInterface;
+
+    /**
+     * @param QuestKeyInterface $questKey
+     * @return MapInterface
+     */
+    public function removeQuestsKey(QuestKeyInterface $questKey): MapInterface;
 }

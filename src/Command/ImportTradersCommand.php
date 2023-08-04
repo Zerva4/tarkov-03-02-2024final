@@ -2,13 +2,13 @@
 
 namespace App\Command;
 
-use App\Entity\Trader;
-use App\Entity\TraderLevel;
-use App\Interfaces\TraderInterface;
-use App\Repository\TraderRepository;
+use App\Entity\Trader\Trader;
+use App\Entity\Trader\TraderLevel;
+use App\Interfaces\GraphQLClientInterface;
+use App\Interfaces\Trader\TraderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 #[AsCommand(
     name: 'app:import:traders',
@@ -23,14 +24,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ImportTradersCommand extends Command
 {
-    protected static array $headers = ['Content-Type: application/json'];
+    private ?EntityManagerInterface $em;
+    private GraphQLClientInterface $client;
 
-    private ?EntityManagerInterface $em = null;
-
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel) {
         parent::__construct();
 
         $this->em = $em;
+        $this->client = $client;
     }
 
     protected function configure(): void
@@ -45,8 +46,6 @@ class ImportTradersCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $lang = $input->getOption('lang');
-        $traders = null;
-        $countTraders = 0;
 
         $query = <<< GRAPHQL
             {
@@ -76,14 +75,14 @@ class ImportTradersCommand extends Command
             }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
-        $traders = (json_decode($data, true)['data']['traders']);
+        try {
+            $response = $this->client->query($query);
+            $traders = $response['data']['traders'];
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
+
         if (null === $traders) {
             $io->warning('Nothing to import or update.');
         }
@@ -92,14 +91,14 @@ class ImportTradersCommand extends Command
         $progressBar->advance(0);
 
         foreach ($traders as $trader) {
-            $order = $trader['tarkovDataId'];
+            $order = (null !== $trader['tarkovDataId']) ? $trader['tarkovDataId'] : -1;
             $progressBar->advance();
             $traderRepository = $this->em->getRepository(Trader::class);
             $traderEntity = $traderRepository->findOneBy(['apiId' => $trader['id']]);
 
             if ($traderEntity instanceof Trader) {
                 $traderEntity->setDefaultLocale($lang);
-                $traderEntity->translate($lang, false)->setCharacterType($trader['name']);
+                $traderEntity->translate($lang, false)->setShortName($trader['name']);
                 $traderEntity->setPosition($order);
             } else {
                 /** @var TraderInterface $traderEntity */
@@ -107,10 +106,12 @@ class ImportTradersCommand extends Command
                 $traderEntity->setDefaultLocale($lang);
                 $traderEntity->setPosition($order);
                 $traderEntity->translate($lang, false)->setFullName(null);
-                $traderEntity->translate($lang, false)->setCharacterType($trader['name']);
+                $traderEntity->translate($lang, false)->setShortName($trader['name']);
                 $traderEntity->setApiId($trader['id']);
                 $traderEntity->setPublished(true);
             }
+            $resetTime = new \DateTime($trader['resetTime']);
+            $traderEntity->setResetTime($resetTime);
 
             // Set levels
             if (count($trader['levels']) > 0) {

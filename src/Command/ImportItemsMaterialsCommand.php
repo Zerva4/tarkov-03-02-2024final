@@ -2,15 +2,16 @@
 
 namespace App\Command;
 
-use App\Entity\ItemMaterial;
-use App\Interfaces\ItemMaterialInterface;
+use App\Entity\Item\ItemMaterial;
+use App\Interfaces\GraphQLClientInterface;
+use App\Interfaces\Item\ItemMaterialInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -20,12 +21,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ImportItemsMaterialsCommand extends Command
 {
-    protected static array $headers = ['Content-Type: application/json'];
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
+    private GraphQLClientInterface $client;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client) {
         parent::__construct();
         $this->em = $em;
+        $this->client = $client;
     }
 
     protected function configure(): void
@@ -56,14 +58,14 @@ class ImportItemsMaterialsCommand extends Command
         }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
-        $materials = (json_decode($data, true)['data']['armorMaterials']);
+        try {
+            $response = $this->client->query($query);
+            $materials = $response['data']['armorMaterials'];
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
+
         if (null === $materials) {
             $io->warning('Nothing to import or update.');
         }

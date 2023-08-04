@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Quest\Quest;
+use App\Entity\Quest\QuestKey;
 use App\Interfaces\MapInterface;
 use App\Interfaces\MapLocationInterface;
-use App\Interfaces\QuestInterface;
+use App\Interfaces\Quest\QuestInterface;
+use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\MapRepository;
 use App\Traits\SlugTrait;
@@ -36,7 +39,7 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
     use TimestampableTrait;
     use SlugTrait;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
     #[ORM\Column(type: 'boolean')]
@@ -75,8 +78,11 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
     #[ORM\OneToMany(mappedBy: 'map', targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $quests;
 
-    #[ORM\OneToMany(mappedBy: 'map', targetEntity: MapLocation::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'map', targetEntity: MapLocation::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $locations;
+
+    #[ORM\OneToMany(mappedBy: 'map', targetEntity: QuestKey::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $questsKeys;
 
     // TODO: Добавить врагов и босссов.
     public function __construct(string $defaultLocation = '%app.default_locale%')
@@ -84,6 +90,7 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
         parent::__construct($defaultLocation);
 
         $this->quests = new ArrayCollection();
+        $this->questsKeys = new ArrayCollection();
     }
 
     public function isPublished(): ?bool
@@ -241,5 +248,37 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
     public function __toString(): string
     {
         return $this->__get('title');
+    }
+
+    public function getQuestsKeys(): Collection
+    {
+        return $this->questsKeys;
+    }
+
+    public function setQuestsKeys(Collection $questsKeys): MapInterface
+    {
+        $this->questsKeys = $questsKeys;
+
+        return $this;
+    }
+
+    public function addQuestsKey(QuestKeyInterface $questKey): MapInterface
+    {
+        if (!$this->questsKeys->contains($questKey)) {
+            $this->questsKeys->add($questKey);
+            $questKey->setMap($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestsKey(QuestKeyInterface $questKey): MapInterface
+    {
+        if ($this->quests->contains($questKey)) {
+            $this->quests->removeElement($questKey);
+            $questKey->setMap(null);
+        }
+
+        return $this;
     }
 }

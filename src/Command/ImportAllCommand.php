@@ -42,17 +42,13 @@ class ImportAllCommand extends Command
         $traderCmd = $this->getApplication()->find('app:import:traders');
         $traderCmd->run($inputArguments, $output);
 
+        // Import traders
+        $traderCmd = $this->getApplication()->find('app:import:bosses');
+        $traderCmd->run($inputArguments, $output);
+
         // Import maps
         $mapsCmd = $this->getApplication()->find('app:import:maps');
         $mapsCmd->run($inputArguments, $output);
-
-        // Import quests
-        $questsCmd = $this->getApplication()->find('app:import:quests');
-        $questsCmd->run($inputArguments, $output);
-
-        // Import quests items
-        $questsCmd = $this->getApplication()->find('app:import:quests-items');
-        $questsCmd->run($inputArguments, $output);
 
         // Import items materials
         $itemsCmd = $this->getApplication()->find('app:import:items-materials');
@@ -61,6 +57,30 @@ class ImportAllCommand extends Command
         // Import items
         $itemsCmd = $this->getApplication()->find('app:import:items');
         $itemsCmd->run($inputArguments, $output);
+
+        // Import quests items
+        $questsCmd = $this->getApplication()->find('app:import:quests-items');
+        $questsCmd->run($inputArguments, $output);
+
+        // Import quests
+        $questsCmd = $this->getApplication()->find('app:import:quests');
+        $questsCmd->run($inputArguments, $output);
+
+        // Import barters
+        $questsCmd = $this->getApplication()->find('app:import:barters');
+        $questsCmd->run($inputArguments, $output);
+
+        // Import crafts
+        $questsCmd = $this->getApplication()->find('app:import:places');
+        $questsCmd->run($inputArguments, $output);
+
+        // Import crafts
+        $questsCmd = $this->getApplication()->find('app:import:crafts');
+        $questsCmd->run($inputArguments, $output);
+
+        // Import cash offers
+        $questsCmd = $this->getApplication()->find('app:import:traders:cash-offers');
+        $questsCmd->run($inputArguments, $output);
 
         $io->success('Database import successful.');
 

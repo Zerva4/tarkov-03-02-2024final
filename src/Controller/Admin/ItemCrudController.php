@@ -2,11 +2,13 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Item;
+use App\Entity\Item\Item;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -76,6 +78,10 @@ class ItemCrudController extends BaseCrudController
         $velocity = NumberField::new('velocity', t('Velocity', [], 'admin.items'));
         $loudness = IntegerField::new('loudness', t('Loudness', [], 'admin.items'));
 
+        // Доп свойства
+        $properties = ArrayField::new('properties')
+        ;
+
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 FormField::addTab(t('Basic', [], 'admin.items')),
@@ -97,6 +103,7 @@ class ItemCrudController extends BaseCrudController
                 $velocity->setColumns(3),
                 $loudness->setColumns(3),
                 FormField::addTab(t('Extra options', [], 'admin.items')),
+//                $properties->setColumns(12)
             ],
             default => [
                 $title->setColumns(12)->setTextAlign('left')

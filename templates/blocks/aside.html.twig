@@ -1,0 +1,88 @@
+<aside>
+    <div class="modal_wrapper" id="login_modal">
+        <div class="modal">
+            <div class="img">
+                <img src="{{ asset('assets/img/modal.jpg') }}" alt="">
+                <div class="logoimg"></div>
+            </div>
+            <div class="wrapper">
+                <div class="top">
+                    <div class="prev auth_btn" data-id="modal_contain_main">&lt;&nbsp;&nbsp;{{ 'Назад'|trans({}, 'front.aside') }}</div>
+                    <div class="close" id="close_login_modal">&nbsp;</div>
+                </div>
+                <div class="logo">
+
+                </div>
+                <div class="contain active" id="modal_contain_main">
+                    <div class="controls">
+                        <h2>{{ 'Вход в аккаунт'|trans({}, 'front.aside') }}</h2>
+                        <div class="btn main auth_btn" data-id="modal_contain_login">
+                            <div class="icon mail"></div>
+                            Email
+                        </div>
+                        <div class="btn main">
+                            <div class="icon discord"></div>
+                            Discord
+                        </div>
+                        <div class="toptext">
+                            <a href="#" class="auth_btn" data-id="modal_contain_register">{{ 'Регистрация'|trans({}, 'front.aside') }}</a>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="toptext">
+                            <a href="#" class="auth_btn" data-id="modal_contain_register">{{ 'Регистрация'|trans({}, 'front.aside') }}</a>
+                        </div>
+                        <div class="bottomtext">
+                            <a href="#">{{ 'Условия использования'|trans({}, 'front.aside') }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contain" id="modal_contain_login">
+                    <form class="controls">
+                        <h2>{{ 'Вход'|trans({}, 'front.aside') }}</h2>
+                        <input type="text" placeholder="{{ 'Имя пользователя'|trans({}, 'front.aside') }}">
+                        <input type="password" name="" id="" placeholder="{{ 'Пароль'|trans({}, 'front.aside') }}">
+                        <div class="btns">
+                            <button class="btn">{{ 'Войти'|trans({}, 'front.aside') }}</button>
+                        </div>
+                        <div class="toptext">
+                            <a href="#" class="auth_btn" data-id="modal_contain_register">{{ 'Регистрация'|trans({}, 'front.aside') }}</a>
+                        </div>
+                    </form>
+                    <div class="bottom">
+                        <div class="toptext">
+                            <a href="#" class="auth_btn" data-id="modal_contain_register">{{ 'Регистрация'|trans({}, 'front.aside') }}</a>
+                        </div>
+                        <div class="bottomtext">
+                            <a href="#">{{ 'Условия использования'|trans({}, 'front.aside') }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contain" id="modal_contain_register">
+                    <form class="controls">
+                        <h2>{{ 'Регистрация'|trans({}, 'front.aside') }}</h2>
+                        <input type="text" placeholder="{{ 'Имя пользователя'|trans({}, 'front.aside') }}">
+                        <div class="row">
+                            <input type="email" name="" id="" placeholder="{{ 'Почта'|trans({}, 'front.aside') }}">
+                            <input type="password" name="" id="" placeholder="{{ 'Пароль'|trans({}, 'front.aside') }}">
+                        </div>
+                        <div class="btns">
+                            <button class="btn">{{ 'Регистрация'|trans({}, 'front.aside') }}</button>
+                        </div>
+                        <div class="toptext">
+                            {{ 'Есть аккаунт?'|trans({}, 'front.aside') }} <a href="#" class="auth_btn" data-id="modal_contain_login">{{ 'Войти'|trans({}, 'front.aside') }}</a>
+                        </div>
+                    </form>
+                    <div class="bottom">
+                        <div class="toptext">
+                            {{ 'Есть аккаунт?'|trans({}, 'front.aside') }} <a href="#" class="auth_btn" data-id="modal_contain_login">{{ 'Войти'|trans({}, 'front.aside') }}</a>
+                        </div>
+                        <div class="bottomtext">
+                            <a href="#">{{ 'Условия использования'|trans({}, 'front.aside') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

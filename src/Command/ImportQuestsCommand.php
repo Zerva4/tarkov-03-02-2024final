@@ -2,11 +2,20 @@
 
 namespace App\Command;
 
+use App\Entity\Item\ContainedItem;
+use App\Entity\Item\Item;
 use App\Entity\Map;
-use App\Entity\Quest;
-use App\Entity\QuestObjective;
-use App\Entity\Trader;
+use App\Entity\Quest\Quest;
+use App\Entity\Quest\QuestKey;
+use App\Entity\Quest\QuestObjective;
+use App\Entity\Trader\Trader;
+use App\Interfaces\GraphQLClientInterface;
+use App\Interfaces\Item\ContainedItemInterface;
+use App\Interfaces\Item\ItemInterface;
+use App\Interfaces\Quest\QuestKeyInterface;
+use App\Repository\Quest\QuestKeyRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -39,14 +48,15 @@ class ImportQuestsCommand extends Command
         'visit' => 'TYPE_VISIT',
         'skill' => 'TYPE_SKILL',
         'experience' => 'TYPE_EXPERIENCE',
+        'useItem' => 'TYPE_USE_ITEM'
     ];
-    protected static array $headers = ['Content-Type: application/json'];
-    private ?EntityManagerInterface $em = null;
+    private EntityManagerInterface $em;
+    private GraphQLClientInterface $client;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client) {
         parent::__construct();
-
         $this->em = $em;
+        $this->client = $client;
     }
 
     protected function configure(): void
@@ -71,6 +81,9 @@ class ImportQuestsCommand extends Command
                     normalizedName,
                     experience,
                     minPlayerLevel,
+                    restartable,
+                    kappaRequired,
+                    lightkeeperRequired,
                     descriptionMessageId,
                     startMessageId,
                     successMessageId,
@@ -97,7 +110,7 @@ class ImportQuestsCommand extends Command
                         __typename,
                         items {
                             item {
-                                name
+                                id
                             }
                         count, quantity
                         }
@@ -105,8 +118,7 @@ class ImportQuestsCommand extends Command
                     finishRewards {
                         items {
                             item {
-                                types
-                                name
+                                id
                             }
                             count,
                             quantity,
@@ -121,6 +133,9 @@ class ImportQuestsCommand extends Command
                         keys {
                             id, name
                         }
+                        map {
+                            id, name
+                    	}
                     }
                     map {
                         id, name
@@ -129,14 +144,14 @@ class ImportQuestsCommand extends Command
         }
         GRAPHQL;
 
-        $data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => self::$headers,
-                'content' => json_encode(['query' => $query]),
-            ]
-        ]));
-        $quests = (json_decode($data, true)['data']['tasks']);
+        try {
+            $response = $this->client->query($query);
+            $quests = $response['data']['tasks'];
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
+
         if (null === $quests) {
             $io->warning('Nothing to import or update.');
         }
@@ -147,6 +162,9 @@ class ImportQuestsCommand extends Command
         $questObjectiveRepository = $this->em->getRepository(QuestObjective::class);
         $traderRepository = $this->em->getRepository(Trader::class);
         $mapRepository = $this->em->getRepository(Map::class);
+        $itemRepository = $this->em->getRepository(Item::class);
+        $containedItemRepository = $this->em->getRepository(ContainedItem::class);
+        $questKeyRepository = $this->em->getRepository(QuestKey::class);
 
         foreach ($quests as $quest) {
             $order = (null !== $quest['tarkovDataId']) ? $quest['tarkovDataId'] : 0;
@@ -154,20 +172,25 @@ class ImportQuestsCommand extends Command
 
             if ($questEntity instanceof Quest) {
                 $questEntity->setDefaultLocale($lang);
+                $questEntity->translate($lang, false)->setTitle($quest['name']);
             } else {
                 $questEntity = new Quest($lang);
+                $questEntity->translate($lang, false)->setTitle($quest['name']);
+                $questEntity->setApiId($quest['id']);
             }
 
             $questSlugName = (null !== $quest['normalizedName']) ? $quest['normalizedName'] : $quest['id'];
+
             $questEntity
-                ->setApiId($quest['id'])
                 ->setPosition($order)
                 ->setPublished(true)
                 ->setExperience($quest['experience'])
                 ->setMinPlayerLevel($quest['minPlayerLevel'])
+                ->setRestartable($quest['restartable'])
+                ->setKappaRequired($quest['kappaRequired'])
+                ->setLightkeeperRequired($quest['lightkeeperRequired'])
                 ->setSlug($questSlugName)
             ;
-            $questEntity->translate($lang, false)->setTitle($quest['name']);
 
             // Set trader
             if (null !== $quest['trader']['id']) {
@@ -209,8 +232,90 @@ class ImportQuestsCommand extends Command
             }
             // TODO: Set required quests
             // TODO: Set start rewards. Create after import items
+            // Set requiredItems
+            if (count($quest['startRewards']['items']) > 0) {
+                $startRewards = [];
+                foreach ($quest['startRewards']['items'] as $item) {
+                    $itemId = $item['item']['id'];
+                    if (array_key_exists($itemId, $startRewards)) {
+                        $startRewards[$itemId]['count'] = $startRewards[$itemId]['count'] + $item['count'];
+                        $startRewards[$itemId]['quantity'] = $startRewards[$itemId]['quantity'] + $item['quantity'];
+                    } else {
+                        $startRewards[$itemId] = $item;
+                    }
+                }
+                foreach ($startRewards as $key => $item) {
+                    $containedQuestItem = $containedItemRepository->findQuestUsedItemByItemId($questEntity->getId(), $item['item']['id']);
+                    if (!$containedQuestItem instanceof ContainedItemInterface) {
+                        $containedQuestItem = new ContainedItem();
+                    }
+                    $itemEntity = $itemRepository->findOneBy(['apiId' => $item['item']['id']]);
+                    $containedQuestItem->setItem($itemEntity);
+                    $containedQuestItem->setApiId($item['item']['id']);
+                    $containedQuestItem->setCount($item['count']);
+                    $containedQuestItem->setQuantity($item['quantity']);
+                    if (array_key_exists('attributes', $item)) $containedQuestItem->setAttributes($item['attributes']);
+                    $questEntity->addUsedItem($containedQuestItem);
+                    $this->em->persist($containedQuestItem);
+                    unset($containedQuestItem, $itemEntity);
+                }
+            }
+
             // TODO: Set finish rewards. Create after import items
+            // Set requiredItems
+            if (count($quest['finishRewards']['items']) > 0) {
+                $finishRewards = [];
+                foreach ($quest['finishRewards']['items'] as $item) {
+                    $itemId = $item['item']['id'];
+                    if (array_key_exists($itemId, $finishRewards)) {
+                        $finishRewards[$itemId]['count'] = $finishRewards[$itemId]['count'] + $item['count'];
+                        $finishRewards[$itemId]['quantity'] = $finishRewards[$itemId]['quantity'] + $item['quantity'];
+                    } else {
+                        $finishRewards[$itemId] = $item;
+                    }
+                }
+
+                foreach ($finishRewards as $key => $item) {
+                    $containedQuestReceivedItem = $containedItemRepository->findReceivedItemByQuestAndItemId($questEntity->getId(), $item['item']['id']);
+                    if (!$containedQuestReceivedItem instanceof ContainedItemInterface) {
+                        $containedQuestReceivedItem = new ContainedItem();
+                    }
+                    $itemEntity = $itemRepository->findOneBy(['apiId' => $item['item']['id']]);
+                    $containedQuestReceivedItem->setItem($itemEntity);
+                    $containedQuestReceivedItem->setApiId($item['item']['id']);
+                    $containedQuestReceivedItem->setCount($item['count']);
+                    $containedQuestReceivedItem->setQuantity($item['quantity']);
+                    if (array_key_exists('attributes', $item)) $containedQuestReceivedItem->setAttributes($item['attributes']);
+                    $questEntity->addReceivedItem($containedQuestReceivedItem);
+                    $this->em->persist($containedQuestReceivedItem);
+                    unset($containedQuestReceivedItem, $itemEntity);
+                }
+            }
+
             // TODO: Set needed keys. Create after import items
+            if (!empty($quest['neededKeys'])) {
+                foreach($quest['neededKeys'] as $neededKey) {
+                    foreach ($neededKey['keys'] as $key) {
+                        $mapEntity = null;
+                        $questKeyEntity = null;
+                        if (array_key_exists('map', $neededKey)) {
+                            $mapEntity = $mapRepository->findOneBy(['apiId' => $neededKey['map']['id']]);
+                        }
+                        $questKeyEntity = $questKeyRepository->findByQuestAndItemIds($questEntity->getId(), $key['id']);
+
+                        if (!$questKeyEntity instanceof QuestKeyInterface) {
+//                            dump($questKeyEntity);
+//                            die();
+                            $itemEntity = $itemRepository->findOneBy(['apiId' => $key['id']]);
+                            $keyEntity = new QuestKey();
+                            $keyEntity->setItem($itemEntity)->setMap($mapEntity);
+                            $questEntity->addNeededKey($keyEntity);
+                            $this->em->persist($keyEntity);
+                        }
+                        unset($itemEntity, $questKeyEntity, $mapEntity);
+                    }
+                }
+            }
 
             $this->em->persist($questEntity);
             $questEntity->mergeNewTranslations();

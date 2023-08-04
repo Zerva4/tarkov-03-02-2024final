@@ -2,10 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\ItemMaterial;
+use App\Entity\Item\ItemMaterial;
 use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -55,7 +54,13 @@ class ItemMaterialCrudController extends BaseCrudController
                 $minRepairKitDegradation->setRequired(true)->setColumns(4),
                 $maxRepairKitDegradation->setRequired(true)->setColumns(4)
             ],
-            default => [$title, $published, $createdAt, $updatedAt],
+            default => [
+                $title->setColumns(12)->setTextAlign('left')
+                    ->setTemplatePath('admin/field/link-edit.html.twig'),
+                $published,
+                $createdAt,
+                $updatedAt
+            ],
         };
     }
 }
