@@ -35,10 +35,12 @@ class UpdateCrudController extends BaseCrudController
     {
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
-        $dateAdded = DateField::new('dateAdded', 'Updated');
+        $dateAdded = DateField::new('dateAdded', 'Select date 1');
+        $dateAdded2 = DateField::new('dateAdded2', 'Select date 2');
         $slug = SlugField::new('slug', t('Slug', [], 'admin'))
             ->setTargetFieldName('slug')
             ->setRequired(true);
+        $title = TextField::new('title', t('Title', [], 'admin'));
         $description = TextareaField::new('description', t('Description', [], 'admin'));
         $category = AssociationField::new('category', t('Category', [], 'admin'))
             ->setQueryBuilder(function($queryBuilder) {
@@ -70,14 +72,18 @@ class UpdateCrudController extends BaseCrudController
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $dateAdded->setColumns(2),
-                $category->setColumns(5),
-                $slug->setColumns(5),
+                $dateAdded2->setColumns(2),
+                $category->setColumns(2),
+                $slug->setColumns(2),
+                $title,
                 $translations,
             ],
             default => [
-                $description->setTemplatePath('admin/field/link-edit.html.twig'),
+                $title->setTemplatePath('admin/field/link-edit.html.twig'),
                 $category,
-                $createdAt, $updatedAt],
+                $dateAdded,
+                $dateAdded2,
+            ],
         };
     }
 }
