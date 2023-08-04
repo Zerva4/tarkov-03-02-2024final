@@ -7,6 +7,7 @@ use App\Interfaces\Update\UpdateCategoryInterface;
 use App\Interfaces\Update\UpdateInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Update\UpdateCategoryRepository;
+use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,11 +17,13 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 
 #[ORM\Table(name: 'updates_category')]
+#[ORM\Index(columns: ['slug'], name: 'updates_category_slug_idx')]
 #[ORM\Entity(repositoryClass: UpdateCategoryRepository::class)]
 class UpdateCategory extends TranslatableEntity implements UpdateCategoryInterface, UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
+    use SlugTrait;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
