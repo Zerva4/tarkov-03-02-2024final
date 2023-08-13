@@ -113,23 +113,25 @@ class ImportBossesCommand extends Command
 
             // Added health
             $bossHealthRepository = $this->em->getRepository(BossHealth::class);
-            foreach ($boss['health'] as $health) {
-                $bossHealthEntity = null;
+            if (null !== $boss['health']) {
+                foreach ($boss['health'] as $health) {
+                    $bossHealthEntity = null;
 
-                if (null !== $bossEntity->getId()) {
-                    $bossHealthEntity = $bossHealthRepository->findByByNameAndBossId($bossEntity->getId(), $health['id']);
-                }
+                    if (null !== $bossEntity->getId()) {
+                        $bossHealthEntity = $bossHealthRepository->findByByNameAndBossId($bossEntity->getId(), $health['id']);
+                    }
 
-                if (!$bossHealthEntity) {
-                    $bossHealthEntity = new BossHealth();
-                    $bossHealthEntity
-                        ->setPublished(true)
-                        ->setName($health['id'])
-                        ->setMax($health['max'])
-                        ->setBoss($bossEntity);
-                    $this->em->persist($bossHealthEntity);
-                    $bossEntity->addHealth($bossHealthEntity);
-                    unset($bossHealthEntity);
+                    if (!$bossHealthEntity) {
+                        $bossHealthEntity = new BossHealth();
+                        $bossHealthEntity
+                            ->setPublished(true)
+                            ->setName($health['id'])
+                            ->setMax($health['max'])
+                            ->setBoss($bossEntity);
+                        $this->em->persist($bossHealthEntity);
+                        $bossEntity->addHealth($bossHealthEntity);
+                        unset($bossHealthEntity);
+                    }
                 }
             }
 
