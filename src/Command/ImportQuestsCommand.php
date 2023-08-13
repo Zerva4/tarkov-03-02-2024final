@@ -16,6 +16,8 @@ use App\Interfaces\Quest\QuestKeyInterface;
 use App\Repository\Quest\QuestKeyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Imagick;
+use ImagickPixel;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -23,6 +25,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 #[AsCommand(
     name: 'app:import:quests',
@@ -52,11 +55,13 @@ class ImportQuestsCommand extends Command
     ];
     private EntityManagerInterface $em;
     private GraphQLClientInterface $client;
+    protected string $storageDir;
 
-    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel) {
         parent::__construct();
         $this->em = $em;
         $this->client = $client;
+        $this->storageDir = $kernel->getContainer()->getParameter('app.quests.images.path') . '/';
     }
 
     protected function configure(): void
@@ -80,6 +85,7 @@ class ImportQuestsCommand extends Command
                     name,
                     normalizedName,
                     experience,
+                    taskImageLink,
                     minPlayerLevel,
                     restartable,
                     kappaRequired,
@@ -191,6 +197,33 @@ class ImportQuestsCommand extends Command
                 ->setLightkeeperRequired($quest['lightkeeperRequired'])
                 ->setSlug($questSlugName)
             ;
+
+            // Download file
+            @unlink($this->storageDir.'*.webp');
+            if (!$questEntity->getImageFile()) {
+                $curlHandle = curl_init($quest['taskImageLink']);
+                $fileName = basename($quest['taskImageLink']);
+                $tmpFileName = $this->storageDir . $fileName;
+                $fp = fopen($tmpFileName, 'wb');
+                curl_setopt($curlHandle, CURLOPT_FILE, $fp);
+                curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+                curl_exec($curlHandle);
+                curl_close($curlHandle);
+                fclose($fp);
+
+                // Convert to png
+                $saveFileName = (string)explode('.', $fileName, 2)[0] . '.png';
+                $saveFilePath = $this->storageDir . $saveFileName;
+                $im = new Imagick();
+                $im->pingImage($tmpFileName);
+                $im->readImage($tmpFileName);
+                $im->setImageFormat('png');
+                $im->setBackgroundColor(new ImagickPixel('transparent'));
+                $im->writeImage($saveFilePath);
+                unlink($tmpFileName);
+
+                $questEntity->setImageName($saveFileName);
+            }
 
             // Set trader
             if (null !== $quest['trader']['id']) {

@@ -2,12 +2,10 @@
 
 namespace App\Command;
 
-use App\Entity\Item\ContainedItem;
 use App\Entity\Item\Item;
 use App\Entity\Quest\Quest;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\Item\ItemInterface;
-use App\Interfaces\Quest\QuestInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Imagick;
