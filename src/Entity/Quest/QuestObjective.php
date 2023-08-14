@@ -59,7 +59,7 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
 
     #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'objectives')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
-    private QuestInterface $quest;
+    private ?QuestInterface $quest = null;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
