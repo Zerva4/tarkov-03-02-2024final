@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="content">
+    {% if traders is not empty %}
+    <section>
+        <div class="container">
+            <div class="reference page_traders">
+                <div class="header">
+                    <h2 class="h">{{ 'Выбор торговца'|trans({}, 'front.traders') }}</h2>
+                    <div class="line"></div>
+                    <div class="btn">
+                    </div>
+                </div>
+                <div class="text">
+                    <div class="traders">
+                        {% for trader in traders %}
+                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="trader">
+                                {% if trader.imageName %}
+                                <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('80x80') }}" alt="{{ trader.shortName }}">
+                                {% else %}
+                                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('80x80') }}" alt="">
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section>
+        <div class="container">
+            <div class="trader_info">
+                <div class="information">
+                    <div class="image">
+                        {% if trader.imageName %}
+                        <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('178x178') }}" alt="{{ trader.shortName }}">
+                        {% else %}
+                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('178x178') }}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="contains">
+                        <div class="top">
+                            <div class="name">
+                                {{ trader.shortName }}
+                            </div>
+                            <div class="subname">
+                                {{ trader.fullName }}
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <div class="name">
+                                {{ 'Обновление товаров'|trans({}, 'front.traders') }}
+                            </div>
+                            <div class="date">
+                                {{ trader.resetTime | date('H:m:s') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loality">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th colspan="4" class="loality_header">
+                                {{ 'Лояльность'|trans({}, 'front.traders') }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'Уровень лояльности'|trans({}, 'front.traders') }}
+                            </th>
+                            <th>
+                                {{ 'Уровень игрока'|trans({}, 'front.traders') }}
+                            </th>
+                            <th>
+                                {{ 'Уровень отношения'|trans({}, 'front.traders') }}
+                            </th>
+                            <th>
+                                {{ 'Сумма оборота ₽'|trans({}, 'front.traders') }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for level in levels %}
+                        <tr>
+                            <td>
+                                {{ 'Уровень'|trans({}, 'front.traders') }} {{ level.level }}
+                            </td>
+                            <td>
+                                {{ level.requiredPlayerLevel }}
+                            </td>
+                            <td>
+                                {{ level.requiredReputation }}
+                            </td>
+                            <td>
+                                {{ level.requiredSales | number_format(0, ' ', ' ') }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="block">
+                <div class="tabs">
+                    <div class="switchers">
+                        <div class="switcher active" data-tab="tab_1">
+                            {{ 'Квесты'|trans({}, 'front.traders') }}
+                        </div>
+                        <div class="switcher" data-tab="tab_2">
+                            {{ 'Товары'|trans({}, 'front.traders') }}
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tab active" id="tab_1">
+                            <div class="quests">
+                                {% for quest in quests %}
+                                <a href="{{ absolute_url(path('app_quests', {})) }}/{{ quest.slug }}/" class="quest">
+                                    <div class="image">
+                                        {% if quest.imageName %}
+                                            <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.title }}">
+                                        {% else %}
+                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('250x148') }}" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div class="name">{{ quest.title }}</div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="tab" id="tab_2">2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </div>
+{% endblock %}

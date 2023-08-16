@@ -1,0 +1,19 @@
+fos_ck_editor:
+    base_path: '../bundles/fosckeditor'
+    js_path:   '../bundles/fosckeditor/ckeditor.js'
+    default_config: eft_config
+    configs:
+        eft_config:
+            toolbar: [
+                [ 'Undo', 'Redo' ],
+                [ 'Styles', 'Format' ],
+                [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ],
+                [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ],
+                [ 'Link', 'Unlink' ],
+                [ 'Image', 'Table' ],
+                [ 'Maximize' ],
+                [ 'Scayt' ]
+            ]
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

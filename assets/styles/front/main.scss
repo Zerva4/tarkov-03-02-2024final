@@ -1,0 +1,342 @@
+.main {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    margin-top: 32px;
+
+    @media (min-width:320px) and (max-width:1080px) {
+        display: block;
+        padding: 0;
+    }
+
+    .directions {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        gap: 24px;
+        margin-right: 120px;
+        flex: 1;
+
+        @media (min-width:320px) and (max-width:1080px) {
+            margin: 24px 0;
+            gap: 8px;
+        }
+
+        .item {
+            flex: 1;
+            display: flex;
+            flex-flow: column nowrap;
+            height: 280px;
+            text-align: center;
+            background: #151515;
+            border: 1px solid #151515;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+            padding: 16px;
+
+            @media (min-width:320px) and (max-width:1080px) {
+                height: 190px;
+            }
+
+            .image {
+                flex: 1;
+                position: relative;
+                margin-bottom: 32px;
+                display: block;
+
+                img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            .name {
+                text-transform: uppercase;
+                font-size: 24px;
+
+                @media (min-width:320px) and (max-width:1080px) {
+                    font-size: 14px;
+                }
+            }
+
+            &:hover {
+                border: 1px solid #DF870A;
+            }
+        }
+    }
+
+    .now {
+        width: calc(50% - 120px);
+
+        @media (min-width:320px) and (max-width:1080px) {
+            width: 100%;
+        }
+
+        .main_information {
+            padding: 16px;
+            background: #151515;
+            border-radius: 5px;
+
+            @media (min-width:320px) and (max-width:1080px) {
+                padding: 0;
+                padding-top: 9px;
+            }
+
+            .windows {
+                @media (min-width:320px) and (max-width:1080px) {
+                    margin: 0 16px 0 16px;
+                }
+
+                .window {
+                    display: none;
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        bottom: -1px;
+                        height: 8px;
+                        width: calc(100% - 7px);
+                        background: #1E1E1E;
+                    }
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        right: 7px;
+                        bottom: -1px;
+                        height: 161px;
+                        width: 8px;
+                        background: #151515;
+                    }
+
+                    &.active {
+                        display: block;
+                    }
+
+                    .name {
+                        font-size: 24px;
+                        color: #DF870A;
+
+                        @media (min-width:320px) and (max-width:1080px) {
+                            font-size: 15px;
+                        }
+                    }
+
+                    .subname {
+                        color: #828282;
+                    }
+
+                    .contains {
+                        height: 160px;
+                        overflow-y: auto;
+                        background: #1E1E1E;
+                        margin-bottom: 16px;
+                        padding: 8px 16px 16px 8px;
+                        margin-top: 8px;
+
+                        &::-webkit-scrollbar {
+                            width: 7px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            background: #1E1E1E;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: #DF870A;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+            }
+
+            .selects {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: center;
+                gap: 36px;
+
+                @media (min-width:320px) and (max-width:1080px) {
+                    border-radius: 0px 0px 5px 5px;
+                    gap: 0;
+                    overflow: hidden;
+                }
+
+                .select {
+                    text-decoration: underline;
+                    position: relative;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+
+                    @media (min-width:320px) and (max-width:1080px) {
+                        padding: 8px 32px;
+                        text-decoration: none;
+                        font-size: 16px;
+                        flex: 1;
+                        text-align: center;
+                    }
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 4px;
+                        height: 1em;
+                        width: 1px;
+                        right: -17px;
+                        background: #fff;
+
+                        @media (min-width:320px) and (max-width:1080px) {
+                            display: none;
+                        }
+                    }
+
+                    &:last-child::after {
+                        display: none;
+                    }
+
+                    &.active {
+                        color: #DF870A;
+                        text-decoration: none;
+
+                        @media (min-width:320px) and (max-width:1080px) {
+                            color: #fff !important;
+                            background: #DF870A;
+                            border-radius: 5px;
+                        }
+                    }
+
+                    &:hover {
+                        color: #DF870A;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.traders_main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 24px;
+
+    @media (min-width:320px) and (max-width:1080px) {
+        gap: 24px 12px;
+    }
+
+    .trader {
+        .name {
+            font-size: 20px;
+            margin: 4px 0;
+
+            @media (min-width:320px) and (max-width:1080px) {
+                font-size: 16px;
+                margin: 4px 0;
+            }
+        }
+
+        .links {
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 10px;
+
+            .link {
+                display: block;
+                color: #828282 !important;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    color: #DF870A !important;
+                }
+            }
+        }
+
+        .image {
+            img {
+                width: 100px;
+                height: auto;
+
+                @media (min-width:320px) and (max-width:1080px) {
+                    width: 110px;
+                }
+            }
+        }
+    }
+}
+
+.articles_header {
+    @media (min-width:320px) and (max-width:1080px) {
+        text-align: center;
+    }
+}
+
+.articles {
+    border-radius: 5px 5px 0px 0px;
+    overflow: hidden;
+
+    .article {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        background: #151515;
+        border-bottom: 2px solid #070707;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #1E1E1E;
+        }
+
+        .date {
+            padding: 8px 16px;
+            font-size: 16px;
+            align-self: center;
+        }
+
+        .contains {
+            flex: 1;
+            padding: 16px 16px;
+
+            .name {
+                color: #DF870A;
+
+                @media (min-width:320px) and (max-width:1080px) {
+                    font-size: 16px;
+                }
+            }
+
+            .text {
+                @media (min-width:320px) and (max-width:1080px) {
+                    display: none;
+                }
+            }
+        }
+
+        .image {
+            width: 180px;
+            min-height: 90px;
+            height: auto;
+            position: relative;
+
+            @media (min-width:320px) and (max-width:1080px) {
+                display: none;
+            }
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
