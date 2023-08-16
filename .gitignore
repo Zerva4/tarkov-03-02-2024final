@@ -56,5 +56,4 @@ yarn-error.log
 ###< liip/imagine-bundle ###
 /public/assets/
 /public/storage/cache/
-/public/storage/images/
 /composer.lock
