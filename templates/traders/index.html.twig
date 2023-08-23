@@ -13,7 +13,7 @@
                             </div>
                         </div>
                         <div class="text">
-                            <div class="traders">
+                            <div class="traders" data-turbo="true">
                                 {% for trader in traders %}
                                 <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="trader">
                                     {% if trader.imageName %}
