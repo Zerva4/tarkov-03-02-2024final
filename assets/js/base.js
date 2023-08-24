@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-	try {
-		let mobile_menu_btn = document.querySelector('.mobile_menu_btn');
+	// try {
+	// 	let mobile_menu_btn = document.querySelector('.mobile_menu_btn');
+	//
+	// 	mobile_menu_btn.addEventListener('click', (e) => openMobileMenu(e));
+	// }
+	// catch { }
 
-		mobile_menu_btn.addEventListener('click', (e) => openMobileMenu(e));
-	}
-	catch { }
-
-	try {
-		let menu_mobile_close = document.querySelector('#menu_mobile_close');
-
-		menu_mobile_close.addEventListener('click', (e) => closeMobileMenu(e));
-	}
-	catch { }
+	// try {
+	// 	let menu_mobile_close = document.querySelector('#menu_mobile_close');
+	//
+	// 	menu_mobile_close.addEventListener('click', (e) => closeMobileMenu(e));
+	// }
+	// catch { }
 
 	try {
 		let reference_btns = document.querySelectorAll('.reference .header');
