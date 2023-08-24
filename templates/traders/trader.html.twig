@@ -121,7 +121,7 @@
                     </div>
                     <div class="wrapper">
                         <div class="tab active" id="tab_1">
-                            <div class="quests">
+                            <div class="quests" data-turbo="true">
                                 {% for quest in quests %}
                                 <a href="{{ absolute_url(path('app_quests', {})) }}/{{ quest.slug }}/" class="quest">
                                     <div class="image">
