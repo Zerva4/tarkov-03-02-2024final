@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Quest;
 
+use App\Entity\Map;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Quest\QuestInterface;
@@ -186,8 +187,8 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
     public function addMap(MapInterface ...$maps): QuestObjectiveInterface
     {
         foreach ($maps as $map) {
-            if (!$this->maps->contains($maps)) {
-                $this->maps->add($maps);
+            if (!$this->maps->contains($map)) {
+                $this->maps->add($map);
                 //$objective->setQuest($this);
             }
         }

@@ -5,7 +5,7 @@
         <section>
             <div class="container">
                 <div class="main">
-                    <div class="directions">
+                    <div class="directions" data-turbo="true">
                         <a href="#" class="item">
                             <div class="image">
                                 <img src="{{ asset('assets/img/bullets_main.svg') }}" alt="">
@@ -151,7 +151,7 @@
                 <h2 class="center">{{ 'Торговцы'|trans({}, 'front.home') }}</h2>
                 <div class="traders_main">
                     {% for trader in traders %}
-                        <div class="trader">
+                        <div class="trader" data-turbo="true">
                             <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/" class="image">
                                 {% if trader.imageName %}
                                     <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('118x118') }} " alt="{{ trader.shortName }}" />

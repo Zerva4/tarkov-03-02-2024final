@@ -1,13 +1,13 @@
 <nav>
     <div class="container">
-        <div class="navbar">
+        <div class="navbar" data-turbo="true">
             <a href="{{ absolute_url(path('app_home', {})) }}" class="logo">
 
             </a>
             <div class="mobile_filler"></div>
             <div class="mobile_menu_btn"></div>
 
-            <div class="menu">
+            <div class="menu" data-turbo="true">
                 <div class="item">
                     <a href="{{ absolute_url(path('app_bullets', {})) }}">{{ 'Боеприпасы'|trans({}, 'front.nav') }}</a>
                 </div>
@@ -35,7 +35,7 @@
 
             <div class="mobile_menu">
                 <div class="close" id="menu_mobile_close"></div>
-                <div class="top">
+                <div class="top" data-turbo="true">
                     <div class="item active">
                         <a href="{{ absolute_url(path('app_bullets', {})) }}" class="itemlink">
                             <div class="itemlogo">
