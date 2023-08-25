@@ -6,6 +6,7 @@ namespace App\Repository\Trader;
 
 use App\Entity\Trader\Trader;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -54,15 +55,14 @@ class TraderRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findTraderBySlug(string $traderSlug, int $mode = AbstractQuery::HYDRATE_OBJECT): mixed
+    public function findAllTradersWithCountCashOffer(int $mode = AbstractQuery::HYDRATE_OBJECT)
     {
         return $this->createQueryBuilder('t')
-            ->select('t.id, t.slug, t.imageName, lang.shortName AS shortName, lang.fullName AS fullName')
+            ->select('t.id, t.slug, t.imageName, t.resetTime, lang.shortName AS shortName, lang.fullName AS fullName, count(t.cashOffers)')
             ->leftJoin('t.translations', 'lang')
+            ->addSelect('count(t.cashOffers)')
             ->andWhere('t.published = true')
-            ->andWhere('t.slug = :slug')
-            ->addOrderBy('t.position', 'ASC')
-            ->setParameter('slug', $traderSlug)
+            ->addOrderBy('t.position', Criteria::ASC)
             ->getQuery()
             ->getResult($mode)
         ;
