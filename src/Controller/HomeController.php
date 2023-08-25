@@ -14,7 +14,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(TraderRepository $traderRepository, ArticleRepository $articleRepository): Response
     {
-        $tradersList = $traderRepository->findAllTraders();
+        $tradersList = $traderRepository->findAll();
         $articlesList = $articleRepository->findLastHomeArticles(3);
 
         return $this->render('home/index.html.twig', [
