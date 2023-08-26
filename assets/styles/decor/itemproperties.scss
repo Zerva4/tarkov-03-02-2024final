@@ -1,0 +1,70 @@
+
+.items_content{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.item_content{
+	align-items: center;
+	display: flex;
+	height: 84px;
+	padding: 2px;
+	width: 84px;
+	position: relative;
+	justify-content: center;
+
+	&_img {
+		max-height: 64px;
+		max-width: 64px;
+		border: 1px solid#474747;
+
+		&__name{
+			display: flex;
+			flex-direction: column;
+			font-size: 14px;
+			align-items: center;
+
+			&__short{
+				position: absolute;
+				top: 8px;
+				right: 12px;
+			}
+			&__count{
+				position: absolute;
+				bottom: 11px;
+				left: 12px;
+			}
+		}
+
+		&:hover{
+			border: 1px solid $orange;
+		}
+	}
+
+}
+
+.item_bg{
+	&__meds{
+		background-color: #2c1c12;
+	}
+	&__stream{
+		background-color: #271c29;
+	}
+	&__info{
+		background-color: #172025;
+	}
+	&__spec{
+		background-color: #1e130c;
+	}
+	&__mods{
+		background-color: #31301d;
+	}
+	&__null{
+		background-color: #29291e;
+	}
+}
+
+// reward
+// null
+// barter
+// craft
