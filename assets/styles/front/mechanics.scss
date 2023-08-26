@@ -1,4 +1,5 @@
 .body_container {
+
   .container {
     @media (max-width: 835px) {
       padding: 0;
@@ -14,6 +15,12 @@
 
   .invisible {
     display: none;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
   }
 }
 
@@ -124,7 +131,9 @@
         position: absolute;
         background-color: rgba(21, 21, 21, 1);
         border-radius: 0 0 5px 5px;
-        max-height: 230px;
+        border-bottom: 1px solid #df870a;
+        border-right: 1px solid #df870a;
+        max-height: 295px;
         transform: scaleY(1);
         opacity: 1;
         transition: all 0.3s ease;
@@ -268,7 +277,7 @@
       cursor: pointer;
       border: 1px solid rgba(223, 135, 10, 0);
       @media (max-width: 630px) {
-        width: 379px;
+        width: 349px;
         height: 230px;
       }
 
@@ -284,17 +293,19 @@
         display: none;
         @media (max-width: 630px) {
           display: block;
+          width: 347px;
+          height: 80px;
         }
       }
 
       .card {
-        padding: 2px 9px 11px;
+        padding: 8px 8px 12px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 182px;
         @media (max-width: 630px) {
-          padding: 2px 17px 18px;
+          padding: 8px 16px 12px;
           height: 152px;
         }
 
@@ -310,8 +321,7 @@
 
           .description {
             margin: 5px 0 0;
-            font-style: normal;
-            font-weight: 400;
+            font-weight: 300;
             font-size: 14px;
             line-height: 17px;
           }
@@ -338,9 +348,8 @@
             column-gap: 9px;
 
             .timer__text {
-              font-style: normal;
-              font-weight: 400;
-              font-size: 16px;
+              font-weight: 300;
+              font-size: 14px;
               line-height: 19px;
               margin: 0;
               text-align: center;
@@ -348,10 +357,23 @@
           }
         }
       }
+      &_sherpa {
+        &:hover{
+          border: 1px solid #77b139;
+        }
+      }
+      &_premium{
+        border: 1px solid #c37609;
+        &:hover{
+          border: 1px solid #df870a;
+        }
+      }
+      &_null{
+        &:hover{
+          border: 1px solid #df870a;
+        }
+      }
     }
 
-    .item:hover {
-      border: 1px solid rgba(223, 135, 10, 1);
-    }
   }
 }

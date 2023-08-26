@@ -1,10 +1,12 @@
 .information {
     display: flex;
-    flex-flow: row nowrap;
+    flex-direction: row;
 
     @media (min-width: 320px) and (max-width: 1080px) {
-        display: flex;
-        flex-flow: column-reverse nowrap;
+        flex-direction: column-reverse;
+    }
+    h1 {
+        margin: 0;
     }
 
     .tasks {
@@ -13,7 +15,6 @@
 
         @media (min-width: 320px) and (max-width: 1080px) {
             padding: 0;
-            flex: none;
         }
 
         .list {
@@ -21,77 +22,7 @@
 
             .item {
                 line-height: 1.5;
-
-                .popped {
-                    color: #DF870A;
-                    cursor: pointer;
-                    position: relative;
-
-                    .pop {
-                        position: absolute;
-                        width: 280px;
-                        left: calc(-140px + 50%);
-                        top: calc(100% + 15px);
-                        background: #151515;
-                        border-width: 0px 1px 1px 0px;
-                        border-style: solid;
-                        border-color: #DF870A;
-                        border-radius: 10px;
-                        padding: 16px;
-                        z-index: 300;
-                        visibility: hidden;
-                        opacity: 0;
-                        transform: translate(0%, 5%);
-                        transition: all 0.2s ease;
-
-                        .image {
-                            height: 65px;
-                            position: relative;
-
-                            img {
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                width: 100%;
-                                height: 100%;
-                                object-fit: contain;
-                            }
-                        }
-
-                        .text {
-                            font-size: 13px;
-                            color: #fff;
-                        }
-
-                        .link {
-                            display: block;
-                            color: #DF870A !important;
-                            font-size: 13px;
-                            text-align: right;
-                        }
-
-                        &:before {
-                            position: absolute;
-                            bottom: 100%;
-                            left: 120px;
-                            width: 0;
-                            height: 0;
-                            border: 0 solid transparent;
-                            border-right-width: 15px;
-                            border-left-width: 15px;
-                            border-bottom: 18px solid #151515;
-                            content: "";
-                        }
-                    }
-
-                    &:hover {
-                        .pop {
-                            visibility: visible;
-                            opacity: 1;
-                            transform: translate(0%, 0%);
-                        }
-                    }
-                }
+                font-size: 14px;
             }
         }
     }
@@ -99,35 +30,38 @@
     .card {
         flex: 2;
 
-        @media (min-width: 320px) and (max-width: 1080px) {
-            padding: 0;
-            flex: none;
+        @media (min-width: 600px) and (max-width: 1080px) {
+            display: flex;
+            width: 100%;
+            justify-content: center;
         }
 
         .image {
             img {
+                flex: 1;
                 width: 100%;
-                height: auto;
+                overflow: hidden;
+                @media (min-width: 320px) and (max-width: 600px) {
+                    display: flex;
+                    flex-direction: column;
+                }
             }
         }
 
         .text {
             background: #151515;
             border-radius: 0px 0px 10px 10px;
-            padding: 8px 16px;
+            padding: 8px 24px;
+            min-width: 258px;
 
             .item {
                 padding: 4px 0;
                 display: flex;
+                justify-content: space-between;
                 flex-flow: row nowrap;
 
                 .name {
-                    flex: 4;
                     color: #DF870A;
-                }
-
-                .value {
-                    flex: 1;
                 }
             }
         }
@@ -135,27 +69,24 @@
 }
 
 .execution {
-    padding: 16px;
+    padding: 8px 32px;
     background: #151515;
     border-radius: 10px;
 
     .locations {
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: row wrap;
         justify-content: center;
         gap: 16px;
         margin-top: 16px;
-
-        @media (min-width: 320px) and (max-width: 1080px) {
-            flex-flow: column nowrap;
-        }
 
         .location {
             flex: 0 0 220px;
 
             @media (min-width: 320px) and (max-width: 1080px) {
-				flex: 1;
-			}
+                flex: 1;
+                flex: 0 0 128px;
+            }
 
             .image {
                 margin-bottom: 9px;
@@ -177,10 +108,9 @@
 .dialog {
     display: flex;
     flex-flow: row nowrap;
-    padding: 16px;
+    padding: 8px 32px;
     background: #151515;
     border-radius: 10px;
-    margin-bottom: 200px;
 
     @media (min-width: 320px) and (max-width: 1080px) {
         display: flex;
@@ -205,7 +135,7 @@
             position: relative;
             width: 120px;
             height: 120px;
-    
+
             img {
                 position: absolute;
                 top: 0;
@@ -264,7 +194,7 @@
                     width: 100%;
                     height: 1px;
                     content: "";
-                    background: #fff;
+                    background: #DF870A;
                 }
             }
 
@@ -273,6 +203,7 @@
                     display: block;
                     background: rgba(223, 135, 10, 0.17);
                     border-radius: 10px;
+                    color: #FFFFFF !important;
                     padding: 10px 15px;
                     margin: 13px 0;
                     position: relative;
@@ -306,10 +237,10 @@
                     border-radius: 10px;
                     padding: 10px 15px;
                     margin: 13px 0;
+                    color: #828282 !important;
                     position: relative;
                     overflow: hidden;
                     text-align: center;
-                    color: #828282 !important;
 
                     &:after {
                         position: absolute;
@@ -331,7 +262,7 @@
     flex-flow: row nowrap;
     gap: 8px;
     align-items: center;
-    
+
     .header_lock_icon {
         width: 14px;
         height: 14px;
