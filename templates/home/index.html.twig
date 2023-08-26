@@ -164,9 +164,7 @@
                             </div>
                             <div class="links">
                                 <a href="{{ absolute_url(path('app_quests', {})) }}/{{ trader.slug }}" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
-                                {% if trader.cashOffers.count > 0 %}
                                     <a href="{{ absolute_url(path('app_items', {})) }}/{{ trader.slug }}" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
-                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
