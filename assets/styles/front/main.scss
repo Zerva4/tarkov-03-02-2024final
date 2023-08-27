@@ -254,10 +254,12 @@
     @media (min-width:320px) and (max-width:1080px) {
         gap: 24px 12px;
     }
+    a {
+        color: #fff !important;
+    }
 
     .trader {
         .name {
-            color: #fff !important;
             font-size: 20px;
             margin: 4px 0;
 
