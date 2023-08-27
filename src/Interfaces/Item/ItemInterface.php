@@ -26,24 +26,24 @@ interface ItemInterface
     /**
      * @return string|null
      */
-    public function getTypeProperties(): ?string;
+    public function getTypeItem(): ?string;
 
     /**
      * @param string $typeProperties
      * @return ItemInterface
      */
-    public function setTypeProperties(string $typeProperties): ItemInterface;
+    public function setTypeItem(string $typeProperties): ItemInterface;
 
     /**
      * @return array|null
      */
-    public function getProperties(): ?array;
+    public function getProperties(): ?ItemPropertiesInterface;
 
     /**
-     * @param array|null $properties
+     * @param ItemPropertiesInterface|null $properties
      * @return ItemInterface
      */
-    public function setProperties(?array $properties): ItemInterface;
+    public function setProperties(?ItemPropertiesInterface $properties): ItemInterface;
 
     /**
      * @return bool
@@ -123,39 +123,6 @@ interface ItemInterface
     public function setBackgroundColor(?string $backgroundColor): ItemInterface;
 
     /**
-     * @return float|null
-     */
-    public function getAccuracyModifier(): ?float;
-
-    /**
-     * @param float|null $accuracyModifier
-     * @return ItemInterface
-     */
-    public function setAccuracyModifier(?float $accuracyModifier): ItemInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getRecoilModifier(): ?float;
-
-    /**
-     * @param float|null $recoilModifier
-     * @return ItemInterface
-     */
-    public function setRecoilModifier(?float $recoilModifier): ItemInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getErgonomicsModifier(): ?float;
-
-    /**
-     * @param float|null $ergonomicsModifier
-     * @return ItemInterface
-     */
-    public function setErgonomicsModifier(?float $ergonomicsModifier): ItemInterface;
-
-    /**
      * @return bool
      */
     public function isHasGrid(): bool;
@@ -167,17 +134,6 @@ interface ItemInterface
     public function setHasGrid(bool $hasGrid): ItemInterface;
 
     /**
-     * @return bool
-     */
-    public function isBlocksHeadphones(): bool;
-
-    /**
-     * @param bool $blocksHeadphones
-     * @return ItemInterface
-     */
-    public function setBlocksHeadphones(bool $blocksHeadphones): ItemInterface;
-
-    /**
      * @return float|null
      */
     public function getWeight(): ?float;
@@ -187,28 +143,6 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function setWeight(?float $weight): ItemInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getVelocity(): ?float;
-
-    /**
-     * @param float|null $velocity
-     * @return ItemInterface
-     */
-    public function setVelocity(?float $velocity): ItemInterface;
-
-    /**
-     * @return int|null
-     */
-    public function getLoudness(): ?int;
-
-    /**
-     * @param int|null $loudness
-     * @return ItemInterface
-     */
-    public function setLoudness(?int $loudness): ItemInterface;
 
     /**
      * @return Collection
