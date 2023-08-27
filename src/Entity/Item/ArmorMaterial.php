@@ -15,6 +15,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'armor_materials', options: ['comment' => 'Таблица для материалов брони'])]
+#[ORM\Index(columns: ['api_id'], name: 'armor_materials_api_key_idx')]
 #[ORM\Entity(repositoryClass: ArmorMaterialRepository::class)]
 class ArmorMaterial implements ArmorMaterialInterface, UuidPrimaryKeyInterface, TimestampableInterface, TranslatableInterface
 {
@@ -22,7 +23,7 @@ class ArmorMaterial implements ArmorMaterialInterface, UuidPrimaryKeyInterface, 
     use TimestampableTrait;
     use TranslatableTrait;
 
-    #[ORM\Column(type: 'string', length: 32, nullable: false, options: ['default' => '', 'comment' => 'Идентификатор API'])]
+    #[ORM\Column(type: 'string', length: 32, unique: true, nullable: false, options: ['default' => '', 'comment' => 'Идентификатор API'])]
     private string $apiId;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Разрушаемость'])]
