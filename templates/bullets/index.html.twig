@@ -2,5 +2,2597 @@
 
 {% block content %}
     <div class="content">
+        <section>
+            <div class="container">
+                <div class="mobile_ammo_chooser_btn">
+                    Боеприпасы
+                    <div class="icon">
+                    </div>
+                </div>
+                <div class="ammo_chooser">
+                    <div class="wrapper">
+                        <div class="ammo active">9x18</div>
+                        <div class="ammo">9x19</div>
+                        <div class="ammo">9x21</div>
+                        <div class="ammo">.357 Magnum</div>
+                        <div class="ammo">.45 ACP</div>
+                        <div class="ammo">4.6x30 HK</div>
+                        <div class="ammo">5.7x28 FN</div>
+                        <div class="ammo">7.62x25</div>
+                        <div class="ammo">12x70</div>
+                        <div class="ammo">20x70</div>
+                        <div class="ammo">23x75</div>
+                        <div class="ammo">.300 Blackout</div>
+                        <div class="ammo">.338 Lapua</div>
+                        <div class="ammo">.366 TKM</div>
+                        <div class="ammo">5.45x39</div>
+                        <div class="ammo">5.56x45</div>
+                        <div class="ammo">7.62x39</div>
+                        <div class="ammo">7.62x51</div>
+                        <div class="ammo">7.62x54</div>
+                        <div class="ammo">9x39</div>
+                        <div class="ammo">12.7x55</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="caliber active" data-caliber="9x18">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="th_bullet">
+                                Название
+                            </th>
+                            <th class="th_damage">
+                                Урон
+                            </th>
+                            <th class="th_armor_pen">
+                                Бронепробитие
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref ref_tdhead">
+                                        Больше полезной информации в статье<br>
+                                        <a href="#.html">Подробнее...</a>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="no_mobile th_armor_dam">
+                                Урон<br>по броне
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref ref_tdhead">
+                                        Значение расчета урона по броне<br>
+                                        <a href="#.html">Подробнее...</a>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="no_mobile th_speed">
+                                Скорость
+                            </th>
+                            <th class="no_mobile th_options">
+                                Дополнительные свойства
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ СП8 гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">67</td>
+                            <td class="td_armor_pen">1</td>
+                            <td class="no_mobile td_armor_dam">2%</td>
+                            <td class="no_mobile td_speed">250 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Сильное кровотечение</div>
+                                            <div class="value">10%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">60%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">0.8%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.16%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.855%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">2%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">250 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ СП7 гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">77</td>
+                            <td class="td_armor_pen">2</td>
+                            <td class="no_mobile td_armor_dam">5%</td>
+                            <td class="no_mobile td_speed">420 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">25%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Сильное кровотечение</div>
+                                            <div class="value">10%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">5%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.19%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.934%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">5%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">420 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ ПСВ</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">69</td>
+                            <td class="td_armor_pen">3</td>
+                            <td class="no_mobile td_armor_dam">5%</td>
+                            <td class="no_mobile td_speed">280 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">25%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Сильное кровотечение</div>
+                                            <div class="value">10%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">5%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.19%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.934%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">5%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">280 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ П гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">50</td>
+                            <td class="td_armor_pen">5</td>
+                            <td class="no_mobile td_armor_dam">16%</td>
+                            <td class="no_mobile td_speed">302 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">10%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">25%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.929%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">16%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">302 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ ПСО гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">54</td>
+                            <td class="td_armor_pen">5</td>
+                            <td class="no_mobile td_armor_dam">13%</td>
+                            <td class="no_mobile td_speed">315 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">25%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.906%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                    <div class="item">
+                                        <span class="property">Точность:</span>
+                                        <span class="value">+10%</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">13%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">315 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ ПС гс ППО</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">55</td>
+                            <td class="td_armor_pen">6</td>
+                            <td class="no_mobile td_armor_dam">16%</td>
+                            <td class="no_mobile td_speed">330 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">25%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.917%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">16%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">330 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ ПРС гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">58</td>
+                            <td class="td_armor_pen">6</td>
+                            <td class="no_mobile td_armor_dam">16%</td>
+                            <td class="no_mobile td_speed">302 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">30%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.900%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">16%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">302 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ Ппе гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">61</td>
+                            <td class="td_armor_pen">7</td>
+                            <td class="no_mobile td_armor_dam">16%</td>
+                            <td class="no_mobile td_speed">297 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">35%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.926%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">15%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">297 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ ППТ гж</div>
+                                    </div>
+                                    <div class="options">трасер</div>
+                                </div>
+                            </td>
+                            <td class="td_damage">59</td>
+                            <td class="td_armor_pen">8</td>
+                            <td class="no_mobile td_armor_dam">22%</td>
+                            <td class="no_mobile td_speed">301 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">16%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1.15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">1.031%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                    <div class="item">
+                                        <span class="property">Точность:</span>
+                                        <span class="value">-5%</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="property">Отдача:</span>
+                                        <span class="value">-7%</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">22%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">301 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ Пст гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">50</td>
+                            <td class="td_armor_pen">12</td>
+                            <td class="no_mobile td_armor_dam">26%</td>
+                            <td class="no_mobile td_speed">298 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">20%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1.15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">1.037%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">26%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">298 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ РГО28 гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">65</td>
+                            <td class="td_armor_pen">13</td>
+                            <td class="no_mobile td_armor_dam">26%</td>
+                            <td class="no_mobile td_speed">330 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">2%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1.15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">0.923%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">26%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">330 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ БЖТ гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">53</td>
+                            <td class="td_armor_pen">18</td>
+                            <td class="no_mobile td_armor_dam">28%</td>
+                            <td class="no_mobile td_speed">325 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Сильное кровотечение</div>
+                                            <div class="value">10%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">17%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1.15%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">1.043%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">28%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">325 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ ПстМ гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">53</td>
+                            <td class="td_armor_pen">24</td>
+                            <td class="no_mobile td_armor_dam">28%</td>
+                            <td class="no_mobile td_speed">325 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">17%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1.6%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">1.083%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                    <div class="item">
+                                        <span class="property">Точность:</span>
+                                        <span class="value">+5%</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">33%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">420 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        <img src="media/ammo.png" alt=""></div>
+                                    <div class="name">
+                                        <div class="name_main">9x18мм ПМ ПБМ гж</div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">40</td>
+                            <td class="td_armor_pen">28</td>
+                            <td class="no_mobile td_armor_dam">30%</td>
+                            <td class="no_mobile td_speed">519 м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">16%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">1.7%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">0.11%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">1.14%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">50</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                    <div class="item">
+                                        <span class="property">Точность:</span>
+                                        <span class="value">+4%</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">30%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">519 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="caliber" data-caliber="no_data">
+                    <div class="no_data">
+                        Нет данных
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <!-- Collapsing block -->
+                <div class="reference">
+                    <div class="header">
+                        <h2 class="h">Справка</h2>
+                        <div class="line"></div>
+                        <div class="btn">
+                        </div>
+                    </div>
+                    <div class="text">
+                        <p>
+                            Представленные данные внутри таблицы являются номинальными значениями. Это означает,
+                            что таблица не учитывает множество переменных: понижающий коэффициент брони, который
+                            относится и к урону, и к бронепробитию; начальную скорость оружия; дистанцию до цели;
+                            различные механики, связанные с погодными условиями игры.
+                            <br>
+                            Подробнее со всеми тонкостиями можно ознакомиться
+                            на соответсвующих <a href="mechanics.html">страницах механик</a>.
+                        </p>
+                        <p>
+							<span class="hl"> PRO-раздел представляет собой дополнительную информацию по характеристикам патрона,
+							а также предлагает готовый расчет следующих характеристик</span>:
+                            <br>
+                            <span class="hl">• Пробитие</span> — шанс пробития (%) патроном класс брони от 1 до 6. Шанс соответсвует
+                            первому попаданию пулей.
+                            <br>
+                            <span class="hl">• Урон по броне</span> — количество очков прочности, которое наносится по броне от 1 до 6 класса,
+                            без учета материала брони. Иными словами указан чистый урон по броне.
+                            <br>
+                            <span class="hl">• Настильность</span> — способность лететь по прямой траектории, не требующее дополнительного
+                            изменение пристрелки оружия. Определяется тремя уровнями, где 3 уровень означает минимальное требование к пристрелке оружия.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 {% endblock %}
