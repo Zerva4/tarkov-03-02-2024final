@@ -80,12 +80,12 @@ class ImportItemsMaterialsCommand extends Command
 
             if ($materialEntity instanceof ItemMaterial) {
                 $materialEntity->setDefaultLocale($lang);
-                $materialEntity->translate($lang, false)->setTitle($material['name']);
+                $materialEntity->translate($lang, false)->setName($material['name']);
             } else {
                 /** @var ItemMaterialInterface $traderEntity */
                 $materialEntity = new ItemMaterial();
                 $materialEntity->setDefaultLocale($lang);
-                $materialEntity->translate($lang, false)->setTitle($material['name']);
+                $materialEntity->translate($lang, false)->setName($material['name']);
                 $materialEntity->setApiId($material['id']);
                 $materialEntity->setPublished(true);
             }

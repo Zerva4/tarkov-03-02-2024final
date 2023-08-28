@@ -161,7 +161,7 @@ class ImportPlacesCommand extends Command
             $placeEntity->setOrderPlace($order);
             $placeEntity->setSlug($place['normalizedName']);
             $placeEntity->setDefaultLocale($lang);
-            $placeEntity->translate($lang, false)->setTitle($place['name']);
+            $placeEntity->translate($lang, false)->setName($place['name']);
             $placeEntity->mergeNewTranslations();
 
             // Add levels
@@ -232,7 +232,7 @@ class ImportPlacesCommand extends Command
                         $skillEntity->setApiId($skill['id']);
                     }
                     $skillEntity->setDefaultLocale($lang);
-                    $skillEntity->translate($lang, false)->setTitle($skill['name']);
+                    $skillEntity->translate($lang, false)->setName($skill['name']);
                     $skillEntity->mergeNewTranslations();
                     $skillEntity->setLevel((int)$skill['level']);
                     $this->em->persist($skillEntity);

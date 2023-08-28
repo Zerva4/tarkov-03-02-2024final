@@ -102,14 +102,14 @@ class ImportMapsCommand extends Command
 
             if ($mapEntity instanceof Map) {
                 $mapEntity->setDefaultLocale($lang);
-                $mapEntity->translate($lang, false)->setTitle($map['name']);
+                $mapEntity->translate($lang, false)->setName($map['name']);
                 $mapEntity->translate($lang, false)->setDescription($map['description']);
             } else {
                 /** @var MapInterface $mapEntity */
                 $mapEntity = new Map($lang);
                 $mapEntity->setDefaultLocale($lang);
                 /** TranslationInterface */
-                $mapEntity->translate($lang, false)->setTitle($map['name']);
+                $mapEntity->translate($lang, false)->setName($map['name']);
                 $mapEntity->translate($lang, false)->setDescription($map['description']);
             }
             $duration = (new DateTime())->setTimestamp((int)$map['raidDuration']*60);

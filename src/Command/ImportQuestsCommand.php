@@ -178,10 +178,10 @@ class ImportQuestsCommand extends Command
 
             if ($questEntity instanceof Quest) {
                 $questEntity->setDefaultLocale($lang);
-                $questEntity->translate($lang, false)->setTitle($quest['name']);
+                $questEntity->translate($lang, false)->setName($quest['name']);
             } else {
                 $questEntity = new Quest($lang);
-                $questEntity->translate($lang, false)->setTitle($quest['name']);
+                $questEntity->translate($lang, false)->setName($quest['name']);
                 $questEntity->setApiId($quest['id']);
             }
 
