@@ -7,6 +7,7 @@ namespace App\Entity\Item;
 use App\Interfaces\Item\ArmorMaterialInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
+use App\Interfaces\Item\ItemStorageGridInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\ItemPropertiesRepository;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -18,8 +19,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorMap([
     'ItemPropertiesAmmo' => ItemPropertiesAmmo::class,
     'ItemPropertiesArmor' => ItemPropertiesArmor::class,
+    'ItemPropertiesBackpack' => ItemPropertiesBackpack::class,
+    'ItemPropertiesChestRig' => ItemPropertiesChestRig::class,
+    'ItemPropertiesContainer' => ItemPropertiesContainer::class,
+    'ItemPropertiesBarrel' => ItemPropertiesBarrel::class,
     'ItemPropertiesGrenade' => ItemPropertiesGrenade::class,
-    'ItemPropertiesHeadphone' => ItemPropertiesHeadphone::class
+    'ItemPropertiesHeadphone' => ItemPropertiesHeadphone::class,
+    'ItemPropertiesHelmet' => ItemPropertiesHelmet::class
 ])]
 #[ORM\Entity(repositoryClass: ItemPropertiesRepository::class)]
 class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
@@ -33,6 +39,10 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     #[ORM\ManyToOne(targetEntity: ArmorMaterial::class, fetch: 'EAGER', inversedBy: 'properties')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
     private ?ArmorMaterialInterface $material = null;
+
+    #[ORM\ManyToOne(targetEntity: ItemStorageGrid::class, fetch: 'EAGER', inversedBy: 'properties')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
+    private ?ItemStorageGridInterface $grids = null;
 
     public function getItem(): ItemInterface
     {
@@ -54,6 +64,18 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     public function setMaterial(?ArmorMaterialInterface $material): ItemPropertiesInterface
     {
         $this->material = $material;
+
+        return $this;
+    }
+
+    public function getGrids(): ?ItemStorageGridInterface
+    {
+        return $this->grids;
+    }
+
+    public function setGrids(?ItemStorageGridInterface $grids): ItemPropertiesInterface
+    {
+        $this->grids = $grids;
 
         return $this;
     }
