@@ -2,6 +2,8 @@
 
 namespace App\Interfaces\Item;
 
+use Doctrine\Common\Collections\Collection;
+
 interface ArmorMaterialInterface
 {
     public function getApiId(): string;
@@ -18,4 +20,8 @@ interface ArmorMaterialInterface
     public function setMinRepairKitDegradation(float $minRepairKitDegradation): ArmorMaterialInterface;
     public function getMaxRepairKitDegradation(): float;
     public function setMaxRepairKitDegradation(float $maxRepairKitDegradation): ArmorMaterialInterface;
+    public function getProperties(): Collection;
+    public function setProperties(Collection $properties): ArmorMaterialInterface;
+    public function addProperties(ItemPropertiesInterface $properties): ArmorMaterialInterface;
+    public function removeProperties(ItemPropertiesInterface $properties): ArmorMaterialInterface;
 }
