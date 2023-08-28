@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
+use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ArmorMaterialInterface;
+use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\ArmorMaterialRepository;
 use App\Traits\UuidPrimaryKeyTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
@@ -17,10 +21,9 @@ use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 #[ORM\Table(name: 'armor_materials', options: ['comment' => 'Таблица для материалов брони'])]
 #[ORM\Index(columns: ['api_id'], name: 'armor_materials_api_key_idx')]
 #[ORM\Entity(repositoryClass: ArmorMaterialRepository::class)]
-class ArmorMaterial implements ArmorMaterialInterface, UuidPrimaryKeyInterface, TimestampableInterface, TranslatableInterface
+class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface, UuidPrimaryKeyInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
-    use TimestampableTrait;
     use TranslatableTrait;
 
     #[ORM\Column(type: 'string', length: 32, unique: true, nullable: false, options: ['default' => '', 'comment' => 'Идентификатор API'])]
@@ -43,6 +46,15 @@ class ArmorMaterial implements ArmorMaterialInterface, UuidPrimaryKeyInterface, 
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Макс. деградация ремкомплектапри ремонте'])]
     private float $maxRepairKitDegradation;
+
+    private Collection $properties;
+
+    public function __construct(string $defaultLocale = '%app.default_locale%')
+    {
+        parent::__construct($defaultLocale);
+
+        $this->properties = new ArrayCollection();
+    }
 
     public function getApiId(): string
     {
@@ -124,6 +136,38 @@ class ArmorMaterial implements ArmorMaterialInterface, UuidPrimaryKeyInterface, 
     public function setMaxRepairKitDegradation(float $maxRepairKitDegradation): ArmorMaterialInterface
     {
         $this->maxRepairKitDegradation = $maxRepairKitDegradation;
+
+        return $this;
+    }
+
+    public function getProperties(): Collection
+    {
+        return $this->properties;
+    }
+
+    public function setProperties(Collection $properties): ArmorMaterialInterface
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function addProperties(ItemPropertiesInterface $properties): ArmorMaterialInterface
+    {
+        if (!$this->properties->contains($properties)) {
+            $this->properties->add($properties);
+            $properties->setMaterial($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProperties(ItemPropertiesInterface $properties): ArmorMaterialInterface
+    {
+        if ($this->properties->contains($properties)) {
+            $this->properties->removeElement($properties);
+            $properties->setMaterial(null);
+        }
 
         return $this;
     }
