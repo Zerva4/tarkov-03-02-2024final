@@ -14,8 +14,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
-use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
 #[ORM\Table(name: 'armor_materials', options: ['comment' => 'Таблица для материалов брони'])]
@@ -47,6 +45,7 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Макс. деградация ремкомплектапри ремонте'])]
     private float $maxRepairKitDegradation;
 
+    #[ORM\OneToMany(mappedBy: 'material', targetEntity: ItemProperties::class, fetch: 'EAGER')]
     private Collection $properties;
 
     public function __construct(string $defaultLocale = '%app.default_locale%')
