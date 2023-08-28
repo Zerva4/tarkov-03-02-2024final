@@ -43,6 +43,8 @@ class ItemPropertiesHelmet extends ItemProperties implements ItemPropertiesInter
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Защита от ослепления'])]
     private float $blindnessProtection;
 
+    // todo: В будущем добавить slots
+
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => ''])]
     private float $ricochetX;
 
