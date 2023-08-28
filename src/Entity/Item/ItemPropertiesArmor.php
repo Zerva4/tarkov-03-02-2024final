@@ -18,25 +18,25 @@ class ItemPropertiesArmor extends ItemProperties implements ItemPropertiesInterf
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Класс брони'])]
     private int $class;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Долговечность'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Прочность'])]
     private int $durability;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Стоимост ремонта'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Стоимость ремонта за 1 ед.'])]
     private int $repairCost;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Коэффициент снижения скорости'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение скорости в %'])]
     private int $speedPenalty;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Коэффициент снижения поворотливости'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение поворота в %'])]
     private int $turnPenalty;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Коэффициент снижения эргономики'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Снижение эргономик в %'])]
     private int $ergoPenalty;
 
-    #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => 'Части тела'])]
+    #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => 'Защита частей тела'])]
     private ?array $zones = null;
 
-    #[ORM\Column(type: 'string', length: 64, nullable: false, options: ['default' => '', 'comment' => 'Тип брони'])]
+    #[ORM\Column(type: 'string', length: 64, nullable: false, options: ['default' => '', 'comment' => 'Тип защиты'])]
     private string $armorType;
 
     public function getClass(): int
