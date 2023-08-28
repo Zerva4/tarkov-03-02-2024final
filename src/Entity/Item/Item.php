@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Item;
 
 use App\Entity\Quest\QuestKey;
@@ -99,7 +101,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $typeItem;
 
-    #[ORM\OneToOne(mappedBy: 'item', targetEntity: ItemProperties::class)]
+    #[ORM\OneToOne(inversedBy: 'item', targetEntity: ItemProperties::class, cascade: ['persist', 'remove'])]
     private ?ItemPropertiesInterface $properties = null;
 
     /**
@@ -377,7 +379,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function removeContainedItem(ContainedItemInterface $containedItem): ItemInterface
     {
         if ($this->containedItems->contains($containedItem)) {
-            $this->containedItems->add($containedItem);
+            $this->containedItems->removeElement($containedItem);
             $containedItem->setItem(null);
         }
 
@@ -409,7 +411,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function removeCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface
     {
         if ($this->cashOffers->contains($cashOffer)) {
-            $this->cashOffers->add($cashOffer);
+            $this->cashOffers->removeElement($cashOffer);
             $cashOffer->setItem(null);
         }
 
@@ -441,7 +443,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function removeCurrencyCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface
     {
         if ($this->currencyCashOffers->contains($cashOffer)) {
-            $this->currencyCashOffers->add($cashOffer);
+            $this->currencyCashOffers->removeElement($cashOffer);
             $cashOffer->setCurrencyItem(null);
         }
 
