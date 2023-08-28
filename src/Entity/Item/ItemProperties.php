@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Item;
 
 use App\Interfaces\Item\ArmorMaterialInterface;
@@ -16,6 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorMap([
     'ItemPropertiesAmmo' => ItemPropertiesAmmo::class,
     'ItemPropertiesArmor' => ItemPropertiesArmor::class,
+    'ItemPropertiesGrenade' => ItemPropertiesGrenade::class,
+    'ItemPropertiesHeadphone' => ItemPropertiesHeadphone::class
 ])]
 #[ORM\Entity(repositoryClass: ItemPropertiesRepository::class)]
 class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
