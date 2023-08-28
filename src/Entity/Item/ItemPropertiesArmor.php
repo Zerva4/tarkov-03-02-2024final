@@ -2,6 +2,7 @@
 
 namespace App\Entity\Item;
 
+use App\Interfaces\Item\ArmorMaterialInterface;
 use App\Interfaces\Item\ItemPropertiesAmmoInterface;
 use App\Interfaces\Item\ItemPropertiesArmorInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
@@ -35,8 +36,6 @@ class ItemPropertiesArmor extends ItemProperties implements ItemPropertiesInterf
 
     #[ORM\Column(type: 'string', length: 64, nullable: false, options: ['default' => '', 'comment' => 'Тип брони'])]
     private string $armorType;
-
-    // todo: Сдклать связь с материалом брони (ArmorMaterial entity).
 
     public function getClass(): int
     {
