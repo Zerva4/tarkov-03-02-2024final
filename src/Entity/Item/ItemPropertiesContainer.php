@@ -9,6 +9,7 @@ use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Repository\Item\ItemPropertiesContainerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'items_properties_container', options: ['comment' => 'Таблица свойств для контейнера'])]
 #[ORM\Entity(repositoryClass: ItemPropertiesContainerRepository::class)]
 class ItemPropertiesContainer extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesContainerInterface
 {
