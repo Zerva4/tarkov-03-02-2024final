@@ -9,7 +9,7 @@ use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Repository\Item\ItemPropertiesHelmetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Table(name: 'items_properties_headphone', options: ['comment' => 'Таблица свойств для шлемов'])]
+#[ORM\Table(name: 'items_properties_helmet', options: ['comment' => 'Таблица свойств для шлемов'])]
 #[ORM\Entity(repositoryClass: ItemPropertiesHelmetRepository::class)]
 class ItemPropertiesHelmet extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesHelmetInterface
 {
