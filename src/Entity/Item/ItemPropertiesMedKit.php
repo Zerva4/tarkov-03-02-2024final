@@ -21,7 +21,7 @@ class ItemPropertiesMedKit extends ItemProperties implements ItemPropertiesInter
     private int $maxHealPerUse;
 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => 'Зоны излечения'])]
-    private ?array $cures;
+    private ?array $cures = null;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Кол-во очков за слабое кровотечение'])]
     private int $hpCostLightBleeding;
