@@ -29,6 +29,18 @@ class ItemPropertiesMedicalItem extends ItemProperties implements ItemProperties
         $this->defaultLocale = $defaultLocale;
     }
 
+    public function getCures(): ?array
+    {
+        return $this->translate()->getCures();
+    }
+
+    public function setCures(?array $cures): ItemPropertiesMedicalItemInterface
+    {
+        $this->translate()->setCures($cures);
+
+        return $this;
+    }
+
     public function getUses(): int
     {
         return $this->uses;
@@ -49,18 +61,6 @@ class ItemPropertiesMedicalItem extends ItemProperties implements ItemProperties
     public function setUseTime(int $useTime): ItemPropertiesMedicalItemInterface
     {
         $this->useTime = $useTime;
-
-        return $this;
-    }
-
-    public function getCures(): ?array
-    {
-        return $this->translate()->getCures();
-    }
-
-    public function setCures(?array $cures): ItemPropertiesMedicalItemInterface
-    {
-        $this->translate()->setCures($cures);
 
         return $this;
     }
