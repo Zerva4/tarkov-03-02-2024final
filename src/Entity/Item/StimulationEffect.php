@@ -42,6 +42,18 @@ class StimulationEffect extends TranslatableEntity implements StimulationEffectI
         parent::__construct($defaultLocale);
     }
 
+    public function getType(): ?string
+    {
+        return $this->translate()->getType();
+    }
+
+    public function setType(?string $type): StimulationEffectInterface
+    {
+        $this->translate()->setType($type);
+
+        return $this;
+    }
+
     public function getChance(): ?float
     {
         return $this->chance;
@@ -98,6 +110,18 @@ class StimulationEffect extends TranslatableEntity implements StimulationEffectI
     public function setPercent(bool $percent): StimulationEffectInterface
     {
         $this->percent = $percent;
+
+        return $this;
+    }
+
+    public function getSkillName(): ?string
+    {
+        return $this->translate()->getSkillName();
+    }
+
+    public function setSkillName(?string $skillName): StimulationEffectInterface
+    {
+        $this->translate()->setSkillName($skillName);
 
         return $this;
     }
