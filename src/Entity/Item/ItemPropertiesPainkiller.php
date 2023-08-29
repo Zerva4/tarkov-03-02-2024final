@@ -26,7 +26,7 @@ class ItemPropertiesPainkiller extends ItemProperties implements ItemPropertiesI
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Энергетическое воздействие'])]
     private int $energyImpact;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => ''])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Увлажняющее воздействие'])]
     private int $hydrationImpact;
 
     public function getUses(): int
