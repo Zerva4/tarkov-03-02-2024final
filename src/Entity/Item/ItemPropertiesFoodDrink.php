@@ -6,6 +6,7 @@ namespace App\Entity\Item;
 
 use App\Interfaces\Item\ItemPropertiesFoodDrinkInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
+use App\Interfaces\Item\StimulationEffectInterface;
 use App\Repository\Item\ItemPropertiesFoodDrinkRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,6 +22,9 @@ class ItemPropertiesFoodDrink extends ItemProperties implements ItemPropertiesIn
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => ''])]
     private int $units;
+
+    #[ORM\OneToOne(inversedBy: 'properties', targetEntity: StimulationEffect::class, cascade: ['persist', 'remove'])]
+    private ?StimulationEffectInterface $stimulationEffect = null;
 
     public function getEnergy(): int
     {
@@ -54,6 +58,19 @@ class ItemPropertiesFoodDrink extends ItemProperties implements ItemPropertiesIn
     public function setUnits(int $units): ItemPropertiesFoodDrinkInterface
     {
         $this->units = $units;
+
+        return $this;
+    }
+
+    public function getStimulationEffect(): ?StimulationEffectInterface
+    {
+        return $this->stimulationEffect;
+    }
+
+    public function setStimulationEffect(?StimulationEffectInterface $stimulationEffect): ItemPropertiesFoodDrinkInterface
+    {
+        $this->stimulationEffect = $stimulationEffect;
+        $stimulationEffect->setProperties($this);
 
         return $this;
     }
