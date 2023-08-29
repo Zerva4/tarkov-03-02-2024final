@@ -7,7 +7,7 @@ use App\Interfaces\Item\ItemPropertiesMedKitInterface;
 use App\Repository\Item\ItemPropertiesMedKitRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Table(name: 'items_properties_medical_kit', options: ['comment' => 'Таблица свойств для мед. аптечки'])]
+#[ORM\Table(name: 'items_properties_med_kit', options: ['comment' => 'Таблица свойств для мед. аптечки'])]
 #[ORM\Entity(repositoryClass: ItemPropertiesMedKitRepository::class)]
 class ItemPropertiesMedKit extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesMedKitInterface
 {
