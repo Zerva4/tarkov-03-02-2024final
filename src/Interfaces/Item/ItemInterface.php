@@ -212,4 +212,27 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function removeQuestsKey(QuestKeyInterface $questKey): ItemInterface;
+
+    /**
+     * @return Collection|null
+     */
+    public function getAllowedMagazine(): ?Collection;
+
+    /**
+     * @param Collection|null $allowedMagazine
+     * @return ItemInterface
+     */
+    public function setAllowedMagazine(?Collection $allowedMagazine): ItemInterface;
+
+    /**
+     * @param ItemPropertiesMagazineInterface $itemPropertiesMagazine
+     * @return ItemInterface
+     */
+    public function addAllowedMagazine(ItemPropertiesMagazineInterface $itemPropertiesMagazine): ItemInterface;
+
+    /**
+     * @param ItemPropertiesMagazineInterface $itemPropertiesMagazine
+     * @return ItemInterface
+     */
+    public function removeAllowedMagazine(ItemPropertiesMagazineInterface $itemPropertiesMagazine): ItemInterface;
 }
