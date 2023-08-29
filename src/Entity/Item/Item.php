@@ -10,6 +10,7 @@ use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
+use App\Interfaces\Item\ItemPropertiesMagazineInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
@@ -153,6 +154,9 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\JoinTable(name: 'quests_keys_items')]
     private ?Collection $questsKeys;
 
+    #[ORM\ManyToMany(targetEntity: ItemPropertiesMagazine::class, mappedBy: 'allowedAmmo', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    private ?Collection $allowedMagazine;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -161,6 +165,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->cashOffers = new ArrayCollection();
         $this->currencyCashOffers = new ArrayCollection();
         $this->questsKeys = new ArrayCollection();
+        $this->allowedMagazine = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -477,6 +482,38 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         if ($this->questsKeys->contains($questKey)) {
             $this->questsKeys->removeElement($questKey);
             $questKey->setItem(null);
+        }
+
+        return $this;
+    }
+
+    public function getAllowedMagazine(): ?Collection
+    {
+        return $this->allowedMagazine;
+    }
+
+    public function setAllowedMagazine(?Collection $allowedMagazine): ItemInterface
+    {
+        $this->allowedMagazine = $allowedMagazine;
+
+        return $this;
+    }
+
+    public function addAllowedMagazine(ItemPropertiesMagazineInterface $itemPropertiesMagazine): ItemInterface
+    {
+        if (!$this->allowedMagazine->contains($itemPropertiesMagazine)) {
+            $this->allowedMagazine->add($itemPropertiesMagazine);
+            $itemPropertiesMagazine->addAllowedAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllowedMagazine(ItemPropertiesMagazineInterface $itemPropertiesMagazine): ItemInterface
+    {
+        if ($this->allowedMagazine->contains($itemPropertiesMagazine)) {
+            $this->allowedMagazine->removeElement($itemPropertiesMagazine);
+            $itemPropertiesMagazine->removeAllowedAmmo($this);
         }
 
         return $this;
