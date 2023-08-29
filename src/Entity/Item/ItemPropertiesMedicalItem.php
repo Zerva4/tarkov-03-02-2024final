@@ -20,11 +20,6 @@ class ItemPropertiesMedicalItem extends ItemProperties implements ItemProperties
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => ''])]
     private ?array $cures = null;
 
-    public function __construct(string $defaultLocale = '%app.default_locale%')
-    {
-        $this->defaultLocale = $defaultLocale;
-    }
-
     public function getUses(): int
     {
         return $this->uses;
