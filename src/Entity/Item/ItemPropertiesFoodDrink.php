@@ -23,7 +23,7 @@ class ItemPropertiesFoodDrink extends ItemProperties implements ItemPropertiesIn
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => ''])]
     private int $units;
 
-    #[ORM\OneToOne(inversedBy: 'properties', targetEntity: StimulationEffect::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'properties', targetEntity: StimulationEffect::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
     private ?StimulationEffectInterface $stimulationEffect = null;
 
     public function getEnergy(): int

@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
     'ItemPropertiesBackpack' => ItemPropertiesBackpack::class,
     'ItemPropertiesChestRig' => ItemPropertiesChestRig::class,
     'ItemPropertiesContainer' => ItemPropertiesContainer::class,
+    'ItemPropertiesFoodDrink' => ItemPropertiesFoodDrink::class,
     'ItemPropertiesBarrel' => ItemPropertiesBarrel::class,
     'ItemPropertiesGrenade' => ItemPropertiesGrenade::class,
     'ItemPropertiesHeadphone' => ItemPropertiesHeadphone::class,
@@ -33,7 +34,7 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     use UuidPrimaryKeyTrait;
 
     #[ORM\OneToOne(mappedBy: 'properties', targetEntity: Item::class)]
-    #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemInterface $item;
 
     #[ORM\ManyToOne(targetEntity: ArmorMaterial::class, fetch: 'EAGER', inversedBy: 'properties')]
