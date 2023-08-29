@@ -11,7 +11,7 @@ use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Repository\Item\ItemPropertiesArmorRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Table(name: 'items_properties_armor', options: ['comment' => 'Таблица брони'])]
+#[ORM\Table(name: 'items_properties_armor', options: ['comment' => 'Таблица свойств для брони'])]
 #[ORM\Entity(repositoryClass: ItemPropertiesArmorRepository::class)]
 class ItemPropertiesArmor extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesArmorInterface
 {
