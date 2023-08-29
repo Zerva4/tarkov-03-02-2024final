@@ -19,8 +19,14 @@ class ItemPropertiesSurgicalKit extends ItemProperties implements ItemProperties
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Время использования'])]
     private int $useTime;
 
-    #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => 'Зоны обезбаливания'])]
+    #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => 'Зоны'])]
     private ?array $cures = null;
+
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Мин. здоровье конечностей'])]
+    private int $minLimbHealth;
+
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Макс. здоровье конечностей'])]
+    private int $maxLimbHealth;
 
     public function getUses(): int
     {
@@ -54,6 +60,30 @@ class ItemPropertiesSurgicalKit extends ItemProperties implements ItemProperties
     public function setCures(?array $cures): ItemPropertiesSurgicalKitInterface
     {
         $this->cures = $cures;
+
+        return $this;
+    }
+
+    public function getMinLimbHealth(): int
+    {
+        return $this->minLimbHealth;
+    }
+
+    public function setMinLimbHealth(int $minLimbHealth): ItemPropertiesSurgicalKitInterface
+    {
+        $this->minLimbHealth = $minLimbHealth;
+
+        return $this;
+    }
+
+    public function getMaxLimbHealth(): int
+    {
+        return $this->maxLimbHealth;
+    }
+
+    public function setMaxLimbHealth(int $maxLimbHealth): ItemPropertiesSurgicalKitInterface
+    {
+        $this->maxLimbHealth = $maxLimbHealth;
 
         return $this;
     }
