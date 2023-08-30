@@ -40,6 +40,9 @@ class ItemPropertiesChestRig extends ItemProperties implements ItemPropertiesInt
     #[ORM\Column(type: 'string', length: 64, nullable: false, options: ['default' => '', 'comment' => 'Тип защиты'])]
     private string $armorType;
 
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => ''])]
+    private float $bluntThroughput;
+
     public function getClass(): int
     {
         return $this->class;
@@ -144,6 +147,18 @@ class ItemPropertiesChestRig extends ItemProperties implements ItemPropertiesInt
     public function setArmorType(string $armorType): ItemPropertiesChestRigInterface
     {
         $this->armorType = $armorType;
+
+        return $this;
+    }
+
+    public function getBluntThroughput(): float
+    {
+        return $this->bluntThroughput;
+    }
+
+    public function setBluntThroughput(int $bluntThroughput): ItemPropertiesChestRigInterface
+    {
+        $this->bluntThroughput = $bluntThroughput;
 
         return $this;
     }

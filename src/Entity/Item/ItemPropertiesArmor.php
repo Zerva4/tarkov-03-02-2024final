@@ -25,10 +25,10 @@ class ItemPropertiesArmor extends ItemProperties implements ItemPropertiesInterf
     private int $repairCost;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение скорости в %'])]
-    private int $speedPenalty;
+    private float $speedPenalty;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение поворота в %'])]
-    private int $turnPenalty;
+    private float $turnPenalty;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Снижение эргономик в %'])]
     private int $ergoPenalty;
@@ -38,6 +38,9 @@ class ItemPropertiesArmor extends ItemProperties implements ItemPropertiesInterf
 
     #[ORM\Column(type: 'string', length: 64, nullable: false, options: ['default' => '', 'comment' => 'Тип защиты'])]
     private string $armorType;
+
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => ''])]
+    private float $bluntThroughput;
 
     public function getClass(): int
     {
@@ -75,24 +78,24 @@ class ItemPropertiesArmor extends ItemProperties implements ItemPropertiesInterf
         return $this;
     }
 
-    public function getSpeedPenalty(): int
+    public function getSpeedPenalty(): float
     {
         return $this->speedPenalty;
     }
 
-    public function setSpeedPenalty(int $speedPenalty): ItemPropertiesArmorInterface
+    public function setSpeedPenalty(float $speedPenalty): ItemPropertiesArmorInterface
     {
         $this->speedPenalty = $speedPenalty;
 
         return $this;
     }
 
-    public function getTurnPenalty(): int
+    public function getTurnPenalty(): float
     {
         return $this->turnPenalty;
     }
 
-    public function setTurnPenalty(int $turnPenalty): ItemPropertiesArmorInterface
+    public function setTurnPenalty(float $turnPenalty): ItemPropertiesArmorInterface
     {
         $this->turnPenalty = $turnPenalty;
 
@@ -131,6 +134,18 @@ class ItemPropertiesArmor extends ItemProperties implements ItemPropertiesInterf
     public function setArmorType(string $armorType): ItemPropertiesArmorInterface
     {
         $this->armorType = $armorType;
+
+        return $this;
+    }
+
+    public function getBluntThroughput(): float
+    {
+        return $this->bluntThroughput;
+    }
+
+    public function setBluntThroughput(float $bluntThroughput): ItemPropertiesArmorInterface
+    {
+        $this->bluntThroughput = $bluntThroughput;
 
         return $this;
     }

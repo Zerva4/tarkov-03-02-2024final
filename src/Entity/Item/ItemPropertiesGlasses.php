@@ -25,6 +25,9 @@ class ItemPropertiesGlasses  extends ItemProperties implements ItemPropertiesInt
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Защита от ослепления'])]
     private float $blindnessProtection;
 
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => ''])]
+    private float $bluntThroughput;
+
     public function getClass(): int
     {
         return $this->class;
@@ -69,6 +72,18 @@ class ItemPropertiesGlasses  extends ItemProperties implements ItemPropertiesInt
     public function setBlindnessProtection(float $blindnessProtection): ItemPropertiesGlassesInterface
     {
         $this->blindnessProtection = $blindnessProtection;
+
+        return $this;
+    }
+
+    public function getBluntThroughput(): float
+    {
+        return $this->bluntThroughput;
+    }
+
+    public function setBluntThroughput(float $bluntThroughput): ItemPropertiesGlassesInterface
+    {
+        $this->bluntThroughput = $bluntThroughput;
 
         return $this;
     }
