@@ -11,6 +11,7 @@ use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Interfaces\Item\ItemPropertiesMagazineInterface;
+use App\Interfaces\Item\ItemPropertiesWeaponInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
@@ -157,6 +158,18 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\ManyToMany(targetEntity: ItemPropertiesMagazine::class, mappedBy: 'allowedAmmo', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     private ?Collection $allowedMagazine;
 
+    #[ORM\ManyToMany(targetEntity: ItemPropertiesWeapon::class, mappedBy: 'allowedPresets', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    private ?Collection $presetsWeapons;
+
+    #[ORM\ManyToMany(targetEntity: ItemPropertiesWeapon::class, mappedBy: 'allowedAmmo', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    private ?Collection $allowedWeapons;
+
+    #[ORM\OneToMany(mappedBy: 'defaultAmmo', targetEntity: ItemPropertiesWeapon::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $defaultWeapons;
+
+    #[ORM\OneToMany(mappedBy: 'defaultPreset', targetEntity: ItemPropertiesWeapon::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $presetDefaultWeapons;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -166,6 +179,9 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->currencyCashOffers = new ArrayCollection();
         $this->questsKeys = new ArrayCollection();
         $this->allowedMagazine = new ArrayCollection();
+        $this->presetsWeapons = new ArrayCollection();
+        $this->defaultWeapons = new ArrayCollection();
+        $this->presetDefaultWeapons = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -307,20 +323,16 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    /**
-     * @param string|null $imageName
-     */
-    public function setImageName(?string $imageName): void
+    public function setImageName(?string $imageName): ItemInterface
     {
         $this->imageName = $imageName;
+
+        return $this;
     }
 
     public function getImageFile(): ?File
@@ -519,8 +531,136 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
+    public function getPresetsWeapons(): ?Collection
+    {
+        return $this->presetsWeapons;
+    }
+
+    public function setPresetsWeapons(?Collection $presetsWeapons): ItemInterface
+    {
+        $this->presetsWeapons = $presetsWeapons;
+
+        return $this;
+    }
+
+    public function addPresetsWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->presetsWeapons->contains($itemPropertiesWeapon)) {
+            $this->presetsWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->addAllowedPreset($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresetsWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->presetsWeapons->contains($itemPropertiesWeapon)) {
+            $this->presetsWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->addAllowedPreset($this);
+        }
+
+        return $this;
+    }
+
+    public function getAllowedWeapons(): ?Collection
+    {
+        return $this->allowedWeapons;
+    }
+
+    public function setAllowedWeapons(?Collection $allowedWeapons): ItemInterface
+    {
+        $this->allowedWeapons = $allowedWeapons;
+
+        return $this;
+    }
+
+    public function addAllowedWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->allowedWeapons->contains($itemPropertiesWeapon)) {
+            $this->allowedWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->addAllowedAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllowedWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->allowedWeapons->contains($itemPropertiesWeapon)) {
+            $this->allowedWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->removeAllowedAmmo($this);
+        }
+
+        return $this;
+    }
+
     public function __toString(): string
     {
         return $this->__get('title');
+    }
+
+    public function getDefaultWeapons(): Collection
+    {
+        return $this->defaultWeapons;
+    }
+
+    public function setDefaultWeapons(Collection $defaultWeapons): ItemInterface
+    {
+        $this->defaultWeapons = $defaultWeapons;
+
+        return $this;
+    }
+
+    public function addDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->defaultWeapons->contains($itemPropertiesWeapon)) {
+            $this->defaultWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->defaultWeapons->contains($itemPropertiesWeapon)) {
+            $this->defaultWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultAmmo(null);
+        }
+
+        return $this;
+    }
+
+    public function getPresetDefaultWeapons(): Collection
+    {
+        return $this->presetDefaultWeapons;
+    }
+
+    public function setPresetDefaultWeapons(Collection $presetDefaultWeapons): ItemInterface
+    {
+        $this->presetDefaultWeapons = $presetDefaultWeapons;
+
+        return $this;
+    }
+
+    public function addPresetDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->presetDefaultWeapons->contains($itemPropertiesWeapon)) {
+            $this->presetDefaultWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultPreset($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresetDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->presetDefaultWeapons->contains($itemPropertiesWeapon)) {
+            $this->presetDefaultWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultPreset(null);
+        }
+
+        return $this;
     }
 }
