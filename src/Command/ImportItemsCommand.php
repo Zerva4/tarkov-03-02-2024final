@@ -134,7 +134,11 @@ class ImportItemsCommand extends Command
               lightBleedModifier
               heavyBleedModifier
               durabilityBurnFactor
+              staminaBurnPerDamage
               heatFactor
+              ballisticCoeficient
+              bulletDiameterMilimeters
+              bulletMassGrams
             }
             
             fragment Armor on ItemPropertiesArmor {
@@ -156,6 +160,8 @@ class ImportItemsCommand extends Command
                 minRepairKitDegradation
                 maxRepairKitDegradation
               }
+              armorType: String
+              bluntThroughput: Float
             }
             
             # fragment ArmorMaterial on ItemPropertiesArmorMaterial {
@@ -171,6 +177,13 @@ class ImportItemsCommand extends Command
             
             fragment Backpack on ItemPropertiesBackpack {
               capacity
+              grids {
+                width
+                height
+              }
+              speedPenalty
+              turnPenalty
+              ergoPenalty
             }
             
             fragment Barrel on ItemPropertiesBarrel {
@@ -199,6 +212,12 @@ class ImportItemsCommand extends Command
                 __typename
               }
               capacity
+              grids {
+                width
+                height
+              }
+              armorType
+              bluntThroughput
             }
             
             fragment FoodDrink on ItemPropertiesFoodDrink {
@@ -232,6 +251,7 @@ class ImportItemsCommand extends Command
                 minRepairKitDegradation
                 maxRepairKitDegradation
               }
+              bluntThroughput
             }
             
             fragment Grenade on ItemPropertiesGrenade {
@@ -274,6 +294,8 @@ class ImportItemsCommand extends Command
                 nameId
                 required
               }
+              armorType
+              bluntThroughput
             }
             
             fragment Key on ItemPropertiesKey {
@@ -429,17 +451,17 @@ class ImportItemsCommand extends Command
 
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setTitle($item['name']);
-                $itemEntity->translate($lang, false)->setShortTitle($item['shortName']);
+                $itemEntity->translate($lang, false)->setName($item['name']);
+                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemDefaultProperty';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setTitle($item['name']);
-                $itemEntity->translate($lang, false)->setShortTitle($item['shortName']);
+                $itemEntity->translate($lang, false)->setName($item['name']);
+                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
                 $itemEntity->setApiId($item['id']);
-                $itemEntity->setTypeProperties($typeName);
+                $itemEntity->setTypeItem($typeName);
             }
 
             // Download file

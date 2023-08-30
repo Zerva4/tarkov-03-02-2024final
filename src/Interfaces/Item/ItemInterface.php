@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces\Item;
 
-use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use Doctrine\Common\Collections\Collection;
@@ -26,24 +27,24 @@ interface ItemInterface
     /**
      * @return string|null
      */
-    public function getTypeProperties(): ?string;
+    public function getTypeItem(): ?string;
 
     /**
-     * @param string $typeProperties
+     * @param string $typeItem
      * @return ItemInterface
      */
-    public function setTypeProperties(string $typeProperties): ItemInterface;
+    public function setTypeItem(string $typeItem): ItemInterface;
 
     /**
      * @return array|null
      */
-    public function getProperties(): ?array;
+    public function getProperties(): ?ItemPropertiesInterface;
 
     /**
-     * @param array|null $properties
+     * @param ItemPropertiesInterface|null $properties
      * @return ItemInterface
      */
-    public function setProperties(?array $properties): ItemInterface;
+    public function setProperties(?ItemPropertiesInterface $properties): ItemInterface;
 
     /**
      * @return bool
@@ -123,39 +124,6 @@ interface ItemInterface
     public function setBackgroundColor(?string $backgroundColor): ItemInterface;
 
     /**
-     * @return float|null
-     */
-    public function getAccuracyModifier(): ?float;
-
-    /**
-     * @param float|null $accuracyModifier
-     * @return ItemInterface
-     */
-    public function setAccuracyModifier(?float $accuracyModifier): ItemInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getRecoilModifier(): ?float;
-
-    /**
-     * @param float|null $recoilModifier
-     * @return ItemInterface
-     */
-    public function setRecoilModifier(?float $recoilModifier): ItemInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getErgonomicsModifier(): ?float;
-
-    /**
-     * @param float|null $ergonomicsModifier
-     * @return ItemInterface
-     */
-    public function setErgonomicsModifier(?float $ergonomicsModifier): ItemInterface;
-
-    /**
      * @return bool
      */
     public function isHasGrid(): bool;
@@ -165,17 +133,6 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function setHasGrid(bool $hasGrid): ItemInterface;
-
-    /**
-     * @return bool
-     */
-    public function isBlocksHeadphones(): bool;
-
-    /**
-     * @param bool $blocksHeadphones
-     * @return ItemInterface
-     */
-    public function setBlocksHeadphones(bool $blocksHeadphones): ItemInterface;
 
     /**
      * @return float|null
@@ -189,26 +146,15 @@ interface ItemInterface
     public function setWeight(?float $weight): ItemInterface;
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getVelocity(): ?float;
+    public function getImageName(): ?string;
 
     /**
-     * @param float|null $velocity
+     * @param string|null $imageName
      * @return ItemInterface
      */
-    public function setVelocity(?float $velocity): ItemInterface;
-
-    /**
-     * @return int|null
-     */
-    public function getLoudness(): ?int;
-
-    /**
-     * @param int|null $loudness
-     * @return ItemInterface
-     */
-    public function setLoudness(?int $loudness): ItemInterface;
+    public function setImageName(?string $imageName): ItemInterface;
 
     /**
      * @return Collection
@@ -257,15 +203,38 @@ interface ItemInterface
     public function removeCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface;
 
     /**
+     * @return Collection
+     */
+    public function getCurrencyCashOffers(): Collection;
+
+    /**
+     * @param Collection $currencyCashOffers
+     * @return ItemInterface
+     */
+    public function setCurrencyCashOffers(Collection $currencyCashOffers): ItemInterface;
+
+    /**
+     * @param TraderCashOfferInterface $cashOffer
+     * @return ItemInterface
+     */
+    public function addCurrencyCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface;
+
+    /**
+     * @param TraderCashOfferInterface $cashOffer
+     * @return ItemInterface
+     */
+    public function removeCurrencyCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface;
+
+    /**
      * @return Collection|null
      */
     public function getQuestsKeys(): ?Collection;
 
     /**
-     * @param Collection|null $neededInQuests
+     * @param Collection|null $questsKeys
      * @return ItemInterface
      */
-    public function setQuestsKeys(?Collection $neededInQuests): ItemInterface;
+    public function setQuestsKeys(?Collection $questsKeys): ItemInterface;
 
     /**
      * @param QuestKeyInterface $questKey
@@ -278,4 +247,119 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function removeQuestsKey(QuestKeyInterface $questKey): ItemInterface;
+
+    /**
+     * @return Collection|null
+     */
+    public function getAllowedMagazine(): ?Collection;
+
+    /**
+     * @param Collection|null $allowedMagazine
+     * @return ItemInterface
+     */
+    public function setAllowedMagazine(?Collection $allowedMagazine): ItemInterface;
+
+    /**
+     * @param ItemPropertiesMagazineInterface $itemPropertiesMagazine
+     * @return ItemInterface
+     */
+    public function addAllowedMagazine(ItemPropertiesMagazineInterface $itemPropertiesMagazine): ItemInterface;
+
+    /**
+     * @param ItemPropertiesMagazineInterface $itemPropertiesMagazine
+     * @return ItemInterface
+     */
+    public function removeAllowedMagazine(ItemPropertiesMagazineInterface $itemPropertiesMagazine): ItemInterface;
+
+    /**
+     * @return Collection|null
+     */
+    public function getPresetsWeapons(): ?Collection;
+
+    /**
+     * @param Collection|null $presetsWeapons
+     * @return ItemInterface
+     */
+    public function setPresetsWeapons(?Collection $presetsWeapons): ItemInterface;
+
+    /**
+     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
+     * @return ItemInterface
+     */
+    public function addPresetsWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
+
+    /**
+     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
+     * @return ItemInterface
+     */
+    public function removePresetsWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
+
+    /**
+     * @return Collection|null
+     */
+    public function getAllowedWeapons(): ?Collection;
+
+    /**
+     * @param Collection|null $allowedWeapons
+     * @return ItemInterface
+     */
+    public function setAllowedWeapons(?Collection $allowedWeapons): ItemInterface;
+
+    /**
+     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
+     * @return ItemInterface
+     */
+    public function addAllowedWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
+
+    /**
+     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
+     * @return ItemInterface
+     */
+    public function removeAllowedWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getDefaultWeapons(): Collection;
+
+    /**
+     * @param Collection $defaultWeapons
+     * @return ItemInterface
+     */
+    public function setDefaultWeapons(Collection $defaultWeapons): ItemInterface;
+
+    /**
+     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
+     * @return ItemInterface
+     */
+    public function addDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
+
+    /**
+     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
+     * @return ItemInterface
+     */
+    public function removeDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getPresetDefaultWeapons(): Collection;
+
+    /**
+     * @param Collection $presetDefaultWeapons
+     * @return ItemInterface
+     */
+    public function setPresetDefaultWeapons(Collection $presetDefaultWeapons): ItemInterface;
+
+    /**
+     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
+     * @return ItemInterface
+     */
+    public function addPresetDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
+
+    /**
+     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
+     * @return ItemInterface
+     */
+    public function removePresetDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
 }

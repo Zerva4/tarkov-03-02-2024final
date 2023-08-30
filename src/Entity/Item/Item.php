@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Item;
 
 use App\Entity\Quest\QuestKey;
@@ -7,6 +9,9 @@ use App\Entity\Trader\TraderCashOffer;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
+use App\Interfaces\Item\ItemPropertiesInterface;
+use App\Interfaces\Item\ItemPropertiesMagazineInterface;
+use App\Interfaces\Item\ItemPropertiesWeaponInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
@@ -49,11 +54,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 **/
 
 #[ORM\Table(name: 'items')]
-//#[ORM\InheritanceType('JOINED')]
-//#[ORM\DiscriminatorColumn(name: 'type', type: 'string', length: 50)]
-//#[ORM\DiscriminatorMap([
-//    'ItemPropertiesWeapon' => ItemPropertiesWeapon::class
-//])]
 #[ORM\Index(columns: ['slug'], name: 'items_slug_idx')]
 #[ORM\Index(columns: ['api_id'], name: 'items_api_key_idx')]
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
@@ -101,10 +101,10 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     private ?array $types = null;
 
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
-    private ?string $typeProperties;
+    private ?string $typeItem;
 
-    #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true])]
-    private ?array $properties = null;
+    #[ORM\OneToOne(inversedBy: 'item', targetEntity: ItemProperties::class, cascade: ['persist', 'remove'])]
+    private ?ItemPropertiesInterface $properties = null;
 
     /**
      * @var int|null Базовая цена
@@ -131,52 +131,16 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     private ?string $backgroundColor = null;
 
     /**
-     * @var float|null Модификатор точности
-     */
-    #[ORM\Column(type: 'float', length: 255, nullable: true)]
-    private ?float $accuracyModifier = null;
-
-    /**
-     * @var float|null Модификатор отдачи
-     */
-    #[ORM\Column(type: 'float', nullable: true)]
-    private ?float $recoilModifier = null;
-
-    /**
-     * @var float|null Модификатор эргономики
-     */
-    #[ORM\Column(type: 'float', nullable: true)]
-    private ?float $ergonomicsModifier = null;
-
-    /**
      * @var bool Модуль рукоятки
      */
     #[ORM\Column(type: 'boolean', options: ['default' => 0])]
     private bool $hasGrid = false;
 
     /**
-     * @var bool Использует наушники
-     */
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
-    private bool $blocksHeadphones = false;
-
-    /**
      * @var float|null Масса
      */
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $weight = null;
-
-    /**
-     * @var float|null Скорость
-     */
-    #[ORM\Column(type: 'float', nullable: true)]
-    private ?float $velocity = null;
-
-    /**
-     * @var int|null Громкость
-     */
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $loudness = null;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: ContainedItem::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $containedItems;
@@ -191,6 +155,21 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\JoinTable(name: 'quests_keys_items')]
     private ?Collection $questsKeys;
 
+    #[ORM\ManyToMany(targetEntity: ItemPropertiesMagazine::class, mappedBy: 'allowedAmmo', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    private ?Collection $allowedMagazine;
+
+    #[ORM\ManyToMany(targetEntity: ItemPropertiesWeapon::class, mappedBy: 'allowedPresets', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    private ?Collection $presetsWeapons;
+
+    #[ORM\ManyToMany(targetEntity: ItemPropertiesWeapon::class, mappedBy: 'allowedAmmo', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    private ?Collection $allowedWeapons;
+
+    #[ORM\OneToMany(mappedBy: 'defaultAmmo', targetEntity: ItemPropertiesWeapon::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $defaultWeapons;
+
+    #[ORM\OneToMany(mappedBy: 'defaultPreset', targetEntity: ItemPropertiesWeapon::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    private Collection $presetDefaultWeapons;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -199,6 +178,10 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->cashOffers = new ArrayCollection();
         $this->currencyCashOffers = new ArrayCollection();
         $this->questsKeys = new ArrayCollection();
+        $this->allowedMagazine = new ArrayCollection();
+        $this->presetsWeapons = new ArrayCollection();
+        $this->defaultWeapons = new ArrayCollection();
+        $this->presetDefaultWeapons = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -216,18 +199,18 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     /**
      * @return string|null
      */
-    public function getTypeProperties(): ?string
+    public function getTypeItem(): ?string
     {
-        return $this->typeProperties;
+        return $this->typeItem;
     }
 
     /**
-     * @param string $typeProperties
+     * @param string $typeItem
      * @return ItemInterface
      */
-    public function setTypeProperties(string $typeProperties): ItemInterface
+    public function setTypeItem(string $typeItem): ItemInterface
     {
-        $this->typeProperties = $typeProperties;
+        $this->typeItem = $typeItem;
 
         return $this;
     }
@@ -316,42 +299,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    public function getAccuracyModifier(): ?float
-    {
-        return $this->accuracyModifier;
-    }
-
-    public function setAccuracyModifier(?float $accuracyModifier): ItemInterface
-    {
-        $this->accuracyModifier = $accuracyModifier;
-
-        return $this;
-    }
-
-    public function getRecoilModifier(): ?float
-    {
-        return $this->recoilModifier;
-    }
-
-    public function setRecoilModifier(?float $recoilModifier): ItemInterface
-    {
-        $this->recoilModifier = $recoilModifier;
-
-        return $this;
-    }
-
-    public function getErgonomicsModifier(): ?float
-    {
-        return $this->ergonomicsModifier;
-    }
-
-    public function setErgonomicsModifier(?float $ergonomicsModifier): ItemInterface
-    {
-        $this->ergonomicsModifier = $ergonomicsModifier;
-
-        return $this;
-    }
-
     public function isHasGrid(): bool
     {
         return $this->hasGrid;
@@ -360,18 +307,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function setHasGrid(bool $hasGrid): ItemInterface
     {
         $this->hasGrid = $hasGrid;
-
-        return $this;
-    }
-
-    public function isBlocksHeadphones(): bool
-    {
-        return $this->blocksHeadphones;
-    }
-
-    public function setBlocksHeadphones(bool $blocksHeadphones): ItemInterface
-    {
-        $this->blocksHeadphones = $blocksHeadphones;
 
         return $this;
     }
@@ -388,37 +323,16 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    public function getVelocity(): ?float
-    {
-        return $this->velocity;
-    }
-
-    public function setVelocity(?float $velocity): ItemInterface
-    {
-        $this->velocity = $velocity;
-
-        return $this;
-    }
-
-    public function getLoudness(): ?int
-    {
-        return $this->loudness;
-    }
-
-    /**
-     * @return string|null
-     */
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    /**
-     * @param string|null $imageName
-     */
-    public function setImageName(?string $imageName): void
+    public function setImageName(?string $imageName): ItemInterface
     {
         $this->imageName = $imageName;
+
+        return $this;
     }
 
     public function getImageFile(): ?File
@@ -437,21 +351,15 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getProperties(): ?array
+    public function getProperties(): ?ItemPropertiesInterface
     {
         return $this->properties;
     }
 
-    /**
-     * @param array|null $properties
-     * @return ItemInterface
-     */
-    public function setProperties(?array $properties): ItemInterface
+    public function setProperties(?ItemPropertiesInterface $properties): ItemInterface
     {
         $this->properties = $properties;
+        $properties->setItem($this);
 
         return $this;
     }
@@ -488,7 +396,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function removeContainedItem(ContainedItemInterface $containedItem): ItemInterface
     {
         if ($this->containedItems->contains($containedItem)) {
-            $this->containedItems->add($containedItem);
+            $this->containedItems->removeElement($containedItem);
             $containedItem->setItem(null);
         }
 
@@ -520,7 +428,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function removeCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface
     {
         if ($this->cashOffers->contains($cashOffer)) {
-            $this->cashOffers->add($cashOffer);
+            $this->cashOffers->removeElement($cashOffer);
             $cashOffer->setItem(null);
         }
 
@@ -552,7 +460,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function removeCurrencyCashOffer(TraderCashOfferInterface $cashOffer): ItemInterface
     {
         if ($this->currencyCashOffers->contains($cashOffer)) {
-            $this->currencyCashOffers->add($cashOffer);
+            $this->currencyCashOffers->removeElement($cashOffer);
             $cashOffer->setCurrencyItem(null);
         }
 
@@ -591,14 +499,167 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
+    public function getAllowedMagazine(): ?Collection
+    {
+        return $this->allowedMagazine;
+    }
+
+    public function setAllowedMagazine(?Collection $allowedMagazine): ItemInterface
+    {
+        $this->allowedMagazine = $allowedMagazine;
+
+        return $this;
+    }
+
+    public function addAllowedMagazine(ItemPropertiesMagazineInterface $itemPropertiesMagazine): ItemInterface
+    {
+        if (!$this->allowedMagazine->contains($itemPropertiesMagazine)) {
+            $this->allowedMagazine->add($itemPropertiesMagazine);
+            $itemPropertiesMagazine->addAllowedAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllowedMagazine(ItemPropertiesMagazineInterface $itemPropertiesMagazine): ItemInterface
+    {
+        if ($this->allowedMagazine->contains($itemPropertiesMagazine)) {
+            $this->allowedMagazine->removeElement($itemPropertiesMagazine);
+            $itemPropertiesMagazine->removeAllowedAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function getPresetsWeapons(): ?Collection
+    {
+        return $this->presetsWeapons;
+    }
+
+    public function setPresetsWeapons(?Collection $presetsWeapons): ItemInterface
+    {
+        $this->presetsWeapons = $presetsWeapons;
+
+        return $this;
+    }
+
+    public function addPresetsWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->presetsWeapons->contains($itemPropertiesWeapon)) {
+            $this->presetsWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->addAllowedPreset($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresetsWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->presetsWeapons->contains($itemPropertiesWeapon)) {
+            $this->presetsWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->addAllowedPreset($this);
+        }
+
+        return $this;
+    }
+
+    public function getAllowedWeapons(): ?Collection
+    {
+        return $this->allowedWeapons;
+    }
+
+    public function setAllowedWeapons(?Collection $allowedWeapons): ItemInterface
+    {
+        $this->allowedWeapons = $allowedWeapons;
+
+        return $this;
+    }
+
+    public function addAllowedWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->allowedWeapons->contains($itemPropertiesWeapon)) {
+            $this->allowedWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->addAllowedAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllowedWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->allowedWeapons->contains($itemPropertiesWeapon)) {
+            $this->allowedWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->removeAllowedAmmo($this);
+        }
+
+        return $this;
+    }
+
     public function __toString(): string
     {
         return $this->__get('title');
     }
 
-    public function setLoudness(?int $loudness): ItemInterface
+    public function getDefaultWeapons(): Collection
     {
-        $this->loudness = $loudness;
+        return $this->defaultWeapons;
+    }
+
+    public function setDefaultWeapons(Collection $defaultWeapons): ItemInterface
+    {
+        $this->defaultWeapons = $defaultWeapons;
+
+        return $this;
+    }
+
+    public function addDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->defaultWeapons->contains($itemPropertiesWeapon)) {
+            $this->defaultWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->defaultWeapons->contains($itemPropertiesWeapon)) {
+            $this->defaultWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultAmmo(null);
+        }
+
+        return $this;
+    }
+
+    public function getPresetDefaultWeapons(): Collection
+    {
+        return $this->presetDefaultWeapons;
+    }
+
+    public function setPresetDefaultWeapons(Collection $presetDefaultWeapons): ItemInterface
+    {
+        $this->presetDefaultWeapons = $presetDefaultWeapons;
+
+        return $this;
+    }
+
+    public function addPresetDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->presetDefaultWeapons->contains($itemPropertiesWeapon)) {
+            $this->presetDefaultWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultPreset($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresetDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->presetDefaultWeapons->contains($itemPropertiesWeapon)) {
+            $this->presetDefaultWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultPreset(null);
+        }
 
         return $this;
     }
