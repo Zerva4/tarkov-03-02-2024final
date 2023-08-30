@@ -126,6 +126,18 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
         return $this;
     }
 
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(string $description): QuestItemInterface
+    {
+        $this->translate()->setDescription($description);
+
+        return $this;
+    }
+
     public function getWidth(): ?int
     {
         return $this->width;
@@ -208,6 +220,8 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
             $this->requiredInCrafts->add($craft);
             $craft->addRequiredQuestItem($this);
         }
+
+        return $this;
     }
 
     public function removeRequiredInCraft(CraftInterface $craft): QuestItemInterface
@@ -216,5 +230,7 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
             $this->requiredInCrafts->removeElement($craft);
             $craft->removeRequiredQuestItem($this);
         }
+
+        return $this;
     }
 }

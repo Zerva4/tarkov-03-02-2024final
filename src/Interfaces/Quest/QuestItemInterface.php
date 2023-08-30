@@ -49,6 +49,17 @@ interface QuestItemInterface
     public function getShortName(): ?string;
 
     /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @param string $description
+     * @return QuestItemInterface
+     */
+    public function setDescription(string $description): QuestItemInterface;
+
+    /**
      * @param string $name
      * @return QuestItemInterface
      */
