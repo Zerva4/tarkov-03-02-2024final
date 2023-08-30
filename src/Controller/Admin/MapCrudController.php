@@ -40,7 +40,7 @@ class MapCrudController extends BaseCrudController
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.maps'));
-        $title = TextField::new('title', t('Title', [], 'admin.maps'));
+        $name = TextField::new('name', t('Name', [], 'admin.maps'));
         $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.maps')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.maps.images.uri'))
@@ -56,9 +56,9 @@ class MapCrudController extends BaseCrudController
             ->setTargetFieldName('slug')
             ->setRequired(true);
         $translationFields = [
-            'title' => [
+            'name' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.maps')
+                'label' => t('Name', [], 'admin.maps')
             ],
             'description' => [
                 'attr' => [
@@ -96,7 +96,7 @@ class MapCrudController extends BaseCrudController
                 $locations->setColumns(12)
             ],
             default => [
-                $title->setColumns(12)->setTextAlign('left')
+                $name->setColumns(12)->setTextAlign('left')
                     ->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published->setColumns(1)->setTextAlign('center'),
                 $minPlayersNumber->setColumns(2)->setTextAlign('center'),
