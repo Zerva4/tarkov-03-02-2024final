@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ArmorMaterialTranslation[]    findAll()
  * @method ArmorMaterialTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ArmorMaterialTranslationRepository extends ServiceEntityRepository
+class ItemMaterialTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

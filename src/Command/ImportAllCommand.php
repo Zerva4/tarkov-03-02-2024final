@@ -42,7 +42,7 @@ class ImportAllCommand extends Command
         $traderCmd = $this->getApplication()->find('app:import:traders');
         $traderCmd->run($inputArguments, $output);
 
-        // Import traders
+        // Import bosses
         $traderCmd = $this->getApplication()->find('app:import:bosses');
         $traderCmd->run($inputArguments, $output);
 

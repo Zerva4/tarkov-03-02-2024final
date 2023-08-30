@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
-use App\Interfaces\Item\ArmorMaterialInterface;
+use App\Interfaces\Item\ItemMaterialInterface;
 use App\Interfaces\Item\ItemPropertiesAmmoInterface;
 use App\Interfaces\Item\ItemPropertiesArmorInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
