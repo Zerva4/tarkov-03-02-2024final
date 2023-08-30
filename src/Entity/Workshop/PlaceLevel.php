@@ -134,6 +134,18 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
         return $this;
     }
 
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(string $description): PlaceLevelInterface
+    {
+        $this->translate()->setDescription($description);
+
+        return $this;
+    }
+
     /**
      * @return PlaceInterface|null
      */

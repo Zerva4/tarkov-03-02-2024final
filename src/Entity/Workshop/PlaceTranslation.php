@@ -24,22 +24,22 @@ class PlaceTranslation implements UuidPrimaryKeyInterface, TranslationInterface,
     use TimestampableTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title;
+    private ?string $name;
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
     public function __toString(): string
     {
-        return $this->getTitle();
+        return $this->getName();
     }
 }

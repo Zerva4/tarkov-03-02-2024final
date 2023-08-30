@@ -40,6 +40,17 @@ interface PlaceInterface
     public function setOrderPlace(?int $orderPlace): PlaceInterface;
 
     /**
+     * @return string|null
+     */
+    public function getName(): ?string;
+
+    /**
+     * @param string $name
+     * @return PlaceInterface
+     */
+    public function setName(string $name): PlaceInterface;
+
+    /**
      * @return Collection
      */
     public function getLevels(): Collection;
