@@ -36,40 +36,49 @@ class ItemPropertiesAmmo extends ItemProperties implements ItemPropertiesInterfa
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Наносимый урон по броне'])]
     private int $armorDamage;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Шанс фрагментации в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Шанс фрагментации в процентах'])]
     private float $fragmentationChance;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Шанс рикошета в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Шанс рикошета в процентах'])]
     private float $ricochetChance;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Шанс пробития в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Шанс пробития в процентах'])]
     private float $penetrationChance;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Бронепробитие'])]
     private int $penetrationPower;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Точность в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Точность в процентах'])]
     private float $accuracyModifier;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Отдача в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Отдача в процентах'])]
     private float $recoilModifier;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Скорость патрона'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Скорость патрона'])]
     private float $initialSpeed;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Шанс вызова слабого кровотечения в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Шанс вызова слабого кровотечения в процентах'])]
     private float $lightBleedModifier;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Шанс вызова сильного кровотечения в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Шанс вызова сильного кровотечения в процентах'])]
     private float $heavyBleedModifier;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Износ в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Износ в процентах'])]
     private float $durabilityBurnFactor;
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Коэффициент нагрева в процентах'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Коэффициент нагрева в процентах'])]
     private float $heatFactor;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Выносливость за выстрел'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Выносливость за выстрел'])]
     private float $staminaBurnPerDamage;
+
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'баллистический коэффициент'])]
+    private float $ballisticCoefficient;
+
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => ''])]
+    private float $bulletDiameterMillimeters;
+
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => ''])]
+    private float $bulletMassGrams;
 
     public function getStackMaxSize(): int
     {
@@ -295,6 +304,42 @@ class ItemPropertiesAmmo extends ItemProperties implements ItemPropertiesInterfa
     public function setStaminaBurnPerDamage(float $staminaBurnPerDamage): ItemPropertiesAmmoInterface
     {
         $this->staminaBurnPerDamage = $staminaBurnPerDamage;
+
+        return $this;
+    }
+
+    public function getBallisticCoefficient(): float
+    {
+        return $this->ballisticCoefficient;
+    }
+
+    public function setBallisticCoefficient(float $ballisticCoefficient): ItemPropertiesAmmoInterface
+    {
+        $this->ballisticCoefficient = $ballisticCoefficient;
+
+        return $this;
+    }
+
+    public function getBulletDiameterMillimeters(): float
+    {
+        return $this->bulletDiameterMillimeters;
+    }
+
+    public function setBulletDiameterMillimeters(float $bulletDiameterMillimeters): ItemPropertiesAmmoInterface
+    {
+        $this->bulletDiameterMillimeters = $bulletDiameterMillimeters;
+
+        return $this;
+    }
+
+    public function getBulletMassGrams(): float
+    {
+        return $this->bulletMassGrams;
+    }
+
+    public function setBulletMassGrams(float $bulletMassGrams): ItemPropertiesAmmoInterface
+    {
+        $this->bulletMassGrams = $bulletMassGrams;
 
         return $this;
     }
