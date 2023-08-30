@@ -44,4 +44,10 @@ interface ItemPropertiesAmmoInterface
     public function setHeatFactor(float $heatFactor): ItemPropertiesAmmoInterface;
     public function getStaminaBurnPerDamage(): float;
     public function setStaminaBurnPerDamage(float $staminaBurnPerDamage): ItemPropertiesAmmoInterface;
+    public function getBallisticCoefficient(): float;
+    public function setBallisticCoefficient(float $ballisticCoefficient): ItemPropertiesAmmoInterface;
+    public function getBulletDiameterMillimeters(): float;
+    public function setBulletDiameterMillimeters(float $bulletDiameterMillimeters): ItemPropertiesAmmoInterface;
+    public function getBulletMassGrams(): float;
+    public function setBulletMassGrams(float $bulletMassGrams): ItemPropertiesAmmoInterface;
 }
