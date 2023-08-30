@@ -102,6 +102,30 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): QuestItemInterface
+    {
+        $this->translate()->setName($name);
+
+        return $this;
+    }
+
+    public function getShortName(): ?string
+    {
+        return $this->translate()->getShortName();
+    }
+
+    public function setShotName(string $name): QuestItemInterface
+    {
+        $this->translate()->setShortName($name);
+
+        return $this;
+    }
+
     public function getWidth(): ?int
     {
         return $this->width;

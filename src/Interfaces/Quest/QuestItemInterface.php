@@ -33,6 +33,28 @@ interface QuestItemInterface
     public function setPublished(bool $published): QuestItemInterface;
 
     /**
+     * @return string|null
+     */
+    public function getName(): ?string;
+
+    /**
+     * @param string $name
+     * @return QuestItemInterface
+     */
+    public function setName(string $name): QuestItemInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getShortName(): ?string;
+
+    /**
+     * @param string $name
+     * @return QuestItemInterface
+     */
+    public function setShotName(string $name): QuestItemInterface;
+
+    /**
      * @return int|null
      */
     public function getWidth(): ?int;
