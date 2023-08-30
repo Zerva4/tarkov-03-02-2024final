@@ -2,40 +2,47 @@
 
 namespace App\Repository\Item;
 
-use App\Entity\Item\ItemMaterialTranslation;
+use App\Entity\Item\ArmorMaterialTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemMaterialTranslation>
+ * @extends ServiceEntityRepository<ArmorMaterialTranslation>
  *
- * @method ItemMaterialTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemMaterialTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemMaterialTranslation[]    findAll()
- * @method ItemMaterialTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ArmorMaterialTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ArmorMaterialTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ArmorMaterialTranslation[]    findAll()
+ * @method ArmorMaterialTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemMaterialTranslationRepository extends ServiceEntityRepository
+class ArmorMaterialTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemMaterialTranslation::class);
+        parent::__construct($registry, ArmorMaterialTranslation::class);
     }
 
-    public function save(ItemMaterialTranslation $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
+//    /**
+//     * @return ArmorMaterialTranslation[] Returns an array of ArmorMaterialTranslation objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('a.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(ItemMaterialTranslation $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
+//    public function findOneBySomeField($value): ?ArmorMaterialTranslation
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
 }

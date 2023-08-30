@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Entity\Item;
 
 use App\Entity\TranslatableEntity;
-use App\Interfaces\Item\ArmorMaterialInterface;
+use App\Interfaces\Item\ItemMaterialInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Repository\Item\ArmorMaterialRepository;
+use App\Repository\Item\ItemMaterialRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,16 +16,19 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 
-#[ORM\Table(name: 'armor_materials', options: ['comment' => 'Таблица для материалов брони'])]
-#[ORM\Index(columns: ['api_id'], name: 'armor_materials_api_key_idx')]
-#[ORM\Entity(repositoryClass: ArmorMaterialRepository::class)]
-class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface, UuidPrimaryKeyInterface, TimestampableInterface
+#[ORM\Table(name: 'items_materials', options: ['comment' => 'Таблица материалов для предметов'])]
+#[ORM\Index(columns: ['api_id'], name: 'items_materials_api_key_idx')]
+#[ORM\Entity(repositoryClass: ItemMaterialRepository::class)]
+class ItemMaterial extends TranslatableEntity implements ItemMaterialInterface, UuidPrimaryKeyInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TranslatableTrait;
 
     #[ORM\Column(type: 'string', length: 32, unique: true, nullable: false, options: ['default' => '', 'comment' => 'Идентификатор API'])]
     private string $apiId;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $published;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0.0, 'comment' => 'Разрушаемость'])]
     private float $destructibility;
@@ -60,9 +63,33 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this->apiId;
     }
 
-    public function setApiId(string $apiId): ArmorMaterialInterface
+    public function setApiId(string $apiId): ItemMaterialInterface
     {
         $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): ItemMaterialInterface
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): ItemMaterialInterface
+    {
+        $this->translate()->setName($name);
 
         return $this;
     }
@@ -72,7 +99,7 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this->destructibility;
     }
 
-    public function setDestructibility(float $destructibility): ArmorMaterialInterface
+    public function setDestructibility(float $destructibility): ItemMaterialInterface
     {
         $this->destructibility = $destructibility;
 
@@ -84,7 +111,7 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this->minRepairDegradation;
     }
 
-    public function setMinRepairDegradation(float $minRepairDegradation): ArmorMaterialInterface
+    public function setMinRepairDegradation(float $minRepairDegradation): ItemMaterialInterface
     {
         $this->minRepairDegradation = $minRepairDegradation;
 
@@ -96,7 +123,7 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this->maxRepairDegradation;
     }
 
-    public function setMaxRepairDegradation(float $maxRepairDegradation): ArmorMaterialInterface
+    public function setMaxRepairDegradation(float $maxRepairDegradation): ItemMaterialInterface
     {
         $this->maxRepairDegradation = $maxRepairDegradation;
 
@@ -108,7 +135,7 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this->explosionDestructibility;
     }
 
-    public function setExplosionDestructibility(float $explosionDestructibility): ArmorMaterialInterface
+    public function setExplosionDestructibility(float $explosionDestructibility): ItemMaterialInterface
     {
         $this->explosionDestructibility = $explosionDestructibility;
 
@@ -120,7 +147,7 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this->minRepairKitDegradation;
     }
 
-    public function setMinRepairKitDegradation(float $minRepairKitDegradation): ArmorMaterialInterface
+    public function setMinRepairKitDegradation(float $minRepairKitDegradation): ItemMaterialInterface
     {
         $this->minRepairKitDegradation = $minRepairKitDegradation;
 
@@ -132,7 +159,7 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this->maxRepairKitDegradation;
     }
 
-    public function setMaxRepairKitDegradation(float $maxRepairKitDegradation): ArmorMaterialInterface
+    public function setMaxRepairKitDegradation(float $maxRepairKitDegradation): ItemMaterialInterface
     {
         $this->maxRepairKitDegradation = $maxRepairKitDegradation;
 
@@ -144,14 +171,14 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this->properties;
     }
 
-    public function setProperties(Collection $properties): ArmorMaterialInterface
+    public function setProperties(Collection $properties): ItemMaterialInterface
     {
         $this->properties = $properties;
 
         return $this;
     }
 
-    public function addProperties(ItemPropertiesInterface $properties): ArmorMaterialInterface
+    public function addProperties(ItemPropertiesInterface $properties): ItemMaterialInterface
     {
         if (!$this->properties->contains($properties)) {
             $this->properties->add($properties);
@@ -161,7 +188,7 @@ class ArmorMaterial extends TranslatableEntity implements ArmorMaterialInterface
         return $this;
     }
 
-    public function removeProperties(ItemPropertiesInterface $properties): ArmorMaterialInterface
+    public function removeProperties(ItemPropertiesInterface $properties): ItemMaterialInterface
     {
         if ($this->properties->contains($properties)) {
             $this->properties->removeElement($properties);

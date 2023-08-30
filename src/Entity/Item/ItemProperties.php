@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
-use App\Interfaces\Item\ArmorMaterialInterface;
+use App\Interfaces\Item\ItemMaterialInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Interfaces\Item\ItemStorageGridInterface;
@@ -51,7 +51,7 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
 
     #[ORM\ManyToOne(targetEntity: ItemMaterial::class, fetch: 'EAGER', inversedBy: 'properties')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
-    private ?ArmorMaterialInterface $material = null;
+    private ?ItemMaterialInterface $material = null;
 
     #[ORM\ManyToOne(targetEntity: ItemStorageGrid::class, fetch: 'EAGER', inversedBy: 'properties')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
@@ -69,12 +69,12 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
         return $this;
     }
 
-    public function getMaterial(): ?ArmorMaterialInterface
+    public function getMaterial(): ?ItemMaterialInterface
     {
         return $this->material;
     }
 
-    public function setMaterial(?ArmorMaterialInterface $material): ItemPropertiesInterface
+    public function setMaterial(?ItemMaterialInterface $material): ItemPropertiesInterface
     {
         $this->material = $material;
 

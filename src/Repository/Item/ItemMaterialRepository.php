@@ -14,28 +14,35 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ItemMaterial[]    findAll()
  * @method ItemMaterial[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemMaterialRepository extends ServiceEntityRepository
+class ArmorMaterialRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ItemMaterial::class);
     }
 
-    public function save(ItemMaterial $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
+//    /**
+//     * @return ArmorMaterial[] Returns an array of ArmorMaterial objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('a.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(ItemMaterial $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
+//    public function findOneBySomeField($value): ?ArmorMaterial
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
 }
