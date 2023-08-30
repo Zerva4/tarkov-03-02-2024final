@@ -73,6 +73,13 @@ class ImportMapsCommand extends Command
                             }
                         }
                     }
+                    accessKeys { id, name }
+                    accessKeysMinPlayerLevel
+                    spawns {
+                        zoneName
+                        sides
+                        categories
+                    }
                 }
             }
         GRAPHQL;
@@ -123,6 +130,8 @@ class ImportMapsCommand extends Command
             ;
             $this->em->persist($mapEntity);
             $mapEntity->mergeNewTranslations();
+
+            // todo bosses an zone spawn
         }
         $this->em->flush();
         $progressBar->finish();
