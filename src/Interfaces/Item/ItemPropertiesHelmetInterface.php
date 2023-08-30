@@ -34,4 +34,6 @@ interface ItemPropertiesHelmetInterface
     public function setRicochetZ(float $ricochetZ): ItemPropertiesHelmetInterface;
     public function getArmorType(): string;
     public function setArmorType(string $armorType): ItemPropertiesHelmetInterface;
+    public function getBluntThroughput(): float;
+    public function setBluntThroughput(float $bluntThroughput): ItemPropertiesHelmetInterface;
 }

@@ -22,4 +22,6 @@ interface ItemPropertiesChestRigInterface
     public function setCapacity(int $capacity): ItemPropertiesChestRigInterface;
     public function getArmorType(): string;
     public function setArmorType(string $armorType): ItemPropertiesChestRigInterface;
+    public function getBluntThroughput(): float;
+    public function setBluntThroughput(int $bluntThroughput): ItemPropertiesChestRigInterface;
 }

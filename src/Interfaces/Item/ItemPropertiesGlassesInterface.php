@@ -14,4 +14,6 @@ interface ItemPropertiesGlassesInterface
     public function setRepairCost(int $repairCost): ItemPropertiesGlassesInterface;
     public function getBlindnessProtection(): float;
     public function setBlindnessProtection(float $blindnessProtection): ItemPropertiesGlassesInterface;
+    public function getBluntThroughput(): float;
+    public function setBluntThroughput(float $bluntThroughput): ItemPropertiesGlassesInterface;
 }
