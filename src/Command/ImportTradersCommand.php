@@ -55,21 +55,16 @@ class ImportTradersCommand extends Command
                     name,
                     normalizedName,
                     resetTime,
+                    currency {
+                        id
+                        name
+                    }
+                    discount
                     levels {
                       level,
                       requiredPlayerLevel,
                       requiredCommerce,
                       requiredReputation,
-                    }
-                    currency {
-                      name,
-                      craftsFor {
-                        id,
-                        level,
-                        station {
-                          name
-                        }
-                      }
                     }
                 }
             }
