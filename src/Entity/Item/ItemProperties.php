@@ -23,10 +23,22 @@ use Doctrine\ORM\Mapping as ORM;
     'ItemPropertiesChestRig' => ItemPropertiesChestRig::class,
     'ItemPropertiesContainer' => ItemPropertiesContainer::class,
     'ItemPropertiesFoodDrink' => ItemPropertiesFoodDrink::class,
+    'ItemPropertiesGlasses' => ItemPropertiesGlasses::class,
     'ItemPropertiesBarrel' => ItemPropertiesBarrel::class,
     'ItemPropertiesGrenade' => ItemPropertiesGrenade::class,
     'ItemPropertiesHeadphone' => ItemPropertiesHeadphone::class,
-    'ItemPropertiesHelmet' => ItemPropertiesHelmet::class
+    'ItemPropertiesHelmet' => ItemPropertiesHelmet::class,
+    'ItemPropertiesKey' => ItemPropertiesKey::class,
+    'ItemPropertiesMagazine' => ItemPropertiesMagazine::class,
+    'ItemPropertiesMedicalItem' => ItemPropertiesMedicalItem::class,
+    'ItemPropertiesMedKit' => ItemPropertiesMedKit::class,
+    'ItemPropertiesMelee' => ItemPropertiesMelee::class,
+    'ItemPropertiesNightVision' => ItemPropertiesNightVision::class,
+    'ItemPropertiesPainkiller' => ItemPropertiesPainkiller::class,
+    'ItemPropertiesScope' => ItemPropertiesScope::class,
+    'ItemPropertiesSurgicalKit' => ItemPropertiesSurgicalKit::class,
+    'ItemPropertiesWeapon' => ItemPropertiesWeapon::class,
+    'ItemPropertiesWeaponMod' => ItemPropertiesWeaponMod::class
 ])]
 #[ORM\Entity(repositoryClass: ItemPropertiesRepository::class)]
 class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
