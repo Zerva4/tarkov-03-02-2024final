@@ -6,7 +6,6 @@ namespace App\Interfaces\Quest;
 
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ContainedItemInterface;
-use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
@@ -51,6 +50,39 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function setPublished(bool $published): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string;
+
+    /**
+     * @param string $name
+     * @return QuestInterface
+     */
+    public function setName(string $name): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getShortName(): ?string;
+
+    /**
+     * @param string $name
+     * @return QuestInterface
+     */
+    public function setShortName(string $name): QuestInterface;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @param string $description
+     * @return QuestInterface
+     */
+    public function setDescription(string $description): QuestInterface;
 
     /**
      * @return string|null

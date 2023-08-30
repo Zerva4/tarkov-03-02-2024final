@@ -31,6 +31,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -45,7 +46,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, TimestampableInterface, QuestInterface
+class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface, QuestInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -130,9 +131,9 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     #[ORM\JoinTable(name: 'quests_needed_keys')]
     private ?Collection $neededKeys;
 
-    public function __construct(string $defaultLocation = '%app.default_locale%')
+    public function __construct(string $defaultLocale = '%app.default_locale%')
     {
-        parent::__construct($defaultLocation);
+        parent::__construct($defaultLocale);
 
         $this->objectives = new ArrayCollection();
         $this->usedItems = new ArrayCollection();
@@ -174,6 +175,42 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     public function setPublished(bool $published): QuestInterface
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): QuestInterface
+    {
+        $this->translate()->setName($name);
+
+        return $this;
+    }
+
+    public function getShortName(): ?string
+    {
+        return $this->translate()->getShortName();
+    }
+
+    public function setShortName(string $name): QuestInterface
+    {
+        $this->translate()->setShortName($name);
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(string $description): QuestInterface
+    {
+        $this->translate()->setDescription($description);
 
         return $this;
     }
