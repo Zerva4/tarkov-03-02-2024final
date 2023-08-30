@@ -71,13 +71,13 @@ class ItemPropertiesAmmo extends ItemProperties implements ItemPropertiesInterfa
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Выносливость за выстрел'])]
     private float $staminaBurnPerDamage;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'баллистический коэффициент'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Баллистический коэффициент'])]
     private float $ballisticCoefficient;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => ''])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Диаметр пули в миллиметрах'])]
     private float $bulletDiameterMillimeters;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => ''])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Масса пули в граммах'])]
     private float $bulletMassGrams;
 
     public function getStackMaxSize(): int
