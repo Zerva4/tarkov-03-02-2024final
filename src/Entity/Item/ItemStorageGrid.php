@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'items_storage_grids', options: ['comment' => 'Таблица свойств для брони'])]
 #[ORM\Entity(repositoryClass: ItemStorageGridRepository::class)]
 class ItemStorageGrid implements ItemStorageGridInterface
 {
