@@ -49,7 +49,7 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemInterface $item;
 
-    #[ORM\ManyToOne(targetEntity: ArmorMaterial::class, fetch: 'EAGER', inversedBy: 'properties')]
+    #[ORM\ManyToOne(targetEntity: ItemMaterial::class, fetch: 'EAGER', inversedBy: 'properties')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
     private ?ArmorMaterialInterface $material = null;
 
