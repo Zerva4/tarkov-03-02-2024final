@@ -119,7 +119,7 @@ class QuestItem extends TranslatableEntity implements UuidPrimaryKeyInterface, Q
         return $this->translate()->getShortName();
     }
 
-    public function setShotName(string $name): QuestItemInterface
+    public function setShortName(string $name): QuestItemInterface
     {
         $this->translate()->setShortName($name);
 
