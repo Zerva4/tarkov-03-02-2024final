@@ -6,6 +6,8 @@ namespace App\Interfaces\Item;
 
 interface ItemPropertiesAmmoInterface
 {
+    public function getCaliber(): string;
+    public function setCaliber(string $caliber): ItemPropertiesAmmoInterface;
     public function getStackMaxSize(): int;
     public function setStackMaxSize(int $stackMaxSize): ItemPropertiesAmmoInterface;
     public function isTracer(): bool;
