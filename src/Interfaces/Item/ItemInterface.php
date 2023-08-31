@@ -58,6 +58,39 @@ interface ItemInterface
     public function setPublished(bool $published): ItemInterface;
 
     /**
+     * @return string|null
+     */
+    public function getName(): ?string;
+
+    /**
+     * @param string $name
+     * @return ItemInterface
+     */
+    public function setName(string $name): ItemInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getShortName(): ?string;
+
+    /**
+     * @param string $name
+     * @return ItemInterface
+     */
+    public function setShortName(string $name): ItemInterface;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @param string $description
+     * @return ItemInterface
+     */
+    public function setDescription(string $description): ItemInterface;
+
+    /**
      * @return string
      */
     public function getSlug(): string;
