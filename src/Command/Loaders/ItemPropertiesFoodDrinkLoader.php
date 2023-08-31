@@ -29,7 +29,7 @@ class ItemPropertiesFoodDrinkLoader
             $entityStimulationEffect = new StimulationEffect($locale);
             $entityStimulationEffect
                 ->setType($effect['type'] ?? '')
-                ->setChance(33)
+                ->setChance($effect['chance'] ?? 0)
                 ->setDelay($effect['delay'] ?? 0)
                 ->setDuration($effect['duration'] ?? 0)
                 ->setValue($effect['value'] ?? 0)
@@ -41,6 +41,8 @@ class ItemPropertiesFoodDrinkLoader
         }
 //        dump($arrayProperties['stimEffects']);
 //        $em->persist($entityStimulationEffect);
+//        $entityProperties->addStimulationEffect($entityStimulationEffect);
+
 
         return $entityProperties;
     }
