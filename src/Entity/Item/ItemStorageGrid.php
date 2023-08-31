@@ -24,7 +24,7 @@ class ItemStorageGrid implements ItemStorageGridInterface
 
     // todo: ItemFilters
 
-    #[ORM\OneToMany(mappedBy: 'material', targetEntity: ItemProperties::class, fetch: 'EAGER')]
+    #[ORM\OneToMany(mappedBy: 'grids', targetEntity: ItemProperties::class, fetch: 'EAGER')]
     private Collection $properties;
 
     public function __construct()
