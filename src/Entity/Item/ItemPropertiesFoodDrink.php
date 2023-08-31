@@ -25,8 +25,8 @@ class ItemPropertiesFoodDrink extends ItemProperties implements ItemPropertiesIn
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => ''])]
     private int $units;
 
-    #[ORM\OneToMany(mappedBy: 'properties', targetEntity: StimulationEffect::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
-//    #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
+    #[ORM\OneToMany(mappedBy: 'properties', targetEntity: StimulationEffect::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinColumn(referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]
     private Collection $stimulationEffects;
 
     public function __construct()

@@ -144,13 +144,13 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $weight = null;
 
-    #[ORM\OneToMany(mappedBy: 'item', targetEntity: ContainedItem::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: ContainedItem::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     private Collection $containedItems;
 
-    #[ORM\OneToMany(mappedBy: 'item', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     private Collection $cashOffers;
 
-    #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     private Collection $currencyCashOffers;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: QuestKey::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]

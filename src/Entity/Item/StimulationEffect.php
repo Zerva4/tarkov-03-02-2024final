@@ -34,7 +34,7 @@ class StimulationEffect extends TranslatableEntity implements StimulationEffectI
     private bool $percent;
 
     #[ORM\ManyToOne(targetEntity: ItemPropertiesFoodDrink::class, cascade: ['persist'], inversedBy: 'stimulationEffects')]
-    #[ORM\JoinColumn(name: 'properties_id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'properties_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemPropertiesFoodDrinkInterface $properties;
 
     public function __construct(string $defaultLocale = '%app.default_locale%')
