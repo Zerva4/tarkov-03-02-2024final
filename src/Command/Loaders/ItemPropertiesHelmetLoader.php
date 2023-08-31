@@ -28,7 +28,7 @@ class ItemPropertiesHelmetLoader
             ->setSpeedPenalty($arrayProperties['speedPenalty'] ?? 0)
             ->setTurnPenalty($arrayProperties['turnPenalty'] ?? 0)
             ->setErgoPenalty($arrayProperties['ergoPenalty'] ?? 0)
-            ->setHeadZones($arrayProperties['zones'] ?? [])
+            ->setHeadZones($arrayProperties['headZones'] ?? [])
             ->setDeafening($arrayProperties['deafening'] ?? '')
             ->setBlockHeadset($arrayProperties['blocksHeadset']  ?? false)
             ->setBlindnessProtection($arrayProperties['blindnessProtection'] ?? 0)
