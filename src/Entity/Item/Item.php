@@ -176,6 +176,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->questsKeys = new ArrayCollection();
         $this->allowedMagazine = new ArrayCollection();
         $this->presetsWeapons = new ArrayCollection();
+        $this->allowedWeapons = new ArrayCollection();
     }
 
     public function getApiId(): string
