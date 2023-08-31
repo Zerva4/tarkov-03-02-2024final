@@ -15,7 +15,7 @@ class ItemPropertiesFoodDrinkLoader
         string $locale = '%app.default_locale%'
     ): ItemPropertiesFoodDrinkInterface
     {
-        $entityStimulationEffect = $entityProperties->getStimulationEffect();
+        $entityStimulationEffect = $entityProperties->getStimulationEffects();
 
         $entityProperties
             ->setEnergy($arrayProperties['energy'])
@@ -25,24 +25,23 @@ class ItemPropertiesFoodDrinkLoader
 
         if (!isset($arrayProperties['stimEffects'])) return $entityProperties;
 
-        if (null === $entityStimulationEffect) {
+        foreach ($arrayProperties['stimEffects'] as $effect) {
             $entityStimulationEffect = new StimulationEffect($locale);
-            $entityProperties->setStimulationEffect($entityStimulationEffect);
+            dump($effect);
+            $entityStimulationEffect
+                ->setType($effect['type'] ?? '')
+                ->setChance($effect['chance'] ?? 0)
+                ->setDelay($effect['delay'] ?? 0)
+                ->setDuration($effect['duration'] ?? 0)
+                ->setValue($effect['value'] ?? 0)
+                ->setPercent($effect['percent'] ?? false)
+                ->setSkillName($effect['skillName'] ?? '')
+            ;
+            $entityStimulationEffect->mergeNewTranslations();
+            $entityProperties->addStimulationEffect($entityStimulationEffect);
         }
-
 //        dump($arrayProperties['stimEffects']);
-
-        $entityStimulationEffect
-            ->setType($arrayProperties['stimEffects']['type'])
-            ->setChance($arrayProperties['stimEffects']['chance'])
-            ->setDelay($arrayProperties['stimEffects']['delay'])
-            ->setDuration($arrayProperties['stimEffects']['duration'])
-            ->setValue($arrayProperties['stimEffects']['value'])
-            ->setPercent($arrayProperties['stimEffects']['percent'])
-            ->setSkillName($arrayProperties['stimEffects']['skillName'])
-        ;
-        $entityStimulationEffect->mergeNewTranslations();
-        $em->persist($entityStimulationEffect);
+//        $em->persist($entityStimulationEffect);
 
         return $entityProperties;
     }
