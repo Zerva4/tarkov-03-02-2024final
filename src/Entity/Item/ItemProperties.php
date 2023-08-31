@@ -46,15 +46,15 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     use UuidPrimaryKeyTrait;
 
     #[ORM\OneToOne(mappedBy: 'properties', targetEntity: Item::class)]
-    #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', unique: false)]
     private ItemInterface $item;
 
     #[ORM\ManyToOne(targetEntity: ItemMaterial::class, fetch: 'EAGER', inversedBy: 'properties')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?ItemMaterialInterface $material = null;
 
     #[ORM\ManyToOne(targetEntity: ItemStorageGrid::class, fetch: 'EAGER', inversedBy: 'properties')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?ItemStorageGridInterface $grids = null;
 
     public function getItem(): ItemInterface
@@ -77,6 +77,7 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     public function setMaterial(?ItemMaterialInterface $material): ItemPropertiesInterface
     {
         $this->material = $material;
+        if ($material instanceof ItemMaterialInterface) $material->addProperties($this);
 
         return $this;
     }
