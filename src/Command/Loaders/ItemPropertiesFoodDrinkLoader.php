@@ -27,10 +27,9 @@ class ItemPropertiesFoodDrinkLoader
 
         foreach ($arrayProperties['stimEffects'] as $effect) {
             $entityStimulationEffect = new StimulationEffect($locale);
-            dump($effect);
             $entityStimulationEffect
                 ->setType($effect['type'] ?? '')
-                ->setChance($effect['chance'] ?? 0)
+                ->setChance(33)
                 ->setDelay($effect['delay'] ?? 0)
                 ->setDuration($effect['duration'] ?? 0)
                 ->setValue($effect['value'] ?? 0)
