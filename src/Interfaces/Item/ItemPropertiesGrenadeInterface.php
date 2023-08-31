@@ -8,12 +8,12 @@ interface ItemPropertiesGrenadeInterface
     public function setType(string $type): ItemPropertiesGrenadeInterface;
     public function getFuse(): float;
     public function setFuse(float $fuse): ItemPropertiesGrenadeInterface;
-    public function getMinExplosionDistance(): float;
-    public function setMinExplosionDistance(float $minExplosionDistance): ItemPropertiesGrenadeInterface;
-    public function getMaxExplosionDistance(): float;
-    public function setMaxExplosionDistance(float $maxExplosionDistance): ItemPropertiesGrenadeInterface;
-    public function getFragments(): float;
-    public function setFragments(float $fragments): ItemPropertiesGrenadeInterface;
-    public function getContusionRadius(): float;
-    public function setContusionRadius(float $contusionRadius): ItemPropertiesGrenadeInterface;
+    public function getMinExplosionDistance(): int;
+    public function setMinExplosionDistance(int $minExplosionDistance): ItemPropertiesGrenadeInterface;
+    public function getMaxExplosionDistance(): int;
+    public function setMaxExplosionDistance(int $maxExplosionDistance): ItemPropertiesGrenadeInterface;
+    public function getFragments(): int;
+    public function setFragments(int $fragments): ItemPropertiesGrenadeInterface;
+    public function getContusionRadius(): int;
+    public function setContusionRadius(int $contusionRadius): ItemPropertiesGrenadeInterface;
 }

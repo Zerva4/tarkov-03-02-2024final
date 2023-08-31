@@ -20,16 +20,16 @@ class ItemPropertiesGrenade extends ItemProperties implements ItemPropertiesInte
     private float $fuse;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Мин. расстояние взрыва'])]
-    private float $minExplosionDistance;
+    private int $minExplosionDistance;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Макс. расстояние взрыва'])]
-    private float $maxExplosionDistance;
+    private int $maxExplosionDistance;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Кол-во осколков'])]
-    private float $fragments;
+    private int $fragments;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Радиус кантузии'])]
-    private float $contusionRadius;
+    private int $contusionRadius;
 
     public function getType(): string
     {
@@ -55,48 +55,48 @@ class ItemPropertiesGrenade extends ItemProperties implements ItemPropertiesInte
         return $this;
     }
 
-    public function getMinExplosionDistance(): float
+    public function getMinExplosionDistance(): int
     {
         return $this->minExplosionDistance;
     }
 
-    public function setMinExplosionDistance(float $minExplosionDistance): ItemPropertiesGrenadeInterface
+    public function setMinExplosionDistance(int $minExplosionDistance): ItemPropertiesGrenadeInterface
     {
         $this->minExplosionDistance = $minExplosionDistance;
 
         return $this;
     }
 
-    public function getMaxExplosionDistance(): float
+    public function getMaxExplosionDistance(): int
     {
         return $this->maxExplosionDistance;
     }
 
-    public function setMaxExplosionDistance(float $maxExplosionDistance): ItemPropertiesGrenadeInterface
+    public function setMaxExplosionDistance(int $maxExplosionDistance): ItemPropertiesGrenadeInterface
     {
         $this->maxExplosionDistance = $maxExplosionDistance;
 
         return $this;
     }
 
-    public function getFragments(): float
+    public function getFragments(): int
     {
         return $this->fragments;
     }
 
-    public function setFragments(float $fragments): ItemPropertiesGrenadeInterface
+    public function setFragments(int $fragments): ItemPropertiesGrenadeInterface
     {
         $this->fragments = $fragments;
 
         return $this;
     }
 
-    public function getContusionRadius(): float
+    public function getContusionRadius(): int
     {
         return $this->contusionRadius;
     }
 
-    public function setContusionRadius(float $contusionRadius): ItemPropertiesGrenadeInterface
+    public function setContusionRadius(int $contusionRadius): ItemPropertiesGrenadeInterface
     {
         $this->contusionRadius = $contusionRadius;
 
