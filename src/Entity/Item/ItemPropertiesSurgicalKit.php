@@ -23,10 +23,10 @@ class ItemPropertiesSurgicalKit extends ItemProperties implements ItemProperties
     private ?array $cures = null;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Мин. здоровье конечностей'])]
-    private int $minLimbHealth;
+    private float $minLimbHealth;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Макс. здоровье конечностей'])]
-    private int $maxLimbHealth;
+    private float $maxLimbHealth;
 
     public function getUses(): int
     {
@@ -64,24 +64,24 @@ class ItemPropertiesSurgicalKit extends ItemProperties implements ItemProperties
         return $this;
     }
 
-    public function getMinLimbHealth(): int
+    public function getMinLimbHealth(): float
     {
         return $this->minLimbHealth;
     }
 
-    public function setMinLimbHealth(int $minLimbHealth): ItemPropertiesSurgicalKitInterface
+    public function setMinLimbHealth(float $minLimbHealth): ItemPropertiesSurgicalKitInterface
     {
         $this->minLimbHealth = $minLimbHealth;
 
         return $this;
     }
 
-    public function getMaxLimbHealth(): int
+    public function getMaxLimbHealth(): float
     {
         return $this->maxLimbHealth;
     }
 
-    public function setMaxLimbHealth(int $maxLimbHealth): ItemPropertiesSurgicalKitInterface
+    public function setMaxLimbHealth(float $maxLimbHealth): ItemPropertiesSurgicalKitInterface
     {
         $this->maxLimbHealth = $maxLimbHealth;
 
