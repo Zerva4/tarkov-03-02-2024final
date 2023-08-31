@@ -12,59 +12,59 @@ use Doctrine\ORM\Mapping as ORM;
 class ItemPropertiesNightVision extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesNightVisionInterface
 {
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Интенсивность'])]
-    private int $intensity;
+    private float $intensity;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Интенсивность шума'])]
-    private int $noiseIntensity;
+    private float $noiseIntensity;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Шкала шума'])]
-    private int $noiseScale;
+    private float $noiseScale;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Диффузная интенсивность'])]
-    private int $diffuseIntensity;
+    private float $diffuseIntensity;
 
-    public function getIntensity(): int
+    public function getIntensity(): float
     {
         return $this->intensity;
     }
 
-    public function setIntensity(int $intensity): ItemPropertiesNightVisionInterface
+    public function setIntensity(float $intensity): ItemPropertiesNightVisionInterface
     {
         $this->intensity = $intensity;
 
         return $this;
     }
 
-    public function getNoiseIntensity(): int
+    public function getNoiseIntensity(): float
     {
         return $this->noiseIntensity;
     }
 
-    public function setNoiseIntensity(int $noiseIntensity): ItemPropertiesNightVisionInterface
+    public function setNoiseIntensity(float $noiseIntensity): ItemPropertiesNightVisionInterface
     {
         $this->noiseIntensity = $noiseIntensity;
 
         return $this;
     }
 
-    public function getNoiseScale(): int
+    public function getNoiseScale(): float
     {
         return $this->noiseScale;
     }
 
-    public function setNoiseScale(int $noiseScale): ItemPropertiesNightVisionInterface
+    public function setNoiseScale(float $noiseScale): ItemPropertiesNightVisionInterface
     {
         $this->noiseScale = $noiseScale;
 
         return $this;
     }
 
-    public function getDiffuseIntensity(): int
+    public function getDiffuseIntensity(): float
     {
         return $this->diffuseIntensity;
     }
 
-    public function setDiffuseIntensity(int $diffuseIntensity): ItemPropertiesNightVisionInterface
+    public function setDiffuseIntensity(float $diffuseIntensity): ItemPropertiesNightVisionInterface
     {
         $this->diffuseIntensity = $diffuseIntensity;
 
