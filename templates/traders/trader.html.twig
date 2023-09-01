@@ -126,12 +126,12 @@
                                 <a href="{{ absolute_url(path('app_quests', {})) }}/{{ quest.slug }}/" class="quest">
                                     <div class="image">
                                         {% if quest.imageName %}
-                                            <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.title }}">
+                                            <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.name }}">
                                         {% else %}
-                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('250x148') }}" alt="">
+                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('250x148') }}" alt="{{ quest.name }}">
                                         {% endif %}
                                     </div>
-                                    <div class="name">{{ quest.title }}</div>
+                                    <div class="name">{{ quest.name }}</div>
                                 </a>
                                 {% endfor %}
                             </div>
