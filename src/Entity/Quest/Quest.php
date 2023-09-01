@@ -6,7 +6,6 @@ namespace App\Entity\Quest;
 
 use App\Entity\Barter;
 use App\Entity\Item\ContainedItem;
-use App\Entity\Item\Item;
 use App\Entity\Map;
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
@@ -14,7 +13,6 @@ use App\Entity\TranslatableEntity;
 use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ContainedItemInterface;
-use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
@@ -211,6 +209,42 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     public function setDescription(string $description): QuestInterface
     {
         $this->translate()->setDescription($description);
+
+        return $this;
+    }
+
+    public function getHowToComplete(): ?string
+    {
+        return $this->translate()->getHowToComplete();
+    }
+
+    public function setHowToComplete(string $howToComplete): QuestInterface
+    {
+        $this->translate()->setHowToComplete($howToComplete);
+
+        return $this;
+    }
+
+    public function getStartDialog(): ?string
+    {
+        return $this->translate()->getStartDialog();
+    }
+
+    public function setStartDialog(?string $startDialog): QuestInterface
+    {
+        $this->translate()->setStartDialog($startDialog);
+
+        return $this;
+    }
+
+    public function getSuccessfulDialog(): ?string
+    {
+        return $this->translate()->getSuccessfulDialog();
+    }
+
+    public function setSuccessfulDialog(?string $successfulDialog): QuestInterface
+    {
+        $this->translate()->setSuccessfulDialog($successfulDialog);
 
         return $this;
     }
@@ -570,6 +604,6 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
 
     public function __toString(): string
     {
-        return $this->__get('title');
+        return $this->getName();
     }
 }

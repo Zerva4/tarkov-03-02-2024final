@@ -133,10 +133,16 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     private ?string $backgroundColor = null;
 
     /**
-     * @var bool Модуль рукоятки
+     * @var bool
      */
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $hasGrid = false;
+
+    /**
+     * @var bool Использует наушники
+     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $blocksHeadphones = false;
 
     /**
      * @var float|null Масса
@@ -338,6 +344,18 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     public function setHasGrid(bool $hasGrid): ItemInterface
     {
         $this->hasGrid = $hasGrid;
+
+        return $this;
+    }
+
+    public function isBlocksHeadphones(): bool
+    {
+        return $this->blocksHeadphones;
+    }
+
+    public function setBlocksHeadphones(bool $blocksHeadphones): ItemInterface
+    {
+        $this->blocksHeadphones = $blocksHeadphones;
 
         return $this;
     }

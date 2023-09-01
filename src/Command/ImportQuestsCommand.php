@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\Item\ContainedItem;
@@ -11,9 +13,7 @@ use App\Entity\Quest\QuestObjective;
 use App\Entity\Trader\Trader;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\Item\ContainedItemInterface;
-use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
-use App\Repository\Quest\QuestKeyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Imagick;

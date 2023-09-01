@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Item\Item;
@@ -29,7 +31,7 @@ class QuestKeyFormType extends AbstractType
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
                         ->setParameter('type', 'ItemPropertiesKey')
-                        ->orderBy('lt.title', 'ASC');
+                        ->orderBy('lt.name', 'ASC');
                 },
                 'expanded'=> false,
                 'by_reference' => true,

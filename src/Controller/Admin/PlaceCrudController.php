@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Workshop\Place;
@@ -28,9 +30,9 @@ class PlaceCrudController extends BaseCrudController
     public function configureFields(string $pageName): iterable
     {
         $translationFields = [
-            'title' => [
+            'name' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.places')
+                'label' => t('Name', [], 'admin.places')
             ],
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin'), $translationFields)
@@ -38,7 +40,7 @@ class PlaceCrudController extends BaseCrudController
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
         ;
-        $title = TextField::new('title', t('Title', [], 'admin.places'));
+        $name = TextField::new('name', t('Name', [], 'admin.places'));
         $order = IntegerField::new('orderPlace', t('Order', [], 'admin.places'));
         $slug = SlugField::new('slug', t('Slug', [], 'admin'))
             ->setTargetFieldName('slug')
@@ -67,7 +69,7 @@ class PlaceCrudController extends BaseCrudController
                 $levels
             ],
             default => [
-                $title->setTextAlign('left')->setTemplatePath('admin/field/link-edit.html.twig'),
+                $name->setTextAlign('left')->setTemplatePath('admin/field/link-edit.html.twig'),
                 $order->setTextAlign('center'),
                 $published->setTextAlign('center'),
                 $createdAt->setTextAlign('center'),

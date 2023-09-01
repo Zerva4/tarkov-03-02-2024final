@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Entity\Workshop\PlaceLevel;
@@ -131,6 +133,6 @@ class Skill extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
 
     public function __toString(): string
     {
-        return $this->__get('title') . ': уровень ' . $this->getLevel();
+        return $this->getName() . ': уровень ' . $this->getLevel();
     }
 }

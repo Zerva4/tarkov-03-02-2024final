@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
-use App\Interfaces\Item\ItemMaterialInterface;
 use App\Interfaces\Item\ItemInterface;
+use App\Interfaces\Item\ItemMaterialInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Interfaces\Item\ItemStorageGridInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;

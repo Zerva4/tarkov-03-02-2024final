@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces;
+
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Trader\TraderInterface;

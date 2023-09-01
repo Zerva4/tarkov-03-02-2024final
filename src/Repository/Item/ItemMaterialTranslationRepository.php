@@ -1,24 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Item;
 
-use App\Entity\Item\ArmorMaterialTranslation;
+use App\Entity\Item\ItemMaterialTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ArmorMaterialTranslation>
+ * @extends ServiceEntityRepository<ItemMaterialTranslation>
  *
- * @method ArmorMaterialTranslation|null find($id, $lockMode = null, $lockVersion = null)
- * @method ArmorMaterialTranslation|null findOneBy(array $criteria, array $orderBy = null)
- * @method ArmorMaterialTranslation[]    findAll()
- * @method ArmorMaterialTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemMaterialTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemMaterialTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemMaterialTranslation[]    findAll()
+ * @method ItemMaterialTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ItemMaterialTranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ArmorMaterialTranslation::class);
+        parent::__construct($registry, ItemMaterialTranslation::class);
     }
 
 //    /**
