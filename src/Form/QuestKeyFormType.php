@@ -27,7 +27,7 @@ class QuestKeyFormType extends AbstractType
                     return $er->createQueryBuilder('item')
                         ->join('item.translations', 'lt', 'WITH', 'item.id = lt.translatable')
                         ->addSelect('lt')
-                        ->andWhere('item.typeProperties = :type')
+                        ->andWhere('item.typeItem = :type')
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
                         ->setParameter('type', 'ItemPropertiesKey')
