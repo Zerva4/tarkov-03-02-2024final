@@ -29,7 +29,21 @@ class ImportItemsPropertiesCommand extends Command
         'ItemPropertiesChestRig',
         'ItemPropertiesContainer',
         'ItemPropertiesFoodDrink',
+        'ItemPropertiesGlasses',
+        'ItemPropertiesGrenade',
+        'ItemPropertiesHeadphone',
+        'ItemPropertiesHelmet',
+        'ItemPropertiesKey',
+        'ItemPropertiesMagazine',
+        'ItemPropertiesMedicalItem',
+        'ItemPropertiesMedKit',
+        'ItemPropertiesMelee',
+        'ItemPropertiesNightVision',
+        'ItemPropertiesPainkiller',
+        'ItemPropertiesScope',
+        'ItemPropertiesSurgicalKit',
         'ItemPropertiesWeapon',
+        'ItemPropertiesWeaponMod'
     ];
     private EntityManagerInterface $em;
     private GraphQLClientInterface $client;
@@ -459,20 +473,22 @@ class ImportItemsPropertiesCommand extends Command
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
                 // Set item properties
-                if (!$itemEntity instanceof ItemInterface || null === $itemEntity->getProperties()) {
-                    $entityName = 'App\Entity\Item\\' . $item['properties']['__typename'];
-                    $entityProperties = new $entityName();
-                } else {
-                    $entityProperties = $itemEntity->getProperties();
+                if (count($item['properties']) > 1) {
+                    if (!$itemEntity instanceof ItemInterface || null === $itemEntity->getProperties()) {
+                        $entityName = 'App\Entity\Item\\' . $item['properties']['__typename'];
+                        $entityProperties = new $entityName();
+                    } else {
+                        $entityProperties = $itemEntity->getProperties();
+                    }
+
+                    $entityLoaderName = 'App\Command\Loaders\\' . $item['properties']['__typename'] . 'Loader';
+                    $loader = new $entityLoaderName();
+                    $entityProperties = $loader->load($this->em, $entityProperties, $item['properties'], $lang);
+                    $itemEntity->setProperties($entityProperties);
+
+                    $this->em->persist($itemEntity);
+                    $this->em->flush();
                 }
-
-                $entityLoaderName = 'App\Command\Loaders\\' . $item['properties']['__typename'] . 'Loader';
-                $loader = new $entityLoaderName();
-                $entityProperties = $loader->load($this->em, $entityProperties, $item['properties'], $lang);
-                $itemEntity->setProperties($entityProperties);
-
-                $this->em->persist($itemEntity);
-                $this->em->flush();
                 unset($itemEntity, $entityProperties, $loader);
             }
         }
