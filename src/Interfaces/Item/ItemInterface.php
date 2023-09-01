@@ -168,6 +168,17 @@ interface ItemInterface
     public function setHasGrid(bool $hasGrid): ItemInterface;
 
     /**
+     * @return bool
+     */
+    public function isBlocksHeadphones(): bool;
+
+    /**
+     * @param bool $blocksHeadphones
+     * @return ItemInterface
+     */
+    public function setBlocksHeadphones(bool $blocksHeadphones): ItemInterface;
+
+    /**
      * @return float|null
      */
     public function getWeight(): ?float;
