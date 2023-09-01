@@ -23,10 +23,10 @@ class ItemPropertiesChestRig extends ItemProperties implements ItemPropertiesInt
     private int $repairCost;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение скорости в %'])]
-    private int $speedPenalty;
+    private float $speedPenalty;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение поворота в %'])]
-    private int $turnPenalty;
+    private float $turnPenalty;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Снижение эргономик в %'])]
     private int $ergoPenalty;
@@ -79,24 +79,24 @@ class ItemPropertiesChestRig extends ItemProperties implements ItemPropertiesInt
         return $this;
     }
 
-    public function getSpeedPenalty(): int
+    public function getSpeedPenalty(): float
     {
         return $this->speedPenalty;
     }
 
-    public function setSpeedPenalty(int $speedPenalty): ItemPropertiesChestRigInterface
+    public function setSpeedPenalty(float $speedPenalty): ItemPropertiesChestRigInterface
     {
         $this->speedPenalty = $speedPenalty;
 
         return $this;
     }
 
-    public function getTurnPenalty(): int
+    public function getTurnPenalty(): float
     {
         return $this->turnPenalty;
     }
 
-    public function setTurnPenalty(int $turnPenalty): ItemPropertiesChestRigInterface
+    public function setTurnPenalty(float $turnPenalty): ItemPropertiesChestRigInterface
     {
         $this->turnPenalty = $turnPenalty;
 
@@ -156,7 +156,7 @@ class ItemPropertiesChestRig extends ItemProperties implements ItemPropertiesInt
         return $this->bluntThroughput;
     }
 
-    public function setBluntThroughput(int $bluntThroughput): ItemPropertiesChestRigInterface
+    public function setBluntThroughput(float $bluntThroughput): ItemPropertiesChestRigInterface
     {
         $this->bluntThroughput = $bluntThroughput;
 

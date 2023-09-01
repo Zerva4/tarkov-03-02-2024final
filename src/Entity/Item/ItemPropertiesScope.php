@@ -19,7 +19,7 @@ class ItemPropertiesScope  extends ItemProperties implements ItemPropertiesInter
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => 'Режимы прицела'])]
     private ?array $sightModes = null;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Прицельная дальность'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Прицельная дальность'])]
     private int $sightingRange;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Модификатор отдачи'])]
