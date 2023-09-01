@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Entity\Workshop;
 
 use App\Entity\TranslatableEntity;
-use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\CraftInterface;
 use App\Interfaces\Workshop\PlaceInterface;

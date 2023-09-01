@@ -6,7 +6,6 @@ namespace App\Entity\Quest;
 
 use App\Entity\Barter;
 use App\Entity\Item\ContainedItem;
-use App\Entity\Item\Item;
 use App\Entity\Map;
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
@@ -14,7 +13,6 @@ use App\Entity\TranslatableEntity;
 use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ContainedItemInterface;
-use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Quest\QuestKeyInterface;

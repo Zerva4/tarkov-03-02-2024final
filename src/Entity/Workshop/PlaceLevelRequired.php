@@ -13,7 +13,6 @@ use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use function Symfony\Component\Translation\t;
 
 #[ORM\Table(name: 'places_levels_required')]
 #[ORM\Index(columns: ['api_id'], name: 'places_levels_required_idx')]

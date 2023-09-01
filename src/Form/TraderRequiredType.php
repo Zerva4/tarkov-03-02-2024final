@@ -6,7 +6,6 @@ namespace App\Form;
 
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderRequired;
-use App\Entity\Workshop\PlaceLevelRequired;
 use App\Repository\Trader\TraderRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

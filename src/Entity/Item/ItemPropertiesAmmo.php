@@ -6,9 +6,7 @@ namespace App\Entity\Item;
 
 use App\Interfaces\Item\ItemPropertiesAmmoInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
-use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\ItemPropertiesAmmoRepository;
-use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_ammo', options: ['comment' => 'Таблица свойств для патронов'])]
