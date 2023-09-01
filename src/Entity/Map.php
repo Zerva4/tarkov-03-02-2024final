@@ -269,11 +269,6 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->__get('title');
-    }
-
     public function getQuestsKeys(): Collection
     {
         return $this->questsKeys;
@@ -304,5 +299,10 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }
