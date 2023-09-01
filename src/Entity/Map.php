@@ -105,12 +105,12 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
         return $this;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->translate()->getDescription();
     }
 
-    public function setDescription(string $description): MapInterface
+    public function setDescription(?string $description): MapInterface
     {
         $this->translate()->setDescription($description);
 

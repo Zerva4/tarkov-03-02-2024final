@@ -25,13 +25,13 @@ interface MapInterface
     /**
      * @return string
      */
-    public function getDescription(): string;
+    public function getDescription(): ?string;
 
     /**
      * @param string $description
      * @return MapInterface
      */
-    public function setDescription(string $description): MapInterface;
+    public function setDescription(?string $description): MapInterface;
 
     /**
      * @return bool|null
