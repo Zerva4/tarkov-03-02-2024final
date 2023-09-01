@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Interfaces\Item;
+declare(strict_types=1);
 
-use Doctrine\Common\Collections\Collection;
+namespace App\Interfaces\Item;
 
 interface StimulationEffectInterface
 {

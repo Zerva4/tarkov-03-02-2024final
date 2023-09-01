@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces\Workshop;
+
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\SkillInterface;
 use App\Interfaces\Trader\TraderRequiredInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Quest;
 
 use App\Entity\Quest\QuestKey;

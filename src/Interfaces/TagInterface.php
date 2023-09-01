@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
-use Ramsey\Uuid\UuidInterface;
-
 /**
  * Interface for Tag entity.
  */
