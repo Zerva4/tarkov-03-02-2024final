@@ -3,14 +3,17 @@
 namespace App\Command;
 
 use App\Entity\Item\Item;
+use App\Entity\Item\ItemPropertiesWeapon;
 use App\Entity\Quest\Quest;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\Item\ItemInterface;
+use App\Traits\LoaderAPITrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
+use ReflectionException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -19,6 +22,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Serializer\Serializer;
 
 #[AsCommand(
     name: 'app:import:items',
@@ -32,7 +36,8 @@ class ImportItemsCommand extends Command
 
     protected array $moneyArray = ['5449016a4bdc2d6f028b456f', '5696686a4bdc2da3298b456a', '569668774bdc2da2298b4568'];
 
-    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel)
+    {
         parent::__construct();
 
         $this->em = $em;
@@ -50,6 +55,7 @@ class ImportItemsCommand extends Command
 
     /**
      * @throws ImagickException
+     * @throws ReflectionException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -160,8 +166,8 @@ class ImportItemsCommand extends Command
                 minRepairKitDegradation
                 maxRepairKitDegradation
               }
-              armorType: String
-              bluntThroughput: Float
+              armorType
+              bluntThroughput
             }
             
             # fragment ArmorMaterial on ItemPropertiesArmorMaterial {
@@ -395,7 +401,12 @@ class ImportItemsCommand extends Command
               sightingRange
               centerOfImpact
               deviationCurve
+              recoilDispersion
+              recoilAngle
+              cameraRecoil
+              cameraSnap
               deviationMax
+              convergence
               defaultWidth
               defaultHeight
               defaultErgonomics
@@ -446,6 +457,7 @@ class ImportItemsCommand extends Command
         $itemRepository = $this->em->getRepository(Item::class);
         $questRepository = $this->em->getRepository(Quest::class);
 
+        // Impart base data
         foreach ($items as $item) {
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
@@ -466,51 +478,23 @@ class ImportItemsCommand extends Command
 
             // Download file
             @unlink($this->storageDir.'*.webp');
-            if (!$itemEntity->getImageFile()) {
-                $curlHandle = curl_init($item['image512pxLink']);
-                $fileName = basename($item['image512pxLink']);
-                $tmpFileName = $this->storageDir . $fileName;
-                $fp = fopen($tmpFileName, 'wb');
-                curl_setopt($curlHandle, CURLOPT_FILE, $fp);
-                curl_setopt($curlHandle, CURLOPT_HEADER, 0);
-                curl_exec($curlHandle);
-                curl_close($curlHandle);
-                fclose($fp);
-
-                // Convert to png
-                $saveFileName = explode('-', $fileName, 2)[0] . '.png';
-                $saveFilePath = $this->storageDir . $saveFileName;
-                $im = new Imagick();
-                $im->pingImage($tmpFileName);
-                $im->readImage($tmpFileName);
-                $im->setImageFormat('png');
-                $im->setBackgroundColor(new ImagickPixel('transparent'));
-                $im->writeImage($saveFilePath);
-                unlink($tmpFileName);
-
-                $itemEntity->setImageName(explode('-', $fileName, 2)[0] . '.png');
+            if (!$itemEntity->getImageName()) {
+                $imageName =$this->convertImage($item['image512pxLink']);
+                $itemEntity->setImageName($imageName);
             }
 
-            // Set another params
+            // Set base params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
-            $blocksHeadphones = (null !== $item['blocksHeadphones']) ? $item['blocksHeadphones'] : false;
             if ($this->isMoney($item['id'])) $item['types'][] = 'money';
             $itemEntity->setPublished(true)
                 ->setSlug($item['normalizedName'])
                 ->setTypes($item['types'])
-                ->setProperties($item['properties'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])
                 ->setHeight($item['height'])
                 ->setBackgroundColor($item['backgroundColor'])
-                ->setAccuracyModifier($item['accuracyModifier'])
-                ->setRecoilModifier($item['recoilModifier'])
-                ->setErgonomicsModifier($item['recoilModifier'])
                 ->setHasGrid($hasGrid)
-                ->setBlocksHeadphones($blocksHeadphones)
                 ->setWeight($item['weight'])
-                ->setVelocity($item['velocity'])
-                ->setLoudness($item['loudness'])
                 ->mergeNewTranslations()
             ;
             $this->em->persist($itemEntity);
@@ -543,6 +527,7 @@ class ImportItemsCommand extends Command
 
             $progressBar->advance();
             $this->em->flush();
+            unset($itemEntity);
         }
 
         $progressBar->finish();
@@ -554,5 +539,35 @@ class ImportItemsCommand extends Command
     protected function isMoney(string $apiId): bool
     {
         return in_array($apiId, $this->moneyArray);
+    }
+
+    protected function convertImage(string $url): ?string
+    {
+        $curlHandle = curl_init($url);
+        $fileName = basename($url);
+        $tmpFileName = $this->storageDir . $fileName;
+        $fp = fopen($tmpFileName, 'wb');
+        curl_setopt($curlHandle, CURLOPT_FILE, $fp);
+        curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+        curl_exec($curlHandle);
+        curl_close($curlHandle);
+        fclose($fp);
+
+        $fhSource = fopen($tmpFileName, 'a+');
+        $im = new Imagick();
+        $im->readImageFile($fhSource);
+        fclose($fhSource);
+
+        $saveFileName = explode('-', $fileName, 2)[0] . '.png';
+        $saveFilePath = $this->storageDir . $saveFileName;
+
+        $fhSave = fopen($saveFilePath, 'a+');
+        $im->setImageFormat('png');
+        $im->setBackgroundColor(new ImagickPixel('transparent'));
+        $im->writeImageFile($fhSave);
+        fclose($fhSave);
+        unlink($tmpFileName);
+
+        return explode('-', $fileName, 2)[0] . '.png';
     }
 }

@@ -17,12 +17,12 @@ class ItemPropertiesBackpack extends ItemProperties implements ItemPropertiesInt
     private int $capacity;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение скорости в %'])]
-    private int $speedPenalty;
+    private float $speedPenalty;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение поворота в %'])]
-    private int $turnPenalty;
+    private float $turnPenalty;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение эргономик в %'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Снижение эргономик в %'])]
     private int $ergoPenalty;
 
     public function getCapacity(): int
@@ -37,24 +37,24 @@ class ItemPropertiesBackpack extends ItemProperties implements ItemPropertiesInt
         return $this;
     }
 
-    public function getSpeedPenalty(): int
+    public function getSpeedPenalty(): float
     {
         return $this->speedPenalty;
     }
 
-    public function setSpeedPenalty(int $speedPenalty): ItemPropertiesBackpackInterface
+    public function setSpeedPenalty(float $speedPenalty): ItemPropertiesBackpackInterface
     {
         $this->speedPenalty = $speedPenalty;
 
         return $this;
     }
 
-    public function getTurnPenalty(): int
+    public function getTurnPenalty(): float
     {
         return $this->turnPenalty;
     }
 
-    public function setTurnPenalty(int $turnPenalty): ItemPropertiesBackpackInterface
+    public function setTurnPenalty(float $turnPenalty): ItemPropertiesBackpackInterface
     {
         $this->turnPenalty = $turnPenalty;
 

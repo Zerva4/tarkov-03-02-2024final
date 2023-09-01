@@ -42,7 +42,7 @@ class ImportAllCommand extends Command
         $traderCmd = $this->getApplication()->find('app:import:traders');
         $traderCmd->run($inputArguments, $output);
 
-        // Import traders
+        // Import bosses
         $traderCmd = $this->getApplication()->find('app:import:bosses');
         $traderCmd->run($inputArguments, $output);
 
@@ -56,6 +56,10 @@ class ImportAllCommand extends Command
 
         // Import items
         $itemsCmd = $this->getApplication()->find('app:import:items');
+        $itemsCmd->run($inputArguments, $output);
+
+        // Import properties items
+        $itemsCmd = $this->getApplication()->find('app:import:items-properties');
         $itemsCmd->run($inputArguments, $output);
 
         // Import quests items

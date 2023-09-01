@@ -2,6 +2,8 @@
 
 namespace App\Interfaces\Item;
 
+use Doctrine\Common\Collections\Collection;
+
 interface StimulationEffectInterface
 {
     public function getType(): ?string;
@@ -18,6 +20,6 @@ interface StimulationEffectInterface
     public function getSkillName(): ?string;
     public function setSkillName(?string $skillName): StimulationEffectInterface;
     public function setPercent(bool $percent): StimulationEffectInterface;
-    public function getProperties(): ItemPropertiesFoodDrinkInterface;
-    public function setProperties(ItemPropertiesFoodDrinkInterface $properties): StimulationEffectInterface;
+    public function getProperties(): ?ItemPropertiesFoodDrinkInterface;
+    public function setProperties(?ItemPropertiesFoodDrinkInterface $properties): StimulationEffectInterface;
 }

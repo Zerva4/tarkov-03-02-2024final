@@ -12,10 +12,10 @@ interface ItemPropertiesHelmetInterface
     public function setDurability(int $durability): ItemPropertiesHelmetInterface;
     public function getRepairCost(): int;
     public function setRepairCost(int $repairCost): ItemPropertiesHelmetInterface;
-    public function getSpeedPenalty(): int;
-    public function setSpeedPenalty(int $speedPenalty): ItemPropertiesHelmetInterface;
-    public function getTurnPenalty(): int;
-    public function setTurnPenalty(int $turnPenalty): ItemPropertiesHelmetInterface;
+    public function getSpeedPenalty(): float;
+    public function setSpeedPenalty(float $speedPenalty): ItemPropertiesHelmetInterface;
+    public function getTurnPenalty(): float;
+    public function setTurnPenalty(float $turnPenalty): ItemPropertiesHelmetInterface;
     public function getErgoPenalty(): int;
     public function setErgoPenalty(int $ergoPenalty): ItemPropertiesHelmetInterface;
     public function getHeadZones(): ?array;

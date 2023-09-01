@@ -12,8 +12,8 @@ interface ItemPropertiesSurgicalKitInterface
     public function setUseTime(int $useTime): ItemPropertiesSurgicalKitInterface;
     public function getCures(): ?array;
     public function setCures(?array $cures): ItemPropertiesSurgicalKitInterface;
-    public function getMinLimbHealth(): int;
-    public function setMinLimbHealth(int $minLimbHealth): ItemPropertiesSurgicalKitInterface;
-    public function getMaxLimbHealth(): int;
-    public function setMaxLimbHealth(int $maxLimbHealth): ItemPropertiesSurgicalKitInterface;
+    public function getMinLimbHealth(): float;
+    public function setMinLimbHealth(float $minLimbHealth): ItemPropertiesSurgicalKitInterface;
+    public function getMaxLimbHealth(): float;
+    public function setMaxLimbHealth(float $maxLimbHealth): ItemPropertiesSurgicalKitInterface;
 }

@@ -59,6 +59,18 @@ class Skill extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): SkillInterface
+    {
+        $this->translate()->setName($name);
+
+        return $this;
+    }
+
     /**
      * @return int
      */

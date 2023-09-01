@@ -94,16 +94,16 @@ class ImportQuestItemsCommand extends Command
 
             if ($questItemEntity instanceof QuestItemInterface) {
                 $questItemEntity->setDefaultLocale($lang);
-                $questItemEntity->translate($lang, false)->setName($item['name']);
-                $questItemEntity->translate($lang, false)->setShortName($item['shortName']);
-                $questItemEntity->translate($lang, false)->setDescription($item['description']);
+                $questItemEntity->setName($item['name']);
+                $questItemEntity->setShortName($item['shortName']);
+                $questItemEntity->setDescription($item['description']);
             } else {
                 /** @var ItemInterface $mapEntity */
                 $questItemEntity = new QuestItem($lang);
                 $questItemEntity->setDefaultLocale($lang);
-                $questItemEntity->translate($lang, false)->setName($item['name']);
-                $questItemEntity->translate($lang, false)->setShortName($item['shortName']);
-                $questItemEntity->translate($lang, false)->setDescription($item['description']);
+                $questItemEntity->setName($item['name']);
+                $questItemEntity->setShortName($item['shortName']);
+                $questItemEntity->setDescription($item['description']);
                 $questItemEntity->setApiId($item['id']);
             }
 

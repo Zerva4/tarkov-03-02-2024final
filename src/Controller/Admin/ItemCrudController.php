@@ -29,13 +29,13 @@ class ItemCrudController extends BaseCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)->setSearchFields([
-            'translations.title',
+            'translations.name',
         ]);
     }
 
     public function configureFields(string $pageName): iterable
     {
-        $title = TextField::new('title', t('Title', [], 'admin.items'));
+        $name = TextField::new('name', t('Name', [], 'admin.items'));
         $published = BooleanField::new('published', t('Published', [], 'admin.items'));
         $itemImage = VichImageField::new('imageFile', t('Photo', [], 'admin.items')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
@@ -43,9 +43,9 @@ class ItemCrudController extends BaseCrudController
             ->setFormTypeOption('required', false)
         ;
         $translationFields = [
-            'title' => [
+            'name' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.items')
+                'label' => t('Name', [], 'admin.items')
             ],
             'description' => [
                 'attr' => [
@@ -75,8 +75,6 @@ class ItemCrudController extends BaseCrudController
         $blocksHeadphones = BooleanField::new('blocks_headphones', t('Blocks headphones', [], 'admin.items'));
         $ergonomicsModifier = NumberField::new('ergonomics_modifier', t('Ergonomics modifier', [], 'admin.items'));
         $weight = NumberField::new('weight', t('Weight', [], 'admin.items'));
-        $velocity = NumberField::new('velocity', t('Velocity', [], 'admin.items'));
-        $loudness = IntegerField::new('loudness', t('Loudness', [], 'admin.items'));
 
         // Доп свойства
         $properties = ArrayField::new('properties')
@@ -92,21 +90,19 @@ class ItemCrudController extends BaseCrudController
                 FormField::addTab(t('Basic options', [], 'admin.items')),
                 $hasGrid->setColumns(6),
                 $blocksHeadphones->setColumns(6),
-                $basePrice->setColumns(3),
-                $width->setColumns(3),
-                $height->setColumns(3),
+                $basePrice->setColumns(2),
+                $width->setColumns(2),
+                $height->setColumns(2),
                 $backgroundColor->setColumns(3),
-                $accuracyModifier->setColumns(3),
-                $recoilModifier->setColumns(3),
-                $ergonomicsModifier->setColumns(3),
+//                $accuracyModifier->setColumns(3),
+//                $recoilModifier->setColumns(3),
+//                $ergonomicsModifier->setColumns(3),
                 $weight->setColumns(3),
-                $velocity->setColumns(3),
-                $loudness->setColumns(3),
                 FormField::addTab(t('Extra options', [], 'admin.items')),
 //                $properties->setColumns(12)
             ],
             default => [
-                $title->setColumns(12)->setTextAlign('left')
+                $name->setColumns(12)->setTextAlign('left')
                     ->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published->setColumns(1)->setTextAlign('center'),
                 DateField::new('createdAt', t('Created', [], 'admin'))->setTextAlign('center'),

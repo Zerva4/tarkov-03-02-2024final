@@ -14,76 +14,76 @@ use Doctrine\ORM\Mapping as ORM;
 class ItemPropertiesBarrel extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesBarrelInterface
 {
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Эргономика'])]
-    private int $ergonomics;
+    private float $ergonomics;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Модификатор отдачи'])]
-    private int $recoilModifier;
+    private float $recoilModifier;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Центр воздействия'])]
-    private int $centerOfImpact;
+    private float $centerOfImpact;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Кривая отклонения'])]
-    private int $deviationCurve;
+    private float $deviationCurve;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Макс. отклонение'])]
-    private int $deviationMax;
+    private float $deviationMax;
 
     // todo: Slots
     
-    public function getErgonomics(): int
+    public function getErgonomics(): float
     {
         return $this->ergonomics;
     }
 
-    public function setErgonomics(int $ergonomics): ItemPropertiesBarrelInterface
+    public function setErgonomics(float $ergonomics): ItemPropertiesBarrelInterface
     {
         $this->ergonomics = $ergonomics;
 
         return $this;
     }
 
-    public function getRecoilModifier(): int
+    public function getRecoilModifier(): float
     {
         return $this->recoilModifier;
     }
 
-    public function setRecoilModifier(int $recoilModifier): ItemPropertiesBarrelInterface
+    public function setRecoilModifier(float $recoilModifier): ItemPropertiesBarrelInterface
     {
         $this->recoilModifier = $recoilModifier;
 
         return $this;
     }
 
-    public function getCenterOfImpact(): int
+    public function getCenterOfImpact(): float
     {
         return $this->centerOfImpact;
     }
 
-    public function setCenterOfImpact(int $centerOfImpact): ItemPropertiesBarrelInterface
+    public function setCenterOfImpact(float $centerOfImpact): ItemPropertiesBarrelInterface
     {
         $this->centerOfImpact = $centerOfImpact;
 
         return $this;
     }
 
-    public function getDeviationCurve(): int
+    public function getDeviationCurve(): float
     {
         return $this->deviationCurve;
     }
 
-    public function setDeviationCurve(int $deviationCurve): ItemPropertiesBarrelInterface
+    public function setDeviationCurve(float $deviationCurve): ItemPropertiesBarrelInterface
     {
         $this->deviationCurve = $deviationCurve;
 
         return $this;
     }
 
-    public function getDeviationMax(): int
+    public function getDeviationMax(): float
     {
         return $this->deviationMax;
     }
 
-    public function setDeviationMax(int $deviationMax): ItemPropertiesBarrelInterface
+    public function setDeviationMax(float $deviationMax): ItemPropertiesBarrelInterface
     {
         $this->deviationMax = $deviationMax;
 

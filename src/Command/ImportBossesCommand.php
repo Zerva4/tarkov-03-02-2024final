@@ -71,6 +71,7 @@ class ImportBossesCommand extends Command
                       max
                       bodyPart
                     }
+                    items { id }
                 }
             }
         GRAPHQL;
@@ -138,6 +139,8 @@ class ImportBossesCommand extends Command
             $this->em->persist($bossEntity);
             $bossEntity->mergeNewTranslations();
         }
+
+        // todo: import equipments and items
 
         $this->em->flush();
         $progressBar->finish();

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
-use App\Interfaces\Item\ArmorMaterialInterface;
+use App\Interfaces\Item\ItemMaterialInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Interfaces\Item\ItemStorageGridInterface;
@@ -46,15 +46,15 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     use UuidPrimaryKeyTrait;
 
     #[ORM\OneToOne(mappedBy: 'properties', targetEntity: Item::class)]
-    #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', unique: false)]
     private ItemInterface $item;
 
-    #[ORM\ManyToOne(targetEntity: ArmorMaterial::class, fetch: 'EAGER', inversedBy: 'properties')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
-    private ?ArmorMaterialInterface $material = null;
+    #[ORM\ManyToOne(targetEntity: ItemMaterial::class, fetch: 'EAGER', inversedBy: 'properties')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private ?ItemMaterialInterface $material = null;
 
     #[ORM\ManyToOne(targetEntity: ItemStorageGrid::class, fetch: 'EAGER', inversedBy: 'properties')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'cascade')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?ItemStorageGridInterface $grids = null;
 
     public function getItem(): ItemInterface
@@ -69,14 +69,15 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
         return $this;
     }
 
-    public function getMaterial(): ?ArmorMaterialInterface
+    public function getMaterial(): ?ItemMaterialInterface
     {
         return $this->material;
     }
 
-    public function setMaterial(?ArmorMaterialInterface $material): ItemPropertiesInterface
+    public function setMaterial(?ItemMaterialInterface $material): ItemPropertiesInterface
     {
         $this->material = $material;
+        if ($material instanceof ItemMaterialInterface) $material->addProperties($this);
 
         return $this;
     }

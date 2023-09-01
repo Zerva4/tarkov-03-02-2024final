@@ -33,9 +33,9 @@ class StimulationEffect extends TranslatableEntity implements StimulationEffectI
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false, 'comment' => ''])]
     private bool $percent;
 
-    #[ORM\OneToOne(mappedBy: 'stimulationEffect', targetEntity: ItemPropertiesFoodDrink::class)]
+    #[ORM\ManyToOne(targetEntity: ItemPropertiesFoodDrink::class, inversedBy: 'stimulationEffects')]
     #[ORM\JoinColumn(name: 'properties_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    private ItemPropertiesFoodDrinkInterface $properties;
+    private ?ItemPropertiesFoodDrinkInterface $properties = null;
 
     public function __construct(string $defaultLocale = '%app.default_locale%')
     {
@@ -126,15 +126,20 @@ class StimulationEffect extends TranslatableEntity implements StimulationEffectI
         return $this;
     }
 
-    public function getProperties(): ItemPropertiesFoodDrinkInterface
+    public function getProperties(): ?ItemPropertiesFoodDrinkInterface
     {
         return $this->properties;
     }
 
-    public function setProperties(ItemPropertiesFoodDrinkInterface $properties): StimulationEffectInterface
+    public function setProperties(?ItemPropertiesFoodDrinkInterface $properties): StimulationEffectInterface
     {
         $this->properties = $properties;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string)$this->getId();
     }
 }

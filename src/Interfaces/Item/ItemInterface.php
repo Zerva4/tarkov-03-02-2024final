@@ -58,6 +58,39 @@ interface ItemInterface
     public function setPublished(bool $published): ItemInterface;
 
     /**
+     * @return string|null
+     */
+    public function getName(): ?string;
+
+    /**
+     * @param string $name
+     * @return ItemInterface
+     */
+    public function setName(string $name): ItemInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getShortName(): ?string;
+
+    /**
+     * @param string $name
+     * @return ItemInterface
+     */
+    public function setShortName(string $name): ItemInterface;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @param string $description
+     * @return ItemInterface
+     */
+    public function setDescription(string $description): ItemInterface;
+
+    /**
      * @return string
      */
     public function getSlug(): string;
@@ -316,50 +349,4 @@ interface ItemInterface
      * @return ItemInterface
      */
     public function removeAllowedWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
-
-    /**
-     * @return Collection
-     */
-    public function getDefaultWeapons(): Collection;
-
-    /**
-     * @param Collection $defaultWeapons
-     * @return ItemInterface
-     */
-    public function setDefaultWeapons(Collection $defaultWeapons): ItemInterface;
-
-    /**
-     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
-     * @return ItemInterface
-     */
-    public function addDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
-
-    /**
-     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
-     * @return ItemInterface
-     */
-    public function removeDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
-
-    /**
-     * @return Collection
-     */
-    public function getPresetDefaultWeapons(): Collection;
-
-    /**
-     * @param Collection $presetDefaultWeapons
-     * @return ItemInterface
-     */
-    public function setPresetDefaultWeapons(Collection $presetDefaultWeapons): ItemInterface;
-
-    /**
-     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
-     * @return ItemInterface
-     */
-    public function addPresetDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
-
-    /**
-     * @param ItemPropertiesWeaponInterface $itemPropertiesWeapon
-     * @return ItemInterface
-     */
-    public function removePresetDefaultWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface;
 }

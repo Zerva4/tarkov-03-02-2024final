@@ -8,6 +8,8 @@ use App\Interfaces\Item\ItemPropertiesFoodDrinkInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Interfaces\Item\StimulationEffectInterface;
 use App\Repository\Item\ItemPropertiesFoodDrinkRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_food_drink', options: ['comment' => 'Таблица свойств для еды и напитков'])]
@@ -23,8 +25,14 @@ class ItemPropertiesFoodDrink extends ItemProperties implements ItemPropertiesIn
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => ''])]
     private int $units;
 
-    #[ORM\OneToOne(inversedBy: 'properties', targetEntity: StimulationEffect::class, cascade: ['persist', 'remove'], fetch: 'EAGER')]
-    private ?StimulationEffectInterface $stimulationEffect = null;
+    #[ORM\OneToMany(mappedBy: 'properties', targetEntity: StimulationEffect::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private Collection $stimulationEffects;
+
+    public function __construct()
+    {
+        $this->stimulationEffects = new ArrayCollection();
+    }
 
     public function getEnergy(): int
     {
@@ -62,15 +70,34 @@ class ItemPropertiesFoodDrink extends ItemProperties implements ItemPropertiesIn
         return $this;
     }
 
-    public function getStimulationEffect(): ?StimulationEffectInterface
+    public function getStimulationEffects(): Collection
     {
-        return $this->stimulationEffect;
+        return $this->stimulationEffects;
     }
 
-    public function setStimulationEffect(?StimulationEffectInterface $stimulationEffect): ItemPropertiesFoodDrinkInterface
+    public function setStimulationEffects(Collection $stimulationEffects): ItemPropertiesFoodDrinkInterface
     {
-        $this->stimulationEffect = $stimulationEffect;
-        $stimulationEffect->setProperties($this);
+        $this->stimulationEffects = $stimulationEffects;
+
+        return $this;
+    }
+
+    public function addStimulationEffect(StimulationEffectInterface $stimulationEffect): ItemPropertiesFoodDrinkInterface
+    {
+        if (!$this->stimulationEffects->contains($stimulationEffect)) {
+            $this->stimulationEffects->add($stimulationEffect);
+            $stimulationEffect->setProperties($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStimulationEffect(StimulationEffectInterface $stimulationEffect): ItemPropertiesFoodDrinkInterface
+    {
+        if ($this->stimulationEffects->contains($stimulationEffect)) {
+            $this->stimulationEffects->removeElement($stimulationEffect);
+            if ($stimulationEffect->getProperties() === $this) $stimulationEffect->setProperties(null);
+        }
 
         return $this;
     }

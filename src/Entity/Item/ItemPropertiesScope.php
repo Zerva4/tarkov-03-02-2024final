@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ItemPropertiesScope  extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesScopeInterface
 {
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Эгономика'])]
-    private int $ergonomics;
+    private float $ergonomics;
 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => 'Режимы прицела'])]
     private ?array $sightModes = null;
@@ -21,17 +21,17 @@ class ItemPropertiesScope  extends ItemProperties implements ItemPropertiesInter
     private int $sightingRange;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Модификатор отдачи'])]
-    private int $recoilModifier;
+    private float $recoilModifier;
 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => 'Уровни масштабирования'])]
     private ?array $zoomLevels = null;
 
-    public function getErgonomics(): int
+    public function getErgonomics(): float
     {
         return $this->ergonomics;
     }
 
-    public function setErgonomics(int $ergonomics): ItemPropertiesScopeInterface
+    public function setErgonomics(float $ergonomics): ItemPropertiesScopeInterface
     {
         $this->ergonomics = $ergonomics;
 
@@ -62,12 +62,12 @@ class ItemPropertiesScope  extends ItemProperties implements ItemPropertiesInter
         return $this;
     }
 
-    public function getRecoilModifier(): int
+    public function getRecoilModifier(): float
     {
         return $this->recoilModifier;
     }
 
-    public function setRecoilModifier(int $recoilModifier): ItemPropertiesScopeInterface
+    public function setRecoilModifier(float $recoilModifier): ItemPropertiesScopeInterface
     {
         $this->recoilModifier = $recoilModifier;
 

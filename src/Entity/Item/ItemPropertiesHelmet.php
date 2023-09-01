@@ -23,10 +23,10 @@ class ItemPropertiesHelmet extends ItemProperties implements ItemPropertiesInter
     private int $repairCost;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение скорости в %'])]
-    private int $speedPenalty;
+    private float $speedPenalty;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение поворота в %'])]
-    private int $turnPenalty;
+    private float $turnPenalty;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Снижение эргономик в %'])]
     private int $ergoPenalty;
@@ -96,24 +96,24 @@ class ItemPropertiesHelmet extends ItemProperties implements ItemPropertiesInter
         return $this;
     }
 
-    public function getSpeedPenalty(): int
+    public function getSpeedPenalty(): float
     {
         return $this->speedPenalty;
     }
 
-    public function setSpeedPenalty(int $speedPenalty): ItemPropertiesHelmetInterface
+    public function setSpeedPenalty(float $speedPenalty): ItemPropertiesHelmetInterface
     {
         $this->speedPenalty = $speedPenalty;
 
         return $this;
     }
 
-    public function getTurnPenalty(): int
+    public function getTurnPenalty(): float
     {
         return $this->turnPenalty;
     }
 
-    public function setTurnPenalty(int $turnPenalty): ItemPropertiesHelmetInterface
+    public function setTurnPenalty(float $turnPenalty): ItemPropertiesHelmetInterface
     {
         $this->turnPenalty = $turnPenalty;
 

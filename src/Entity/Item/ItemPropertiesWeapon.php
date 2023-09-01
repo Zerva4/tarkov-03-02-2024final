@@ -8,6 +8,7 @@ use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
 use App\Interfaces\Item\ItemPropertiesWeaponInterface;
 use App\Repository\Item\ItemPropertiesWeaponRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,10 +18,6 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
 {
     #[ORM\Column(type: 'string', length: 64, nullable: false, options: ['default' => '', 'comment' => 'Калибр'])]
     private string $caliber;
-
-    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EAGER', inversedBy: 'defaultWeapons')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
-    private ?ItemInterface $defaultAmmo;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Эффективная дистанция'])]
     private int $effectiveDistance;
@@ -91,9 +88,13 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Вес по умолчанию'])]
     private float $defaultWeight;
+
+    #[ORM\OneToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', unique: false, onDelete: 'SET NULL')]
+    private ?ItemInterface $defaultAmmo;
     
-    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EAGER', inversedBy: 'presetDefaultWeapons')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ORM\OneToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', unique: false, onDelete: 'SET NULL')]
     private ?ItemInterface $defaultPreset = null;
 
     #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'presetsWeapons', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
@@ -104,6 +105,12 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
     #[ORM\JoinTable(name: 'items_properties_weapon_ammo')]
     private ?Collection $allowedAmmo;
 
+    public function __construct()
+    {
+        $this->allowedPresets = new ArrayCollection();
+        $this->allowedAmmo = new ArrayCollection();
+    }
+
     public function getCaliber(): string
     {
         return $this->caliber;
@@ -112,18 +119,6 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
     public function setCaliber(string $caliber): ItemPropertiesWeaponInterface
     {
         $this->caliber = $caliber;
-
-        return $this;
-    }
-
-    public function getDefaultAmmo(): ?ItemInterface
-    {
-        return $this->defaultAmmo;
-    }
-
-    public function setDefaultAmmo(?ItemInterface $defaultAmmo): ItemPropertiesWeaponInterface
-    {
-        $this->defaultAmmo = $defaultAmmo;
 
         return $this;
     }
@@ -400,6 +395,18 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
     public function setDefaultWeight(float $defaultWeight): ItemPropertiesWeaponInterface
     {
         $this->defaultWeight = $defaultWeight;
+
+        return $this;
+    }
+
+    public function getDefaultAmmo(): ?ItemInterface
+    {
+        return $this->defaultAmmo;
+    }
+
+    public function setDefaultAmmo(?ItemInterface $defaultAmmo): ItemPropertiesWeaponInterface
+    {
+        $this->defaultAmmo = $defaultAmmo;
 
         return $this;
     }

@@ -70,6 +70,17 @@ interface PlaceLevelInterface
     public function setConstructionTime(int $constructionTime): PlaceLevelInterface;
 
     /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @param string $description
+     * @return PlaceLevelInterface
+     */
+    public function setDescription(string $description): PlaceLevelInterface;
+
+    /**
      * @return PlaceInterface|null
      */
     public function getPlace(): ?PlaceInterface;

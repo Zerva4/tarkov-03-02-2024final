@@ -96,21 +96,26 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getOrderPlace(): ?int
     {
         return $this->orderPlace;
     }
 
-    /**
-     * @param int|null $orderPlace
-     * @return PlaceInterface
-     */
     public function setOrderPlace(?int $orderPlace): PlaceInterface
     {
         $this->orderPlace = $orderPlace;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): PlaceInterface
+    {
+        $this->translate()->setName($name);
 
         return $this;
     }

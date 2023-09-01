@@ -22,4 +22,18 @@ class HomeController extends AbstractController
             'articles' => $articlesList,
         ]);
     }
+
+//    #[Route('/delete', name: 'app_delete')]
+//    public function delete(EntityManagerInterface $em): Response
+//    {
+//        $query = $em->createQuery(
+//            'DELETE FROM App\Entity\Item\ItemPropertiesFoodDrink e WHERE e.energy >= :ageparameter'
+//        )->setParameter('ageparameter', 0)->execute();
+//        $em->flush();
+//
+//        return $this->render('home/index.html.twig', [
+//            'traders' => $tradersList,
+//            'articles' => $articlesList,
+//        ]);
+//    }
 }

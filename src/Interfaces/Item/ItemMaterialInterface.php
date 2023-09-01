@@ -2,85 +2,30 @@
 
 namespace App\Interfaces\Item;
 
-/**
- * Interface for Item material entity.
- */
+use Doctrine\Common\Collections\Collection;
+
 interface ItemMaterialInterface
 {
-    /**
-     * @return string|null
-     */
-    public function getApiId(): ?string;
-
-    /**
-     * @param string|null $apiId
-     * @return ItemMaterialInterface
-     */
-    public function setApiId(?string $apiId): ItemMaterialInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getDestructibility(): ?float;
-
-    /**
-     * @param float $destructibility
-     * @return ItemMaterialInterface
-     */
+    public function getApiId(): string;
+    public function setApiId(string $apiId): ItemMaterialInterface;
+    public function isPublished(): bool;
+    public function setPublished(bool $published): ItemMaterialInterface;
+    public function getName(): ?string;
+    public function setName(string $name): ItemMaterialInterface;
+    public function getDestructibility(): float;
     public function setDestructibility(float $destructibility): ItemMaterialInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getMinRepairDegradation(): ?float;
-
-    /**
-     * @param float $minRepairDegradation
-     * @return ItemMaterialInterface
-     */
+    public function getMinRepairDegradation(): float;
     public function setMinRepairDegradation(float $minRepairDegradation): ItemMaterialInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getMaxRepairDegradation(): ?float;
-
-    /**
-     * @param float $maxRepairDegradation
-     * @return ItemMaterialInterface
-     */
+    public function getMaxRepairDegradation(): float;
     public function setMaxRepairDegradation(float $maxRepairDegradation): ItemMaterialInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getExplosionDestructibility(): ?float;
-
-    /**
-     * @param float $explosionDestructibility
-     * @return ItemMaterialInterface
-     */
+    public function getExplosionDestructibility(): float;
     public function setExplosionDestructibility(float $explosionDestructibility): ItemMaterialInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getMinRepairKitDegradation(): ?float;
-
-    /**
-     * @param float $minRepairKitDegradation
-     * @return ItemMaterialInterface
-     */
+    public function getMinRepairKitDegradation(): float;
     public function setMinRepairKitDegradation(float $minRepairKitDegradation): ItemMaterialInterface;
-
-    /**
-     * @return float|null
-     */
-    public function getMaxRepairKitDegradation(): ?float;
-
-    /**
-     * @param float $maxRepairKitDegradation
-     * @return ItemMaterialInterface
-     */
+    public function getMaxRepairKitDegradation(): float;
     public function setMaxRepairKitDegradation(float $maxRepairKitDegradation): ItemMaterialInterface;
+    public function getProperties(): Collection;
+    public function setProperties(Collection $properties): ItemMaterialInterface;
+    public function addProperties(ItemPropertiesInterface $properties): ItemMaterialInterface;
+    public function removeProperties(ItemPropertiesInterface $properties): ItemMaterialInterface;
 }
