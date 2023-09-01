@@ -215,6 +215,42 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         return $this;
     }
 
+    public function getHowToComplete(): ?string
+    {
+        return $this->translate()->getHowToComplete();
+    }
+
+    public function setHowToComplete(string $howToComplete): QuestInterface
+    {
+        $this->translate()->setHowToComplete($howToComplete);
+
+        return $this;
+    }
+
+    public function getStartDialog(): ?string
+    {
+        return $this->translate()->getStartDialog();
+    }
+
+    public function setStartDialog(?string $startDialog): QuestInterface
+    {
+        $this->translate()->setStartDialog($startDialog);
+
+        return $this;
+    }
+
+    public function getSuccessfulDialog(): ?string
+    {
+        return $this->translate()->getSuccessfulDialog();
+    }
+
+    public function setSuccessfulDialog(?string $successfulDialog): QuestInterface
+    {
+        $this->translate()->setSuccessfulDialog($successfulDialog);
+
+        return $this;
+    }
+
     public function getImageName(): ?string
     {
         return $this->imageName;
@@ -570,6 +606,6 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
 
     public function __toString(): string
     {
-        return $this->__get('title');
+        return $this->getName();
     }
 }

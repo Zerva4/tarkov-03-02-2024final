@@ -87,6 +87,39 @@ interface QuestInterface
     /**
      * @return string|null
      */
+    public function getHowToComplete(): ?string;
+
+    /**
+     * @param string $howToComplete
+     * @return QuestInterface
+     */
+    public function setHowToComplete(string $howToComplete): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getStartDialog(): ?string;
+
+    /**
+     * @param string|null $startDialog
+     * @return QuestInterface
+     */
+    public function setStartDialog(?string $startDialog): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getSuccessfulDialog(): ?string;
+
+    /**
+     * @param string|null $successfulDialog
+     * @return QuestInterface
+     */
+    public function setSuccessfulDialog(?string $successfulDialog): QuestInterface;
+
+    /**
+     * @return string|null
+     */
     public function getImageName(): ?string;
 
     /**
