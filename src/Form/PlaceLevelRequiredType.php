@@ -29,7 +29,7 @@ class PlaceLevelRequiredType extends AbstractType
                         ->addSelect('lt')
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
-                        ->orderBy('lt.title', 'ASC');
+                        ->orderBy('lt.name', 'ASC');
                 },
                 'expanded'=> false,
                 'by_reference' => true,

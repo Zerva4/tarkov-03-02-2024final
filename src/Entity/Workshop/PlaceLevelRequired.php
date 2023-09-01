@@ -138,6 +138,6 @@ class PlaceLevelRequired implements UuidPrimaryKeyInterface, PlaceLevelRequiredI
 
     public function __toString(): string
     {
-        return $this->place->__get('title') . ': уровень ' . $this->getLevel();
+        return $this->place->getName() . ': уровень ' . $this->getLevel();
     }
 }

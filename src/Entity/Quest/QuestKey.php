@@ -76,6 +76,6 @@ class QuestKey implements UuidPrimaryKeyInterface, TimestampableInterface, Quest
 
     public function __toString(): string
     {
-        return $this->item->__get('title');
+        return $this->item->getName();
     }
 }

@@ -249,6 +249,6 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
 
     public function __toString(): string
     {
-        return $this->__get('title');
+        return $this->getName();
     }
 }
