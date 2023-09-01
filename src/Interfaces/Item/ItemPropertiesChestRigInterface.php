@@ -12,10 +12,10 @@ interface ItemPropertiesChestRigInterface
     public function setDurability(int $durability): ItemPropertiesChestRigInterface;
     public function getRepairCost(): int;
     public function setRepairCost(int $repairCost): ItemPropertiesChestRigInterface;
-    public function getSpeedPenalty(): int;
-    public function setSpeedPenalty(int $speedPenalty): ItemPropertiesChestRigInterface;
-    public function getTurnPenalty(): int;
-    public function setTurnPenalty(int $turnPenalty): ItemPropertiesChestRigInterface;
+    public function getSpeedPenalty(): float;
+    public function setSpeedPenalty(float $speedPenalty): ItemPropertiesChestRigInterface;
+    public function getTurnPenalty(): float;
+    public function setTurnPenalty(float $turnPenalty): ItemPropertiesChestRigInterface;
     public function getErgoPenalty(): int;
     public function setErgoPenalty(int $ergoPenalty): ItemPropertiesChestRigInterface;
     public function getZones(): ?array;
@@ -25,5 +25,5 @@ interface ItemPropertiesChestRigInterface
     public function getArmorType(): string;
     public function setArmorType(string $armorType): ItemPropertiesChestRigInterface;
     public function getBluntThroughput(): float;
-    public function setBluntThroughput(int $bluntThroughput): ItemPropertiesChestRigInterface;
+    public function setBluntThroughput(float $bluntThroughput): ItemPropertiesChestRigInterface;
 }

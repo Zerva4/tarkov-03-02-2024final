@@ -20,7 +20,7 @@ class ItemPropertiesMelee extends ItemProperties implements ItemPropertiesInterf
     private int $stabDamage;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Радиус удара'])]
-    private int $hitRadius;
+    private float $hitRadius;
 
     public function getSlashDamage(): int
     {
@@ -46,12 +46,12 @@ class ItemPropertiesMelee extends ItemProperties implements ItemPropertiesInterf
         return $this;
     }
 
-    public function getHitRadius(): int
+    public function getHitRadius(): float
     {
         return $this->hitRadius;
     }
 
-    public function setHitRadius(int $hitRadius): ItemPropertiesMeleeInterface
+    public function setHitRadius(float $hitRadius): ItemPropertiesMeleeInterface
     {
         $this->hitRadius = $hitRadius;
 

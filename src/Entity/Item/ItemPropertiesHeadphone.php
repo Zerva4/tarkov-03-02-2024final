@@ -35,19 +35,19 @@ class ItemPropertiesHeadphone  extends ItemProperties implements ItemPropertiesI
     private int $cutoffFrequency;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Увеличение дальности звука'])]
-    private int $distanceModifier;
+    private float $distanceModifier;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Перекручивание звука уже готового'])]
-    private int $distortion;
+    private float $distortion;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Уровень чистого звука'])]
     private int $dryVolume;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Высокочастные шумы'])]
-    private int $highFrequencyGain;
+    private float $highFrequencyGain;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Резонанс (Работает вместе с highFrequencyGain)'])]
-    private int $resonance;
+    private float $resonance;
 
     public function getAmbientVolume(): int
     {
@@ -133,24 +133,24 @@ class ItemPropertiesHeadphone  extends ItemProperties implements ItemPropertiesI
         return $this;
     }
 
-    public function getDistanceModifier(): int
+    public function getDistanceModifier(): float
     {
         return $this->distanceModifier;
     }
 
-    public function setDistanceModifier(int $distanceModifier): ItemPropertiesHeadphoneInterface
+    public function setDistanceModifier(float $distanceModifier): ItemPropertiesHeadphoneInterface
     {
         $this->distanceModifier = $distanceModifier;
 
         return $this;
     }
 
-    public function getDistortion(): int
+    public function getDistortion(): float
     {
         return $this->distortion;
     }
 
-    public function setDistortion(int $distortion): ItemPropertiesHeadphoneInterface
+    public function setDistortion(float $distortion): ItemPropertiesHeadphoneInterface
     {
         $this->distortion = $distortion;
 
@@ -169,24 +169,24 @@ class ItemPropertiesHeadphone  extends ItemProperties implements ItemPropertiesI
         return $this;
     }
 
-    public function getHighFrequencyGain(): int
+    public function getHighFrequencyGain(): float
     {
         return $this->highFrequencyGain;
     }
 
-    public function setHighFrequencyGain(int $highFrequencyGain): ItemPropertiesHeadphoneInterface
+    public function setHighFrequencyGain(float $highFrequencyGain): ItemPropertiesHeadphoneInterface
     {
         $this->highFrequencyGain = $highFrequencyGain;
 
         return $this;
     }
 
-    public function getResonance(): int
+    public function getResonance(): float
     {
         return $this->resonance;
     }
 
-    public function setResonance(int $resonance): ItemPropertiesHeadphoneInterface
+    public function setResonance(float $resonance): ItemPropertiesHeadphoneInterface
     {
         $this->resonance = $resonance;
 

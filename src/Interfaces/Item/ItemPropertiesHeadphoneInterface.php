@@ -20,14 +20,14 @@ interface ItemPropertiesHeadphoneInterface
     public function setCompressorVolume(int $compressorVolume): ItemPropertiesHeadphoneInterface;
     public function getCutoffFrequency(): int;
     public function setCutoffFrequency(int $cutoffFrequency): ItemPropertiesHeadphoneInterface;
-    public function getDistanceModifier(): int;
-    public function setDistanceModifier(int $distanceModifier): ItemPropertiesHeadphoneInterface;
-    public function getDistortion(): int;
-    public function setDistortion(int $distortion): ItemPropertiesHeadphoneInterface;
+    public function getDistanceModifier(): float;
+    public function setDistanceModifier(float $distanceModifier): ItemPropertiesHeadphoneInterface;
+    public function getDistortion(): float;
+    public function setDistortion(float $distortion): ItemPropertiesHeadphoneInterface;
     public function getDryVolume(): int;
     public function setDryVolume(int $dryVolume): ItemPropertiesHeadphoneInterface;
-    public function getHighFrequencyGain(): int;
-    public function setHighFrequencyGain(int $highFrequencyGain): ItemPropertiesHeadphoneInterface;
-    public function getResonance(): int;
-    public function setResonance(int $resonance): ItemPropertiesHeadphoneInterface;
+    public function getHighFrequencyGain(): float;
+    public function setHighFrequencyGain(float $highFrequencyGain): ItemPropertiesHeadphoneInterface;
+    public function getResonance(): float;
+    public function setResonance(float $resonance): ItemPropertiesHeadphoneInterface;
 }

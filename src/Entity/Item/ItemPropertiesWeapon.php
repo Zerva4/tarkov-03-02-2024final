@@ -22,7 +22,7 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Эффективная дистанция'])]
     private int $effectiveDistance;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Эффективная дистанция'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Эффективная дистанция'])]
     private float $ergonomics;
 
     // todo: Сделать многоязычность

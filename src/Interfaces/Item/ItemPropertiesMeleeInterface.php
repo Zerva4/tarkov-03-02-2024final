@@ -10,6 +10,6 @@ interface ItemPropertiesMeleeInterface
     public function setSlashDamage(int $slashDamage): ItemPropertiesMeleeInterface;
     public function getStabDamage(): int;
     public function setStabDamage(int $stabDamage): ItemPropertiesMeleeInterface;
-    public function getHitRadius(): int;
-    public function setHitRadius(int $hitRadius): ItemPropertiesMeleeInterface;
+    public function getHitRadius(): float;
+    public function setHitRadius(float $hitRadius): ItemPropertiesMeleeInterface;
 }
