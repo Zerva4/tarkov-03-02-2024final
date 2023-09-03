@@ -34,7 +34,7 @@ class ItemCrudController extends BaseCrudController
 
     public function configureFilters(Filters $filters): Filters
     {
-        return $filters->add(ItemPropertiesFilter::new('typeItem'));
+        return $filters->add(ItemPropertiesFilter::new('typeItem', t('Type item', [], 'admin.items')));
     }
 
     public function configureCrud(Crud $crud): Crud
