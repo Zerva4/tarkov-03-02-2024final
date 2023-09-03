@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -67,6 +68,7 @@ class ItemCrudController extends BaseCrudController
             ->setRequired(true);
 
         // Базовые свойства
+        $typeItem = TextField::new('type_item', t('Type item', [], 'admin.items'))->hideOnForm();
         $basePrice = IntegerField::new('base_price', t('Base price', [], 'admin.items'));
         $width = IntegerField::new('width', t('Width', [], 'admin.items'));
         $height = IntegerField::new('height', t('Height', [], 'admin.items'));
@@ -77,14 +79,15 @@ class ItemCrudController extends BaseCrudController
         $blocksHeadphones = BooleanField::new('blocks_headphones', t('Blocks headphones', [], 'admin.items'));
         $ergonomicsModifier = NumberField::new('ergonomics_modifier', t('Ergonomics modifier', [], 'admin.items'));
         $weight = NumberField::new('weight', t('Weight', [], 'admin.items'));
+        dump($typeItem->getAsDto());
 
         // Доп свойства
-        $properties = ArrayField::new('properties')
-        ;
+        $properties = ArrayField::new('properties');
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 FormField::addTab(t('Basic', [], 'admin.items')),
+                $typeItem,
                 $itemImage,
                 $slug,
                 $published,
@@ -106,6 +109,7 @@ class ItemCrudController extends BaseCrudController
             default => [
                 $name->setColumns(12)->setTextAlign('left')
                     ->setTemplatePath('admin/field/link-edit.html.twig'),
+                $typeItem->setTemplatePath('admin/field/item-type.html.twig'),
                 $published->setColumns(1)->setTextAlign('center'),
                 DateField::new('createdAt', t('Created', [], 'admin'))->setTextAlign('center'),
                 DateField::new('updatedAt', t('Updated', [], 'admin'))->setTextAlign('center'),
