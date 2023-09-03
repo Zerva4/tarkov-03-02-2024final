@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Item\Item;
+use App\Filter\ItemPropertiesFilter;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
+use App\Form\ItemPropertiesMeleeFormType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
@@ -27,6 +30,11 @@ class ItemCrudController extends BaseCrudController
     public static function getEntityFqcn(): string
     {
         return Item::class;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters->add(ItemPropertiesFilter::new('typeItem'));
     }
 
     public function configureCrud(Crud $crud): Crud
