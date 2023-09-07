@@ -468,7 +468,7 @@ class ImportItemsCommand extends Command
                 $itemEntity->translate($lang, false)->setName($item['name']);
                 $itemEntity->translate($lang, false)->setShortName($item['shortName']);
             } else {
-                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemDefaultProperty';
+                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
