@@ -134,6 +134,7 @@ class ImportItemsPropertiesCommand extends Command
               stackMaxSize
               tracer
               tracerColor
+              ammoType
               projectileCount
               damage
               armorDamage
