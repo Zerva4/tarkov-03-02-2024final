@@ -119,7 +119,7 @@ class ItemCrudController extends BaseCrudController
             $weight->setColumns(3),
         ];
 
-        if ($itemClassName !== 'App\Form\Field\ItemDefaultPropertyField' && $pageName === Crud::PAGE_EDIT) {
+        if ($itemClassName !== 'App\Form\Field\ItemPropertiesDefaultField' && $pageName === Crud::PAGE_EDIT) {
             $properties = $itemClassName::new('properties')->setLabel(false)->setColumns(12);
             $form[] = FormField::addTab(t('Extra options', [], 'admin.items'));
             $form[] = $properties;
