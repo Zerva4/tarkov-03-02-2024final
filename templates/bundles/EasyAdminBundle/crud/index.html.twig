@@ -5,6 +5,18 @@
 
 {% extends '@!EasyAdmin/crud/index.html.twig' %}
 
+{% block global_actions %}
+    <div class="global-actions">
+        {% for action in global_actions %}
+            {% if ea.entity.name == 'Item' %}
+                {{ include('admin/crud/action.html.twig', { action: action }, with_context = false) }}
+            {% else %}
+                {{ include(action.templatePath, { action: action }, with_context = false) }}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock global_actions %}
+
 {% block table_body_empty %}
     <tr class="no-results">
         <td colspan="100">
