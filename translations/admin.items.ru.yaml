@@ -20,7 +20,7 @@ Loudness: Громкость
 Has grid: Является модулем
 Blocks headphones: Используется с наушниками
 Type item: Тип предмета
-ItemDefaultProperty: Разное
+ItemPropertiesDefault: Разное
 ItemPropertiesAmmo: Патрон
 ItemPropertiesArmor: Броня
 ItemPropertiesBackpack: Рюкзак
