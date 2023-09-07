@@ -34,9 +34,9 @@
         </ul>
     </div>
 {% else %}
+    {{ dump(ea.entity.name) }}
     {% if ea.entity.name == 'Item' %}
-        {% set editUrl = action.linkUrl + '&typeItem=' + entity.instance.typeItem %}
-        {{ dump(editUrl) }}
+        {% set editUrl = action.linkUrl ~ '&typeItem=' ~ entity.instance.typeItem %}
     {% endif %}
     {% if 'a' == action.htmlElement %}
         <a class="{{ isIncludedInDropdown|default(false) ? 'dropdown-item' }} {{ action.cssClass }}"
