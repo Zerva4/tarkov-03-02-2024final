@@ -17,7 +17,7 @@ class ItemPropertiesFilterType extends AbstractType
                 'Патрон' => 'ItemPropertiesAmmo',
                 'Броня' => 'ItemPropertiesArmor',
                 'Рюкзак' => 'ItemPropertiesBackpack',
-                'Бочка' => 'ItemPropertiesBarrel',
+                'Оружейный ствол' => 'ItemPropertiesBarrel',
                 'Разгрузочный жилет' => 'ItemPropertiesChestRig',
                 'Контейнер' => 'ItemPropertiesContainer',
                 'Продукт' => 'ItemPropertiesFoodDrink',
