@@ -16,7 +16,7 @@ class ItemPropertiesChestRigField implements FieldInterface
             ->setProperty($propertyName)
             ->setLabel($label)
             ->setFormType(ItemPropertiesChestRigType::class)
-            ->setCssClass('field-properties-barrel')
+            ->setCssClass('field-properties-chest-rig')
             ->hideOnIndex()
             ->hideOnDetail()
         ;
