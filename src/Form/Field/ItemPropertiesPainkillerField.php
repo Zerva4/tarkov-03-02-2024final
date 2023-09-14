@@ -2,21 +2,21 @@
 
 namespace App\Form\Field;
 
-use App\Form\Type\ItemPropertiesMeleeType;
+use App\Form\Type\ItemPropertiesPainkillerType;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 
-class ItemPropertiesMeleeField implements FieldInterface
+class ItemPropertiesPainkillerField implements FieldInterface
 {
     use FieldTrait;
 
-    public static function new(string $propertyName, ?string $label = null, $fieldsConfig = []): ItemPropertiesMeleeField
+    public static function new(string $propertyName, ?string $label = null, $fieldsConfig = []): ItemPropertiesPainkillerField
     {
         return (new self())
             ->setProperty($propertyName)
             ->setLabel($label)
-            ->setFormType(ItemPropertiesMeleeType::class)
-            ->setCssClass('field-properties-melee')
+            ->setFormType(ItemPropertiesPainkillerType::class)
+            ->setCssClass('field-properties-painkiller')
             ->hideOnIndex()
             ->hideOnDetail()
         ;

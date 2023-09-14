@@ -2,21 +2,21 @@
 
 namespace App\Form\Field;
 
-use App\Form\Type\ItemPropertiesMeleeType;
+use App\Form\Type\ItemPropertiesHeadphoneType;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 
-class ItemPropertiesMeleeField implements FieldInterface
+class ItemPropertiesHeadphoneField implements FieldInterface
 {
     use FieldTrait;
 
-    public static function new(string $propertyName, ?string $label = null, $fieldsConfig = []): ItemPropertiesMeleeField
+    public static function new(string $propertyName, ?string $label = null, $fieldsConfig = []): ItemPropertiesHeadphoneField
     {
         return (new self())
             ->setProperty($propertyName)
             ->setLabel($label)
-            ->setFormType(ItemPropertiesMeleeType::class)
-            ->setCssClass('field-properties-melee')
+            ->setFormType(ItemPropertiesHeadphoneType::class)
+            ->setCssClass('field-properties-headphone')
             ->hideOnIndex()
             ->hideOnDetail()
         ;
