@@ -25,14 +25,9 @@ class ItemPropertiesAmmoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->add('ammo-group', FormType::class, ['inherit_data' => true])
-//            ->get('ammo-group')
             ->add('caliber', TextType::class, [
                 'label' => t('Caliber', [], 'admin.properties.items'),
                 'required' => true,
-//                'row_attr' => [
-//                    'class' => 'col-md-3'
-//                ],
                 'attr' => [
                     'maxlength' => 64,
                 ],
@@ -42,9 +37,6 @@ class ItemPropertiesAmmoType extends AbstractType
             ])
             ->add('stackMaxSize', IntegerType::class, [
                 'label' => t('stackMaxSize', [], 'admin.properties.items'),
-//                'row_attr' => [
-//                    'class' => 'col-md-3'
-//                ],
                 'required' => true,
                 'empty_data' => 0,
                 'constraints' => [

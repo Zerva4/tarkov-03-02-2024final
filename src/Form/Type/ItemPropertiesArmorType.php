@@ -3,7 +3,7 @@
 namespace App\Form\Type;
 
 use App\Entity\Item\ItemMaterial;
-use App\Entity\Item\ItemPropertiesChestRig;
+use App\Entity\Item\ItemPropertiesArmor;
 use App\Repository\Item\ItemMaterialRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use function Symfony\Component\Translation\t;
 
-class ItemPropertiesChestRigType extends AbstractType
+class ItemPropertiesArmorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -68,7 +68,7 @@ class ItemPropertiesChestRigType extends AbstractType
                     new NotBlank()
                 ],
             ])
-            // todo: Edit zones
+            // todo: edit zones
 //            ->add('zones')
             ->add('material', EntityType::class, [
                 'label' => t('Material', [], 'admin.properties.item'),
@@ -86,14 +86,6 @@ class ItemPropertiesChestRigType extends AbstractType
                 'expanded'=> false,
                 'by_reference' => true,
                 'required' => false
-            ])
-            ->add('capacity', IntegerType::class, [
-                'label' => t('Capacity', [], 'admin.properties.items'),
-                'required' => true,
-                'empty_data' => 0,
-                'constraints' => [
-                    new NotBlank()
-                ],
             ])
             ->add('armorType', TextType::class, [
                 'label' => t('Ammo type (Chest Rig)', [], 'admin.properties.items'),
@@ -120,7 +112,7 @@ class ItemPropertiesChestRigType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ItemPropertiesChestRig::class,
+            'data_class' => ItemPropertiesArmor::class,
         ]);
     }
 }
