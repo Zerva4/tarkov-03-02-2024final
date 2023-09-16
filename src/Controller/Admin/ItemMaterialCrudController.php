@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Item\ItemMaterial;
@@ -19,12 +21,19 @@ class ItemMaterialCrudController extends BaseCrudController
         return ItemMaterial::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return parent::configureCrud($crud)->setSearchFields([
+            'translations.name',
+        ]);
+    }
+
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin'));
         $createdAt = DateField::new('createdAt', t('Created', [], 'admin'));
         $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin'));
-        $title = TextField::new('title', t('Title', [], 'admin.items_materials'));
+        $name = TextField::new('name', t('Name', [], 'admin.items_materials'));
         $destructibility = NumberField::new('destructibility', t('Destructibility', [], 'admin.items_materials'));
         $minRepairDegradation = NumberField::new('minRepairDegradation', t('Min Repair Degradation', [], 'admin.items_materials'));
         $maxRepairDegradation = NumberField::new('maxRepairDegradation', t('Max Repair Degradation', [], 'admin.items_materials'));
@@ -32,9 +41,9 @@ class ItemMaterialCrudController extends BaseCrudController
         $minRepairKitDegradation = NumberField::new('minRepairKitDegradation', t('Min Repair Kit Degradation', [], 'admin.items_materials'));
         $maxRepairKitDegradation = NumberField::new('maxRepairKitDegradation', t('Max Repair Kit Degradation', [], 'admin.items_materials'));
         $translationFields = [
-            'title' => [
+            'name' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.items_materials'),
+                'label' => t('Name', [], 'admin.items_materials'),
             ]
         ];
         $translations = TranslationField::new('translations', t('Localization', [], 'admin'), $translationFields)
@@ -55,7 +64,7 @@ class ItemMaterialCrudController extends BaseCrudController
                 $maxRepairKitDegradation->setRequired(true)->setColumns(4)
             ],
             default => [
-                $title->setColumns(12)->setTextAlign('left')
+                $name->setColumns(12)->setTextAlign('left')
                     ->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published,
                 $createdAt,

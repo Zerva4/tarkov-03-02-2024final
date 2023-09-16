@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Quest\QuestItem;
@@ -25,30 +27,30 @@ class QuestItemCrudController extends BaseCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)->setSearchFields([
-            'translations.title',
+            'translations.name',
         ]);
     }
 
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.quests_items'));
-        $title = TextField::new('title', t('Title', [], 'admin.quests_items'));
-        $shortTitle = TextField::new('shortTitle', t('Short title', [], 'admin.quests_items'));
+        $name = TextField::new('name', t('Name', [], 'admin.quests_items'));
+        $shortName = TextField::new('shortName', t('Short name', [], 'admin.quests_items'));
         $questItemImage = VichImageField::new('imageFile', t('Photo', [], 'admin.quests_items')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.quests_items.images.uri'))
             ->setFormTypeOption('required', false)
         ;
-        $width = IntegerField::new('width', t('Width', [], 'admin.quest_items'));
-        $height = IntegerField::new('height', t('Height', [], 'admin.quest_items'));
+        $width = IntegerField::new('width', t('Width', [], 'admin.quests_items'));
+        $height = IntegerField::new('height', t('Height', [], 'admin.quests_items'));
         $translationFields = [
-            'title' => [
+            'name' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.quests_items')
+                'label' => t('Name', [], 'admin.quests_items')
             ],
-            'shortTitle' => [
+            'shortName' => [
                 'field_type' => TextType::class,
-                'label' => t('Short title', [], 'admin.quests_items')
+                'label' => t('Short name', [], 'admin.quests_items')
             ],
             'description' => [
                 'attr' => [
@@ -79,8 +81,8 @@ class QuestItemCrudController extends BaseCrudController
                 $translations,
             ],
             default => [
-                $title->setTemplatePath('admin/field/link-edit.html.twig'),
-                $shortTitle,
+                $name->setTemplatePath('admin/field/link-edit.html.twig'),
+                $shortName,
                 $published,
                 $createdAt,
                 $updatedAt

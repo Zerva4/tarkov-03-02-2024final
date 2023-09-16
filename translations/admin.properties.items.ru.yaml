@@ -1,0 +1,102 @@
+Caliber: Калибр
+stackMaxSize: Макс. кол-во в ячейке(стеке)
+Tracer: Трассируещий патрон
+Tracer color: Цвет трассирующего патрона
+Ammo type: Тип патрона
+Projectile count: Кол-во пуль (1 пуля, 8 картечи и тд)
+Damage: Наносимый урон
+Armor damage: Наносимый урон по броне
+Fragmentation chance: Шанс фрагментации в %
+Ricochet chance: Шанс рикошета в %
+Penetration chance: Шанс пробития в %
+Penetration power: Сила бронепробития
+Accuracy modifier: Точность в %
+Recoil modifier: Отдача в %
+Initial speed: Начальная скорость патрона
+Light bleed modifier: Шанс слабого кровотечения в %
+Heavy bleed modifier: Шанс сильного кровотечения в %
+Durability burn factor: Износ в %
+Heat factor: Коэффициент нагрева в %
+Stamina burn per damage: Выносливость за выстрел
+Ballistic coefficient: Баллистический коэффициент
+Bullet diameter millimeters: Диаметр пули в мм.
+Bullet mass grams: Масса пули в гр.
+Slash damage: Рубящий урон
+Stab damage: Урон ножом
+Hit radius: Радиус удара
+Capacity: Емкость
+Speed penalty: Снижение скорости в %
+Turn penalty: Снижение поворота в %
+Ergo penalty: Снижение эргономик в %
+Ergonomics: Эргономика
+Center of impact: Центр воздействия
+Deviation curve: Кривая отклонения
+Deviation max: Макс. отклонение
+Class: Класс
+Durability: Прочность
+Repair cost: Стоимость ремонта за 1 (ед.)
+Material: Материал
+Ammo type (Chest Rig): Тип защиты
+Blunt throughput: Заброневой урон
+Energy: Энергия
+Hydration: Гидратация
+Units: Еденицы
+Blindness protection: Защита от ослепления
+Type: Тип
+Fuse: Задержка перед взрывом
+Min. explosion distance: Мин. расстояние взрыва
+Max. explosion distance: Макс. расстояние взрыва
+Fragments: Кол-во осколков
+Contusion radius: Радиус кантузии
+Ambient volume: Звуки окружения
+Compressor attack: Время срабатывания сжатия
+Compressor gain: Общий уровень громкости
+Compressor release: Скорость восстановления звука
+Compressor threshold: Уровень срабатывания сжатия
+Compressor volume: Глубина сжатия
+Cutoff frequency: Обрезаемая частота
+Distance modifier: Увеличение дальности звука
+Distortion: Перекручивание звука уже готового
+Dry volume: Уровень чистого звука
+High frequency gain: Высокочастные шумы
+Resonance: Резонанс
+Deafening: Deafening
+Ricochet X: Рикошет X
+Ricochet Y: Рикошет Y
+Ricochet Z: Рикошет Z
+Uses: Используется кол-во раз
+Load modifier: Модификатор загрузки
+Ammo check modifier: Модификатор проверки боеприпасов
+Malfunction chance: Шанс неисправности
+Use time: Время использования
+Hit points: Очки здоровья
+Max. heal per use: Макс. лечение при использовании
+HP cost light bleeding: Кол-во очков за слабое кровотечение
+HP cost heavy bleeding: Кол-во очков за сильное кровотечение
+Intensity: Интенсивность
+Noise intensity: Интенсивность шума
+Noise scale: Шкала шума
+Diffuse intensity: Диффузная интенсивность
+Painkiller duration: Продолжительность обезбаливания
+Energy impact: Энергетическое воздействие
+Hydration impact: Увлажняющее воздействие
+Sighting range: Прицельная дальность
+Min. limb health: Мин. здоровье конечностей
+Max. limb health: Макс. здоровье конечностей
+Effective distance: Эффективная дистанция
+Fire rate: Скорострельность
+Max. durability: Макс. прочность
+Recoil vertical: Вертикальная отдача
+Recoil horizontal: Горизонтальная отдача
+Recoil dispersion: Дисперсия отдачи
+Recoil angle: Угол отдачи
+Camera recoil: Отдача камеры
+Camera snap: Щелчок камеры
+Deviation max.: Макс. отклонение
+Convergence: Конвергенция
+Default width: Ширина по умолчанию
+Default height: Высота по умолчанию
+Default ergonomics: Стандартная эргономика
+Default recoil vertical: Вертикальная отдача по умолчанию
+Default recoil horizontal: Горизонтальная отдача по умолчанию
+Default weight: Вес по умолчанию

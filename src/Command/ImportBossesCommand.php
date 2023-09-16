@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\Boss;
@@ -71,6 +73,7 @@ class ImportBossesCommand extends Command
                       max
                       bodyPart
                     }
+                    items { id }
                 }
             }
         GRAPHQL;
@@ -138,6 +141,8 @@ class ImportBossesCommand extends Command
             $this->em->persist($bossEntity);
             $bossEntity->mergeNewTranslations();
         }
+
+        // todo: import equipments and items
 
         $this->em->flush();
         $progressBar->finish();

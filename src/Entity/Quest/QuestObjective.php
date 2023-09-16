@@ -134,6 +134,18 @@ class QuestObjective extends TranslatableEntity implements UuidPrimaryKeyInterfa
         return $this;
     }
 
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(string $description): QuestObjectiveInterface
+    {
+        $this->translate()->setDescription($description);
+
+        return $this;
+    }
+
     /**
      * Get quest instance.
      *

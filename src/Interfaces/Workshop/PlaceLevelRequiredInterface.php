@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces\Workshop;
+
 use Doctrine\Common\Collections\Collection;
 
 interface PlaceLevelRequiredInterface

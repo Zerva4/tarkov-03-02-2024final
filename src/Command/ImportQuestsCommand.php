@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\Item\ContainedItem;
@@ -11,9 +13,7 @@ use App\Entity\Quest\QuestObjective;
 use App\Entity\Trader\Trader;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\Item\ContainedItemInterface;
-use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
-use App\Repository\Quest\QuestKeyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Imagick;
@@ -103,6 +103,12 @@ class ImportQuestsCommand extends Command
                         },
                         status
                     }
+                    traderRequirements {
+                        id
+                        requirementType
+                        compareMethod
+                        value
+                    }
                     objectives {
                         id,
                         type,
@@ -178,10 +184,10 @@ class ImportQuestsCommand extends Command
 
             if ($questEntity instanceof Quest) {
                 $questEntity->setDefaultLocale($lang);
-                $questEntity->translate($lang, false)->setTitle($quest['name']);
+                $questEntity->setName($quest['name']);
             } else {
                 $questEntity = new Quest($lang);
-                $questEntity->translate($lang, false)->setTitle($quest['name']);
+                $questEntity->setName($quest['name']);
                 $questEntity->setApiId($quest['id']);
             }
 
@@ -256,7 +262,7 @@ class ImportQuestsCommand extends Command
                         ->setType(self::$objectiveTypes[$objective['type']])
                         ->setOptional($objective['optional'])
                         ->setQuest($questEntity)
-                        ->translate($lang, false)->setDescription($objective['description'])
+                        ->setDescription($objective['description'])
                     ;
                     $this->em->persist($objectiveEntity);
                     $objectiveEntity->mergeNewTranslations();
@@ -340,6 +346,7 @@ class ImportQuestsCommand extends Command
 //                            dump($questKeyEntity);
 //                            die();
                             $itemEntity = $itemRepository->findOneBy(['apiId' => $key['id']]);
+                            if (null === $itemEntity) continue;
                             $keyEntity = new QuestKey();
                             $keyEntity->setItem($itemEntity)->setMap($mapEntity);
                             $questEntity->addNeededKey($keyEntity);

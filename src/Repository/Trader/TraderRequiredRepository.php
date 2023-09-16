@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Trader;
 
 use App\Entity\Trader\TraderRequired;

@@ -20,13 +20,13 @@
                     </div>
                     <div class="card">
                         <h2>
-                            {{ quest.title }}
+                            {{ quest.name }}
                         </h2>
                         <div class="image">
                             {% if quest.imageName %}
-                                <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.title }}">
+                                <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.name }}">
                             {% else %}
-                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('360x210') }}" alt="{{ quest.title }}">
+                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('360x210') }}" alt="{{ quest.name }}">
                             {% endif %}
                         </div>
                         <div class="text">
@@ -202,14 +202,14 @@
                                             <div class="craft">
                                                 <div class="image">
                                                     {% if usedItem.item.imageName %}
-                                                        <img src="{{ asset('/storage/images/items/' ~ usedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ usedItem.item.getTitle }}">
+                                                        <img src="{{ asset('/storage/images/items/' ~ usedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ usedItem.item.getName }}">
                                                     {% else %}
-                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ usedItem.item.getTitle }}">
+                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ usedItem.item.name }}">
                                                     {% endif %}
                                                 </div>
                                                 <div class="contains">
                                                     <div class="x">x {{ usedItem.count }}</div>
-                                                    <div class="name">{{ usedItem.item.getShortTitle }}</div>
+                                                    <div class="name">{{ usedItem.item.getShortName }}</div>
                                                 </div>
                                             </div>
                                         {% endfor %}
@@ -226,14 +226,14 @@
                                             <div class="craft">
                                                 <div class="image">
                                                     {% if receivedItem.item.imageName %}
-                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
+                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ receivedItem.item.name }}">
                                                     {% else %}
-                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
+                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ receivedItem.item.name }}">
                                                     {% endif %}
                                                 </div>
                                                 <div class="contains">
                                                     <div class="x">x {{ receivedItem.count }}</div>
-                                                    <div class="name">{{ receivedItem.item.getShortTitle }}</div>
+                                                    <div class="name">{{ receivedItem.item.shortName }}</div>
                                                 </div>
                                             </div>
                                         {% endif %}
@@ -263,14 +263,14 @@
                                     <div class="top">
                                         <div class="image">
                                             {% if unlockInCashOffer.item.imageName %}
-                                                <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.getTitle }}">
+                                                <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.name }}">
                                             {% else %}
-                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.getTitle }}">
+                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.name }}">
                                             {% endif %}
                                         </div>
                                     </div>
                                     <div class="name">
-                                        {{ unlockInCashOffer.item.getTitle }}
+                                        {{ unlockInCashOffer.item.name }}
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -295,14 +295,14 @@
                                         <div class="x">x {{ rewardItem.count }}</div>
                                         <div class="image">
                                             {% if rewardItem.item.imageName %}
-                                                <img src="{{ asset('/storage/images/items/' ~ rewardItem.item.imageName) | imagine_filter('180x90') }}" alt="{{ rewardItem.item.getTitle }}">
+                                                <img src="{{ asset('/storage/images/items/' ~ rewardItem.item.imageName) | imagine_filter('180x90') }}" alt="{{ rewardItem.item.name }}">
                                             {% else %}
-                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ rewardItem.item.getTitle }}">
+                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ rewardItem.item.name }}">
                                             {% endif %}
                                         </div>
                                     </div>
                                     <div class="name">
-                                        {{ rewardItem.item.getTitle }}
+                                        {{ rewardItem.item.name }}
                                     </div>
                                 </div>
                                 {% endfor %}
