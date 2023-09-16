@@ -35,10 +35,10 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Макс. прочность'])]
     private int $maxDurability;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Макс. прочность'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Вертикальная отдача'])]
     private int $recoilVertical;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Вертикальная отдача'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Горизонтальная отдача'])]
     private int $recoilHorizontal;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Стоимость ремонта за 1 ед.'])]
@@ -71,7 +71,7 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Конвергенция'])]
     private float $convergence;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Высота по умолчанию'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Ширина по умолчанию'])]
     private int $defaultWidth;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Высота по умолчанию'])]

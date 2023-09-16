@@ -68,6 +68,32 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     use UuidPrimaryKeyTrait;
     use SlugTrait;
 
+    const ITEM_TYPES = [
+        'ItemPropertiesDefault',
+        'ItemPropertiesAmmo',
+        'ItemPropertiesArmor',
+        'ItemPropertiesBackpack',
+        'ItemPropertiesBarrel',
+        'ItemPropertiesChestRig',
+        'ItemPropertiesContainer',
+        'ItemPropertiesFoodDrink',
+        'ItemPropertiesGlasses',
+        'ItemPropertiesGrenade',
+        'ItemPropertiesHeadphone',
+        'ItemPropertiesHelmet',
+        'ItemPropertiesKey',
+        'ItemPropertiesMagazine',
+        'ItemPropertiesMedicalItem',
+        'ItemPropertiesMedKit',
+        'ItemPropertiesMelee',
+        'ItemPropertiesNightVision',
+        'ItemPropertiesPainkiller',
+        'ItemPropertiesScope',
+        'ItemPropertiesSurgicalKit',
+        'ItemPropertiesWeapon',
+        'ItemPropertiesWeaponMod'
+    ];
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
@@ -183,6 +209,11 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->allowedMagazine = new ArrayCollection();
         $this->presetsWeapons = new ArrayCollection();
         $this->allowedWeapons = new ArrayCollection();
+    }
+
+    public static function getItemTypes(): array
+    {
+        return self::$item_types;
     }
 
     public function getApiId(): string

@@ -134,6 +134,7 @@ class ImportItemsPropertiesCommand extends Command
               stackMaxSize
               tracer
               tracerColor
+              ammoType
               projectileCount
               damage
               armorDamage
@@ -393,7 +394,7 @@ class ImportItemsPropertiesCommand extends Command
             }
             
             fragment Weapon on ItemPropertiesWeapon {
-                caliber
+              caliber
               defaultAmmo {
                 id
               }
@@ -426,7 +427,6 @@ class ImportItemsPropertiesCommand extends Command
               allowedAmmo {
                 id
               }
-              presets { id }
               slots {
                 id
                 name

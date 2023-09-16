@@ -28,7 +28,7 @@ class ItemPropertiesMedKit extends ItemProperties implements ItemPropertiesInter
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Кол-во очков за слабое кровотечение'])]
     private int $hpCostLightBleeding;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Кол-во очков за сильное  кровотечение'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Кол-во очков за сильное кровотечение'])]
     private int $hpCostHeavyBleeding;
 
     public function getHitPoints(): int

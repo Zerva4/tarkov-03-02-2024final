@@ -1,5 +1,6 @@
 Published: Публикуется
 Name: Наименование
+Short name: Сокращенное название
 Photo: Фото
 Description: Описание
 Localization: Переводы
@@ -7,7 +8,6 @@ Slug: Слаг
 Basic: Основное
 Basic options: Базовые свойства
 Extra options: Доп. свойства
-
 Base price: Базовая цена
 Width: Ширина
 Height: Высота
@@ -20,3 +20,27 @@ Velocity: Скорость
 Loudness: Громкость
 Has grid: Является модулем
 Blocks headphones: Используется с наушниками
+Type item: Тип предмета
+ItemPropertiesDefault: Разное
+ItemPropertiesAmmo: Патрон
+ItemPropertiesArmor: Броня
+ItemPropertiesBackpack: Рюкзак
+ItemPropertiesBarrel: Оружейный ствол
+ItemPropertiesChestRig: Разгрузочный жилет
+ItemPropertiesContainer: Контейнер
+ItemPropertiesFoodDrink: Продукт
+ItemPropertiesGlasses: Очки
+ItemPropertiesGrenade: Граната
+ItemPropertiesHeadphone: Наушник
+ItemPropertiesHelmet: Шлем
+ItemPropertiesKey: Ключ
+ItemPropertiesMagazine: Магазин
+ItemPropertiesMedicalItem: Медицинский предмет
+ItemPropertiesMedKit: Аптечка
+ItemPropertiesMelee: Холодное оружие
+ItemPropertiesNightVision: Прибор ночного видения
+ItemPropertiesPainkiller: Обезбаливающее
+ItemPropertiesScope: Прицел
+ItemPropertiesSurgicalKit: Хирургический набор
+ItemPropertiesWeapon: Огнестрельное оружие
+ItemPropertiesWeaponMod: Модуль оружия

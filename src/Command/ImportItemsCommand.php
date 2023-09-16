@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\Item\Item;
-use App\Entity\Item\ItemPropertiesWeapon;
 use App\Entity\Quest\Quest;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\Item\ItemInterface;
-use App\Traits\LoaderAPITrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Imagick;
@@ -23,8 +21,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
     name: 'app:import:items',
@@ -34,16 +34,18 @@ class ImportItemsCommand extends Command
 {
     private EntityManagerInterface $em;
     private GraphQLClientInterface $client;
+    private HttpClientInterface $httpClient;
     protected string $storageDir;
 
     protected array $moneyArray = ['5449016a4bdc2d6f028b456f', '5696686a4bdc2da3298b456a', '569668774bdc2da2298b4568'];
 
-    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel)
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, HttpClientInterface $httpClient, KernelInterface $kernel)
     {
         parent::__construct();
 
         $this->em = $em;
         $this->client = $client;
+        $this->httpClient = $httpClient;
         $this->storageDir = $kernel->getContainer()->getParameter('app.items.images.path') . '/';
     }
 
@@ -468,7 +470,7 @@ class ImportItemsCommand extends Command
                 $itemEntity->translate($lang, false)->setName($item['name']);
                 $itemEntity->translate($lang, false)->setShortName($item['shortName']);
             } else {
-                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemDefaultProperty';
+                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
@@ -484,6 +486,11 @@ class ImportItemsCommand extends Command
                 $imageName =$this->convertImage($item['image512pxLink']);
                 $itemEntity->setImageName($imageName);
             }
+
+            // Fetch description
+            $itemArray = $this->fetchJson($item['id'], $lang, $this->httpClient);
+            if (is_array($itemArray))
+                $itemEntity->setDescription($itemArray['locale']['Description']);
 
             // Set base params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
@@ -571,5 +578,32 @@ class ImportItemsCommand extends Command
         unlink($tmpFileName);
 
         return explode('-', $fileName, 2)[0] . '.png';
+    }
+
+    protected function fetchJson(string $apiId, string $locale, HttpClientInterface $client): ?array
+    {
+        $result = null;
+        $variables = [
+            'id' => $apiId,
+            'locale' => $locale
+        ];
+
+        $options = (new HttpOptions())
+            ->setQuery($variables)
+            ->setHeaders([
+                'Accept' => 'application/json',
+                'User-Agent' => 'Symfony HTTP client'
+            ])
+        ;
+
+        try {
+            $request = $client
+                ->request('GET', 'https://db.sp-tarkov.com/api/item', $options->toArray());
+            $result = $request->toArray();
+        } catch (Exception $e) {
+            $request = null;
+        }
+
+        return $result;
     }
 }

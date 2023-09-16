@@ -4,4 +4,9 @@
     .setAction('edit')
     .setEntityId(entity.primaryKeyValue)
 %}
-<a href="{{ editUrl }}" id="Edit_{{ entity.primaryKeyValueAsString }}">{{ field.value }}</a>
+
+{% if ea.entity.name == 'Item' %}
+    <a href="{{ editUrl }}&typeItem={{ entity.instance.typeItem }}" id="Edit_{{ entity.primaryKeyValueAsString }}">{{ field.value }}</a>
+{% else %}
+    <a href="{{ editUrl }}" id="Edit_{{ entity.primaryKeyValueAsString }}">{{ field.value }}</a>
+{% endif %}
