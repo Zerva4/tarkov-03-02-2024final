@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository\Item;
 
 use App\Entity\Item\Item;
+use App\Interfaces\Item\ItemInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
@@ -43,19 +44,9 @@ class ItemRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @throws NonUniqueResultException
-     */
-    public function getItemBySlug(string $slug, int $mode = AbstractQuery::HYDRATE_ARRAY): ?array
+    public function getItemBySlug(string $slug, int $mode = AbstractQuery::HYDRATE_ARRAY): ?ItemInterface
     {
-        $item = null;
-
-        $query = $this->createQueryBuilder('i')
-            ->andWhere('i.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-        ;
-        return $query->getOneOrNullResult($mode);
+        return $this->findOneBy(['slug' => $slug]);
     }
 
     public function getCurrencyItems($mode = AbstractQuery::HYDRATE_ARRAY): mixed
