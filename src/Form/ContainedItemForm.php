@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Item\ContainedItem;
@@ -28,7 +30,7 @@ class ContainedItemForm extends AbstractType
                         ->addSelect('lt')
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
-                        ->orderBy('lt.title', 'ASC');
+                        ->orderBy('lt.name', 'ASC');
                 },
                 'expanded'=> false,
                 'by_reference' => true,

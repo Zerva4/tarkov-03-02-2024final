@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Skill;
@@ -21,9 +23,9 @@ class SkillFormType extends AbstractType
                 'default_locale' => ['ru'],
                 'required_locales' => ['ru'],
                 'fields' => [
-                    'title' => [
+                    'name' => [
                         'field_type' => TextType::class,
-                        'label' => t('Title', [], 'admin.places')
+                        'label' => t('Name', [], 'admin.places')
                     ]
                 ],
                 'excluded_fields' => ['createdAt', 'updatedAt'],

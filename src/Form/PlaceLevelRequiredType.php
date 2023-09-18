@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Workshop\Place;
@@ -27,7 +29,7 @@ class PlaceLevelRequiredType extends AbstractType
                         ->addSelect('lt')
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
-                        ->orderBy('lt.title', 'ASC');
+                        ->orderBy('lt.name', 'ASC');
                 },
                 'expanded'=> false,
                 'by_reference' => true,

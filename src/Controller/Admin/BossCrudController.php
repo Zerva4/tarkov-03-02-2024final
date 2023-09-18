@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Boss;
@@ -29,7 +31,7 @@ class BossCrudController extends BaseCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)->setSearchFields([
-            'translations.title',
+            'translations.name',
         ]);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Interfaces\BossHealthInterface;
@@ -10,7 +12,6 @@ use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
-use function Symfony\Component\Translation\t;
 
 #[ORM\Table(name: 'bosses_health')]
 #[ORM\Entity(repositoryClass: BossHealthRepository::class)]

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Item;
 
 use App\Entity\Barter;
@@ -377,6 +379,6 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
 
     public function __toString(): string
     {
-        return $this->item->__get('title');
+        return $this->item->getName();
     }
 }

@@ -12,6 +12,28 @@ use Doctrine\Common\Collections\Collection;
 interface MapInterface
 {
     /**
+     * @return string|null
+     */
+    public function getName(): ?string;
+
+    /**
+     * @param string $name
+     * @return MapInterface
+     */
+    public function setName(string $name): MapInterface;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): ?string;
+
+    /**
+     * @param string $description
+     * @return MapInterface
+     */
+    public function setDescription(?string $description): MapInterface;
+
+    /**
      * @return bool|null
      */
     public function isPublished(): ?bool;

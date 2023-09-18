@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Item;
 
 use App\Entity\Item\ItemMaterial;
@@ -21,21 +23,28 @@ class ItemMaterialRepository extends ServiceEntityRepository
         parent::__construct($registry, ItemMaterial::class);
     }
 
-    public function save(ItemMaterial $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
+//    /**
+//     * @return ArmorMaterial[] Returns an array of ArmorMaterial objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('a.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(ItemMaterial $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
+//    public function findOneBySomeField($value): ?ArmorMaterial
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
 }

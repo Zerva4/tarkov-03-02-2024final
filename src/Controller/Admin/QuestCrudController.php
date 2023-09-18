@@ -37,7 +37,7 @@ class QuestCrudController extends BaseCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)->setSearchFields([
-            'translations.title',
+            'translations.name',
         ]);
     }
 
@@ -58,7 +58,7 @@ class QuestCrudController extends BaseCrudController
         $restartable = BooleanField::new('restartable', t('Restartable', [], 'admin.quests'));
         $kappaRequired = BooleanField::new('kappaRequired', t('Kappa required', [], 'admin.quests'));
         $lightkeeperRequired = BooleanField::new('lightkeeperRequired', t('Lightkeeper required', [], 'admin.quests'));
-        $title = TextField::new('title', t('Title', [], 'admin.quests'));
+        $name = TextField::new('name', t('Name', [], 'admin.quests'));
         $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.quests')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.quests.images.uri'))
@@ -85,9 +85,9 @@ class QuestCrudController extends BaseCrudController
             })
         ;
         $translationFields = [
-            'title' => [
+            'name' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.quests')
+                'label' => t('Name', [], 'admin.quests')
             ],
             'description' => [
                 'attr' => [
@@ -184,7 +184,7 @@ class QuestCrudController extends BaseCrudController
                 $keys->setColumns(12),
             ],
             default => [
-                $title->setSortable(true)->setTemplatePath('admin/field/link-edit.html.twig'),
+                $name->setSortable(true)->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published,
                 $restartable,
                 $trader,

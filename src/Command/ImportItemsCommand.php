@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\Item\Item;
@@ -11,6 +13,7 @@ use Exception;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
+use ReflectionException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -18,7 +21,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
     name: 'app:import:items',
@@ -28,15 +34,18 @@ class ImportItemsCommand extends Command
 {
     private EntityManagerInterface $em;
     private GraphQLClientInterface $client;
+    private HttpClientInterface $httpClient;
     protected string $storageDir;
 
     protected array $moneyArray = ['5449016a4bdc2d6f028b456f', '5696686a4bdc2da3298b456a', '569668774bdc2da2298b4568'];
 
-    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, KernelInterface $kernel) {
+    public function __construct(EntityManagerInterface $em, GraphQLClientInterface $client, HttpClientInterface $httpClient, KernelInterface $kernel)
+    {
         parent::__construct();
 
         $this->em = $em;
         $this->client = $client;
+        $this->httpClient = $httpClient;
         $this->storageDir = $kernel->getContainer()->getParameter('app.items.images.path') . '/';
     }
 
@@ -50,6 +59,7 @@ class ImportItemsCommand extends Command
 
     /**
      * @throws ImagickException
+     * @throws ReflectionException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -71,26 +81,6 @@ class ImportItemsCommand extends Command
                 types,
                 properties {
                   __typename
-                  ... Ammo
-                  ... Armor
-                  ... Backpack
-                  ... Barrel
-                  ... ChestRig
-                  ... FoodDrink
-                  ... Glasses
-                  ... Helmet
-                  ... Key
-                  ... Magazine
-                  ... MedicalItem
-                  ... MedKit
-                  ... Melee
-                  ... NightVision
-                  ... Painkiller
-                  ... Scope
-                  ... SurgicalKit
-                  ... Grenade
-                  ... Weapon
-                  ... WeaponMod
                 }
                 accuracyModifier,
                 recoilModifier,
@@ -115,296 +105,6 @@ class ImportItemsCommand extends Command
                 }
               }
             }
-            
-            fragment Ammo on ItemPropertiesAmmo {
-              caliber
-              stackMaxSize
-              tracer
-              tracerColor
-              projectileCount
-              damage
-              armorDamage
-              fragmentationChance
-              ricochetChance
-              penetrationChance
-              penetrationPower
-              accuracyModifier
-              recoilModifier
-              initialSpeed
-              lightBleedModifier
-              heavyBleedModifier
-              durabilityBurnFactor
-              heatFactor
-            }
-            
-            fragment Armor on ItemPropertiesArmor {
-              class
-              durability
-              repairCost
-              speedPenalty
-              turnPenalty
-              ergoPenalty
-              zones
-              material {
-                __typename
-                id
-                name
-                destructibility
-                minRepairDegradation
-                maxRepairDegradation
-                explosionDestructibility
-                minRepairKitDegradation
-                maxRepairKitDegradation
-              }
-            }
-            
-            # fragment ArmorMaterial on ItemPropertiesArmorMaterial {
-            #   id
-            #   name
-            #   destructibility
-            #   minRepairDegradation
-            #   maxRepairDegradation
-            #   explosionDestructibility
-            #   minRepairKitDegradation
-            #   maxRepairKitDegradation
-            # }
-            
-            fragment Backpack on ItemPropertiesBackpack {
-              capacity
-            }
-            
-            fragment Barrel on ItemPropertiesBarrel {
-              ergonomics
-              recoilModifier
-              centerOfImpact
-              deviationCurve
-              deviationMax
-              slots {
-                id
-                name
-                nameId
-                required
-              }
-            }
-            
-            fragment ChestRig on ItemPropertiesChestRig {
-              class
-              durability
-              repairCost
-              speedPenalty
-              turnPenalty
-              ergoPenalty
-              zones
-              material {
-                __typename
-              }
-              capacity
-            }
-            
-            fragment FoodDrink on ItemPropertiesFoodDrink {
-              energy
-              hydration
-              units
-              stimEffects {
-                type
-                chance
-                delay
-                duration
-                value
-                percent
-                skillName
-              }
-            }
-            
-            fragment Glasses on ItemPropertiesGlasses {
-              class
-              durability
-              repairCost
-              blindnessProtection
-              material {
-                __typename
-                id
-                name
-                destructibility
-                minRepairDegradation
-                maxRepairDegradation
-                explosionDestructibility
-                minRepairKitDegradation
-                maxRepairKitDegradation
-              }
-            }
-            
-            fragment Grenade on ItemPropertiesGrenade {
-              type,
-              fuse,
-              minExplosionDistance,
-              maxExplosionDistance,
-              fragments,
-              contusionRadius
-            }
-            
-            fragment Helmet on ItemPropertiesHelmet {
-              class
-              durability
-              repairCost
-              speedPenalty
-              turnPenalty
-              ergoPenalty
-              headZones
-              material {
-                __typename
-                id
-                name
-                destructibility
-                minRepairDegradation
-                maxRepairDegradation
-                explosionDestructibility
-                minRepairKitDegradation
-                maxRepairKitDegradation
-              }
-              deafening
-              blocksHeadset
-              blindnessProtection
-              ricochetX
-              ricochetY
-              ricochetZ
-              slots {
-                id
-                name
-                nameId
-                required
-              }
-            }
-            
-            fragment Key on ItemPropertiesKey {
-              uses
-            }
-            
-            fragment Magazine on ItemPropertiesMagazine {
-              ergonomics
-              recoilModifier
-              capacity
-              loadModifier
-              ammoCheckModifier
-              malfunctionChance
-              allowedAmmo {
-                id
-              }
-              slots {
-                id
-                name
-                nameId
-                required
-              }
-            }
-            
-            fragment MedicalItem on ItemPropertiesMedicalItem {
-              uses
-              useTime
-              cures
-            }
-            
-            fragment MedKit on ItemPropertiesMedKit {
-              hitpoints
-              useTime
-              maxHealPerUse
-              cures
-              hpCostLightBleeding
-              hpCostHeavyBleeding
-            }
-            
-            fragment Melee on ItemPropertiesMelee {
-              slashDamage
-              stabDamage
-              hitRadius
-            }
-            
-            fragment NightVision on ItemPropertiesNightVision {
-              intensity
-              noiseIntensity
-              noiseScale
-              diffuseIntensity
-            }
-            
-            fragment Painkiller on ItemPropertiesPainkiller {
-              uses
-              useTime
-              cures
-              painkillerDuration
-              energyImpact
-              hydrationImpact
-            }
-            
-            fragment Scope on ItemPropertiesScope{
-              ergonomics
-              sightModes
-              sightingRange
-              recoilModifier
-              zoomLevels
-              slots {
-                id
-                name
-                nameId
-                required
-              }
-            }
-            
-            fragment SurgicalKit on ItemPropertiesSurgicalKit {
-              uses
-              useTime
-              cures
-              minLimbHealth
-              maxLimbHealth
-            }
-            
-            fragment Weapon on ItemPropertiesWeapon {
-                caliber
-              defaultAmmo {
-                id
-              }
-              effectiveDistance
-              ergonomics
-              fireModes
-              fireRate
-              maxDurability
-              recoilVertical
-              recoilHorizontal
-              repairCost
-              sightingRange
-              centerOfImpact
-              deviationCurve
-              deviationMax
-              defaultWidth
-              defaultHeight
-              defaultErgonomics
-              defaultRecoilVertical
-              defaultRecoilHorizontal
-              defaultWeight
-              defaultPreset {
-                id
-              }
-              allowedAmmo {
-                id
-              }
-              slots {
-                id
-                name
-                nameId
-                required
-              }
-            }
-            
-            fragment WeaponMod on ItemPropertiesWeaponMod {
-              ergonomics
-              recoilModifier
-              accuracyModifier
-              slots {
-                id
-                name
-                nameId
-                required
-              }
-            }
         GRAPHQL;
 
         try {
@@ -424,71 +124,49 @@ class ImportItemsCommand extends Command
         $itemRepository = $this->em->getRepository(Item::class);
         $questRepository = $this->em->getRepository(Quest::class);
 
+        // Impart base data
         foreach ($items as $item) {
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setTitle($item['name']);
-                $itemEntity->translate($lang, false)->setShortTitle($item['shortName']);
+                $itemEntity->translate($lang, false)->setName($item['name']);
+                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
             } else {
-                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemDefaultProperty';
+                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setTitle($item['name']);
-                $itemEntity->translate($lang, false)->setShortTitle($item['shortName']);
+                $itemEntity->translate($lang, false)->setName($item['name']);
+                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
                 $itemEntity->setApiId($item['id']);
-                $itemEntity->setTypeProperties($typeName);
+                $itemEntity->setTypeItem($typeName);
             }
 
             // Download file
             @unlink($this->storageDir.'*.webp');
-            if (!$itemEntity->getImageFile()) {
-                $curlHandle = curl_init($item['image512pxLink']);
-                $fileName = basename($item['image512pxLink']);
-                $tmpFileName = $this->storageDir . $fileName;
-                $fp = fopen($tmpFileName, 'wb');
-                curl_setopt($curlHandle, CURLOPT_FILE, $fp);
-                curl_setopt($curlHandle, CURLOPT_HEADER, 0);
-                curl_exec($curlHandle);
-                curl_close($curlHandle);
-                fclose($fp);
-
-                // Convert to png
-                $saveFileName = explode('-', $fileName, 2)[0] . '.png';
-                $saveFilePath = $this->storageDir . $saveFileName;
-                $im = new Imagick();
-                $im->pingImage($tmpFileName);
-                $im->readImage($tmpFileName);
-                $im->setImageFormat('png');
-                $im->setBackgroundColor(new ImagickPixel('transparent'));
-                $im->writeImage($saveFilePath);
-                unlink($tmpFileName);
-
-                $itemEntity->setImageName(explode('-', $fileName, 2)[0] . '.png');
+            if (!$itemEntity->getImageName()) {
+                $imageName =$this->convertImage($item['image512pxLink']);
+                $itemEntity->setImageName($imageName);
             }
 
-            // Set another params
+            // Fetch description
+            $itemArray = $this->fetchJson($item['id'], $lang, $this->httpClient);
+            if (is_array($itemArray))
+                $itemEntity->setDescription($itemArray['locale']['Description']);
+
+            // Set base params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
-            $blocksHeadphones = (null !== $item['blocksHeadphones']) ? $item['blocksHeadphones'] : false;
             if ($this->isMoney($item['id'])) $item['types'][] = 'money';
             $itemEntity->setPublished(true)
                 ->setSlug($item['normalizedName'])
                 ->setTypes($item['types'])
-                ->setProperties($item['properties'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])
                 ->setHeight($item['height'])
                 ->setBackgroundColor($item['backgroundColor'])
-                ->setAccuracyModifier($item['accuracyModifier'])
-                ->setRecoilModifier($item['recoilModifier'])
-                ->setErgonomicsModifier($item['recoilModifier'])
                 ->setHasGrid($hasGrid)
-                ->setBlocksHeadphones($blocksHeadphones)
                 ->setWeight($item['weight'])
-                ->setVelocity($item['velocity'])
-                ->setLoudness($item['loudness'])
                 ->mergeNewTranslations()
             ;
             $this->em->persist($itemEntity);
@@ -521,6 +199,7 @@ class ImportItemsCommand extends Command
 
             $progressBar->advance();
             $this->em->flush();
+            unset($itemEntity);
         }
 
         $progressBar->finish();
@@ -532,5 +211,62 @@ class ImportItemsCommand extends Command
     protected function isMoney(string $apiId): bool
     {
         return in_array($apiId, $this->moneyArray);
+    }
+
+    protected function convertImage(string $url): ?string
+    {
+        $curlHandle = curl_init($url);
+        $fileName = basename($url);
+        $tmpFileName = $this->storageDir . $fileName;
+        $fp = fopen($tmpFileName, 'wb');
+        curl_setopt($curlHandle, CURLOPT_FILE, $fp);
+        curl_setopt($curlHandle, CURLOPT_HEADER, 0);
+        curl_exec($curlHandle);
+        curl_close($curlHandle);
+        fclose($fp);
+
+        $fhSource = fopen($tmpFileName, 'a+');
+        $im = new Imagick();
+        $im->readImageFile($fhSource);
+        fclose($fhSource);
+
+        $saveFileName = explode('-', $fileName, 2)[0] . '.png';
+        $saveFilePath = $this->storageDir . $saveFileName;
+
+        $fhSave = fopen($saveFilePath, 'a+');
+        $im->setImageFormat('png');
+        $im->setBackgroundColor(new ImagickPixel('transparent'));
+        $im->writeImageFile($fhSave);
+        fclose($fhSave);
+        unlink($tmpFileName);
+
+        return explode('-', $fileName, 2)[0] . '.png';
+    }
+
+    protected function fetchJson(string $apiId, string $locale, HttpClientInterface $client): ?array
+    {
+        $result = null;
+        $variables = [
+            'id' => $apiId,
+            'locale' => $locale
+        ];
+
+        $options = (new HttpOptions())
+            ->setQuery($variables)
+            ->setHeaders([
+                'Accept' => 'application/json',
+                'User-Agent' => 'Symfony HTTP client'
+            ])
+        ;
+
+        try {
+            $request = $client
+                ->request('GET', 'https://db.sp-tarkov.com/api/item', $options->toArray());
+            $result = $request->toArray();
+        } catch (Exception $e) {
+            $request = null;
+        }
+
+        return $result;
     }
 }

@@ -24,34 +24,34 @@ class QuestItemTranslation implements UuidPrimaryKeyInterface, TranslationInterf
     use TimestampableTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title;
+    private ?string $name;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $shortTitle;
+    private ?string $shortName;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getShortTitle(): ?string
+    public function getShortName(): ?string
     {
-        return $this->shortTitle;
+        return $this->shortName;
     }
 
-    public function setShortTitle(?string $shortTitle): void
+    public function setShortName(?string $shortName): void
     {
-        $this->shortTitle = $shortTitle;
+        $this->shortName = $shortName;
     }
 
     public function getDescription(): ?string

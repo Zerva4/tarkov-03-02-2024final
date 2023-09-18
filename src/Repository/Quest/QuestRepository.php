@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Repository\Quest;
 
 use App\Entity\Quest\Quest;
-use App\Entity\Quest\QuestTranslation;
-use App\Entity\Trader\Trader;
 use App\Interfaces\Quest\QuestInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
@@ -49,7 +47,7 @@ class QuestRepository extends ServiceEntityRepository
     public function findQuestsByTraderId(UuidInterface $uuid, int $mode = AbstractQuery::HYDRATE_OBJECT): ?array
     {
         return $this->createQueryBuilder('q')
-            ->select('l.id, l.title, l.description, l.howToComplete, q.imageName, q.position, q.slug')
+            ->select('l.id, l.name, l.description, l.howToComplete, q.imageName, q.position, q.slug')
             ->leftJoin('q.translations', 'l')
             ->andWhere('q.published = true')
             ->andWhere('q.trader = :trader')
@@ -79,7 +77,7 @@ class QuestRepository extends ServiceEntityRepository
     public function findTraderByQuestId(UuidInterface $uuid, int $mode = AbstractQuery::HYDRATE_OBJECT): array
     {
         return $this->createQueryBuilder('q')
-            ->select('t.id, t.title')
+            ->select('t.id, t.name')
             ->leftJoin('q.trader', 't')
             ->andWhere('q.id = :quest')
             ->setParameter('quest', $uuid)

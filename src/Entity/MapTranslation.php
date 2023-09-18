@@ -24,41 +24,35 @@ class MapTranslation implements UuidPrimaryKeyInterface, TranslationInterface, T
     use TimestampableTrait;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title;
+    private ?string $name;
 
-    #[ORM\Column(type: 'text')]
-    private string $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description;
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
     public function __toString(): string
     {
-        return $this->getTitle();
+        return $this->getName();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Item;
 
 use App\Entity\Item\ItemMaterialTranslation;
@@ -21,21 +23,28 @@ class ItemMaterialTranslationRepository extends ServiceEntityRepository
         parent::__construct($registry, ItemMaterialTranslation::class);
     }
 
-    public function save(ItemMaterialTranslation $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
+//    /**
+//     * @return ArmorMaterialTranslation[] Returns an array of ArmorMaterialTranslation objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('a.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(ItemMaterialTranslation $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
+//    public function findOneBySomeField($value): ?ArmorMaterialTranslation
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
 }

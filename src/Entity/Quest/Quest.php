@@ -6,7 +6,6 @@ namespace App\Entity\Quest;
 
 use App\Entity\Barter;
 use App\Entity\Item\ContainedItem;
-use App\Entity\Item\Item;
 use App\Entity\Map;
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
@@ -14,7 +13,6 @@ use App\Entity\TranslatableEntity;
 use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ContainedItemInterface;
-use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
@@ -31,6 +29,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -45,7 +44,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, TimestampableInterface, QuestInterface
+class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, TranslatableInterface, TimestampableInterface, QuestInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -130,9 +129,9 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     #[ORM\JoinTable(name: 'quests_needed_keys')]
     private ?Collection $neededKeys;
 
-    public function __construct(string $defaultLocation = '%app.default_locale%')
+    public function __construct(string $defaultLocale = '%app.default_locale%')
     {
-        parent::__construct($defaultLocation);
+        parent::__construct($defaultLocale);
 
         $this->objectives = new ArrayCollection();
         $this->usedItems = new ArrayCollection();
@@ -174,6 +173,78 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
     public function setPublished(bool $published): QuestInterface
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): QuestInterface
+    {
+        $this->translate()->setName($name);
+
+        return $this;
+    }
+
+    public function getShortName(): ?string
+    {
+        return $this->translate()->getShortName();
+    }
+
+    public function setShortName(string $name): QuestInterface
+    {
+        $this->translate()->setShortName($name);
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(string $description): QuestInterface
+    {
+        $this->translate()->setDescription($description);
+
+        return $this;
+    }
+
+    public function getHowToComplete(): ?string
+    {
+        return $this->translate()->getHowToComplete();
+    }
+
+    public function setHowToComplete(string $howToComplete): QuestInterface
+    {
+        $this->translate()->setHowToComplete($howToComplete);
+
+        return $this;
+    }
+
+    public function getStartDialog(): ?string
+    {
+        return $this->translate()->getStartDialog();
+    }
+
+    public function setStartDialog(?string $startDialog): QuestInterface
+    {
+        $this->translate()->setStartDialog($startDialog);
+
+        return $this;
+    }
+
+    public function getSuccessfulDialog(): ?string
+    {
+        return $this->translate()->getSuccessfulDialog();
+    }
+
+    public function setSuccessfulDialog(?string $successfulDialog): QuestInterface
+    {
+        $this->translate()->setSuccessfulDialog($successfulDialog);
 
         return $this;
     }
@@ -533,6 +604,6 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Times
 
     public function __toString(): string
     {
-        return $this->__get('title');
+        return $this->getName();
     }
 }
