@@ -26,7 +26,7 @@ class ItemCaliber extends TranslatableEntity implements UuidPrimaryKeyInterface,
     #[ORM\Column(type: 'boolean')]
     private bool $published;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, unique: true , nullable: false)]
     private string $apiId;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
