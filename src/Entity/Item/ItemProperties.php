@@ -107,6 +107,7 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     public function setCaliber(?ItemCaliberInterface $caliber): ItemPropertiesInterface
     {
         $this->caliber = $caliber;
+        if ($caliber instanceof ItemCaliberInterface) $caliber->addProperties($this);
 
         return $this;
     }
