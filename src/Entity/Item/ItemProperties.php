@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
+use App\Interfaces\Item\ItemCaliberInterface;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Item\ItemMaterialInterface;
 use App\Interfaces\Item\ItemPropertiesInterface;
@@ -57,6 +58,10 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?ItemStorageGridInterface $grids = null;
 
+    #[ORM\ManyToOne(targetEntity: ItemCaliber::class, fetch: 'EAGER', inversedBy: 'properties')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private ?ItemCaliberInterface $caliber = null;
+
     public function getItem(): ItemInterface
     {
         return $this->item;
@@ -90,6 +95,18 @@ class ItemProperties implements ItemPropertiesInterface, UuidPrimaryKeyInterface
     public function setGrids(?ItemStorageGridInterface $grids): ItemPropertiesInterface
     {
         $this->grids = $grids;
+
+        return $this;
+    }
+
+    public function getCaliber(): ?ItemCaliberInterface
+    {
+        return $this->caliber;
+    }
+
+    public function setCaliber(?ItemCaliberInterface $caliber): ItemPropertiesInterface
+    {
+        $this->caliber = $caliber;
 
         return $this;
     }
