@@ -29,7 +29,7 @@ class TraderRequiredType extends AbstractType
                         ->addSelect('lt')
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
-                        ->orderBy('lt.characterType', 'ASC');
+                        ->orderBy('lt.shortName', 'ASC');
                 },
                 'expanded'=> false,
                 'by_reference' => true,
