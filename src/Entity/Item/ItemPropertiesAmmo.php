@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ItemPropertiesAmmo extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesAmmoInterface
 {
     #[ORM\Column(type: 'string', length: 64, nullable: false, options: ['default' => '', 'comment' => 'Калибр'])]
-    private string $caliber;
+    private string $apiCaliber;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Максимально кол-во в ячейке(стеке)'])]
     private int $stackMaxSize;
@@ -81,14 +81,14 @@ class ItemPropertiesAmmo extends ItemProperties implements ItemPropertiesInterfa
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Масса пули в граммах'])]
     private float $bulletMassGrams;
 
-    public function getCaliber(): string
+    public function getApiCaliber(): string
     {
-        return $this->caliber;
+        return $this->apiCaliber;
     }
 
-    public function setCaliber(string $caliber): ItemPropertiesAmmoInterface
+    public function setApiCaliber(string $apiCaliber): ItemPropertiesAmmoInterface
     {
-        $this->caliber = $caliber;
+        $this->apiCaliber = $apiCaliber;
 
         return $this;
     }
