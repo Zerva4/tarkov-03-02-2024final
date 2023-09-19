@@ -139,6 +139,6 @@ class TraderRequired implements UuidPrimaryKeyInterface, TraderRequiredInterface
 
     public function __toString(): string
     {
-        return $this->trader->__get('characterType') . ': уровень ' . $this->getLevel();
+        return $this->trader->__get('shortName') . ': уровень ' . $this->getLevel();
     }
 }
