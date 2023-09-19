@@ -33,8 +33,8 @@ parameters:
     app.traders.images.uri: '%app.storage.uri%images/traders'
 
     # Maps image config
-    app.maps.images.path: '%app.storage.path%images/locations'
-    app.maps.images.uri: '%app.storage.uri%images/locations'
+    app.maps.images.path: '%app.storage.path%images/maps'
+    app.maps.images.uri: '%app.storage.uri%images/maps'
 
     # Locations image config
     app.locations.images.path: '%app.storage.path%images/locations'
