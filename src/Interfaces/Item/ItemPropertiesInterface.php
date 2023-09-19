@@ -12,4 +12,6 @@ interface ItemPropertiesInterface
     public function setMaterial(?ItemMaterialInterface $material): ItemPropertiesInterface;
     public function getGrids(): ?ItemStorageGridInterface;
     public function setGrids(?ItemStorageGridInterface $grids): ItemPropertiesInterface;
+    public function getCaliber(): ?ItemCaliberInterface;
+    public function setCaliber(?ItemCaliberInterface $caliber): ItemPropertiesInterface;
 }
