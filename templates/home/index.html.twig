@@ -14,9 +14,9 @@
                                 {{ 'Патроны'|trans({}, 'front.home') }}
                             </div>
                         </a>
-                        <a href="#" class="item">
+                        <a href="{{ absolute_url(path('app_maps', {})) }}" class="item">
                             <div class="image">
-                                <img src="{{ asset('assets/img/maps_main.svg') }}" alt="">
+                                <img src="{{ asset('assets/img/maps_main.svg') }}" alt="{{ 'Карты'|trans({}, 'front.home') }}">
                             </div>
                             <div class="name">
                                 {{ 'Карты'|trans({}, 'front.home') }}
