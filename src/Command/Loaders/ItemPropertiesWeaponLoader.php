@@ -42,7 +42,7 @@ class ItemPropertiesWeaponLoader
         }
 
         $entityProperties
-            ->setCaliber($arrayProperties['caliber'])
+            ->setApiCaliber($arrayProperties['caliber'])
             ->setDefaultAmmo($entityDefaultAmmo) // todo: Check mapping
             ->setDefaultPreset($entityDefaultPreset) // todo: Check mapping
             ->setEffectiveDistance($arrayProperties['effectiveDistance'])

@@ -12,7 +12,7 @@ class ItemPropertiesAmmoLoader
     public function load(EntityManagerInterface $em, ItemPropertiesAmmoInterface $entityProperties, array $arrayProperties, string $locale = '%app.default_locale%'): ItemPropertiesAmmoInterface
     {
         $entityProperties
-            ->setCaliber($arrayProperties['caliber'])
+            ->setApiCaliber($arrayProperties['caliber'])
             ->setStackMaxSize($arrayProperties['stackMaxSize'])
             ->setTracer($arrayProperties['tracer'])
             ->setTracerColor($arrayProperties['tracerColor'])
