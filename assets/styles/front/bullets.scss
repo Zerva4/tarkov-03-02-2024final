@@ -1,5 +1,4 @@
 .table {
-    width: 100%;
 
     td {
         &.td_bullet {
@@ -11,19 +10,19 @@
         }
 
         &.td_armor_pen {
-            width: 10%;
+            width: 13%;
         }
 
         &.td_armor_dam {
-            width: 10%;
+            width: 11%;
         }
 
         &.td_speed {
-            width: 10%;
+            width: 11%;
         }
 
         &.td_options {
-            width: 30%;
+            width: 25%;
 
             .ref {
                 right: calc(100% + 8px) !important;
@@ -67,7 +66,7 @@
 }
 
 .ammo_chooser {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
 
     @media (min-width:320px) and (max-width:1080px) {
         padding: 0 12px;
@@ -88,34 +87,22 @@
     .wrapper {
         display: flex;
         flex-flow: row wrap;
-        gap: 8px;
+        gap: 4px;
         justify-content: flex-start;
         align-items: flex-start;
 
         .ammo {
-            min-width: 110px;
+            min-width: 120px;
             background: #1E1E1E;
             border-radius: 5px;
             margin-bottom: 4px;
             display: inline-block;
-            padding: 8px 8px 8px 24px;
+            padding: 8px 24px 8px 24px;
             text-align: center;
-            position: relative;
             width: max-content;
             cursor: pointer;
             user-select: none;
             transition: 0.5s ease;
-
-            &::before {
-                position: absolute;
-                content: "";
-                width: 4px;
-                height: 4px;
-                background: $color-text;
-                border-radius: 50%;
-                top: calc(50% - 2px);
-                left: 8px;
-            }
 
             &.active {
                 background: #483013;
@@ -210,7 +197,7 @@
     .item {
         margin: 0 6px !important;
         height: 6px;
-        width: 40px;
+        width: 40px !important;
         background: $color-text;
 
         &.active {
@@ -222,7 +209,7 @@
 .options {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     flex-flow: row wrap;
     gap: 8px;
 
@@ -269,21 +256,19 @@
                 display: flex;
                 flex-flow: row nowrap;
                 align-items: center;
-                justify-content: flex-start;
+                justify-content: space-between;
+                padding: 0 32px;
+                width: 100%;
                 margin: 16px;
             }
 
             .name {
-                flex: 1;
-                text-align: left;
                 margin-right: 5px;
                 color: #828282;
             }
 
             .value {
-                flex: 1;
-                text-align: left;
-                margin-left: 5px;
+                margin-right: 32px;
 
                 .flatness {
                     display: flex;
@@ -309,7 +294,7 @@
         .button {
             color: #000000 !important;
             cursor: pointer;
-            background: #DF870A;
+            background: #828282;
             border-radius: 0px 0px 5px 5px;
             padding: 4px 20px;
             user-select: none;
@@ -324,6 +309,7 @@
             }
 
             &.active {
+                background: #DF870A;
                 .icon {
                     &::before {
                         content: "▲";
@@ -446,6 +432,8 @@
                 background: #151515;
                 border-radius: 5px;
                 padding: 4px 6px;
+                width: 45px;
+                height: 25px;
             }
         }
     }

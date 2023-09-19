@@ -1,14 +1,15 @@
 .content_map {
   max-width: 1140px;
   margin: 0 auto;
-  
+
   @media (max-width: 900px) {
     padding: 0 20px 0;
   }
 
   .nav_list {
-    margin: 0 0 17px;
+    margin: 0 0 16px;
     padding: 0;
+    font-size: 16px;
     display: flex;
     list-style: none;
     color: #828282;
@@ -19,7 +20,7 @@
     .nav_list__element {
       cursor: pointer;
 
-      @media (max-width: 834px) {
+      @media (max-width: 900px) {
         display: none;
       }
 
@@ -58,7 +59,8 @@
       }
 
       .title {
-        margin: 6px 0 10px;
+        font-size: 16px;
+        margin: 4px 0 8px;
         text-align: center;
         color: #df870a;
         line-height: 19px;

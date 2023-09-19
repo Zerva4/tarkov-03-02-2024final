@@ -1,26 +1,39 @@
 document.addEventListener('DOMContentLoaded', function () {
-	// try {
-	// 	let mobile_menu_btn = document.querySelector('.mobile_menu_btn');
-	//
-	// 	mobile_menu_btn.addEventListener('click', (e) => openMobileMenu(e));
-	// }
-	// catch { }
-
-	// try {
-	// 	let menu_mobile_close = document.querySelector('#menu_mobile_close');
-	//
-	// 	menu_mobile_close.addEventListener('click', (e) => closeMobileMenu(e));
-	// }
-	// catch { }
+//	try {
+//		let mobile_menu_btn = document.querySelector('.mobile_menu_btn');
+//		mobile_menu_btn.addEventListener('click', (e) => openMobileMenu(e));
+//	}
+//	catch { }
+//
+//	try {
+//		let menu_mobile_close = document.querySelector('#menu_mobile_close');
+//		menu_mobile_close.addEventListener('click', (e) => closeMobileMenu(e));
+//	}
+//	catch { }
 
 	try {
 		let reference_btns = document.querySelectorAll('.reference .header');
-
 		reference_btns.forEach((item) => {
 			item.addEventListener('click', (e) => switchReference(e));
 		});
 	}
 	catch { }
+
+	try {
+		let collapse_btns = document.querySelectorAll('.collapse-box .collapse-box__title');
+		collapse_btns.forEach((item) => {
+			item.addEventListener('click', (e) => switchCollapse(e));
+		});
+	}
+	catch { }
+
+	try {
+		const auhorized_profile_avatar = document.querySelector('.auhorized_profile_avatar');
+		auhorized_profile_avatar.addEventListener('click', openProfileMenu);
+	}
+	catch { }
+
+	document.addEventListener('click', closeProfileMenu);
 
 	try {
 		let tabs = document.querySelectorAll('.switchers');
@@ -43,14 +56,21 @@ document.addEventListener('DOMContentLoaded', function () {
 	try {
 		let login = document.getElementById('login');
 
-		login.addEventListener('click', (e) => openLoginModal(e));
+		login.addEventListener('click', openLoginModal);
 	}
 	catch { }
 
 	try {
 		let login = document.getElementById('login_main');
 
-		login.addEventListener('click', (e) => openLoginModal(e));
+		login.addEventListener('click', openLoginModal);
+	}
+	catch { }
+
+	try {
+		let login = document.getElementById('mobile_login');
+
+		login.addEventListener('click', openLoginModal);
 	}
 	catch { }
 
@@ -112,6 +132,74 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	catch { }
 
+	try {
+		let calibers = document.querySelectorAll('.ammo_chooser .ammo');
+
+		calibers.forEach((item) => {
+			item.addEventListener('click', (e) => openCaliber(e));
+		});
+	}
+	catch { }
+
+	// news-page
+
+	try {
+		let news__secondary_mobile_patch = document.querySelector('.news__secondary_mobile_patch');
+
+		news__secondary_mobile_patch.addEventListener('click', (e) => openMobileNewsPatch(e));
+	}
+	catch { }
+
+	try {
+		let news__secondary_mobile_event = document.querySelector('.news__secondary_mobile_event');
+
+		news__secondary_mobile_event.addEventListener('click', (e) => openMobileNewsEvent(e));
+	}
+	catch { }
+
+	try {
+		let news__secondary_mobile_site = document.querySelector('.news__secondary_mobile_site');
+
+		news__secondary_mobile_site.addEventListener('click', (e) => openMobileNewsSite(e));
+	}
+	catch { }
+
+	try {
+		let tabs = document.querySelectorAll('.news_patch .secondary__data');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click', switchPatch);
+		});
+	}
+	catch { }
+
+	try {
+		let tabs = document.querySelectorAll('.news_event .secondary__data');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click', switchEvent);
+		});
+	}
+	catch { }
+
+	try {
+		let tabs = document.querySelectorAll('.news_site .secondary__data');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click', switchSite);
+		});
+	}
+	catch { }
+
+	try {
+		let tabs = document.querySelectorAll('.section_body .news_list__element');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click', switchNews);
+		});
+	}
+	catch { }
+
 	// health-page
 	try {
 		let buttonsTables = document.querySelectorAll('.button-table');
@@ -164,37 +252,43 @@ document.addEventListener('DOMContentLoaded', function () {
 		let authorInput = blockAuthor.querySelector(".color_white");
 		let containerCards = document.querySelector(".container__cards");
 		let containerCardsItems = containerCards.querySelectorAll(".item");
-		let levelArmorDamage = document.querySelector(".level__armor_damage");
-		let countLevelDamage = 1;
-		let templateArmorDamage = document.querySelector(
-			"#blockTemplate__armor_damage"
-		);
 
-		blockToggle.addEventListener('click', () => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const categoryUrl = urlParams.get("category");
+		const author = urlParams.get("author");
+		const premium = urlParams.get("premium");
+
+		categoryInput.textContent = categoryUrl || "Все";
+		authorInput.textContent = author || "Все";
+		if (premium === "true") {
+			togglePremium.classList.remove("toggle_no_active");
+		} else if (premium === "false") {
+			togglePremium.classList.add("toggle_no_active");
+		}
+
+		filterCards(categoryInput, authorInput, togglePremium, containerCardsItems);
+
+		blockToggle.addEventListener("click", () => {
 			togglePremium.classList.toggle("toggle_no_active");
-			filterCards(categoryInput, authorInput, togglePremium, containerCardsItems);
+			updateFilters(categoryInput, authorInput, togglePremium);
 		});
 
-		for (let i = 0; i < countLevelDamage; i++) {
-			const armorBlockClone = document.importNode(templateArmorDamage.content, true);
-			levelArmorDamage.appendChild(armorBlockClone);
-		}
 		category.addEventListener("mouseleave", () => {
 			listCategory.classList.add("dropdown-hidden");
 			buttonCategory.classList.remove("active");
 		});
-		
+
 		blockAuthor.addEventListener("mouseleave", () => {
 			listAuthor.classList.add("dropdown-hidden");
 			buttonAuthor.classList.remove("active");
 		});
-		
+
 		blockCategory.addEventListener("click", () => {
 			listCategory.classList.toggle("dropdown-hidden");
 			buttonCategory.classList.toggle("active");
 			blockCategory.classList.toggle("active");
 		});
-		
+
 		blockAuthor.addEventListener("click", () => {
 			listAuthor.classList.toggle("dropdown-hidden");
 			buttonAuthor.classList.toggle("active");
@@ -203,17 +297,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		categoriesSelected.forEach((category) => {
 			category.addEventListener("click", (evt) => {
 				categoryInput.textContent = evt.target.textContent;
-				filterCards(categoryInput, authorInput, togglePremium, containerCardsItems);
+
 				listCategory.classList.add("dropdown-hidden");
 				buttonCategory.classList.remove("active");
+				updateFilters(categoryInput, authorInput, togglePremium);
 			});
 		});
 		authorSelected.forEach((author) => {
 			author.addEventListener("click", (evt) => {
 				authorInput.textContent = evt.target.textContent;
-				filterCards(categoryInput, authorInput, togglePremium, containerCardsItems);
+				updateFilters(categoryInput, authorInput, togglePremium);
 			});
-		
+
 			listAuthor.classList.add("dropdown-hidden");
 			buttonAuthor.classList.remove("active");
 		});
@@ -317,6 +412,52 @@ function switchAuthModal(event) {
 
 }
 
+const fadeIn = (el, timeout, display) => {
+	el.style.opacity = 0;
+	el.style.display = display || 'block';
+	el.style.transition = `opacity ${timeout}ms`;
+	setTimeout(() => {
+		el.style.opacity = 1;
+	}, 10);
+};
+
+const fadeOut = (el, timeout) => {
+	el.style.opacity = 1;
+	el.style.transition = `opacity ${timeout}ms`;
+	el.style.opacity = 0;
+
+	setTimeout(() => {
+		el.style.display = 'none';
+	}, timeout);
+};
+
+function openProfileMenu(event) {
+	let chooser = document.querySelector('.auhorized_menu_open');
+	event.stopPropagation()
+	if (chooser.classList.contains('active')) {
+		fadeOut (chooser, 250);
+	} else {
+		fadeIn (chooser, 250);
+	};
+	chooser.classList.toggle('active');
+}
+
+
+function closeProfileMenu(event) {
+
+	if (!event.target.matches('.auhorized_profile_avatar')) {
+		var dropdowns = document.getElementsByClassName("auhorized_menu_open");
+		var i;
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('active')) {
+				openDropdown.classList.remove('active');
+				fadeOut (openDropdown, 250);
+			}
+		}
+	}
+}
+
 function openLoginModal(event) {
 	let login = document.getElementById('login_modal');
 
@@ -379,6 +520,17 @@ function switchReference(event) {
 	}
 }
 
+function switchCollapse(event) {
+	let collapse = event.target.closest('.collapse-box__trigger');
+
+	if (collapse.classList.contains('active')) {
+		collapse.classList.remove('active');
+	}
+	else {
+		collapse.classList.add('active');
+	}
+}
+
 function switchCraftMobileCollapse(event) {
 	let target = event.target.closest('.mobile_collapser');
 	let parent = event.target.closest('.mobile_collapser_parent');
@@ -421,83 +573,258 @@ function clickHandler(event, titleChange, subTitleFracture, subTitleProperties) 
 	infoBodyParts.forEach((item) => {
 		if(item.id === event.target.id) {
 			titleChange.forEach((elem) => {
-        elem.textContent = item.name
-      });
+				elem.textContent = item.name
+			});
 			subTitleFracture.forEach((elem) => {
-        elem.textContent = item.fracture
-      });
-      subTitleProperties.forEach((elem) => {
-        elem.textContent = item.properties
-      });
+				elem.textContent = item.fracture
+			});
+			subTitleProperties.forEach((elem) => {
+				elem.textContent = item.properties
+			});
 		}
 	})
 	openModalHealth();
 }
 
 const infoBodyParts = [
-  {
-    id: 'part1',
-    name: 'Голова',
-    fracture: 'Что-то с переломом головы',
-    destroyed: 'Уничтожение головы',
-    properties: 'Особенности головы',
-  },
-  {
-    id: 'part2',
-    name: 'Грудная клетка',
-    fracture: 'Что-то с переломом грудной клетки',
-    destroyed: 'Уничтожение грудной клетки',
-    properties: 'Особенности грудной клетки',
-  },
-  {
-    id: 'part3',
-    name: 'Рука (правая)',
-    fracture: 'Что-то с переломом правой руки',
-    destroyed: 'Уничтожение правой руки',
-    properties: 'Особенности правой руки',
-  },
-  {
-    id: 'part4',
-    name: 'Полость живота',
-    fracture: 'Что-то с ударом в полость живота',
-    destroyed: 'Уничтожение полости живота',
-    properties: 'Особенности полости живота',
-  },
-  {
-    id: 'part5',
-    name: 'Нога (правая)',
-    fracture: 'Что-то с переломом правой ноги',
-    destroyed: 'Уничтожение правой ноги',
-    properties: 'Особенности правой ноги',
-  },
-  {
-    id: 'part6',
-    name: 'Нога (левая)',
-    fracture: 'Что-то с переломом левой ноги',
-    destroyed: 'Уничтожение левой ноги',
-    properties: 'Особенности левой ноги',
-  },
-  {
-    id: 'part7',
-    name: 'Рука (левая)',
-    fracture: 'Что-то с переломом левой руки',
-    destroyed: 'Уничтожение левой руки',
-    properties: 'Особенности левой руки',
-  }
+	{
+		id: 'part1',
+		name: 'Голова',
+		fracture: 'Что-то с переломом головы',
+		destroyed: 'Уничтожение головы',
+		properties: 'Особенности головы',
+	},
+	{
+		id: 'part2',
+		name: 'Грудная клетка',
+		fracture: 'Что-то с переломом грудной клетки',
+		destroyed: 'Уничтожение грудной клетки',
+		properties: 'Особенности грудной клетки',
+	},
+	{
+		id: 'part3',
+		name: 'Рука (правая)',
+		fracture: 'Что-то с переломом правой руки',
+		destroyed: 'Уничтожение правой руки',
+		properties: 'Особенности правой руки',
+	},
+	{
+		id: 'part4',
+		name: 'Полость живота',
+		fracture: 'Что-то с ударом в полость живота',
+		destroyed: 'Уничтожение полости живота',
+		properties: 'Особенности полости живота',
+	},
+	{
+		id: 'part5',
+		name: 'Нога (правая)',
+		fracture: 'Что-то с переломом правой ноги',
+		destroyed: 'Уничтожение правой ноги',
+		properties: 'Особенности правой ноги',
+	},
+	{
+		id: 'part6',
+		name: 'Нога (левая)',
+		fracture: 'Что-то с переломом левой ноги',
+		destroyed: 'Уничтожение левой ноги',
+		properties: 'Особенности левой ноги',
+	},
+	{
+		id: 'part7',
+		name: 'Рука (левая)',
+		fracture: 'Что-то с переломом левой руки',
+		destroyed: 'Уничтожение левой руки',
+		properties: 'Особенности левой руки',
+	}
 ]
 
 //mechanics-page
-function filterCards(categoryInput, authorInput, togglePremium, containerCardsItems) {
+function filterCards(
+	categoryInput,
+	authorInput,
+	togglePremium,
+	containerCardsItems
+) {
 	let selectedTheme = categoryInput.textContent;
-  let selectedAuthor = authorInput.textContent;
-  let isPremiumChecked = togglePremium.classList.contains('toggle_no_active') ? 'false' : 'true';
-  containerCardsItems.forEach(item => {
-    let theme = item.getAttribute('data-theme');
-    let author = item.getAttribute("data-author");
-    let isPremium = item.getAttribute("data-premium");
-    let themeMatch = selectedTheme === theme;
-    let authorMatch = selectedAuthor === author;
-    let premiumMatch = isPremiumChecked === isPremium;
-    item.style.display = themeMatch && authorMatch && premiumMatch ? "block" : "none";
-  })
+	let selectedAuthor = authorInput.textContent;
+	let isPremiumChecked = togglePremium.classList.contains("toggle_no_active")
+		? "false"
+		: "true";
+
+	containerCardsItems.forEach((item) => {
+		let themes = item.getAttribute("data-theme");
+		let themeList = themes ? themes.split(",") : [];
+		let author = item.getAttribute("data-author");
+		let authorList = author ? author.split(",") : [];
+		let isPremium = item.getAttribute("data-premium");
+
+		let themeMatch =
+			selectedTheme === "Все" || themeList.includes(selectedTheme);
+		let authorMatch =
+			selectedAuthor === "Все" || authorList.includes(selectedAuthor);
+		let premiumMatch =
+			isPremiumChecked === isPremium ||
+			(isPremiumChecked === "false" && !isPremium);
+
+		item.style.display =
+			themeMatch && authorMatch && premiumMatch ? "block" : "none";
+	});
+
+	document.querySelector(".container__cards").style.opacity = 1;
+}
+
+function updateFilters(categoryInput, authorInput, togglePremium) {
+	const category = categoryInput.textContent;
+	const author = authorInput.textContent;
+	const isPremium = togglePremium.classList.contains("toggle_no_active")
+		? "false"
+		: "true";
+
+	const urlParams = new URLSearchParams(window.location.search);
+	urlParams.set("category", category);
+	urlParams.set("author", author);
+	urlParams.set("premium", isPremium);
+	window.location.search = urlParams.toString();
+}
+
+//news-page
+
+function openMobileNewsPatch(event) {
+	let chooser = document.querySelector('.secondary__list_patch');
+
+	if (chooser.classList.contains('active')) {
+		chooser.classList.remove('active');
+		event.target.classList.remove('active');
+	}
+	else {
+		chooser.classList.add('active');
+		event.target.classList.add('active');
+	}
+}
+
+function openMobileNewsEvent(event) {
+	let chooser = document.querySelector('.secondary__list_event');
+
+	if (chooser.classList.contains('active')) {
+		chooser.classList.remove('active');
+		event.target.classList.remove('active');
+	}
+	else {
+		chooser.classList.add('active');
+		event.target.classList.add('active');
+	}
+}
+
+function openMobileNewsSite(event) {
+	let chooser = document.querySelector('.secondary__list_site');
+
+	if (chooser.classList.contains('active')) {
+		chooser.classList.remove('active');
+		event.target.classList.remove('active');
+	}
+	else {
+		chooser.classList.add('active');
+		event.target.classList.add('active');
+	}
+}
+
+function switchPatch(event) {
+	let tabs_parent = event.target.closest('.news_patch');
+	let active_switch = tabs_parent.querySelector('.secondary__data.active');
+	let active_tab = tabs_parent.querySelector('.news_content_view.active');
+	let target_tab = tabs_parent.querySelector('#' + event.target.closest('.secondary__data').getAttribute('data-target'));
+
+	if (active_switch) {
+		active_switch.classList.remove('active');
+	}
+
+	if (active_tab) {
+		active_tab.classList.remove('active');
+	}
+
+	if (target_tab) {
+		target_tab.classList.add('active');
+		event.target.classList.add('active');
+	}
+}
+
+function switchEvent(event) {
+	let tabs_parent = event.target.closest('.news_event');
+	let active_switch = tabs_parent.querySelector('.secondary__data.active');
+	let active_tab = tabs_parent.querySelector('.news_content_view.active');
+	let target_tab = tabs_parent.querySelector('#' + event.target.closest('.secondary__data').getAttribute('data-target'));
+
+	if (active_switch) {
+		active_switch.classList.remove('active');
+	}
+
+	if (active_tab) {
+		active_tab.classList.remove('active');
+	}
+
+	if (target_tab) {
+		target_tab.classList.add('active');
+		event.target.classList.add('active');
+	}
+}
+
+function switchSite(event) {
+	let tabs_parent = event.target.closest('.news_site');
+	let active_switch = tabs_parent.querySelector('.secondary__data.active');
+	let active_tab = tabs_parent.querySelector('.news_content_view.active');
+	let target_tab = tabs_parent.querySelector('#' + event.target.closest('.secondary__data').getAttribute('data-target'));
+
+	if (active_switch) {
+		active_switch.classList.remove('active');
+	}
+
+	if (active_tab) {
+		active_tab.classList.remove('active');
+	}
+
+	if (target_tab) {
+		target_tab.classList.add('active');
+		event.target.classList.add('active');
+	}
+}
+
+function switchNews(event) {
+	let tabs_parent = event.target.closest('.section_body');
+	let active_switch = tabs_parent.querySelector('.section_view.active');
+	let active_tab = tabs_parent.querySelector('.news_list__element.active');
+	let target_tab = tabs_parent.querySelector('#' + event.target.closest('.news_list__element').getAttribute('data-target'));
+
+	if (active_switch) {
+		active_switch.classList.remove('active');
+	}
+
+	if (active_tab) {
+		active_tab.classList.remove('active');
+	}
+
+	if (target_tab) {
+		target_tab.classList.add('active');
+		event.target.classList.add('active');
+	}
+}
+
+function openCaliber(event) {
+	let target = event.target;
+	let caliber = target.innerText;
+	let container = document.querySelector(`[data-caliber*="${caliber}"]`);
+
+	if (target) {
+		document.querySelector('.ammo_chooser .ammo.active').classList.remove('active');
+		target.classList.add('active');
+
+		if (container) {
+			document.querySelector('.caliber.active').classList.remove('active');
+			container.classList.add('active');
+		}
+		else {
+			container = document.querySelector(`[data-caliber*="no_data"]`);
+			document.querySelector('.caliber.active').classList.remove('active');
+			container.classList.add('active');
+		}
+	}
 }

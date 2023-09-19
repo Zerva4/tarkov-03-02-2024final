@@ -5,10 +5,10 @@
         <section>
             <div class="container">
                 {% if quest is not empty  %}
+                    {% if quest.objectives is not empty %}
+                        <h2>Задачи</h2>
                 <div class="information">
                     <div class="tasks">
-                        {% if quest.objectives is not empty %}
-                        <h2>Задачи</h2>
                         <ul class="list">
                             {% for objective in quest.objectives %}
                             <li class="item">
