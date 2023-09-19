@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesWeaponInterface
 {
     #[ORM\Column(type: 'string', length: 64, nullable: false, options: ['default' => '', 'comment' => 'Калибр'])]
-    private string $caliber;
+    private string $apiCaliber;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Эффективная дистанция'])]
     private int $effectiveDistance;
@@ -111,14 +111,14 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
         $this->allowedAmmo = new ArrayCollection();
     }
 
-    public function getCaliber(): string
+    public function getApiCaliber(): string
     {
-        return $this->caliber;
+        return $this->apiCaliber;
     }
 
-    public function setCaliber(string $caliber): ItemPropertiesWeaponInterface
+    public function setApiCaliber(string $apiCaliber): ItemPropertiesWeaponInterface
     {
-        $this->caliber = $caliber;
+        $this->apiCaliber = $apiCaliber;
 
         return $this;
     }

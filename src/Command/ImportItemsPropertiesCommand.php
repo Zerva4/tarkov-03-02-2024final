@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\Item\Item;
+use App\Entity\Item\ItemCaliber;
 use App\Interfaces\GraphQLClientInterface;
+use App\Interfaces\Item\ItemCaliberInterface;
 use App\Interfaces\Item\ItemInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -47,6 +49,114 @@ class ImportItemsPropertiesCommand extends Command
         'ItemPropertiesWeapon',
         'ItemPropertiesWeaponMod'
     ];
+
+    private array $item_calibres = [
+        'Caliber1143x23ACP' => [
+            'name' => '.45 ACP',
+            'slug' => '45-ACP'
+        ],
+        'Caliber127x55' => [
+            'name' => '12-7x55',
+            'slug' => '12-7x55'
+        ],
+        'Caliber12g' => [
+            'name' => '12/70',
+            'slug' => '12-70'
+        ],
+        'Caliber20g' => [
+            'name' => '20/70',
+            'slug' => '20-70'
+        ],
+        'Caliber23x75' => [
+            'name' => '23x75',
+            'slug' => '23-75'
+        ],
+        'Caliber26x75' => [
+            'name' => '26x75',
+            'slug' => '26x75'
+        ],
+        'Caliber366TKM' => [
+            'name' => '.366 TKM',
+            'slug' => '366-TKM'
+        ],
+        'Caliber40mmRU' => [
+            'name' => '40mm',
+            'slug' => '40mm'
+        ],
+        'Caliber40x46' => [
+            'name' => '40x46',
+            'slug' => '40x46'
+        ],
+        'Caliber46x30' => [
+            'name' => '4.6x30',
+            'slug' => '4-6x30'
+        ],
+        'Caliber545x39' => [
+            'name' => '5.45x39',
+            'slug' => '5-45x39'
+        ],
+        'Caliber556x45NATO' => [
+            'name' => '5.56x45',
+            'slug' => '5-56x45'
+        ],
+        'Caliber57x28' => [
+            'name' => '5.7x28',
+            'slug' => '5-7x28'
+        ],
+        'Caliber762x25TT' => [
+            'name' => '7.62x25',
+            'slug' => '7-62x25'
+        ],
+        'Caliber762x35' => [
+            'name' => '.300 BLK',
+            'slug' => '300-BLK'
+        ],
+        'Caliber762x39' => [
+            'name' => '7.62x39',
+            'slug' => '7-62x39'
+        ],
+        'Caliber762x51' => [
+            'name' => '7.62x51',
+            'slug' => '7-62x51'
+        ],
+        'Caliber762x54R' => [
+            'name' => '7.62x54R',
+            'slug' => '7-62x54R'
+        ],
+        'Caliber86x70' => [
+            'name' => '338 LM',
+            'slug' => '338-LM'
+        ],
+        'Caliber9x18PM' => [
+            'name' => '9x18PM',
+            'slug' => '9-18PM'
+        ],
+        'Caliber9x18PMM' => [
+            'name' => '9x18PMM',
+            'slug' => '9-18PMM'
+        ],
+        'Caliber9x19PARA' => [
+            'name' => '9x19',
+            'slug' => '9x19'
+        ],
+        'Caliber9x21' => [
+            'name' => '9x21',
+            'slug' => '9x21'
+        ],
+        'Caliber9x21M' => [
+            'name' => '9x21M',
+            'slug' => '9x21M'
+        ],
+        'Caliber9x33R' => [
+            'name' => '.357 Magnum',
+            'slug' => '357-Magnum'
+        ],
+        'Caliber9x39' => [
+            'name' => '9x39',
+            'slug' => '9x39'
+        ],
+    ];
+
     private EntityManagerInterface $em;
     private GraphQLClientInterface $client;
 
@@ -463,6 +573,7 @@ class ImportItemsPropertiesCommand extends Command
         $progressBar = new ProgressBar($output, count($items));
         $progressBar->advance(0);
         $itemRepository = $this->em->getRepository(Item::class);
+        $itemCaliberRepository = $this->em->getRepository(ItemCaliber::class);
 
         // Impart properties data
         foreach ($items as $item) {
@@ -481,6 +592,27 @@ class ImportItemsPropertiesCommand extends Command
                         $entityProperties = new $entityName();
                     } else {
                         $entityProperties = $itemEntity->getProperties();
+                    }
+
+                    // Update items calibers and set to property
+                    if ($item['properties']['__typename'] === 'ItemPropertiesAmmo' || $item['properties']['__typename'] === 'ItemPropertiesWeapon') {
+                        /** @var ItemCaliberInterface $itemCaliberEntity */
+                        $itemCaliberEntity = $itemCaliberRepository->findOneBy(['apiId' => $item['properties']['caliber']]);
+
+                        if (!$itemCaliberEntity instanceof ItemCaliberInterface) {
+                            $caliberId = $item['properties']['caliber'];
+                            $itemCaliberEntity = new ItemCaliber($lang);
+                            $itemCaliberEntity
+                                ->setPublished(true)
+                                ->setApiId($caliberId)
+                                ->setName($this->item_calibres[$caliberId]['name'])
+                                ->setSlug($this->item_calibres[$caliberId]['slug'])
+                                ->mergeNewTranslations()
+                            ;
+                            $this->em->persist($itemCaliberEntity);
+                            $this->em->flush();
+                            $entityProperties->setCaliber($itemCaliberEntity);
+                        }
                     }
 
                     $entityLoaderName = 'App\Command\Loaders\\' . $item['properties']['__typename'] . 'Loader';

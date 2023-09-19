@@ -12,27 +12,7 @@
                 <div class="ammo_chooser">
                     <div class="wrapper">
                         {% for caliber in calibers %}
-                        <div class="ammo active">9x18</div>
-                        <div class="ammo">9x19</div>
-                        <div class="ammo">9x21</div>
-                        <div class="ammo">.357 Magnum</div>
-                        <div class="ammo">.45 ACP</div>
-                        <div class="ammo">4.6x30 HK</div>
-                        <div class="ammo">5.7x28 FN</div>
-                        <div class="ammo">7.62x25</div>
-                        <div class="ammo">12x70</div>
-                        <div class="ammo">20x70</div>
-                        <div class="ammo">23x75</div>
-                        <div class="ammo">.300 Blackout</div>
-                        <div class="ammo">.338 Lapua</div>
-                        <div class="ammo">.366 TKM</div>
-                        <div class="ammo">5.45x39</div>
-                        <div class="ammo">5.56x45</div>
-                        <div class="ammo">7.62x39</div>
-                        <div class="ammo">7.62x51</div>
-                        <div class="ammo">7.62x54</div>
-                        <div class="ammo">9x39</div>
-                        <div class="ammo">12.7x55</div>
+                        <div class="ammo">{{ caliber.name }}</div>
                         {% endfor %}
                     </div>
                 </div>
@@ -92,7 +72,7 @@
                                     <div class="options"></div>
                                 </div>
                             </td>
-                            <td class="td_damage">{{ item.properties.damage }}</td>
+                            <td class="td_damage"></td>
                             <td class="td_armor_pen">1</td>
                             <td class="no_mobile td_armor_dam">2%</td>
                             <td class="no_mobile td_speed">250 м/с</td>

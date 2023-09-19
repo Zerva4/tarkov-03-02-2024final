@@ -8,8 +8,8 @@ use Doctrine\Common\Collections\Collection;
 
 interface ItemPropertiesWeaponInterface
 {
-    public function getCaliber(): string;
-    public function setCaliber(string $caliber): ItemPropertiesWeaponInterface;
+    public function getApiCaliber(): string;
+    public function setApiCaliber(string $apiCaliber): ItemPropertiesWeaponInterface;
     public function getDefaultAmmo(): ?ItemInterface;
     public function setDefaultAmmo(?ItemInterface $defaultAmmo): ItemPropertiesWeaponInterface;
     public function getEffectiveDistance(): int;
