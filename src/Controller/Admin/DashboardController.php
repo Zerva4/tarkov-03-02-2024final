@@ -8,6 +8,7 @@ use App\Entity\Article;
 use App\Entity\Barter;
 use App\Entity\Boss;
 use App\Entity\Item\Item;
+use App\Entity\Item\ItemCaliber;
 use App\Entity\Item\ItemMaterial;
 use App\Entity\Map;
 use App\Entity\Quest\Quest;
@@ -57,6 +58,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud(t('Common', [], 'menu'), '', Item::class)->setController(ItemCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Quest', [], 'menu'), '', QuestItem::class)->setController(QuestItemCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Materials', [], 'menu'), '', ItemMaterial::class)->setController(ItemMaterialCrudController::class)->setLinkRel('noreferrer'),
+            MenuItem::linkToCrud(t('Calibres', [], 'menu'), '', ItemCaliber::class)->setController(ItemCaliberCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Barters', [], 'menu'), '', Barter::class)->setController(BarterCrudController::class),
         ];
         $workshopMenu = [
