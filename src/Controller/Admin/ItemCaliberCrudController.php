@@ -33,6 +33,7 @@ class ItemCaliberCrudController extends BaseCrudController
         $createdAt = DateField::new('createdAt', t('Created', [], 'admin'));
         $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin'));
         $caliber = TextField::new('apiId', t('Caliber', [], 'admin.items_calibers'));
+        $isAmmo = BooleanField::new('isAmmo', t('Is ammo', [], 'admin.items_calibers'));
         $slug = SlugField::new('slug', t('Slug', [], 'admin.items'))
             ->setTargetFieldName('slug')
             ->setRequired(true);
@@ -51,7 +52,8 @@ class ItemCaliberCrudController extends BaseCrudController
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
-                $published,
+                $published->setColumns(6),
+                $isAmmo->setColumns(6),
                 $caliber->setRequired(true)->setColumns(6),
                 $slug->setRequired(true)->setColumns(6),
                 $translations,
@@ -61,6 +63,7 @@ class ItemCaliberCrudController extends BaseCrudController
                     ->setTemplatePath('admin/field/link-edit.html.twig'),
                 $caliber,
                 $published,
+                $isAmmo,
                 $createdAt,
                 $updatedAt
             ],
