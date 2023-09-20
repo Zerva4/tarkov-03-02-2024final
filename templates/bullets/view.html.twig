@@ -1,0 +1,238 @@
+{% extends 'bullets/index.html.twig' %}
+
+{% block item_list %}
+    <section>
+        <div class="container">
+            {% if items is defined and items is not empty %}
+            <div class="caliber active" data-caliber="{{ slug }}">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="th_bullet">{{ 'Название'|trans({}, 'front.bullets') }}</th>
+                            <th class="th_damage">{{ 'Урон'|trans({}, 'front.bullets') }}</th>
+                            <th class="th_armor_pen">
+                                {{ 'Бронепробитие'|trans({}, 'front.bullets') }}
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref ref_tdhead">
+                                        Больше полезной информации в статье<br>
+                                        <a href="#.html">Подробнее...</a>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="no_mobile th_armor_dam">
+                                Урон по броне
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref ref_tdhead">
+                                        Значение расчета урона по броне<br>
+                                        <a href="#.html">Подробнее...</a>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="no_mobile th_speed">Скорость</th>
+                            <th class="no_mobile th_options">Дополнительные свойства</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        {% if item.imageName %}
+                                            <img src="{{ asset('/storage/images/items/' ~ item.imageName) | imagine_filter('34x34') }}" alt="{{ item.name }}" />
+                                        {% else %}
+                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('34x34') }}" alt="{{ item.name }}" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="name">
+                                        <div class="name_main">
+                                            {{ item.name }}
+                                        </div>
+                                    </div>
+                                    <div class="options"></div>
+                                </div>
+                            </td>
+                            <td class="td_damage">{{ item.properties.damage }}</td>
+                            <td class="td_armor_pen">{{ item.properties.penetrationPower }}</td>
+                            <td class="no_mobile td_armor_dam">{{ item.properties.armorDamage }}%</td>
+                            <td class="no_mobile td_speed">{{ item.properties.initialSpeed }} м/с</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="value">{{ item.properties.lightBleedModifier }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Сильное кровотечение</div>
+                                            <div class="value">{{ item.properties.heavyBleedModifier }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Фрагментация</div>
+                                            <div class="value">{{ item.properties.fragmentationChance }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Износ</div>
+                                            <div class="value">{{ item.properties.durabilityBurnFactor }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="value">{{ item.properties.damage }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Нагрев</div>
+                                            <div class="value">{{ item.properties.heatFactor }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">Количество в стаке</div>
+                                            <div class="value">{{ item.properties.stackMaxSize }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_arm.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Пробитие брони по классам</div>
+                                                <div class="text">*пробитие (%) первым патроном</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">3.1</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_punch.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Урон по броне по классам</div>
+                                                <div class="text">*без учета материала</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                            <div class="opt">99.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="media/prem_flatness.png" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">Настильность патрона</div>
+                                                <div class="text">*без учета начальной скорости оружия</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            <div class="item active"></div>
+                                            <div class="item active"></div>
+                                            <div class="item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">Урон по броне</div>
+                                        <div class="value">2%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Трасер</div>
+                                        <div class="value">Нет</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">Скорость</div>
+                                        <div class="value">250 м/с</div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_arm.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Пробитие брони по классам</div>
+                                                    <div class="text">*пробитие (%) первым патроном</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_punch.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Урон по броне по классам</div>
+                                                    <div class="text">*без учета материала</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                                <div class="opt">99.9</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="media/prem_flatness.png" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">Настильность патрона</div>
+                                                    <div class="text">*без учета начальной скорости оружия</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                <div class="item active"></div>
+                                                <div class="item active"></div>
+                                                <div class="item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    Подробнее
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="caliber active" data-caliber="no_data">
+                <div class="no_data">
+                    <p align="center">{{ 'Нет данных'|trans({}, 'front.bullets') }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
