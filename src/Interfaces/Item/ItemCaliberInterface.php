@@ -14,6 +14,8 @@ interface ItemCaliberInterface
     public function setApiId(string $apiId): ItemCaliberInterface;
     public function getSlug(): string;
     public function setSlug(string $slug): ItemCaliberInterface;
+    public function isAmmo(): bool;
+    public function setIsAmmo(bool $isAmmo): ItemCaliberInterface;
     public function getName(): string;
     public function setName(string $name): ItemCaliberInterface;
     public function getProperties(): Collection;
