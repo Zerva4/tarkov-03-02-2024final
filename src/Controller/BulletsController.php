@@ -13,20 +13,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BulletsController extends AbstractController
 {
-    private ItemCaliberRepository $caliberRepository;
-    private ItemRepository $itemRepository;
+    private ?array $calibers;
 
-    public function __construct(ItemCaliberRepository $caliberRepository, ItemRepository $itemRepository)
+    public function __construct(ItemCaliberRepository $caliberRepository)
     {
-        $this->caliberRepository = $caliberRepository;
-        $this->itemRepository = $itemRepository;
+        $this->calibers = $caliberRepository->findByType();
     }
     #[Route('/bullets', name: 'app_bullets')]
     public function index(): Response
     {
-        $slug = $this->caliberRepository->findByType()[0]['slug'];
-
-        return $this->redirectToRoute('app_view_bullet', ['slug' => $slug]);
+        return $this->redirectToRoute('app_view_bullet', ['slug' => $this->calibers[0]['slug']]);
     }
 
     #[Route('/bullets/{slug}/', name: 'app_view_bullet')]
@@ -34,7 +30,7 @@ class BulletsController extends AbstractController
     {
         return $this->render('bullets/view.html.twig', [
             'slug' => $slug,
-            'calibers' => $this->caliberRepository->findByType(),
+            'calibers' => $this->calibers,
             'items' => $itemService->getBySlug($slug)
         ]);
     }
