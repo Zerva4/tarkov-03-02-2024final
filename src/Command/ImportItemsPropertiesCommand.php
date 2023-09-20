@@ -56,7 +56,7 @@ class ImportItemsPropertiesCommand extends Command
             'slug' => '45-ACP'
         ],
         'Caliber127x55' => [
-            'name' => '12-7x55',
+            'name' => '12.7x55',
             'slug' => '12-7x55'
         ],
         'Caliber12g' => [
@@ -597,22 +597,36 @@ class ImportItemsPropertiesCommand extends Command
                     // Update items calibers and set to property
                     if ($item['properties']['__typename'] === 'ItemPropertiesAmmo' || $item['properties']['__typename'] === 'ItemPropertiesWeapon') {
                         /** @var ItemCaliberInterface $itemCaliberEntity */
-                        $itemCaliberEntity = $itemCaliberRepository->findOneBy(['apiId' => $item['properties']['caliber']]);
+                        if ($item['properties']['__typename'] === 'ItemPropertiesAmmo') {
+                            $itemCaliberEntity = $itemCaliberRepository->findOneBy([
+                                'apiId' => $item['properties']['caliber'],
+                                'isAmmo' => true
+                            ]);
+                        } else {
+                            $itemCaliberEntity = $itemCaliberRepository->findOneBy([
+                                'apiId' => $item['properties']['caliber'],
+                                'isAmmo' => false
+                            ]);
+                        }
+                        $isAmmo = in_array('ammo', $item['types']);
+                        $caliberId = $item['properties']['caliber'];
 
                         if (!$itemCaliberEntity instanceof ItemCaliberInterface) {
-                            $caliberId = $item['properties']['caliber'];
                             $itemCaliberEntity = new ItemCaliber($lang);
-                            $itemCaliberEntity
-                                ->setPublished(true)
-                                ->setApiId($caliberId)
-                                ->setName($this->item_calibres[$caliberId]['name'])
-                                ->setSlug($this->item_calibres[$caliberId]['slug'])
-                                ->mergeNewTranslations()
-                            ;
-                            $this->em->persist($itemCaliberEntity);
-                            $this->em->flush();
-                            $entityProperties->setCaliber($itemCaliberEntity);
+                            $itemCaliberEntity->setPublished(true);
                         }
+
+                        $itemCaliberEntity
+                            ->setPublished(true)
+                            ->setIsAmmo($isAmmo)
+                            ->setApiId($caliberId)
+                            ->setName($this->item_calibres[$caliberId]['name'])
+                            ->setSlug($this->item_calibres[$caliberId]['slug'])
+                            ->mergeNewTranslations()
+                        ;
+                        $this->em->persist($itemCaliberEntity);
+                        $this->em->flush();
+                        $entityProperties->setCaliber($itemCaliberEntity);
                     }
 
                     $entityLoaderName = 'App\Command\Loaders\\' . $item['properties']['__typename'] . 'Loader';
