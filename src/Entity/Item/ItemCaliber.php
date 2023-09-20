@@ -23,14 +23,17 @@ class ItemCaliber extends TranslatableEntity implements UuidPrimaryKeyInterface,
 {
     use UuidPrimaryKeyTrait;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $published;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true , nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $apiId;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $slug;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $isAmmo;
 
     #[ORM\OneToMany(mappedBy: 'caliber', targetEntity: ItemProperties::class, fetch: 'EAGER')]
     private Collection $properties;
@@ -74,6 +77,18 @@ class ItemCaliber extends TranslatableEntity implements UuidPrimaryKeyInterface,
     public function setSlug(string $slug): ItemCaliberInterface
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function isAmmo(): bool
+    {
+        return $this->isAmmo;
+    }
+
+    public function setIsAmmo(bool $isAmmo): ItemCaliberInterface
+    {
+        $this->isAmmo = $isAmmo;
 
         return $this;
     }
