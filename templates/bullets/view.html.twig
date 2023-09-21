@@ -51,7 +51,11 @@
                                             {{ item.name }}
                                         </div>
                                     </div>
-                                    <div class="options"></div>
+                                    <div class="options">
+                                        {% if item.properies.traver = true %}
+                                            Трасер
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                             <td class="td_damage">{{ item.properties.damage }}</td>
