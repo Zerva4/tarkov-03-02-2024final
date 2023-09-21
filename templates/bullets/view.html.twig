@@ -100,13 +100,13 @@
                                     {% if item.properties.accuracyModifier %}
                                     <div class="item">
                                         <span class="property">{{ 'Точность'|trans({}, 'front.bullets') }}:</span>
-                                        <span class="value">+{{ item.properties.accuracyModifier }}%</span>
+                                        <span class="value">{{ item.properties.accuracyModifier * 100 }}%</span>
                                     </div>
                                     {% endif %}
                                     {% if item.properties.recoilModifier %}
                                     <div class="item">
                                         <span class="property">{{ 'Отдача'|trans({}, 'front.bullets') }}:</span>
-                                        <span class="value">+{{ item.properties.recoilModifier }}%</span>
+                                        <span class="value">{{ item.properties.recoilModifier * 100 }}%</span>
                                     </div>
                                     {% endif %}
                                 </div>
