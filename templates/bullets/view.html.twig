@@ -15,8 +15,8 @@
                                 <div class="info info_td">
                                     i
                                     <div class="ref ref_tdhead">
-                                        Больше полезной информации в статье<br>
-                                        <a href="#.html">Подробнее...</a>
+                                        {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
+                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
                                     </div>
                                 </div>
                             </th>
@@ -25,13 +25,13 @@
                                 <div class="info info_td">
                                     i
                                     <div class="ref ref_tdhead">
-                                        Значение расчета урона по броне<br>
-                                        <a href="#.html">Подробнее...</a>
+                                        {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
+                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
                                     </div>
                                 </div>
                             </th>
-                            <th class="no_mobile th_speed">Скорость</th>
-                            <th class="no_mobile th_options">Дополнительные свойства</th>
+                            <th class="no_mobile th_speed">{{ 'Скорость'|trans({}, 'front.bullets') }}</th>
+                            <th class="no_mobile th_options">{{ 'Дополнительные свойства'|trans({}, 'front.bullets') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="options">
                                         {% if item.properties.tracer == true %}
-                                            Трасер
+                                            {{ 'Трасер'|trans({}, 'front.bullets') }}
                                         {% endif %}
                                     </div>
                                 </div>
@@ -97,6 +97,18 @@
                                     </div>
                                 </div>
                                 <div class="options">
+                                    {% if item.properties.accuracyModifier %}
+                                    <div class="item">
+                                        <span class="property">{{ 'Точность'|trans({}, 'front.bullets') }}:</span>
+                                        <span class="value">+{{ item.properties.accuracyModifier }}%</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if item.properties.recoilModifier %}
+                                    <div class="item">
+                                        <span class="property">{{ 'Отдача'|trans({}, 'front.bullets') }}:</span>
+                                        <span class="value">+{{ item.properties.recoilModifier }}%</span>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </td>
                         </tr>
