@@ -158,9 +158,21 @@
                                             </div>
                                         </div>
                                         <div class="flatness">
-                                            <div class="item active"></div>
-                                            <div class="item active"></div>
-                                            <div class="item"></div>
+                                            {% if item.properties.initialSpeed > 300 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
+                                            {% if item.properties.initialSpeed > 650 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
+                                            {% if item.properties.initialSpeed > 900 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
