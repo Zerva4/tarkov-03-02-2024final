@@ -199,7 +199,7 @@
         height: 6px;
         width: 40px !important;
         background: $color-text;
-        @media (320px <= width <= 1080px) {
+        @media (min-width:320px) and (max-width:1080px) {
             margin: 0 6px !important;
             height: 6px;
             width: 40px !important;
