@@ -182,16 +182,24 @@
                             <td colspan="3">
                                 <div class="options">
                                     <div class="item">
-                                        <div class="name">Урон по броне</div>
-                                        <div class="value">2%</div>
+                                        <div class="name">{{ 'Урон по броне'|trans({}, 'front.bullets') }}</div>
+                                        <div class="value">{{ item.properties.penetrationPower }}%</div>
                                     </div>
                                     <div class="item">
-                                        <div class="name">Трасер</div>
-                                        <div class="value">Нет</div>
+                                        <div class="name">
+                                                {{ 'Трасер'|trans({}, 'front.bullets') }}
+                                        </div>
+                                        <div class="value">
+                                            {% if item.properties.tracer == true %}
+                                                {{ 'Да'|trans({}, 'front.bullets') }}
+                                                {% else %}
+                                                {{ 'Нет'|trans({}, 'front.bullets') }}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     <div class="item">
-                                        <div class="name">Скорость</div>
-                                        <div class="value">250 м/с</div>
+                                        <div class="name">{{ 'Скорость'|trans({}, 'front.bullets') }}</div>
+                                        <div class="value">{{ item.properties.initialSpeed }} м/с</div>
                                     </div>
                                     <div class="prems">
                                         <div class="group">
@@ -220,12 +228,12 @@
                                                 </div>
                                             </div>
                                             <div class="opts">
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) | number_format(2, '.', ' ') }}</div>
                                             </div>
                                         </div>
                                         <div class="group">
@@ -237,9 +245,21 @@
                                                 </div>
                                             </div>
                                             <div class="flatness">
-                                                <div class="item active"></div>
-                                                <div class="item active"></div>
-                                                <div class="item"></div>
+                                                {% if item.properties.initialSpeed > 300 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
+                                                {% if item.properties.initialSpeed > 650 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
+                                                {% if item.properties.initialSpeed > 900 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
