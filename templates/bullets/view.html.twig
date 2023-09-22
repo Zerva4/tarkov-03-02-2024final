@@ -15,23 +15,23 @@
                                 <div class="info info_td">
                                     i
                                     <div class="ref ref_tdhead">
-                                        Больше полезной информации в статье<br>
-                                        <a href="#.html">Подробнее...</a>
+                                        {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
+                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
                                     </div>
                                 </div>
                             </th>
                             <th class="no_mobile th_armor_dam">
-                                Урон по броне
+                                {{ 'Урон по броне'|trans({}, 'front.bullets') }}
                                 <div class="info info_td">
                                     i
                                     <div class="ref ref_tdhead">
-                                        Значение расчета урона по броне<br>
-                                        <a href="#.html">Подробнее...</a>
+                                        {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
+                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
                                     </div>
                                 </div>
                             </th>
-                            <th class="no_mobile th_speed">Скорость</th>
-                            <th class="no_mobile th_options">Дополнительные свойства</th>
+                            <th class="no_mobile th_speed">{{ 'Скорость'|trans({}, 'front.bullets') }}</th>
+                            <th class="no_mobile th_options">{{ 'Дополнительные свойства'|trans({}, 'front.bullets') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +51,11 @@
                                             {{ item.name }}
                                         </div>
                                     </div>
-                                    <div class="options"></div>
+                                    <div class="options">
+                                        {% if item.properties.tracer == true %}
+                                            {{ 'Трасер'|trans({}, 'front.bullets') }}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                             <td class="td_damage">{{ item.properties.damage }}</td>
@@ -80,7 +84,7 @@
                                         </div>
                                         <div class="ref_bullets">
                                             <div class="property">Уменьшение выносливости</div>
-                                            <div class="value">{{ item.properties.damage }}%</div>
+                                            <div class="value">{{ item.properties.staminaBurnPerDamage }}%</div>
                                         </div>
                                         <div class="ref_bullets">
                                             <div class="property">Нагрев</div>
@@ -93,6 +97,18 @@
                                     </div>
                                 </div>
                                 <div class="options">
+                                    {% if item.properties.accuracyModifier %}
+                                    <div class="item">
+                                        <span class="property">{{ 'Точность'|trans({}, 'front.bullets') }}:</span>
+                                        <span class="value">{{ item.properties.accuracyModifier * 100 }}%</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if item.properties.recoilModifier %}
+                                    <div class="item">
+                                        <span class="property">{{ 'Отдача'|trans({}, 'front.bullets') }}:</span>
+                                        <span class="value">{{ item.properties.recoilModifier * 100 }}%</span>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </td>
                         </tr>
@@ -125,12 +141,12 @@
                                             </div>
                                         </div>
                                         <div class="opts">
-                                            <div class="opt">99.9</div>
-                                            <div class="opt">99.9</div>
-                                            <div class="opt">99.9</div>
-                                            <div class="opt">99.9</div>
-                                            <div class="opt">99.9</div>
-                                            <div class="opt">99.9</div>
+                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) | number_format(2, '.', ' ') }}</div>
+                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) | number_format(2, '.', ' ') }}</div>
+                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) | number_format(2, '.', ' ') }}</div>
+                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) | number_format(2, '.', ' ') }}</div>
+                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) | number_format(2, '.', ' ') }}</div>
+                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) | number_format(2, '.', ' ') }}</div>
                                         </div>
                                     </div>
                                     <div class="group">
@@ -142,9 +158,21 @@
                                             </div>
                                         </div>
                                         <div class="flatness">
-                                            <div class="item active"></div>
-                                            <div class="item active"></div>
-                                            <div class="item"></div>
+                                            {% if item.properties.initialSpeed > 300 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
+                                            {% if item.properties.initialSpeed > 650 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
+                                            {% if item.properties.initialSpeed > 900 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -154,16 +182,24 @@
                             <td colspan="3">
                                 <div class="options">
                                     <div class="item">
-                                        <div class="name">Урон по броне</div>
-                                        <div class="value">2%</div>
+                                        <div class="name">{{ 'Урон по броне'|trans({}, 'front.bullets') }}</div>
+                                        <div class="value">{{ item.properties.penetrationPower }}%</div>
                                     </div>
                                     <div class="item">
-                                        <div class="name">Трасер</div>
-                                        <div class="value">Нет</div>
+                                        <div class="name">
+                                                {{ 'Трасер'|trans({}, 'front.bullets') }}
+                                        </div>
+                                        <div class="value">
+                                            {% if item.properties.tracer == true %}
+                                                {{ 'Да'|trans({}, 'front.bullets') }}
+                                                {% else %}
+                                                {{ 'Нет'|trans({}, 'front.bullets') }}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     <div class="item">
-                                        <div class="name">Скорость</div>
-                                        <div class="value">250 м/с</div>
+                                        <div class="name">{{ 'Скорость'|trans({}, 'front.bullets') }}</div>
+                                        <div class="value">{{ item.properties.initialSpeed }} м/с</div>
                                     </div>
                                     <div class="prems">
                                         <div class="group">
@@ -192,12 +228,12 @@
                                                 </div>
                                             </div>
                                             <div class="opts">
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
-                                                <div class="opt">99.9</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) | number_format(2, '.', ' ') }}</div>
+                                                <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) | number_format(2, '.', ' ') }}</div>
                                             </div>
                                         </div>
                                         <div class="group">
@@ -209,9 +245,21 @@
                                                 </div>
                                             </div>
                                             <div class="flatness">
-                                                <div class="item active"></div>
-                                                <div class="item active"></div>
-                                                <div class="item"></div>
+                                                {% if item.properties.initialSpeed > 300 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
+                                                {% if item.properties.initialSpeed > 650 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
+                                                {% if item.properties.initialSpeed > 900 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
