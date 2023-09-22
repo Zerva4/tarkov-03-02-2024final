@@ -201,8 +201,9 @@
         background: $color-text;
         @media (min-width:320px) and (max-width:1080px) {
             margin: 0 6px !important;
-            height: 6px;
-            width: 40px !important;
+            height: 8px;
+            padding: 0 !important;
+            width: 75px !important;
             background: $color-text;
         }
 
