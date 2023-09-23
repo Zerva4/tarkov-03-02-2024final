@@ -163,7 +163,7 @@
                                                 {% else %}
                                                     {% set variableArmorClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
                                                 {% endif %}
-                                                {{ variableArmorClass1 | number_format(2) }}
+                                                {{ variableArmorClass1 | number_format(1) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 20 > 1.1  %}
@@ -171,7 +171,7 @@
                                                 {% else %}
                                                     {% set variableArmorClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) %}
                                                 {% endif %}
-                                                {{ variableArmorClass2 | number_format(2) }}
+                                                {{ variableArmorClass2 | number_format(1) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 30 > 1.1  %}
@@ -179,7 +179,7 @@
                                                 {% else %}
                                                     {% set variableArmorClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) %}
                                                 {% endif %}
-                                                {{ variableArmorClass3 | number_format(2) }}
+                                                {{ variableArmorClass3 | number_format(1) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 40 > 1.1  %}
@@ -187,7 +187,7 @@
                                                 {% else %}
                                                     {% set variableArmorClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) %}
                                                 {% endif %}
-                                                {{ variableArmorClass4 | number_format(2) }}
+                                                {{ variableArmorClass4 | number_format(1) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 50 > 1.1  %}
@@ -195,7 +195,7 @@
                                                 {% else %}
                                                     {% set variableArmorClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) %}
                                                 {% endif %}
-                                                {{ variableArmorClass5 | number_format(2) }}
+                                                {{ variableArmorClass5 | number_format(1) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 60 > 1.1  %}
@@ -203,7 +203,7 @@
                                                 {% else %}
                                                     {% set variableArmorClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) %}
                                                 {% endif %}
-                                                {{ variableArmorClass6 | number_format(2) }}
+                                                {{ variableArmorClass6 | number_format(1) }}
                                             </div>
                                         </div>
                                     </div>
