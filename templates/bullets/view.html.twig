@@ -126,14 +126,23 @@
                                 <div class="prems">
                                     <div class="group">
                                         <div class="icon">
-                                            <img src="media/prem_arm.png" alt="">
+                                            <img src="assets/img/prem_arm.png" alt="">
                                             <div class="group_ref">
                                                 <div class="name">Пробитие брони по классам</div>
                                                 <div class="text">*пробитие (%) первым патроном</div>
                                             </div>
                                         </div>
                                         <div class="opts">
-                                            <div class="opt">3.1</div>
+                                            <div class="opt">
+                                                {% if item.properties.penetrationPower - 10 <= -15 %}
+                                                    {% set variablePenetrationClass1 = 0 %}
+                                                {% if item.properties.penetrationPower - 10 >= 10 %}
+                                                    {% set variablePenetrationClass1 = 99.8 %}
+                                                {% else %}
+                                                    {% set variablePenetrationClass1 = 5 %}
+                                                {% endif %}
+                                                {{ variablePenetrationClass1 | number_format(2) }}%
+                                            </div>
                                             <div class="opt">0</div>
                                             <div class="opt">0</div>
                                             <div class="opt">0</div>
@@ -143,7 +152,7 @@
                                     </div>
                                     <div class="group">
                                         <div class="icon">
-                                            <img src="media/prem_punch.png" alt="">
+                                            <img src="assets/img/prem_punch.png" alt="">
                                             <div class="group_ref">
                                                 <div class="name">Урон по броне по классам</div>
                                                 <div class="text">*без учета материала</div>
@@ -152,57 +161,57 @@
                                         <div class="opts">
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 10 > 1.1  %}
-                                                    {% set variablePenetrationClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% set variableArmorClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
                                                 {% else %}
-                                                    {% set variablePenetrationClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                    {% set variableArmorClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
                                                 {% endif %}
-                                                {{ variablePenetrationClass1 | number_format(2) }}
+                                                {{ variableArmorClass1 | number_format(2) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 20 > 1.1  %}
-                                                    {% set variablePenetrationClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% set variableArmorClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
                                                 {% else %}
-                                                    {% set variablePenetrationClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) %}
+                                                    {% set variableArmorClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) %}
                                                 {% endif %}
-                                                {{ variablePenetrationClass2 | number_format(2) }}
+                                                {{ variableArmorClass2 | number_format(2) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 30 > 1.1  %}
-                                                    {% set variablePenetrationClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% set variableArmorClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
                                                 {% else %}
-                                                    {% set variablePenetrationClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) %}
+                                                    {% set variableArmorClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) %}
                                                 {% endif %}
-                                                {{ variablePenetrationClass3 | number_format(2) }}
+                                                {{ variableArmorClass3 | number_format(2) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 40 > 1.1  %}
-                                                    {% set variablePenetrationClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% set variableArmorClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
                                                 {% else %}
-                                                    {% set variablePenetrationClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) %}
+                                                    {% set variableArmorClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) %}
                                                 {% endif %}
-                                                {{ variablePenetrationClass4 | number_format(2) }}
+                                                {{ variableArmorClass4 | number_format(2) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 50 > 1.1  %}
-                                                    {% set variablePenetrationClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% set variableArmorClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
                                                 {% else %}
-                                                    {% set variablePenetrationClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) %}
+                                                    {% set variableArmorClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) %}
                                                 {% endif %}
-                                                {{ variablePenetrationClass5 | number_format(2) }}
+                                                {{ variableArmorClass5 | number_format(2) }}
                                             </div>
                                             <div class="opt">
                                                 {% if item.properties.penetrationPower / 60 > 1.1  %}
-                                                    {% set variablePenetrationClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% set variableArmorClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
                                                 {% else %}
-                                                    {% set variablePenetrationClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) %}
+                                                    {% set variableArmorClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) %}
                                                 {% endif %}
-                                                {{ variablePenetrationClass6 | number_format(2) }}
+                                                {{ variableArmorClass6 | number_format(2) }}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="group">
                                         <div class="icon">
-                                            <img src="media/prem_flatness.png" alt="">
+                                            <img src="assets/img/prem_flatness.png" alt="">
                                             <div class="group_ref">
                                                 <div class="name">Настильность патрона</div>
                                                 <div class="text">*без учета начальной скорости оружия</div>
