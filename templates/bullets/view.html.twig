@@ -159,23 +159,43 @@
                                                 {{ variablePenetrationClass1 | number_format(2) }}
                                             </div>
                                             <div class="opt">
-                                                {% set variablePenetrationClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) %}
+                                                {% if item.properties.penetrationPower / 20 > 1.1  %}
+                                                    {% set variablePenetrationClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variablePenetrationClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) %}
+                                                {% endif %}
                                                 {{ variablePenetrationClass2 | number_format(2) }}
                                             </div>
                                             <div class="opt">
-                                                {% set variablePenetrationClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) %}
+                                                {% if item.properties.penetrationPower / 30 > 1.1  %}
+                                                    {% set variablePenetrationClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variablePenetrationClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) %}
+                                                {% endif %}
                                                 {{ variablePenetrationClass3 | number_format(2) }}
                                             </div>
                                             <div class="opt">
-                                                {% set variablePenetrationClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) %}
+                                                {% if item.properties.penetrationPower / 40 > 1.1  %}
+                                                    {% set variablePenetrationClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variablePenetrationClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) %}
+                                                {% endif %}
                                                 {{ variablePenetrationClass4 | number_format(2) }}
                                             </div>
                                             <div class="opt">
-                                                {% set variablePenetrationClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) %}
+                                                {% if item.properties.penetrationPower / 50 > 1.1  %}
+                                                    {% set variablePenetrationClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variablePenetrationClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) %}
+                                                {% endif %}
                                                 {{ variablePenetrationClass5 | number_format(2) }}
                                             </div>
                                             <div class="opt">
-                                                {% set variablePenetrationClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) %}
+                                                {% if item.properties.penetrationPower / 60 > 1.1  %}
+                                                    {% set variablePenetrationClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variablePenetrationClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) %}
+                                                {% endif %}
                                                 {{ variablePenetrationClass6 | number_format(2) }}
                                             </div>
                                         </div>
