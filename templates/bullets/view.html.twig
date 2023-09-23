@@ -150,12 +150,30 @@
                                             </div>
                                         </div>
                                         <div class="opts">
-                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) | number_format(2, '.', ' ') }}</div>
-                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) | number_format(2, '.', ' ') }}</div>
-                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) | number_format(2, '.', ' ') }}</div>
-                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) | number_format(2, '.', ' ') }}</div>
-                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) | number_format(2, '.', ' ') }}</div>
-                                            <div class="opt">{{ (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) | number_format(2, '.', ' ') }}</div>
+                                            <div class="opt">
+                                                {% set variablePenetrationClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                {{ variablePenetrationClass1 | number_format(2) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% set variablePenetrationClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                {{ variablePenetrationClass2 | number_format(2) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% set variablePenetrationClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                {{ variablePenetrationClass3 | number_format(2) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% set variablePenetrationClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                {{ variablePenetrationClass4 | number_format(2) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% set variablePenetrationClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                {{ variablePenetrationClass5 | number_format(2) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% set variablePenetrationClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                {{ variablePenetrationClass6 | number_format(2) }}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="group">
