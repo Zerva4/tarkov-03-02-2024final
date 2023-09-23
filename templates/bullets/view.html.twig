@@ -92,13 +92,18 @@
                                             <div class="value">{{ item.properties.stackMaxSize }}</div>
                                         </div>
                                         <div class="ref_bullets">
-                                            <div class="property">Трасер</div>
+                                            <div class="property">
+                                                <span class="hl">
+                                                    Трасер
+                                                </span>
+                                            </div>
                                             <div class="value">
                                                 {% if item.properties.tracer == true %}
                                                     {{ 'Да'|trans({}, 'front.bullets') }}
                                                     {% else %}
                                                     {{ 'Нет'|trans({}, 'front.bullets') }}
-                                                {% endif %}</div>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
