@@ -210,6 +210,9 @@ span {
 			margin-bottom: 8px;
 			.property {
 				color: #828282;
+				&_tracer{
+					color: #df870a;
+				}
 			}
 
 			.value {
