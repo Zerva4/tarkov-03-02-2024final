@@ -219,7 +219,7 @@
                             {% if quest.receivedItems %}
                             <h4 class="center">{{ 'Выдается за задание'|trans({}, 'front.quests') }}</h4>
                             <div class="container small">
-                                <div class="crafts">
+                                <div class="items_content">
                                     {% for receivedItem in quest.receivedItems %}
 {#                                        {% dump(receivedItem.item.types) %}#}
                                         {% if 'money' not in receivedItem.item.types %}
