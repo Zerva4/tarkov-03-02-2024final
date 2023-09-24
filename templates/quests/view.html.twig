@@ -232,7 +232,7 @@
                                                     {% endif %}
                                                 </div>
                                                 <div class="contains">
-                                                    <div class="x">x {{ receivedItem.count }}</div>
+                                                    <div class="x">x{{ receivedItem.count }}</div>
                                                     <div class="name">{{ receivedItem.item.Name }}</div>
                                                 </div>
                                             </div>
@@ -262,16 +262,16 @@
                                     </div>
                                     <div class="top">
                                         <div class="image">
-                                            {% if unlockInCashOffer.item.imageName %}
-                                                <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.name }}">
+                                            {% if receivedItem.item.imageName %}
+                                                <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
                                             {% else %}
-                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.name }}">
+                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
                                             {% endif %}
                                         </div>
-                                    </div>
-                                    <div class="name">
-                                        {{ unlockInCashOffer.item.name }}
-                                    </div>
+                                        <div class="contains">
+                                            <div class="x">x{{ receivedItem.count }}</div>
+                                            <div class="name">{{ receivedItem.item.Name }}</div>
+                                        </div>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -291,18 +291,16 @@
                                             Открывает покупку на <span class="hl">{{ unlockBarters.traderLevel }} уровне</span> лоявльности
                                         </div>
                                     </div>
-                                    <div class="top">
-                                        <div class="x">x {{ rewardItem.count }}</div>
-                                        <div class="image">
-                                            {% if rewardItem.item.imageName %}
-                                                <img src="{{ asset('/storage/images/items/' ~ rewardItem.item.imageName) | imagine_filter('180x90') }}" alt="{{ rewardItem.item.name }}">
-                                            {% else %}
-                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ rewardItem.item.name }}">
-                                            {% endif %}
-                                        </div>
+                                    <div class="image">
+                                        {% if receivedItem.item.imageName %}
+                                            <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
+                                        {% else %}
+                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
+                                        {% endif %}
                                     </div>
-                                    <div class="name">
-                                        {{ rewardItem.item.name }}
+                                    <div class="contains">
+                                        <div class="x">x{{ receivedItem.count }}</div>
+                                        <div class="name">{{ receivedItem.item.Name }}</div>
                                     </div>
                                 </div>
                                 {% endfor %}
