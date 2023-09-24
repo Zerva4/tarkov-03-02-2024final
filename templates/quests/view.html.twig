@@ -223,24 +223,27 @@
                                     {% for receivedItem in quest.receivedItems %}
 {#                                        {% dump(receivedItem.item.types) %}#}
                                         {% if 'money' not in receivedItem.item.types %}
-                                            <div class="craft">
-                                                <div class="image">
+                                            <div class="item_content">
+                                                <a class="item_content_img" href="">
                                                     {% if receivedItem.item.imageName %}
-                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ receivedItem.item.name }}">
+                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" class="item_bg__{{ receivedItem.item.backgroundColor }}" style="width: 100%;">
                                                     {% else %}
                                                         <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ receivedItem.item.name }}">
                                                     {% endif %}
-                                                </div>
-                                                <div class="contains">
-                                                    <div class="x">x {{ receivedItem.count }}</div>
-                                                    <div class="name">{{ receivedItem.item.shortName }}</div>
-                                                </div>
+                                                    <div class="item_content_image name">
+                                                        <span class="item_content_img__name__short">{{ receivedItem.item.shortName }}</span>
+                                                    </div>
+                                                    <div class="item_content_image name">
+                                                        <span class="item_content_img__name__count grey">х{{ receivedItem.count }}</span>
+                                                    </div>
+                                                </a>
                                             </div>
                                         {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
                             {% endif %}
+
                             <div class="lock">
                                 <div class="divider"></div>
                                 <div class="lock_icon"></div>
