@@ -262,15 +262,15 @@
                                     </div>
                                     <div class="top">
                                         <div class="image">
-                                            {% if receivedItem.item.imageName %}
-                                                <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
+                                            {% if unlockInCashOffer.item.imageName %}
+                                                <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x134') }}" alt="{{ unlockInCashOffer.item.name }}">
                                             {% else %}
-                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
+                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ unlockInCashOffer.item.name }}">
                                             {% endif %}
                                         </div>
                                         <div class="contains">
-                                            <div class="x">x{{ receivedItem.count }}</div>
-                                            <div class="name">{{ receivedItem.item.Name }}</div>
+                                            <div class="x">x{{ unlockInCashOffer.count }}</div>
+                                            <div class="name">{{ unlockInCashOffer.item.Name }}</div>
                                         </div>
                                 </div>
                                 {% endfor %}
@@ -292,15 +292,15 @@
                                         </div>
                                     </div>
                                     <div class="image">
-                                        {% if receivedItem.item.imageName %}
-                                            <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
+                                        {% if rewardItem.item.imageName %}
+                                            <img src="{{ asset('/storage/images/items/' ~ rewardItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ rewardItem.item.name }}">
                                         {% else %}
-                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
+                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ rewardItem.item.name }}">
                                         {% endif %}
                                     </div>
                                     <div class="contains">
-                                        <div class="x">x{{ receivedItem.count }}</div>
-                                        <div class="name">{{ receivedItem.item.Name }}</div>
+                                        <div class="x">x{{ rewardItem.count }}</div>
+                                        <div class="name">{{ rewardItem.item.Name }}</div>
                                     </div>
                                 </div>
                                 {% endfor %}
