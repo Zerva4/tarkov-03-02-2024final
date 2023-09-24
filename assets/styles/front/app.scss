@@ -1168,13 +1168,13 @@ nav {
 	}
 }
 
-.crafts {
+.item_views {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
 	gap: 8px;
 
-	.craft {
+	.item_view {
 		width: 140px;
 		background: #1E1E1E;
 		border-radius: 5px;

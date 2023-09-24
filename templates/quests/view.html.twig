@@ -219,11 +219,11 @@
                             {% if quest.receivedItems %}
                             <h4 class="center">{{ 'Выдается за задание'|trans({}, 'front.quests') }}</h4>
                             <div class="container small">
-                                <div class="crafts">
+                                <div class="item_views">
                                     {% for receivedItem in quest.receivedItems %}
 {#                                        {% dump(receivedItem.item.types) %}#}
                                         {% if 'money' not in receivedItem.item.types %}
-                                            <div class="craft">
+                                            <div class="item_view">
                                                 <div class="image">
                                                     {% if receivedItem.item.imageName %}
                                                         <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
@@ -251,9 +251,9 @@
                                 <div class="header_lock_icon"></div>
                                 <h4>{{ 'Открывает к покупке'|trans({}, 'front.quests') }}</h4>
                             </div>
-                            <div class="weapons">
+                            <div class="item_views">
                                 {% for unlockInCashOffer in quest.unlockInCashOffers %}
-                                <div class="weapon">
+                                <div class="item_view">
                                     <div class="info">
                                         i
                                         <div class="ref">
@@ -281,10 +281,10 @@
                                 <div class="header_lock_icon"></div>
                                 <h4>{{ 'Открывает к бартеру'|trans({}, 'front.quests') }}</h4>
                             </div>
-                            <div class="weapons">
+                                <div class="item_views">
                                 {% for unlockBarters in quest.unlockBarters %}
                                 {% for rewardItem in unlockBarters.rewardItems %}
-                                <div class="weapon">
+                                <div class="item_view">
                                     <div class="info">
                                         i
                                         <div class="ref">
