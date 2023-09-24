@@ -219,7 +219,7 @@
                             {% if quest.receivedItems %}
                             <h4 class="center">{{ 'Выдается за задание'|trans({}, 'front.quests') }}</h4>
                             <div class="container small">
-                                <div class="items_content">
+                                <div class="crafts">
                                     {% for receivedItem in quest.receivedItems %}
 {#                                        {% dump(receivedItem.item.types) %}#}
                                         {% if 'money' not in receivedItem.item.types %}
@@ -241,7 +241,6 @@
                                 </div>
                             </div>
                             {% endif %}
-
                             <div class="lock">
                                 <div class="divider"></div>
                                 <div class="lock_icon"></div>
