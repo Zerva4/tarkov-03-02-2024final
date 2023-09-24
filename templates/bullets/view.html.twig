@@ -58,7 +58,7 @@
                             <td class="td_damage">{{ item.properties.damage }}</td>
                             <td class="td_armor_pen">{{ item.properties.penetrationPower }}</td>
                             <td class="no_mobile td_armor_dam">{{ item.properties.armorDamage }}%</td>
-                            <td class="no_mobile td_speed">{{ item.properties.initialSpeed }} м/с</td>
+                            <td class="no_mobile td_speed">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</td>
                             <td class="no_mobile td_options">
                                 <div class="info info_td">
                                     i
@@ -245,7 +245,7 @@
                                     </div>
                                     <div class="item">
                                         <div class="name">{{ 'Скорость'|trans({}, 'front.bullets') }}</div>
-                                        <div class="value">{{ item.properties.initialSpeed }} м/с</div>
+                                        <div class="value">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</div>
                                     </div>
                                     <div class="item">
                                         <div class="name">
