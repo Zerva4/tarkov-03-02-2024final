@@ -1175,7 +1175,7 @@ nav {
 	gap: 8px;
 
 	.item_view {
-		width: 140px;
+		width: 149px;
 		background: #1E1E1E;
 		border-radius: 5px;
 
@@ -1204,6 +1204,7 @@ nav {
 			justify-content: space-between;
 			gap: 8px;
 			margin: 0 8px 8px 8px;
+			align-items: flex-end;
 
 			.x {
 				color: #DF870A;
