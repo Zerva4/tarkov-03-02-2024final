@@ -262,7 +262,7 @@
                                     <div class="prems">
                                         <div class="group">
                                             <div class="icon">
-                                                <img src="media/prem_arm.png" alt="">
+                                                <img src="{{ asset('/assets/img/prem_arm.png') | imagine_filter('34x34') }}" alt="">
                                                 <div class="group_ref">
                                                     <div class="name">{{ 'Пробитие брони (%) по классам'|trans({}, 'front.bullets') }}</div>
                                                     <div class="text">*{{ 'пробитие первым патроном'|trans({}, 'front.bullets') }}</div>
@@ -279,7 +279,7 @@
                                         </div>
                                         <div class="group">
                                             <div class="icon">
-                                                <img src="media/prem_punch.png" alt="">
+                                                <img src="{{ asset('/assets/img/prem_punch.png') | imagine_filter('34x34') }}" alt="">
                                                 <div class="group_ref">
                                                     <div class="name">{{ 'Урон по броне по классам'|trans({}, 'front.bullets') }}</div>
                                                     <div class="text">*{{ 'без учета материала'|trans({}, 'front.bullets') }}</div>
@@ -338,7 +338,7 @@
                                         </div>
                                         <div class="group">
                                             <div class="icon">
-                                                <img src="media/prem_flatness.png" alt="">
+                                                <img src="{{ asset('/assets/img/prem_flatness.png') | imagine_filter('34x34') }}" alt="">
                                                 <div class="group_ref">
                                                     <div class="name">{{ 'Настильность патрона'|trans({}, 'front.bullets') }}</div>
                                                     <div class="text">*{{ 'без учета начальной скорости оружия'|trans({}, 'front.bullets') }}</div>
