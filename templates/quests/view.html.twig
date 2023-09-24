@@ -226,7 +226,7 @@
                                             <div class="item_content">
                                                 <a class="item_content_img" href="">
                                                     {% if receivedItem.item.imageName %}
-                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('118x118') }}" class="item_bg__{{ receivedItem.item.backgroundColor }}" style="width: 100%;">
+                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) }}" class="item_bg__{{ receivedItem.item.backgroundColor }}" style="width: 100%;">
                                                     {% else %}
                                                         <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('118x118') }}" alt="{{ receivedItem.item.name }}">
                                                     {% endif %}
