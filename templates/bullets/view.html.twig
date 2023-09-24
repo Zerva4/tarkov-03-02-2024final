@@ -64,36 +64,36 @@
                                     i
                                     <div class="ref">
                                         <div class="ref_bullets">
-                                            <div class="property">Легкое кровотечение</div>
+                                            <div class="property">{{ 'Легкое кровотечение'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.lightBleedModifier }}%</div>
                                         </div>
                                         <div class="ref_bullets">
-                                            <div class="property">Сильное кровотечение</div>
+                                            <div class="property">{{ 'Сильное кровотечение'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.heavyBleedModifier }}%</div>
                                         </div>
                                         <div class="ref_bullets">
-                                            <div class="property">Фрагментация</div>
+                                            <div class="property">{{ 'Фрагментация'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.fragmentationChance * 100 }}%</div>
                                         </div>
                                         <div class="ref_bullets">
-                                            <div class="property">Износ</div>
+                                            <div class="property">{{ 'Износ оружия'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.durabilityBurnFactor }}%</div>
                                         </div>
                                         <div class="ref_bullets">
-                                            <div class="property">Уменьшение выносливости</div>
+                                            <div class="property">{{ 'Уменьшение выносливости'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.staminaBurnPerDamage }}%</div>
                                         </div>
                                         <div class="ref_bullets">
-                                            <div class="property">Нагрев</div>
+                                            <div class="property">{{ 'Нагрев'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.heatFactor }}%</div>
                                         </div>
                                         <div class="ref_bullets">
-                                            <div class="property">Количество в стаке</div>
+                                            <div class="property">{{ 'Стак патронов'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.stackMaxSize }}</div>
                                         </div>
                                         <div class="ref_bullets">
                                             <div class="property property_tracer">
-                                                    Трасер
+                                                    {{ 'Трасер'|trans({}, 'front.bullets') }}
                                             </div>
                                             <div class="value">
                                                 {% if item.properties.tracer == true %}
@@ -152,8 +152,8 @@
                                         <div class="icon">
                                             <img src="{{ asset('/assets/img/prem_punch.png') | imagine_filter('34x34') }}" alt="">
                                             <div class="group_ref">
-                                                <div class="name">Урон по броне по классам</div>
-                                                <div class="text">*без учета материала</div>
+                                                <div class="name">{{ 'Урон по броне по классам'|trans({}, 'front.bullets') }}</div>
+                                                <div class="text">*{{ 'без учета материала'|trans({}, 'front.bullets') }}</div>
                                             </div>
                                         </div>
                                         <div class="opts">
