@@ -226,9 +226,9 @@
                                             <div class="craft">
                                                 <div class="image">
                                                     {% if receivedItem.item.imageName %}
-                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ receivedItem.item.name }}">
+                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
                                                     {% else %}
-                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ receivedItem.item.name }}">
+                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
                                                     {% endif %}
                                                 </div>
                                                 <div class="contains">
