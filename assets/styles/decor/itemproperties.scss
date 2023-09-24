@@ -7,15 +7,15 @@
 .item_content{
 	align-items: center;
 	display: flex;
-	height: 84px;
+	height: 80px;
 	padding: 2px;
-	width: 84px;
+	width: 80px;
 	position: relative;
 	justify-content: center;
 
 	&_img {
 		border: 1px solid#474747;
-		max-height: 84px;
+		max-height: 78px;
 		max-width: 100%;
 
 		&__name{
