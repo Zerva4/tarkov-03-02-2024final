@@ -158,7 +158,6 @@ span {
 	border-radius: 50%;
 	font-weight: 700;
 	position: absolute;
-	z-index: 300;
 
 	@media (min-width: 320px) and (max-width: 1080px) {
 		display: none;
@@ -1171,13 +1170,13 @@ nav {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	position: relative;
 	gap: 8px;
 
 	.item_view {
 		width: 135px;
 		border-radius: 5px;
 		background-color: #1E1E1E;
+		position: relative;
 
 		&:hover {
 			background-color: #372813;
@@ -1185,7 +1184,6 @@ nav {
 
 		.image {
 			margin: 8px;
-			position: relative;
 			height: 84px;
 
 			img {
