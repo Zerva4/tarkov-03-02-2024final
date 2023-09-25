@@ -254,7 +254,7 @@
                             <div class="item_views">
                                 {% for unlockInCashOffer in quest.unlockInCashOffers %}
                                 <div class="item_view">
-                                    <div class="info">
+                                    <div class="info info_item">
                                         i
                                         <div class="ref">
                                             Открывает покупку на <span class="hl">{{ unlockInCashOffer.traderLevel}} уровне</span> лоявльности
@@ -283,7 +283,7 @@
                                 {% for unlockBarters in quest.unlockBarters %}
                                 {% for rewardItem in unlockBarters.rewardItems %}
                                 <div class="item_view">
-                                    <div class="info">
+                                    <div class="info info_item">
                                         i
                                         <div class="ref">
                                             Открывает покупку на <span class="hl">{{ unlockBarters.traderLevel }} уровне</span> лоявльности
