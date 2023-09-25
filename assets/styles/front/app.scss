@@ -154,7 +154,7 @@ span {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: #fff;
+	background-color: #fff !important;
 	border-radius: 50%;
 	font-weight: 700;
 	position: absolute;
@@ -166,13 +166,9 @@ span {
 		margin-top: 4px;
 		margin-right: 4px;
 	}
-
-	&_item{
-		position: absolute;
-		top: 150px;
-		right: 140px;
-		margin-top: 0px;
-		margin-right: 0px;
+	&_item {
+		margin-top: 4px;
+		margin-left: 4px;
 	}
 
 	.ref {
@@ -183,7 +179,7 @@ span {
 		left: calc(100% + 8px);
 		transform: translate(10%, 0);
 		padding: 8px;
-		background: #1E1E1E;
+		background: #1E1E1E !important;
 		border-width: 0px 1px 1px 0px;
 		border-style: solid;
 		border-color: #DF870A;
@@ -196,7 +192,7 @@ span {
 		width: max-content;
 		font-size: 14px;
 		font-weight: 300;
-		color: #fff;
+		color: #fff !important;
 
 		&_right{
 			left: auto;
@@ -1172,21 +1168,23 @@ nav {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-	gap: 8px;
+	background: #1E1E1E;
+	position: relative;
+	:hover {
+		background-color: #372813;
+	}
 
 	.item_view {
-		width: 149px;
-		background: #1E1E1E;
+		width: 130px;
 		border-radius: 5px;
 
 		@media (min-width: 320px) and (max-width: 1080px) {
-			width: calc(50% - 4px);
 		}
 
 		.image {
-			margin: 16px;
+			margin: 8px;
 			position: relative;
-			height: 90px;
+			height: 84px;
 
 			img {
 				position: absolute;
@@ -1204,9 +1202,8 @@ nav {
 			justify-content: space-between;
 			gap: 8px;
 			margin: 0 8px 8px 8px;
-			align-items: flex-end;
 
-			.x {
+			.count_item {
 				color: #DF870A;
 			}
 
