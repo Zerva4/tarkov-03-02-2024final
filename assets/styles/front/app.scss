@@ -194,6 +194,7 @@ span {
 		font-size: 14px;
 		font-weight: 300;
 		color: #fff !important;
+		gap: 8px;
 
 		&_right{
 			left: auto;
@@ -224,6 +225,7 @@ span {
 		&_item{
 			display: flex;
 			min-width: 168px;
+			margin-bottom: 4px;
 			.property {
 				color: #828282;
 			}
