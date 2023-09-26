@@ -167,17 +167,17 @@
                                     </div>
 {#                                    {% if 'money' not in receivedItem.items.types %}#}
                                     <div class="val">
-                                        +15000 рублей
+                                        +{{ quets.item.money }} {{ 'рублей'|trans({}, 'front.quests') }}
                                         <div class="info">
                                             i
                                             <div class="ref">
                                                 <div class="ref_item">
-                                                    <div class="property">Развед. центр ур. 1</div>
-                                                    <div class="value">+15750 рублей</div>
+                                                    <div class="property">{{ 'Развед. центр ур. 1'|trans({}, 'front.quests') }}</div>
+                                                    <div class="value">+15750 {{ 'рублей'|trans({}, 'front.quests') }}</div>
                                                 </div>
                                                 <div class="ref_item">
-                                                    <div class="property">Развед. центр ур. 2</div>
-                                                    <div class="value">+17250 рублей</div>
+                                                    <div class="property">{{ 'Развед. центр ур. 2'|trans({}, 'front.quests') }}</div>
+                                                    <div class="value">+17250 {{ 'рублей'|trans({}, 'front.quests') }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -187,10 +187,10 @@
                                 {% endif %}
                                 <div class="prop">
                                     <div class="name">
-                                        Навыки
+                                        {{ 'Навыки'|trans({}, 'front.quests') }}
                                     </div>
                                     <div class="val">
-                                        + 3 навыка <a href="#">снайперские винтовки</a>
+                                        + 3 {{ 'навыка'|trans({}, 'front.quests') }} <a href="#">снайперские винтовки</a>
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +257,7 @@
                                     <div class="info info_item">
                                         i
                                         <div class="ref">
-                                            Открывает покупку на <span class="hl">{{ unlockInCashOffer.traderLevel}} уровне</span> лояльности
+                                            {{ 'Открывает покупку на'|trans({}, 'front.quests') }} <span class="hl">{{ unlockInCashOffer.traderLevel}} {{ 'уровне'|trans({}, 'front.quests') }}</span> {{ 'лояльности'|trans({}, 'front.quests') }}
                                         </div>
                                     </div>
                                         <div class="image">
@@ -288,7 +288,7 @@
                                     <div class="info info_item">
                                         i
                                         <div class="ref">
-                                            Открывает бартер на <span class="hl">{{ unlockBarters.traderLevel }} уровне</span> лояльности
+                                            {{ 'Открывает бартер на'|trans({}, 'front.quests') }} <span class="hl">{{ unlockBarters.traderLevel }} {{ 'уровне'|trans({}, 'front.quests') }}</span> {{ 'лояльности'|trans({}, 'front.quests') }}
                                         </div>
                                     </div>
                                     <div class="image">
