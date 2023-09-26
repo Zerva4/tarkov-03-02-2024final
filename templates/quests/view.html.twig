@@ -168,7 +168,7 @@
                                     <div class="val">
                                         {% for receivedItem in quest.receivedItems %}
                                             {% if 'money' in receivedItem.item.types %}
-                                        +{{ receivedItem.count }} {{ receivedItem.Name }}
+                                        +{{ receivedItem.count }} {{ receivedItem.item.Name }}
                                             {% endif %}
                                         {% endfor %}
                                         <div class="info">
