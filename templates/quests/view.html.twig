@@ -4,11 +4,12 @@
     <div class="content">
         <section>
             <div class="container">
-                {% if quest is not empty  %}
-                    {% if quest.objectives is not empty %}
-                        <h2>Задачи</h2>
+            {% if quest is not empty  %}
+                {% if quest.objectives is not empty %}
+                <h1>{{ quest.name }}</h1>
                 <div class="information">
                     <div class="tasks">
+                        <h2>Задачи</h2>
                         <ul class="list">
                             {% for objective in quest.objectives %}
                             <li class="item">
@@ -19,9 +20,6 @@
                         {% endif %}
                     </div>
                     <div class="card">
-                        <h2>
-                            {{ quest.name }}
-                        </h2>
                         <div class="image">
                             {% if quest.imageName %}
                                 <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.name }}">
@@ -65,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
+            {% endif %}
             </div>
         </section>
         {% if quest.howToComplete %}
