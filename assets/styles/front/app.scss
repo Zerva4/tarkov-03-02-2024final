@@ -1171,10 +1171,14 @@ nav {
 	gap: 8px;
 
 	.item_view {
-		width: 135px;
+		width: 175px;
 		border-radius: 5px;
 		background-color: #1E1E1E;
 		position: relative;
+
+		@media (min-width: 320px) and (max-width: 600px) {
+			width: 135px;
+		}
 
 		&:hover {
 			background-color: #372813;
