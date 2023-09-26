@@ -168,7 +168,9 @@
 {#                                    {% if 'money' not in receivedItem.items.types %}#}
                                     <div class="val">
                                         {% for receivedItem in quest.receivedItems %}
-                                        +{{ receivedItem.item.money }} {{ 'рублей'|trans({}, 'front.quests') }}
+                                            {% if 'money' in receivedItem.item.types %}
+                                        +{{ receivedItem.item.count }} {{ 'рублей'|trans({}, 'front.quests') }}
+                                            {% endif %}
                                         {% endfor %}
                                         <div class="info">
                                             i
