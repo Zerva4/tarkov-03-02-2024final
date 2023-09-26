@@ -167,7 +167,11 @@
                                     </div>
 {#                                    {% if 'money' not in receivedItem.items.types %}#}
                                     <div class="val">
-                                        +{{ receivedItems.money }} {{ 'рублей'|trans({}, 'front.quests') }}
+                                        {% for receivedItem in quest.receivedItems %}
+                                        {% if 'money' in receivedItem.item.types %}
+                                        +{{ receivedItems.count }} {{ 'рублей'|trans({}, 'front.quests') }}
+                                        {% endif %}
+                                        {% endfor %}
                                         <div class="info">
                                             i
                                             <div class="ref">
