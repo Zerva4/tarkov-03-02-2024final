@@ -163,11 +163,11 @@
                                 {% if quest.receivedItems %}
                                 <div class="prop">
                                     <div class="name">
-                                        Деньги
+                                        {{ 'Деньги'|trans({}, 'front.quests') }}
                                     </div>
 {#                                    {% if 'money' not in receivedItem.items.types %}#}
                                     <div class="val">
-                                        +{{ quests.item.money }} {{ 'рублей'|trans({}, 'front.quests') }}
+                                        +{{ quests.money }} {{ 'рублей'|trans({}, 'front.quests') }}
                                         <div class="info">
                                             i
                                             <div class="ref">
