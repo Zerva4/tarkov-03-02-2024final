@@ -169,7 +169,7 @@
                                     <div class="val">
                                         {% for receivedItem in quest.receivedItems %}
                                             {% if 'money' in receivedItem.item.types %}
-                                        +{{ receivedItem.item.count }} {{ 'рублей'|trans({}, 'front.quests') }}
+                                        +{{ receivedItem.count }} {{ 'рублей'|trans({}, 'front.quests') }}
                                             {% endif %}
                                         {% endfor %}
                                         <div class="info">
