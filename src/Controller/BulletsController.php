@@ -35,7 +35,7 @@ class BulletsController extends AbstractController
         ]);
     }
 
-    public function dataPenetration(): Response {
+    public function dataChange(): Response {
         $tmp = [
             '-14' => '1.0%',
             '-13' => '2.2%',
