@@ -4,11 +4,12 @@
     <div class="content">
         <section>
             <div class="container">
-                {% if quest is not empty  %}
-                    {% if quest.objectives is not empty %}
-                        <h2>Задачи</h2>
+            {% if quest is not empty  %}
+                {% if quest.objectives is not empty %}
+                <h1>{{ quest.name }}</h1>
                 <div class="information">
                     <div class="tasks">
+                        <h2>Задачи</h2>
                         <ul class="list">
                             {% for objective in quest.objectives %}
                             <li class="item">
@@ -19,9 +20,6 @@
                         {% endif %}
                     </div>
                     <div class="card">
-                        <h2>
-                            {{ quest.name }}
-                        </h2>
                         <div class="image">
                             {% if quest.imageName %}
                                 <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.name }}">
@@ -65,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
+            {% endif %}
             </div>
         </section>
         {% if quest.howToComplete %}
@@ -163,34 +161,41 @@
                                 {% if quest.receivedItems %}
                                 <div class="prop">
                                     <div class="name">
-                                        Деньги
+                                        {{ 'Деньги'|trans({}, 'front.quests') }}
                                     </div>
-{#                                    {% if 'money' not in receivedItem.items.types %}#}
                                     <div class="val">
-                                        +15000 рублей
+                                        {% for receivedItem in quest.receivedItems %}
+                                            {% if 'money' in receivedItem.item.types %}
+                                        +{{ receivedItem.count }} {{ receivedItem.item.Name }}
                                         <div class="info">
                                             i
                                             <div class="ref">
                                                 <div class="ref_item">
-                                                    <div class="property">Развед. центр ур. 1</div>
-                                                    <div class="value">+15750 рублей</div>
+                                                    <div class="property">{{ 'Развед. центр ур. 1'|trans({}, 'front.quests') }}</div>
+                                                    <div class="value">
+                                                            +{{ receivedItem.count * 1.05 }} {{ receivedItem.item.Name }}
+                                                    </div>
                                                 </div>
                                                 <div class="ref_item">
-                                                    <div class="property">Развед. центр ур. 2</div>
-                                                    <div class="value">+17250 рублей</div>
+                                                    <div class="property">{{ 'Развед. центр ур. 2'|trans({}, 'front.quests') }}</div>
+                                                    <div class="value">
+                                                           +{{ receivedItem.count * 1.15 }} {{ receivedItem.item.Name }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
 {#                                    {% endif %}#}
                                 </div>
                                 {% endif %}
                                 <div class="prop">
                                     <div class="name">
-                                        Навыки
+                                        {{ 'Навыки'|trans({}, 'front.quests') }}
                                     </div>
                                     <div class="val">
-                                        + 3 навыка <a href="#">снайперские винтовки</a>
+                                        + 3 {{ 'навыка'|trans({}, 'front.quests') }} <a href="#">снайперские винтовки</a>
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +262,7 @@
                                     <div class="info info_item">
                                         i
                                         <div class="ref">
-                                            Открывает покупку на <span class="hl">{{ unlockInCashOffer.traderLevel}} уровне</span> лояльности
+                                            {{ 'Открывает покупку на'|trans({}, 'front.quests') }} <span class="hl">{{ unlockInCashOffer.traderLevel}} {{ 'уровне'|trans({}, 'front.quests') }}</span> {{ 'лояльности'|trans({}, 'front.quests') }}
                                         </div>
                                     </div>
                                         <div class="image">
@@ -288,7 +293,7 @@
                                     <div class="info info_item">
                                         i
                                         <div class="ref">
-                                            Открывает бартер на <span class="hl">{{ unlockBarters.traderLevel }} уровне</span> лояльности
+                                            {{ 'Открывает бартер на'|trans({}, 'front.quests') }} <span class="hl">{{ unlockBarters.traderLevel }} {{ 'уровне'|trans({}, 'front.quests') }}</span> {{ 'лояльности'|trans({}, 'front.quests') }}
                                         </div>
                                     </div>
                                     <div class="image">
@@ -310,8 +315,6 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
         </section>
         {% if (quest.startDialog or quest.successfulDialog) %}
         <section>

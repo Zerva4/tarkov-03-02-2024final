@@ -158,7 +158,6 @@ span {
 	border-radius: 50%;
 	font-weight: 700;
 	position: absolute;
-	z-index: 300;
 
 	@media (min-width: 320px) and (max-width: 1080px) {
 		display: none;
@@ -194,7 +193,6 @@ span {
 		font-size: 14px;
 		font-weight: 300;
 		color: #fff !important;
-		gap: 8px;
 
 		&_right{
 			left: auto;
@@ -422,7 +420,6 @@ nav {
 					opacity: 1;
 				}
 			}
-
 		}
 
 		.login {
@@ -1171,13 +1168,17 @@ nav {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	position: relative;
 	gap: 8px;
 
 	.item_view {
-		width: 135px;
+		width: 175px;
 		border-radius: 5px;
 		background-color: #1E1E1E;
+		position: relative;
+
+		@media (min-width: 320px) and (max-width: 600px) {
+			width: 135px;
+		}
 
 		&:hover {
 			background-color: #372813;
@@ -1185,7 +1186,6 @@ nav {
 
 		.image {
 			margin: 8px;
-			position: relative;
 			height: 84px;
 
 			img {
@@ -1208,7 +1208,7 @@ nav {
 
 			.name {
 				color: #828282;
-				font-size: 12px;
+				font-size: 14px;
 			}
 		}
 	}

@@ -19,6 +19,8 @@
 
         .list {
             padding-left: 20px;
+            display: flex;
+            flex-direction: column-reverse;
 
             .item {
                 line-height: 1.5;
@@ -129,7 +131,6 @@
         }
 
         .image {
-            border: 1px solid #FFFFFF;
             border-radius: 5px;
             overflow: hidden;
             position: relative;
@@ -272,4 +273,3 @@
         background-size: contain;
     }
 }
-
