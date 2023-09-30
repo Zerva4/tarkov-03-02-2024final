@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class QuestsController extends AbstractController
+class QuestsController extends FrontController
 {
     private EntityManagerInterface $em;
 
@@ -31,7 +31,7 @@ class QuestsController extends AbstractController
     #[Route('/quests/{slug}', name: 'app_view_quest', requirements: ['traderName' => '^[A-Za-z0-9-]*$'])]
     public function viewQuest(string $slug, QuestRepository $questRepository, QuestObjectiveRepository $questObjectiveRepository): Response
     {
-        $quest = $questRepository->findQuestBySlug($slug);
+        $quest = $questRepository->findQuestBySlug($slug, $this->getLocale());
 
         return $this->render('quests/view.html.twig', [
             'quest' => $quest,

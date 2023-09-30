@@ -26,7 +26,7 @@ class LocaleParamListener implements EventSubscriberInterface
     private RouteCollection $routeCollection;
     private UrlMatcherInterface $matcher;
 
-    public function __construct(RouterInterface $router, $defaultLocale = '%app.default_locale%', string $supportedLocales = '%app.supported_locales%', $localeRouteParam = '_locale')
+    public function __construct(RouterInterface $router, $defaultLocale = '%app.default_locale%', string $supportedLocales = '%app.locales%', $localeRouteParam = '_locale')
     {
         $this->router = $router;
         $this->routeCollection = $router->getRouteCollection();
@@ -39,7 +39,7 @@ class LocaleParamListener implements EventSubscriberInterface
 
     public function isLocaleSupported($locale): bool
     {
-        return in_array($locale, $this->supportedLocales);
+        return array_key_exists($locale, $this->supportedLocales);
     }
 
     public function onKernelRequest(RequestEvent $event): void
@@ -48,8 +48,6 @@ class LocaleParamListener implements EventSubscriberInterface
         $baseUrl = $request->getBaseUrl();
         $pathInfo = $request->getPathInfo();
         $locale = $request->getPreferredLanguage();
-
-        dump($locale);
 
         if ($this->isLocaleSupported($locale)) {
             $locale = $this->supportedLocales[$locale];

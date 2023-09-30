@@ -44,34 +44,44 @@ class QuestRepository extends ServiceEntityRepository
         }
     }
 
-    public function findQuestsByTraderId(UuidInterface $uuid, int $mode = AbstractQuery::HYDRATE_OBJECT): ?array
+    public function findQuestsByTraderId(UuidInterface $uuid, string $locale, int $mode = AbstractQuery::HYDRATE_OBJECT): ?array
     {
         return $this->createQueryBuilder('q')
             ->select('l.id, l.name, l.description, l.howToComplete, q.imageName, q.position, q.slug')
             ->leftJoin('q.translations', 'l')
             ->andWhere('q.published = true')
             ->andWhere('q.trader = :trader')
+            ->andWhere('l.locale = :locale')
             ->setParameter('trader', $uuid)
+            ->setParameter('locale', $locale)
             ->addOrderBy('q.minPlayerLevel, q.position', 'ASC')
             ->getQuery()
             ->getResult($mode)
         ;
     }
 
-    public function findQuestBySlug(string $slug, int $mode = AbstractQuery::HYDRATE_OBJECT): ?QuestInterface
+    public function findQuestBySlug(string $slug, string $locale, int $mode = AbstractQuery::HYDRATE_OBJECT): ?QuestInterface
     {
 //        return $this->createQueryBuilder('q')
-//            ->select('q.id, t.imageName AS traderImage, tt.fullName, tt.characterType, l.title, l.description, l.howToComplete, l.startDialog, l.successfulDialog, q.imageName, q.position, q.experience, q.minPlayerLevel')
+//            ->select('q.id, t.imageName AS traderImage, tt.fullName, tt.shortName, q.objectives AS objectives, l.name, l.description, l.howToComplete, l.startDialog, l.successfulDialog, q.imageName, q.position, q.experience, q.minPlayerLevel')
 //            ->leftJoin('q.translations', 'l')
 //            ->leftJoin('q.trader', 't')
 //            ->leftJoin('t.translations', 'tt')
+//            ->leftJoin('q.objectives', 'o')
 //            ->andWhere('q.published = true')
 //            ->andWhere('q.slug = :slug')
-//            ->setParameter('slug', $slug)
+//            ->andWhere('l.locale = :locale')
+//            ->andWhere('tt.locale = :locale')
+//            ->setParameters([
+//                'slug' => $slug,
+//                'locale' => $locale
+//            ])
 //            ->getQuery()
-//            ->getOneOrNullResult($mode)
-//            ;
-        return $this->findOneBy(['slug' => $slug]);
+//            ->getResult($mode)
+//        ;
+        return $this->findOneBy([
+            'slug' => $slug,
+        ]);
     }
 
     public function findTraderByQuestId(UuidInterface $uuid, int $mode = AbstractQuery::HYDRATE_OBJECT): array
