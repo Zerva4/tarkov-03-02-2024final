@@ -138,6 +138,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         $this->receivedItems = new ArrayCollection();
         $this->unlockBarters = new ArrayCollection();
         $this->unlockInCrafts = new ArrayCollection();
+        $this->unlockInCashOffers = new ArrayCollection();
         $this->neededKeys = new ArrayCollection();
     }
 

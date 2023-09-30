@@ -10,6 +10,7 @@ use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
 use App\Entity\Trader\TraderLevel;
 use App\Interfaces\GraphQLClientInterface;
+use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
@@ -115,65 +116,71 @@ class ImportTradersCashOffersCommand extends Command
             $traderApiId = $trader['id'];
             foreach ($trader['levels'] as $level) {
                 $traderLevel = $level['level'];
-                foreach ($level['cashOffers'] as $cashOffer) {
-                    $cashOfferItemId = $cashOffer['item']['id'];
-                    $cashOfferCurrencyItemId = $cashOffer['currencyItem']['id'];
-                    $cashOfferQuestUnlockId = (null !== $cashOffer['taskUnlock']) ? $cashOffer['taskUnlock']['id'] : null;
-                    $query = $this->em->createQueryBuilder();
-                    $result = $query
-                        ->select('t.id AS trader, tl.id AS level, i.id AS item, ci.id AS currency, q.id AS quest')
-                        ->from(Trader::class, 't')
-                        ->andWhere('t.apiId = :apiId')
-                        ->leftJoin(TraderLevel::class, 'tl', Join::WITH,
-                            $query->expr()->andX(
-                                $query->expr()->eq('tl.trader', 't.id'),
-                                $query->expr()->eq('tl.level', ':traderLevel')
+                if (count($level['cashOffers']) > 0) {
+                    foreach ($level['cashOffers'] as $cashOffer) {
+                        $cashOfferEntity = null;
+                        $cashOfferItemId = $cashOffer['item']['id'];
+                        $cashOfferCurrencyItemId = $cashOffer['currencyItem']['id'];
+                        $cashOfferQuestUnlockId = (null !== $cashOffer['taskUnlock']) ? $cashOffer['taskUnlock']['id'] : null;
+                        $query = $this->em->createQueryBuilder();
+                        $result = $query
+                            ->select('t.id AS trader, tl.id AS level, i.id AS item, ci.id AS currency, q.id AS quest')
+                            ->from(Trader::class, 't')
+                            ->andWhere('t.apiId = :apiId')
+                            ->leftJoin(TraderLevel::class, 'tl', Join::WITH,
+                                $query->expr()->andX(
+                                    $query->expr()->eq('tl.trader', 't.id'),
+                                    $query->expr()->eq('tl.level', ':traderLevel')
+                                )
                             )
-                        )
-                        ->leftJoin(Item::class, 'i', Join::WITH, $query->expr()->eq('i.apiId', ':itemApiId'))
-                        ->leftJoin(Item::class, 'ci', Join::WITH,$query->expr()->eq('ci.apiId', ':currencyItemApiId'))
-                        ->leftJoin(Quest::class, 'q', Join::WITH,$query->expr()->eq('q.apiId', ':questId'))
-                        ->setParameters([
-                            'apiId' => $traderApiId,
-                            'traderLevel' => $traderLevel,
-                            'questId' => $cashOfferQuestUnlockId,
-                            'itemApiId' => $cashOfferItemId,
-                            'currencyItemApiId' => $cashOfferCurrencyItemId
-                        ])
-                        ->getQuery()
-                        ->getOneOrNullResult()
-                    ;
+                            ->leftJoin(Item::class, 'i', Join::WITH, $query->expr()->eq('i.apiId', ':itemApiId'))
+                            ->leftJoin(Item::class, 'ci', Join::WITH, $query->expr()->eq('ci.apiId', ':currencyItemApiId'))
+                            ->leftJoin(Quest::class, 'q', Join::WITH, $query->expr()->eq('q.apiId', ':questId'))
+                            ->setParameters([
+                                'apiId' => $traderApiId,
+                                'traderLevel' => $traderLevel,
+                                'questId' => $cashOfferQuestUnlockId,
+                                'itemApiId' => $cashOfferItemId,
+                                'currencyItemApiId' => $cashOfferCurrencyItemId
+                            ])
+                            ->getQuery()
+                            ->getOneOrNullResult();
 
-                    $cashOfferEntity = $cashOffersRepository->findBy([
-                        'trader' => $result['trader'],
-                        'traderLevel' => $result['level'],
-                        'item' => $result['item'],
-                        'currencyItem' => $result['currency'],
-                    ]);
+                        if ($result) {
+                            /** @var $cashOfferEntity $cashOfferEntity */
+                            $cashOfferEntity = $cashOffersRepository->findOneBy([
+                                'trader' => $result['trader'],
+                                'traderLevel' => $result['level'],
+                                'item' => $result['item'],
+                                'questUnlock' => $result['quest'],
+                                'currencyItem' => $result['currency'],
+                            ]);
+                        }
 
-                    if (!$cashOfferEntity instanceof TraderCashOfferInterface) {
-                        $traderEntity = $traderRepository->findOneBy(['id' => $result['trader']]);
-                        $traderLevelEntity = $traderLevelRepository->findOneBy(['id' => $result['level']]);
-                        $itemEntity = $itemRepository->findOneBy(['id' => $result['item']]);
-                        $currencyEntity = $itemRepository->findOneBy(['id' => $result['currency']]);
+                        if (!$cashOfferEntity instanceof TraderCashOfferInterface) {
+                            $traderEntity = $traderRepository->findOneBy(['id' => $result['trader']]);
+                            $traderLevelEntity = $traderLevelRepository->findOneBy(['id' => $result['level']]);
+                            $itemEntity = $itemRepository->findOneBy(['id' => $result['item']]);
+                            $currencyEntity = $itemRepository->findOneBy(['id' => $result['currency']]);
 
-                        $cashOfferEntity = new TraderCashOffer();
+                            $cashOfferEntity = new TraderCashOffer();
+                            $cashOfferEntity
+                                ->setTrader($traderEntity)
+                                ->setTraderLevel($traderLevelEntity)
+                                ->setItem($itemEntity)
+                                ->setCurrencyItem($currencyEntity);
+                        }
+
+                        if ($result['quest']) {
+                            $questEntity = $questRepository->findOneBy(['id' => $result['quest']]);
+                            if ($questEntity instanceof QuestInterface) $cashOfferEntity->setQuestUnlock($questEntity);
+                        }
                         $cashOfferEntity
-                            ->setTrader($traderEntity)
-                            ->setTraderLevel($traderLevelEntity)
-                            ->setItem($itemEntity)
-                            ->setCurrencyItem($currencyEntity)
-                        ;
+                            ->setPrice($cashOffer['price'])
+                            ->setPriceRUB($cashOffer['priceRUB'])
+                            ->setCurrency($cashOffer['currency']);
+                        $this->em->persist($cashOfferEntity);
                     }
-
-                    $questEntity = $itemRepository->findOneBy(['id' => $result['quest']]);
-                    $cashOfferEntity
-                        ->setQuestUnlock($questEntity)
-                        ->setPrice($cashOffer['price'])
-                        ->setPriceRUB($cashOffer['priceRUB'])
-                        ->setCurrency($cashOffer['currency'])
-                    ;
-                    $this->em->persist($cashOfferEntity);
                 }
             }
             $progressBar->advance();
