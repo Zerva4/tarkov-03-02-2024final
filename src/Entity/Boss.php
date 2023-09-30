@@ -43,7 +43,7 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
 
-    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'enemies', fileNameProperty: 'imageName')]
     #[Assert\Valid]
     #[Assert\File(
         maxSize: '2M',
