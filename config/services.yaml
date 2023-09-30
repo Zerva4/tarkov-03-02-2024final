@@ -15,6 +15,11 @@ parameters:
     # Locales
     app.default_locale: 'ru'
     app.supported_locales: 'ru|en|'
+    app.locales:
+        fr_fr: fr
+        en_gb: gb
+        it_it: it
+        es_es: es
 
     # GraphQL url address
     app.graphql_api_url: '%env(GRAPHQL_API_URL)%'
