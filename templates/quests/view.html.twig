@@ -252,6 +252,7 @@
                                 <div class="divider"></div>
                             </div>
                             {% if quest.unlockInCashOffers %}
+                            {% if quest.cashOffers.count > 0 %}
                             <div class="header_lock">
                                 <div class="header_lock_icon"></div>
                                 <h4>{{ 'Открывает к покупке'|trans({}, 'front.quests') }}</h4>
@@ -276,10 +277,10 @@
 {#                                            <div class="count_item">x{{ unlockInCashOffer.count }}</div>#}
                                             <div class="name">{{ unlockInCashOffer.item.shortName }}</div>
                                         </div>
-                                    </div>
                                 </div>
                                 {% endfor %}
                             </div>
+                            {% endif %}
                             {% endif %}
                             {% if quest.unlockBarters %}
                             <div class="header_lock">
