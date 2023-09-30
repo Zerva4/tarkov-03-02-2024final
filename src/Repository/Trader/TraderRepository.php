@@ -43,12 +43,14 @@ class TraderRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllTraders(int $mode = AbstractQuery::HYDRATE_OBJECT)
+    public function findAllTraders(string $locale, int $mode = AbstractQuery::HYDRATE_OBJECT)
     {
         return $this->createQueryBuilder('t')
             ->select('t.id, t.slug, t.imageName, t.resetTime, lang.shortName AS shortName, lang.fullName AS fullName')
             ->leftJoin('t.translations', 'lang')
             ->andWhere('t.published = true')
+            ->andWhere('lang.locale = :locale')
+            ->setParameter('locale', $locale)
             ->addOrderBy('t.position', 'ASC')
             ->getQuery()
             ->getResult($mode)

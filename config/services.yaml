@@ -14,7 +14,12 @@ parameters:
 
     # Locales
     app.default_locale: 'ru'
-    app.additional_locales: 'en'
+    app.supported_locales: 'ru|en|'
+    app.locales:
+        fr_fr: fr
+        en_gb: gb
+        it_it: it
+        es_es: es
 
     # GraphQL url address
     app.graphql_api_url: '%env(GRAPHQL_API_URL)%'
@@ -80,6 +85,9 @@ services:
 
     app.eventListeners.localeParamListener:
         class: App\EventListener\LocaleParamListener
-        arguments: ["@router", "%app.default_locale%", "%app.additional_locales%"]
+        arguments: ["@router", "%app.default_locale%", "%app.supported_locales%"]
         tags:
             - { name: kernel.event_subscriber }
+
+    Symfony\Component\HttpFoundation\Request:
+        autowire: true
