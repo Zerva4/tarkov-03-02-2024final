@@ -138,8 +138,10 @@
                                                     {% set variablePenetrationClass1 = 99.8 %}
                                                 {% elseif item.properties.penetrationPower - 10 <= -15 %}
                                                     {% set variablePenetrationClass1 = 0 %}
+                                                {% else %}
+                                                    {% set variablePenetrationClass1 = 5 %}
                                                 {% endif %}
-                                                {{ variablePenetrationClass1 | number_format(2) }}
+                                                {{ variablePenetrationClass1 | number_format(1) }}
                                             </div>
                                             <div class="opt">
                                             </div>

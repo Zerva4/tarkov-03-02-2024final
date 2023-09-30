@@ -393,14 +393,14 @@
                 left: calc(100% + 2px);
                 transform: translate(10%, 0);
                 padding: 8px;
-                background: #151515;
+                background: #1e1e1e !important;
                 box-shadow: 1px 1px 1px #DF870A;
                 border-radius: 0px 5px 5px 0px;
                 visibility: hidden;
                 opacity: 0;
                 transition: all 0.5s ease;
                 z-index: 300;
-                max-width: 400px;
+                max-width: 240px;
                 width: max-content;
                 font-size: 14px;
                 text-align: left;
@@ -412,7 +412,7 @@
 
                 .name {
                     color: #fff;
-                    margin-bottom: 8px;
+                    margin-bottom: 4px;
                 }
 
                 .text {
