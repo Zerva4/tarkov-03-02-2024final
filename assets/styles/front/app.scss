@@ -210,11 +210,17 @@ span {
 					color: #df870a;
 				}
 			}
-
 			.value {
 				color: #fff;
 			}
 		}
+
+		&_money {
+			display: flex;
+			justify-content: space-between;
+			gap: 8px;
+		}
+
 		&_tdhead {
 			justify-content: flex-start;
 			align-items: flex-start;
