@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Quest\QuestObjective;
 use App\Repository\Quest\QuestObjectiveRepository;
 use App\Repository\Quest\QuestRepository;
 use Doctrine\ORM\EntityManagerInterface;
