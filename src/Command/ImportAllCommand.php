@@ -43,50 +43,62 @@ class ImportAllCommand extends Command
         // Import traders
         $traderCmd = $this->getApplication()->find('app:import:traders');
         $traderCmd->run($inputArguments, $output);
+        unset($traderCmd);
 
         // Import bosses
-        $traderCmd = $this->getApplication()->find('app:import:bosses');
-        $traderCmd->run($inputArguments, $output);
+        $bossesCmd = $this->getApplication()->find('app:import:bosses');
+        $bossesCmd->run($inputArguments, $output);
+        unset($bossesCmd);
 
         // Import maps
         $mapsCmd = $this->getApplication()->find('app:import:maps');
         $mapsCmd->run($inputArguments, $output);
+        unset($mapsCmd);
 
         // Import items materials
-        $itemsCmd = $this->getApplication()->find('app:import:items-materials');
-        $itemsCmd->run($inputArguments, $output);
+        $itemsMaterialCmd = $this->getApplication()->find('app:import:items-materials');
+        $itemsMaterialCmd->run($inputArguments, $output);
+        unset($itemsMaterialCmd);
 
         // Import items
         $itemsCmd = $this->getApplication()->find('app:import:items');
         $itemsCmd->run($inputArguments, $output);
+        unset($itemsCmd);
 
         // Import properties items
-        $itemsCmd = $this->getApplication()->find('app:import:items-properties');
-        $itemsCmd->run($inputArguments, $output);
+        $itemsPropertiesCmd = $this->getApplication()->find('app:import:items-properties');
+        $itemsPropertiesCmd->run($inputArguments, $output);
+        unset($itemsPropertiesCmd);
 
         // Import quests items
-        $questsCmd = $this->getApplication()->find('app:import:quests-items');
-        $questsCmd->run($inputArguments, $output);
+        $questsItemsCmd = $this->getApplication()->find('app:import:quests-items');
+        $questsItemsCmd->run($inputArguments, $output);
+        unset($questsItemsCmd);
 
         // Import quests
         $questsCmd = $this->getApplication()->find('app:import:quests');
         $questsCmd->run($inputArguments, $output);
+        unset($questsCmd);
 
         // Import barters
-        $questsCmd = $this->getApplication()->find('app:import:barters');
-        $questsCmd->run($inputArguments, $output);
+        $bartersCmd = $this->getApplication()->find('app:import:barters');
+        $bartersCmd->run($inputArguments, $output);
+        unset($bartersCmd);
 
         // Import crafts
-        $questsCmd = $this->getApplication()->find('app:import:places');
-        $questsCmd->run($inputArguments, $output);
+        $placesCmd = $this->getApplication()->find('app:import:places');
+        $placesCmd->run($inputArguments, $output);
+        unset($placesCmd);
 
         // Import crafts
-        $questsCmd = $this->getApplication()->find('app:import:crafts');
-        $questsCmd->run($inputArguments, $output);
+        $craftsCmd = $this->getApplication()->find('app:import:crafts');
+        $craftsCmd->run($inputArguments, $output);
+        unset($craftsCmd);
 
         // Import cash offers
-        $questsCmd = $this->getApplication()->find('app:import:traders:cash-offers');
-        $questsCmd->run($inputArguments, $output);
+        $cashOfferCmd = $this->getApplication()->find('app:import:traders:cash-offers');
+        $cashOfferCmd->run($inputArguments, $output);
+        unset($cashOfferCmd);
 
         $io->success('Database import successful.');
 

@@ -42,17 +42,18 @@ class ImportTradersCashOffersCommand extends Command
         $this->client = $client;
     }
 
-//    protected function configure(): void
-//    {
-//        $this
-//            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-//            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-//        ;
-//    }
+    protected function configure(): void
+    {
+        $this
+            ->setDescription('This command allows you to import or update cache offers from https://tarkov.dev./api')
+            ->addOption('lang', 'l', InputArgument::OPTIONAL, 'Language', default: 'ru')
+        ;
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+        $lang = $input->getOption('lang');
 
         $query = <<< GRAPHQL
             {
