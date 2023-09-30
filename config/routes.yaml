@@ -9,7 +9,7 @@ default_routes:
 localized_routes:
     resource: ../src/Controller/
     prefix: /{_locale}
-    name_prefix: 'localized_'
+    name_prefix: ''
     requirements:
-        _locale: '%app.additional_locales%'
+        _locale: '%app.supported_locales%'
     type: annotation
