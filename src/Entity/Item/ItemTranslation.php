@@ -26,8 +26,8 @@ class ItemTranslation implements UuidPrimaryKeyInterface, TranslationInterface, 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private ?string $shortName;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $shortName = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
@@ -37,7 +37,7 @@ class ItemTranslation implements UuidPrimaryKeyInterface, TranslationInterface, 
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 

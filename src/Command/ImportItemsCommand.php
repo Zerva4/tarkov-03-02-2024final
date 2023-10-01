@@ -82,27 +82,9 @@ class ImportItemsCommand extends Command
                 properties {
                   __typename
                 }
-                accuracyModifier,
-                recoilModifier,
-                ergonomicsModifier,
                 hasGrid,
                 blocksHeadphones,
-                receivedFromTasks {
-                  id, name
-                },
-                usedInTasks {
-                  id, name
-                }
                 weight,
-                velocity,
-                loudness,
-                bartersFor {
-                  id,
-                  trader {
-                    name
-                  },
-                  level
-                }
               }
             }
         GRAPHQL;
@@ -129,7 +111,7 @@ class ImportItemsCommand extends Command
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
             if ($itemEntity instanceof ItemInterface) {
-                $itemEntity->setDefaultLocale($lang);
+                $itemEntity->setCurrentLocale($lang);
                 $itemEntity->translate($lang, false)->setName($item['name']);
                 $itemEntity->translate($lang, false)->setShortName($item['shortName']);
             } else {
@@ -264,7 +246,7 @@ class ImportItemsCommand extends Command
                 ->request('GET', 'https://db.sp-tarkov.com/api/item', $options->toArray());
             $result = $request->toArray();
         } catch (Exception $e) {
-            $request = null;
+            $result = null;
         }
 
         return $result;
