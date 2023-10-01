@@ -104,7 +104,6 @@ class ImportItemsCommand extends Command
         $progressBar = new ProgressBar($output, count($items));
         $progressBar->advance(0);
         $itemRepository = $this->em->getRepository(Item::class);
-        $questRepository = $this->em->getRepository(Quest::class);
 
         // Impart base data
         foreach ($items as $item) {
@@ -112,15 +111,15 @@ class ImportItemsCommand extends Command
 
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setName($item['name']);
-                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
+                $itemEntity->translate($lang)->setName($item['name']);
+                $itemEntity->translate($lang)->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setName($item['name']);
-                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
+                $itemEntity->translate($lang)->setName($item['name']);
+                $itemEntity->translate($lang)->setShortName($item['shortName']);
                 $itemEntity->setApiId($item['id']);
                 $itemEntity->setTypeItem($typeName);
             }
