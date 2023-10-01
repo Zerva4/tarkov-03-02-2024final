@@ -111,7 +111,7 @@ class ImportItemsCommand extends Command
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
             if ($itemEntity instanceof ItemInterface) {
-                $itemEntity->setCurrentLocale($lang);
+                $itemEntity->setDefaultLocale($lang);
                 $itemEntity->translate($lang, false)->setName($item['name']);
                 $itemEntity->translate($lang, false)->setShortName($item['shortName']);
             } else {
