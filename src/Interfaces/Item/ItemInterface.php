@@ -63,10 +63,10 @@ interface ItemInterface
     public function getName(): ?string;
 
     /**
-     * @param string $name
+     * @param string|null $name
      * @return ItemInterface
      */
-    public function setName(string $name): ItemInterface;
+    public function setName(?string $name): ItemInterface;
 
     /**
      * @return string|null
@@ -74,10 +74,10 @@ interface ItemInterface
     public function getShortName(): ?string;
 
     /**
-     * @param string $name
+     * @param string|null $name
      * @return ItemInterface
      */
-    public function setShortName(string $name): ItemInterface;
+    public function setShortName(?string $name): ItemInterface;
 
     /**
      * @return string
