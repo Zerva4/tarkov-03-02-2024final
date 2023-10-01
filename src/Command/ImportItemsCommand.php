@@ -111,15 +111,15 @@ class ImportItemsCommand extends Command
 
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang)->setName($item['name']);
-                $itemEntity->translate($lang)->setShortName($item['shortName']);
+                $itemEntity->setName($item['name']);
+                $itemEntity->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang)->setName($item['name']);
-                $itemEntity->translate($lang)->setShortName($item['shortName']);
+                $itemEntity->setName($item['name']);
+                $itemEntity->setShortName($item['shortName']);
                 $itemEntity->setApiId($item['id']);
                 $itemEntity->setTypeItem($typeName);
             }
