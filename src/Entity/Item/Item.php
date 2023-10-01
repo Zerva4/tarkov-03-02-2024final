@@ -130,7 +130,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $typeItem;
 
-    #[ORM\OneToOne(inversedBy: 'item', targetEntity: ItemProperties::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'item', targetEntity: ItemProperties::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(name: 'properties_id', referencedColumnName: 'id', unique: false, onDelete: 'CASCADE')]
     private ?ItemPropertiesInterface $properties = null;
 
