@@ -82,27 +82,9 @@ class ImportItemsCommand extends Command
                 properties {
                   __typename
                 }
-                accuracyModifier,
-                recoilModifier,
-                ergonomicsModifier,
                 hasGrid,
                 blocksHeadphones,
-                receivedFromTasks {
-                  id, name
-                },
-                usedInTasks {
-                  id, name
-                }
                 weight,
-                velocity,
-                loudness,
-                bartersFor {
-                  id,
-                  trader {
-                    name
-                  },
-                  level
-                }
               }
             }
         GRAPHQL;
@@ -122,7 +104,6 @@ class ImportItemsCommand extends Command
         $progressBar = new ProgressBar($output, count($items));
         $progressBar->advance(0);
         $itemRepository = $this->em->getRepository(Item::class);
-        $questRepository = $this->em->getRepository(Quest::class);
 
         // Impart base data
         foreach ($items as $item) {
@@ -130,15 +111,15 @@ class ImportItemsCommand extends Command
 
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setName($item['name']);
-                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
+                $itemEntity->setName($item['name']);
+                $itemEntity->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $mapEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setName($item['name']);
-                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
+                $itemEntity->setName($item['name']);
+                $itemEntity->setShortName($item['shortName']);
                 $itemEntity->setApiId($item['id']);
                 $itemEntity->setTypeItem($typeName);
             }
@@ -264,7 +245,7 @@ class ImportItemsCommand extends Command
                 ->request('GET', 'https://db.sp-tarkov.com/api/item', $options->toArray());
             $result = $request->toArray();
         } catch (Exception $e) {
-            $request = null;
+            $result = null;
         }
 
         return $result;

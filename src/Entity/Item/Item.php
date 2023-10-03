@@ -130,7 +130,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private ?string $typeItem;
 
-    #[ORM\OneToOne(inversedBy: 'item', targetEntity: ItemProperties::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'item', targetEntity: ItemProperties::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(name: 'properties_id', referencedColumnName: 'id', unique: false, onDelete: 'CASCADE')]
     private ?ItemPropertiesInterface $properties = null;
 
@@ -213,7 +213,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
 
     public static function getItemTypes(): array
     {
-        return self::$item_types;
+        return self::ITEM_TYPES;
     }
 
     public function getApiId(): string
@@ -264,7 +264,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this->translate()->getName();
     }
 
-    public function setName(string $name): ItemInterface
+    public function setName(?string $name): ItemInterface
     {
         $this->translate()->setName($name);
 
@@ -276,7 +276,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this->translate()->getShortName();
     }
 
-    public function setShortName(string $name): ItemInterface
+    public function setShortName(?string $name): ItemInterface
     {
         $this->translate()->setShortName($name);
 
@@ -288,7 +288,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this->translate()->getDescription();
     }
 
-    public function setDescription(string $description): ItemInterface
+    public function setDescription(?string $description): ItemInterface
     {
         $this->translate()->setDescription($description);
 
