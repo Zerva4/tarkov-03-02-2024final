@@ -106,8 +106,9 @@ class ImportItemsCommand extends Command
         $itemRepository = $this->em->getRepository(Item::class);
 
         // Impart base data
-        foreach ($items as $item) {
+        foreach ($items as $key => $item) {
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
+//            if ($key == 29) dump($itemEntity);
 
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
@@ -115,7 +116,7 @@ class ImportItemsCommand extends Command
                 $itemEntity->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
-                /** @var ItemInterface $mapEntity */
+                /** @var ItemInterface $itemEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->setName($item['name']);
@@ -148,9 +149,9 @@ class ImportItemsCommand extends Command
                 ->setBackgroundColor($item['backgroundColor'])
                 ->setHasGrid($hasGrid)
                 ->setWeight($item['weight'])
-                ->mergeNewTranslations()
             ;
             $this->em->persist($itemEntity);
+            $itemEntity->mergeNewTranslations();
 
             // Set received from quests
 //            if (is_array($item['receivedFromTasks']) && count($item['receivedFromTasks']) > 0) {
