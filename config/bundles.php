@@ -23,5 +23,4 @@ return [
     Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
-    CKSource\Bundle\CKFinderBundle\CKSourceCKFinderBundle::class => ['all' => true],
 ];

@@ -11,7 +11,6 @@
         "ext-iconv": "*",
         "ext-imagick": "*",
         "a2lix/translation-form-bundle": "^3.2",
-        "ckfinder/ckfinder-symfony-bundle": "^4.0",
         "doctrine/annotations": "2.*",
         "doctrine/doctrine-bundle": "2.*",
         "doctrine/doctrine-migrations-bundle": "3.*",
@@ -101,7 +100,6 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "ckeditor:install --tag=4.22.1": "symfony-cmd",
-            "ckfinder:download": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
