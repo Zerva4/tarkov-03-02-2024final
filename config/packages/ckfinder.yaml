@@ -1,0 +1,11 @@
+# config/packages/ckfinder.yml
+
+ckfinder:
+  connector:
+    authenticationClass: App\Security\CKFinderAuthentication
+
+    resourceTypes:
+      MyResource:
+        name: MyResource
+        backend: default
+        directory: myResource
