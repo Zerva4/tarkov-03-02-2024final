@@ -22,9 +22,7 @@ class QuestObjectiveForm extends AbstractType
             'description' => [
                 'field_type' => TextType::class,
                 'label' => t('Description', [], 'admin.quests'),
-//                'attr' => [
-//                    'class' => 'ckeditor'
-//                ]
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
             ]
         ];
         $builder

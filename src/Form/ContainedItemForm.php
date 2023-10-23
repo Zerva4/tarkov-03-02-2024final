@@ -6,6 +6,7 @@ namespace App\Form;
 
 use App\Entity\Item\ContainedItem;
 use App\Entity\Item\Item;
+use App\Form\Item\ItemAutocompleteField;
 use App\Repository\Item\ItemRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,7 +24,7 @@ class ContainedItemForm extends AbstractType
                 'label' => t('Item', [], 'admin.contained.item'),
                 'class' => Item::class,
                 'placeholder' => t('Select item', [], 'admin'),
-                'attr' => array('class' => 'select2','data-widget' => 'select2'),
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'query_builder' => function (ItemRepository $er) {
                     return $er->createQueryBuilder('item')
                         ->join('item.translations', 'lt', 'WITH', 'item.id = lt.translatable')

@@ -6,10 +6,10 @@ default_routes:
         _locale: '%app.default_locale%'
     type: annotation
 
-localized_routes:
-    resource: ../src/Controller/
-    prefix: /{_locale}
-    name_prefix: ''
-    requirements:
-        _locale: '%app.supported_locales%'
-    type: annotation
+#localized_routes:
+#    resource: ../src/Controller/
+#    prefix: /{_locale}
+#    name_prefix: ''
+#    requirements:
+#        _locale: '%app.supported_locales%'
+#    type: annotation

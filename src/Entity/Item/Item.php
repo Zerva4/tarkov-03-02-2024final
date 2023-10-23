@@ -677,6 +677,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
 
     public function __toString(): string
     {
-        return $this->__get('name');
+        return $this->getName();
     }
 }
