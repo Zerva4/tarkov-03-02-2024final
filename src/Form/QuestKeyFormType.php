@@ -22,6 +22,7 @@ class QuestKeyFormType extends AbstractType
             ->add('item', EntityType::class, [
                 'label' => t('Key', [], 'admin.quests'),
                 'class' => Item::class,
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'placeholder' => t('Select item', [], 'admin'),
                 'query_builder' => function (ItemRepository $er) {
                     return $er->createQueryBuilder('item')
@@ -40,6 +41,7 @@ class QuestKeyFormType extends AbstractType
             ->add('map', EntityType::class, [
                 'label' => t('Map', [], 'admin.quests'),
                 'class' => Map::class,
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'placeholder' => t('Select item', [], 'admin'),
 //                'query_builder' => function (PlaceRepository $er) {
 //                    return $er->createQueryBuilder('place')

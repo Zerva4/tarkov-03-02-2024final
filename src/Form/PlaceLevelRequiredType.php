@@ -20,6 +20,7 @@ class PlaceLevelRequiredType extends AbstractType
     {
         $builder
             ->add('place', EntityType::class, [
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'label' => t('Place', [], 'admin.places'),
                 'class' => Place::class,
                 'placeholder' => t('Select item', [], 'admin'),
