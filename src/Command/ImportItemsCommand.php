@@ -110,17 +110,17 @@ class ImportItemsCommand extends Command
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
             if ($key == 29) dump($item);
 
-            if ($itemEntity instanceof ItemInterface) {
+            if ($itemEntity instanceof Item) {
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setName($item['name']);
-                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
+                $itemEntity->setName($item['name']);
+                $itemEntity->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $itemEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setName($item['name']);
-                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
+                $itemEntity->setName($item['name']);
+                $itemEntity->setShortName($item['shortName']);
                 $itemEntity->setApiId($item['id']);
                 $itemEntity->setTypeItem($typeName);
             }
