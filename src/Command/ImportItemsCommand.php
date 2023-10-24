@@ -135,7 +135,7 @@ class ImportItemsCommand extends Command
             // Fetch description
             $itemArray = $this->fetchJson($item['id'], $lang, $this->httpClient);
             if (is_array($itemArray))
-                $itemEntity->translate($lang, false)->setDescription($itemArray['locale']['Description']);
+                $itemEntity->setDescription($itemArray['locale']['Description']);
 
             // Set base params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
