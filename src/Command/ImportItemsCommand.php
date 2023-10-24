@@ -108,7 +108,7 @@ class ImportItemsCommand extends Command
         // Impart base data
         foreach ($items as $key => $item) {
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
-            if ($key == 29) dump($itemEntity);
+            if ($key == 29) dump($item);
 
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setCurrentLocale($lang);
