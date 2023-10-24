@@ -111,18 +111,16 @@ class ImportItemsCommand extends Command
             if ($key == 29) dump($item);
 
             if ($itemEntity instanceof ItemInterface) {
-                $itemEntity->setCurrentLocale($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->setName($item['name']);
-                $itemEntity->setShortName($item['shortName']);
+                $itemEntity->translate($lang, false)->setName($item['name']);
+                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $itemEntity */
                 $itemEntity = new Item($lang);
-                $itemEntity->setCurrentLocale($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->setName($item['name']);
-                $itemEntity->setShortName($item['shortName']);
+                $itemEntity->translate($lang, false)->setName($item['name']);
+                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
                 $itemEntity->setApiId($item['id']);
                 $itemEntity->setTypeItem($typeName);
             }
@@ -137,7 +135,7 @@ class ImportItemsCommand extends Command
             // Fetch description
             $itemArray = $this->fetchJson($item['id'], $lang, $this->httpClient);
             if (is_array($itemArray))
-                $itemEntity->setDescription($itemArray['locale']['Description']);
+                $itemEntity->translate($lang, false)->setDescription($itemArray['locale']['Description']);
 
             // Set base params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
