@@ -112,6 +112,7 @@ class ImportItemsCommand extends Command
 
             if ($itemEntity instanceof ItemInterface) {
                 $itemEntity->setDefaultLocale($lang);
+                $itemEntity->setCurrentLocale($lang);
                 $itemEntity->setName($item['name']);
                 $itemEntity->setShortName($item['shortName']);
             } else {
