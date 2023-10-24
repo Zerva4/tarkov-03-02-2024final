@@ -14,21 +14,21 @@ abstract class TranslatableEntity implements TimestampableInterface, Translatabl
 {
     use TimestampableTrait;
     use TranslatableTrait;
-    use TranslatableMagicMethodsTrait;
+//    use TranslatableMagicMethodsTrait;
 
-    public function __construct(string $defaultLocation = '%app.default_locale%')
+    public function __construct(string $defaultLocale = '%app.default_locale%')
     {
-        $this->defaultLocale = $defaultLocation;
+        $this->defaultLocale = $defaultLocale;
     }
 
-    private function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
-    {
-        if (!method_exists(self::getTranslationEntityClass(), $method)) {
-            $method = 'get' . ucfirst($method);
-        }
-
-        $translation = $this->translate($this->getCurrentLocale());
-
-        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
-    }
+//    private function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
+//    {
+//        if (!method_exists(self::getTranslationEntityClass(), $method)) {
+//            $method = 'get' . ucfirst($method);
+//        }
+//
+//        $translation = $this->translate($this->getCurrentLocale());
+//
+//        return (method_exists(self::getTranslationEntityClass(), $method)) ? call_user_func_array([$translation, $method], $arguments) : null;
+//    }
 }
