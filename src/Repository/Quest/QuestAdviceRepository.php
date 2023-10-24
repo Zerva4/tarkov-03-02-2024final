@@ -31,15 +31,15 @@ class QuestAdviceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
 
-        $rndOffset = rand(0, $count);
+        $rndOffset = rand(1, $count - 1);
 
         $query = $this->createQueryBuilder('qa')
-            ->setMaxResults($rndOffset)
+            ->setMaxResults(1)
             ->setFirstResult($rndOffset)
             ->getQuery()
         ;
         $result = $query->getResult();
 
-        return $result[0];
+        return $result[0] ?? null;
     }
 }
