@@ -177,13 +177,13 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     private ?float $weight = null;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: ContainedItem::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
-    private Collection $containedItems;
+    private ?Collection $containedItems;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
-    private Collection $cashOffers;
+    private ?Collection $cashOffers;
 
     #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
-    private Collection $currencyCashOffers;
+    private ?Collection $currencyCashOffers;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: QuestKey::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'quests_keys_items')]
@@ -456,7 +456,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
      * @param Collection $containedItems
      * @return ItemInterface
      */
-    public function setContainedItems(Collection $containedItems): ItemInterface
+    public function setContainedItems(?Collection $containedItems): ItemInterface
     {
         $this->containedItems = $containedItems;
 
@@ -488,7 +488,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this->cashOffers;
     }
 
-    public function setCashOffers(Collection $cashOffers): ItemInterface
+    public function setCashOffers(?Collection $cashOffers): ItemInterface
     {
         $this->cashOffers = $cashOffers;
 
@@ -520,7 +520,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this->currencyCashOffers;
     }
 
-    public function setCurrencyCashOffers(Collection $currencyCashOffers): ItemInterface
+    public function setCurrencyCashOffers(?Collection $currencyCashOffers): ItemInterface
     {
         $this->currencyCashOffers = $currencyCashOffers;
 
