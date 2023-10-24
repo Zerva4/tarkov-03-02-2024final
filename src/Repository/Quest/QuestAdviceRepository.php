@@ -3,7 +3,10 @@
 namespace App\Repository\Quest;
 
 use App\Entity\Quest\QuestAdvice;
+use App\Interfaces\Item\ItemInterface;
+use App\Interfaces\Quest\QuestAdviceInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,28 +24,22 @@ class QuestAdviceRepository extends ServiceEntityRepository
         parent::__construct($registry, QuestAdvice::class);
     }
 
-//    /**
-//     * @return QuestAdvice[] Returns an array of QuestAdvice objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('q')
-//            ->andWhere('q.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('q.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findRandomAdvice(int $mode = AbstractQuery::HYDRATE_OBJECT): ?QuestAdviceInterface
+    {
+        $count = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
 
-//    public function findOneBySomeField($value): ?QuestAdvice
-//    {
-//        return $this->createQueryBuilder('q')
-//            ->andWhere('q.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $rndOffset = rand(0, $count);
+
+        $query = $this->createQueryBuilder('qa')
+            ->setMaxResults($rndOffset)
+            ->setFirstResult($rndOffset)
+            ->getQuery()
+        ;
+        $result = $query->getResult();
+
+        return $result[0];
+    }
 }
