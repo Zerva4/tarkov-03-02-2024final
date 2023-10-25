@@ -48,6 +48,39 @@ interface TraderInterface
     /**
      * @return string|null
      */
+    public function getFullName(): ?string;
+
+    /**
+     * @param string|null $fullName
+     * @return TraderInterface
+     */
+    public function setFullName(?string $fullName): TraderInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getShortName(): ?string;
+
+    /**
+     * @param string $shortName
+     * @return TraderInterface
+     */
+    public function setShortName(string $shortName): TraderInterface;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @param string|null $description
+     * @return TraderInterface
+     */
+    public function setDescription(?string $description): TraderInterface;
+
+    /**
+     * @return string|null
+     */
     public function getImageName(): ?string;
 
     /**

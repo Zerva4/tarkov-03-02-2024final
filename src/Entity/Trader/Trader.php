@@ -36,7 +36,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, TraderInterface, TranslatableInterface, TimestampableInterface
+class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, TraderInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -133,6 +133,42 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     public function setPublished(bool $published): TraderInterface
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->translate()->getFullName();
+    }
+
+    public function setFullName(?string $fullName): TraderInterface
+    {
+        $this->translate()->setFullName($fullName);
+
+        return $this;
+    }
+
+    public function getShortName(): ?string
+    {
+        return $this->translate()->getShortName();
+    }
+
+    public function setShortName(string $shortName): TraderInterface
+    {
+        $this->translate()->setShortName($shortName);
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(?string $description): TraderInterface
+    {
+        $this->translate()->setDescription($description);
 
         return $this;
     }
