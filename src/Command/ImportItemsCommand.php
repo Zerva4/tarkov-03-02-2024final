@@ -107,20 +107,21 @@ class ImportItemsCommand extends Command
 
         // Impart base data
         foreach ($items as $key => $item) {
+            /** @var ItemInterface $itemEntity */
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
-            if ($key == 29) dump($item);
 
-            if ($itemEntity instanceof ItemInterface) {
+            if ($itemEntity instanceof Item) {
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setName($item['name']);
-                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
+                $itemEntity->setCurrentLocale($lang);
+                $itemEntity->setName($item['name']);
+                $itemEntity->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $itemEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
-                $itemEntity->translate($lang, false)->setName($item['name']);
-                $itemEntity->translate($lang, false)->setShortName($item['shortName']);
+                $itemEntity->setName($item['name']);
+                $itemEntity->setShortName($item['shortName']);
                 $itemEntity->setApiId($item['id']);
                 $itemEntity->setTypeItem($typeName);
             }
@@ -141,7 +142,7 @@ class ImportItemsCommand extends Command
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
             if ($this->isMoney($item['id'])) $item['types'][] = 'money';
             $itemEntity->setPublished(true)
-                ->setSlug($item['normalizedName'])
+                ->setSlug(strtolower($item['normalizedName']))
                 ->setTypes($item['types'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])

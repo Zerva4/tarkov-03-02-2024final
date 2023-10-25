@@ -91,21 +91,26 @@ class Boss extends TranslatableEntity implements UuidPrimaryKeyInterface, Transl
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getSlug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * @param string $slug
-     * @return BossInterface
-     */
     public function setSlug(string $slug): BossInterface
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): BossInterface
+    {
+        $this->translate()->setName($name);
 
         return $this;
     }

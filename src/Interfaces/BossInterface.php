@@ -40,6 +40,10 @@ interface BossInterface
 
     public function setSlug(string $slug): BossInterface;
 
+    public function getName(): string;
+
+    public function setName(string $name): BossInterface;
+
     /**
      * @return Collection
      */
