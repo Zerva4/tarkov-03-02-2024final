@@ -16,6 +16,7 @@ use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\ItemRepository;
+use App\Traits\FixTranslatableTrait;
 use App\Traits\SlugTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
@@ -65,8 +66,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemInterface, TranslatableInterface
 {
-    use UuidPrimaryKeyTrait;
-    use SlugTrait;
+    use UuidPrimaryKeyTrait, SlugTrait, FixTranslatableTrait;
 
     const ITEM_TYPES = [
         'ItemPropertiesDefault',
@@ -177,13 +177,13 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     private ?float $weight = null;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: ContainedItem::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
-    private Collection $containedItems;
+    private ?Collection $containedItems;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
-    private Collection $cashOffers;
+    private ?Collection $cashOffers;
 
     #[ORM\OneToMany(mappedBy: 'currencyItem', targetEntity: TraderCashOffer::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
-    private Collection $currencyCashOffers;
+    private ?Collection $currencyCashOffers;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: QuestKey::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     #[ORM\JoinTable(name: 'quests_keys_items')]
@@ -261,36 +261,36 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
 
     public function getName(): ?string
     {
-        return $this->translate()->getName();
+        return $this->translate($this->currentLocale, false)->getName();
     }
 
     public function setName(?string $name): ItemInterface
     {
-        $this->translate()->setName($name);
+        $this->translate($this->currentLocale, false)->setName($name);
 
         return $this;
     }
 
     public function getShortName(): ?string
     {
-        return $this->translate()->getShortName();
+        return $this->translate($this->currentLocale, false)->getShortName();
     }
 
     public function setShortName(?string $name): ItemInterface
     {
-        $this->translate()->setShortName($name);
+        $this->translate($this->currentLocale, false)->setShortName($name);
 
         return $this;
     }
 
     public function getDescription(): string
     {
-        return $this->translate()->getDescription();
+        return $this->translate($this->currentLocale, false)->getDescription();
     }
 
     public function setDescription(?string $description): ItemInterface
     {
-        $this->translate()->setDescription($description);
+        $this->translate($this->currentLocale, false)->setDescription($description);
 
         return $this;
     }
@@ -456,7 +456,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
      * @param Collection $containedItems
      * @return ItemInterface
      */
-    public function setContainedItems(Collection $containedItems): ItemInterface
+    public function setContainedItems(?Collection $containedItems): ItemInterface
     {
         $this->containedItems = $containedItems;
 
@@ -488,7 +488,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this->cashOffers;
     }
 
-    public function setCashOffers(Collection $cashOffers): ItemInterface
+    public function setCashOffers(?Collection $cashOffers): ItemInterface
     {
         $this->cashOffers = $cashOffers;
 
@@ -520,7 +520,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this->currencyCashOffers;
     }
 
-    public function setCurrencyCashOffers(Collection $currencyCashOffers): ItemInterface
+    public function setCurrencyCashOffers(?Collection $currencyCashOffers): ItemInterface
     {
         $this->currencyCashOffers = $currencyCashOffers;
 
@@ -677,6 +677,6 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
 
     public function __toString(): string
     {
-        return $this->__get('name');
+        return $this->getName();
     }
 }

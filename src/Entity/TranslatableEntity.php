@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Traits\TranslatableMagicMethodsTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
@@ -16,9 +17,10 @@ abstract class TranslatableEntity implements TimestampableInterface, Translatabl
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
 
-    public function __construct(string $defaultLocation = '%app.default_locale%')
+    public function __construct(string $defaultLocale = '%app.default_locale%')
     {
-        $this->defaultLocale = $defaultLocation;
+        $this->defaultLocale = $defaultLocale;
+        $this->translations = new ArrayCollection();
     }
 
     private function proxyCurrentLocaleTranslation(string $method, array $arguments = [])

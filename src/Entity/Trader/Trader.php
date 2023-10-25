@@ -137,6 +137,42 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         return $this;
     }
 
+    public function getFullName(): ?string
+    {
+        return $this->translate()->getFullName();
+    }
+
+    public function setFullName(?string $fullName): TraderInterface
+    {
+        $this->translate()->setFullName($fullName);
+
+        return $this;
+    }
+
+    public function getShortName(): ?string
+    {
+        return $this->translate()->getShortName();
+    }
+
+    public function setShortName(string $shortName): TraderInterface
+    {
+        $this->translate()->setShortName($shortName);
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(?string $description): TraderInterface
+    {
+        $this->translate()->setDescription($description);
+
+        return $this;
+    }
+
     public function getImageName(): ?string
     {
         return $this->imageName;

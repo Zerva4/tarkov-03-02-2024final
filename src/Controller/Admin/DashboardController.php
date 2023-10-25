@@ -12,6 +12,7 @@ use App\Entity\Item\ItemCaliber;
 use App\Entity\Item\ItemMaterial;
 use App\Entity\Map;
 use App\Entity\Quest\Quest;
+use App\Entity\Quest\QuestAdvice;
 use App\Entity\Quest\QuestItem;
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
@@ -65,6 +66,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud(t('Places', [], 'menu'), '', Place::class)->setController(PlaceCrudController::class),
             MenuItem::linkToCrud(t('Crafts', [], 'menu'), '', Craft::class)->setController(CraftCrudController::class),
         ];
+        $questMenu = [
+            MenuItem::linkToCrud(t('List', [], 'menu'), '', Quest::class)->setController(QuestCrudController::class),
+            MenuItem::linkToCrud(t('Advices', [], 'menu'), '', QuestAdvice::class)->setController(QuestAdviceCrudController::class),
+        ];
         $tradersMenu = [
             MenuItem::linkToCrud(t('List', [], 'menu'), '', Trader::class)->setController(TraderCrudController::class),
             MenuItem::linkToCrud(t('Cash offers', [], 'menu'), '', TraderCashOffer::class)->setController(TraderCashOfferCrudController::class)
@@ -78,7 +83,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu(t('Traders', [], 'menu'), 'fa fa-cubes')->setSubItems($tradersMenu);
         yield MenuItem::subMenu(t('Items', [], 'menu'), 'fa fa-cubes')->setSubItems($itemsMenu);
         yield MenuItem::subMenu(t('Workshop', [], 'menu'), 'fa fa-cubes')->setSubItems($workshopMenu);
-        yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);
+        yield MenuItem::subMenu(t('Quests', [], 'menu'), 'fa fa-cubes')->setSubItems($questMenu);
         yield MenuItem::linkToCrud(t('Enemies', [], 'menu'), 'fa fa-skull', Boss::class)->setController(BossCrudController::class);
         yield MenuItem::subMenu(t('Updates', [], 'menu'), 'fa fa-sync')->setSubItems($updatesMenu);
         yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);

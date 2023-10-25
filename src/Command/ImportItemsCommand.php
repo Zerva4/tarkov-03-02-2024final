@@ -106,16 +106,18 @@ class ImportItemsCommand extends Command
         $itemRepository = $this->em->getRepository(Item::class);
 
         // Impart base data
-        foreach ($items as $item) {
+        foreach ($items as $key => $item) {
+            /** @var ItemInterface $itemEntity */
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
-            if ($itemEntity instanceof ItemInterface) {
+            if ($itemEntity instanceof Item) {
                 $itemEntity->setDefaultLocale($lang);
+                $itemEntity->setCurrentLocale($lang);
                 $itemEntity->setName($item['name']);
                 $itemEntity->setShortName($item['shortName']);
             } else {
                 $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
-                /** @var ItemInterface $mapEntity */
+                /** @var ItemInterface $itemEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->setName($item['name']);
@@ -134,13 +136,13 @@ class ImportItemsCommand extends Command
             // Fetch description
             $itemArray = $this->fetchJson($item['id'], $lang, $this->httpClient);
             if (is_array($itemArray))
-                $itemEntity->setDescription($itemArray['locale']['Description']);
+                $itemEntity->translate($lang, false)->setDescription($itemArray['locale']['Description']);
 
             // Set base params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
             if ($this->isMoney($item['id'])) $item['types'][] = 'money';
             $itemEntity->setPublished(true)
-                ->setSlug($item['normalizedName'])
+                ->setSlug(strtolower($item['normalizedName']))
                 ->setTypes($item['types'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])
@@ -148,9 +150,9 @@ class ImportItemsCommand extends Command
                 ->setBackgroundColor($item['backgroundColor'])
                 ->setHasGrid($hasGrid)
                 ->setWeight($item['weight'])
-                ->mergeNewTranslations()
             ;
             $this->em->persist($itemEntity);
+            $itemEntity->mergeNewTranslations();
 
             // Set received from quests
 //            if (is_array($item['receivedFromTasks']) && count($item['receivedFromTasks']) > 0) {

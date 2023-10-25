@@ -98,8 +98,7 @@ class ImportTradersCommand extends Command
                 $traderEntity->translate($lang, false)->setShortName($trader['name']);
                 $traderEntity->setPosition($order);
             } else {
-                /** @var TraderInterface $traderEntity */
-                $traderEntity = new Trader();
+                $traderEntity = new Trader($lang);
                 $traderEntity->setDefaultLocale($lang);
                 $traderEntity->setPosition($order);
                 $traderEntity->translate($lang, false)->setFullName(null);
