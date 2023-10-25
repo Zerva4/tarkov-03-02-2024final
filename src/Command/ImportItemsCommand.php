@@ -107,11 +107,12 @@ class ImportItemsCommand extends Command
 
         // Impart base data
         foreach ($items as $key => $item) {
+            /** @var ItemInterface $itemEntity */
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
-            if ($key == 29) dump($item);
 
             if ($itemEntity instanceof Item) {
                 $itemEntity->setDefaultLocale($lang);
+                $itemEntity->setCurrentLocale($lang);
                 $itemEntity->setName($item['name']);
                 $itemEntity->setShortName($item['shortName']);
             } else {
@@ -135,13 +136,13 @@ class ImportItemsCommand extends Command
             // Fetch description
             $itemArray = $this->fetchJson($item['id'], $lang, $this->httpClient);
             if (is_array($itemArray))
-                $itemEntity->setDescription($itemArray['locale']['Description']);
+                $itemEntity->translate($lang, false)->setDescription($itemArray['locale']['Description']);
 
             // Set base params
             $hasGrid = (null !== $item['hasGrid']) ? $item['hasGrid'] : false;
             if ($this->isMoney($item['id'])) $item['types'][] = 'money';
             $itemEntity->setPublished(true)
-                ->setSlug($item['normalizedName'])
+                ->setSlug(strtolower($item['normalizedName']))
                 ->setTypes($item['types'])
                 ->setBasePrice($item['basePrice'])
                 ->setWidth($item['width'])
