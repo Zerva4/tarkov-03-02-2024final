@@ -10,6 +10,7 @@ use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
 use App\Form\QuestKeyFormType;
 use App\Form\QuestObjectiveForm;
+use App\Form\TraderStandingForm;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -154,12 +155,15 @@ class QuestCrudController extends BaseCrudController
             ->setEntryIsComplex(false)
             ->setFormTypeOption('by_reference', true)
         ;
-
+        $tradersStandings = CollectionField::new('traderStandings', t('Traders standings', [], 'admin.quests'))
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryType(TraderStandingForm::class)
+            ->setEntryIsComplex(false)
+            ->setFormTypeOption('by_reference', true)
+        ;
         $createdAt = DateField::new('createdAt', 'Created')->setTextAlign('center');
         $updatedAt = DateField::new('updatedAt', 'Updated')->setTextAlign('center');
-
-//        $ciRepo = $this->get(ContainedItemRepository::class);
-//        $ciRepo->Test('f89277e7-ba90-4b52-a48d-d5c87cb7e475', '5a7c147ce899ef00150bd8b8');
 
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
@@ -182,6 +186,8 @@ class QuestCrudController extends BaseCrudController
                 $receivedItems->setColumns(6),
                 FormField::addTab(t('Keys', [], 'admin.quests')),
                 $keys->setColumns(12),
+                FormField::addTab(t('Standings', [], 'admin.quests')),
+                $tradersStandings->setColumns(12),
             ],
             default => [
                 $name->setSortable(true)->setTemplatePath('admin/field/link-edit.html.twig'),
