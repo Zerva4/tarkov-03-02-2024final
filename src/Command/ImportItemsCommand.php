@@ -110,6 +110,16 @@ class ImportItemsCommand extends Command
             /** @var ItemInterface $itemEntity */
             $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
+            $item['name'] = trim(str_replace([
+                'Default',
+                'По умолчанию'
+            ], '', $item['name']));
+
+            $item['shortName'] = trim(str_replace([
+                'Default',
+                'По умолчанию'
+            ], '', $item['shortName']));
+
             if ($itemEntity instanceof Item) {
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->setCurrentLocale($lang);
