@@ -1,0 +1,26 @@
+<div class="character__text">
+    <span class="value-stock">{{ 'Используется кол-во раз' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.uses }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Время использования' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.useTime }}</span>
+</div>
+{% if item.properties.cures is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Зоны обезбаливания' | trans({}, 'front.items') }}</span>
+    <span class="value-properties" style="text-align: right">{% for cure in item.properties.cures %}{{ cure | trans({}, 'front.items') }}{% endfor %}</span>
+</div>
+{% endif %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Время обезбаливания' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.painkillerDuration }} {{ 'мин' | trans({}, 'front.items') }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Энергетическое воздействие' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.energyImpact }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Увлажняющее воздействие' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.hydrationImpact }}</span>
+</div>
