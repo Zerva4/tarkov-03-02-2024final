@@ -148,14 +148,12 @@
                                         {{ 'Репутация'|trans({}, 'front.quests') }}
                                     </div>
                                     <div class="val value_options">
+                                        {% for traderStanding in quest.traderStandings %}
                                         <div>
-                                            <span class="option">Прапор</span>
-                                            <span class="text">+0.02</span>
+                                            <span class="option">{{ traderStanding.trader.shortName }}</span>
+                                            <span class="text">+{{ traderStanding.standing }}</span>
                                         </div>
-                                        <div>
-                                            <span class="option">Егерь</span>
-                                            <span class="text">+0.01</span>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 {% if quest.receivedItems %}
