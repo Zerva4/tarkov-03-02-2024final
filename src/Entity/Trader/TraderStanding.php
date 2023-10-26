@@ -27,6 +27,7 @@ class TraderStanding implements TraderStandingInterface, UuidPrimaryKeyInterface
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private TraderInterface $trader;
 
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0 ])]
     private float $standing;
 
     public function getTrader(): TraderInterface
