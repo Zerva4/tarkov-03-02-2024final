@@ -634,6 +634,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     {
         if ($this->traderStandings->contains($traderStanding)) {
             $this->traderStandings->removeElement($traderStanding);
+            $traderStanding->setQuest(null);
         }
 
         return $this;

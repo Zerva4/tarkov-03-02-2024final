@@ -23,12 +23,12 @@ class TraderStanding implements TraderStandingInterface, UuidPrimaryKeyInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
-    #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'traderStandings')]
-    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    #[ORM\ManyToOne(targetEntity: Quest::class, cascade: ['persist'], inversedBy: 'traderStandings')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?QuestInterface $quest;
 
-    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'traderStandings')]
-    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, cascade: ['persist'], inversedBy: 'traderStandings')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     private TraderInterface $trader;
 
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0 ])]
@@ -54,6 +54,7 @@ class TraderStanding implements TraderStandingInterface, UuidPrimaryKeyInterface
     public function setQuest(?QuestInterface $quest): TraderStandingInterface
     {
         $this->quest = $quest;
+        $quest->addTraderStanding($this);
 
         return $this;
     }
@@ -84,6 +85,6 @@ class TraderStanding implements TraderStandingInterface, UuidPrimaryKeyInterface
 
     public function __toString(): string
     {
-        return $this->trader->getShortName() . ' - ' . $this->standing;
+        return $this->trader->getShortName() . ' (' . $this->standing . ')';
     }
 }
