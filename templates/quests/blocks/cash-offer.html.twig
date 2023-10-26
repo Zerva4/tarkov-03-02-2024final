@@ -1,0 +1,26 @@
+<div class="header_lock">
+    <div class="header_lock_icon"></div>
+    <h4>{{ 'Открывает к покупке'|trans({}, 'front.quests') }}</h4>
+</div>
+<div class="item_views">
+    {% for unlockInCashOffer in quest.unlockInCashOffers %}
+        <div class="item_view">
+            <div class="info info_item">
+                i
+                <div class="ref">
+                    {{ 'Открывает покупку на'|trans({}, 'front.quests') }} <span class="hl">{{ unlockInCashOffer.traderLevel}} {{ 'уровне'|trans({}, 'front.quests') }}</span> {{ 'лояльности'|trans({}, 'front.quests') }}
+                </div>
+            </div>
+            <div class="image">
+                {% if unlockInCashOffer.item.imageName %}
+                    <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x134') }}" alt="{{ unlockInCashOffer.item.name }}">
+                {% else %}
+                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ unlockInCashOffer.item.name }}">
+                {% endif %}
+            </div>
+            <div class="contains">
+                <div class="name">{{ unlockInCashOffer.item.shortName }}</div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
