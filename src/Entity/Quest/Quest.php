@@ -128,7 +128,6 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     private Collection $unlockInCashOffers;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: QuestKey::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
-    #[ORM\JoinTable(name: 'quests_needed_keys')]
     private ?Collection $neededKeys;
 
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: TraderStanding::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
