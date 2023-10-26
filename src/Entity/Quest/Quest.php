@@ -9,6 +9,7 @@ use App\Entity\Item\ContainedItem;
 use App\Entity\Map;
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
+use App\Entity\Trader\TraderStanding;
 use App\Entity\TranslatableEntity;
 use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
@@ -19,6 +20,7 @@ use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Quest\QuestObjectiveInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
+use App\Interfaces\Trader\TraderStandingInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\CraftInterface;
 use App\Repository\Quest\QuestRepository;
@@ -129,6 +131,9 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     #[ORM\JoinTable(name: 'quests_needed_keys')]
     private ?Collection $neededKeys;
 
+    #[ORM\OneToMany(mappedBy: 'quest', targetEntity: TraderStanding::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    private Collection $traderStandings;
+
     public function __construct(string $defaultLocale = '%app.default_locale%')
     {
         parent::__construct($defaultLocale);
@@ -140,6 +145,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         $this->unlockInCrafts = new ArrayCollection();
         $this->unlockInCashOffers = new ArrayCollection();
         $this->neededKeys = new ArrayCollection();
+        $this->traderStandings = new ArrayCollection();
     }
 
     public function getApiId(): ?string
@@ -598,6 +604,37 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     {
         if ($this->neededKeys->contains($questKey)) {
             $this->neededKeys->removeElement($questKey);
+        }
+
+        return $this;
+    }
+
+    public function getTraderStandings(): Collection
+    {
+        return $this->traderStandings;
+    }
+
+    public function setTraderStandings(Collection $traderStandings): QuestInterface
+    {
+        $this->traderStandings = $traderStandings;
+
+        return $this;
+    }
+
+    public function addTraderStanding(TraderStandingInterface $traderStanding): QuestInterface
+    {
+        if (!$this->traderStandings->contains($traderStanding)) {
+            $this->traderStandings->add($traderStanding);
+            $traderStanding->setQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraderStanding(TraderStandingInterface $traderStanding): QuestInterface
+    {
+        if ($this->traderStandings->contains($traderStanding)) {
+            $this->traderStandings->removeElement($traderStanding);
         }
 
         return $this;
