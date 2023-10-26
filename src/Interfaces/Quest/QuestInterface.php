@@ -9,6 +9,7 @@ use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
+use App\Interfaces\Trader\TraderStandingInterface;
 use App\Interfaces\Workshop\CraftInterface;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
@@ -352,4 +353,27 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function removeNeededKey(QuestKeyInterface $questKey): QuestInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getTraderStandings(): Collection;
+
+    /**
+     * @param Collection $traderStandings
+     * @return QuestInterface
+     */
+    public function setTraderStandings(Collection $traderStandings): QuestInterface;
+
+    /**
+     * @param TraderStandingInterface $traderStanding
+     * @return QuestInterface
+     */
+    public function addTraderStanding(TraderStandingInterface $traderStanding): QuestInterface;
+
+    /**
+     * @param TraderStandingInterface $traderStanding
+     * @return QuestInterface
+     */
+    public function removeTraderStanding(TraderStandingInterface $traderStanding): QuestInterface;
 }
