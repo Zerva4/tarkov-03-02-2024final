@@ -143,6 +143,7 @@
                                         +{{ quest.experience }}
                                     </div>
                                 </div>
+                                {% if quest.traderStandings is not empty %}
                                 <div class="prop">
                                     <div class="name">
                                         {{ 'Репутация'|trans({}, 'front.quests') }}
@@ -151,42 +152,43 @@
                                         {% for traderStanding in quest.traderStandings %}
                                         <div>
                                             <span class="option">{{ traderStanding.trader.shortName }}</span>
-                                            <span class="text">+{{ traderStanding.standing }}</span>
+                                            <span class="text">{% if traderStanding.standing > 0 %}+{% endif %}{{ traderStanding.standing }}</span>
                                         </div>
                                         {% endfor %}
                                     </div>
                                 </div>
-                                {% if quest.receivedItems %}
-                                <div class="prop">
-                                    <div class="name">
-                                        {{ 'Деньги'|trans({}, 'front.quests') }}
-                                    </div>
-                                    <div class="val">
-                                        {% for receivedItem in quest.receivedItems %}
-                                            {% if 'money' in receivedItem.item.types %}
-                                        +{{ receivedItem.count }} {{ receivedItem.item.Name }}
-                                        <div class="info">
-                                            i
-                                            <div class="ref">
-                                                <div class="ref_item ref_money">
-                                                    <div class="property">{{ 'Развед. центр ур. 1'|trans({}, 'front.quests') }}</div>
-                                                    <div class="value">
-                                                            +{{ receivedItem.count * 1.05 }} {{ receivedItem.item.Name }}
-                                                    </div>
+                                {% endif %}
+                                {% if quest.receivedItems is not empty %}
+                                    {% for receivedItem in quest.receivedItems %}
+                                        {% if 'money' in receivedItem.item.types %}
+                                            <div class="prop">
+                                                <div class="name">
+                                                    {{ 'Деньги'|trans({}, 'front.quests') }}
                                                 </div>
-                                                <div class="ref_item ref_money">
-                                                    <div class="property">{{ 'Развед. центр ур. 2'|trans({}, 'front.quests') }}</div>
-                                                    <div class="value">
-                                                           +{{ receivedItem.count * 1.15 }} {{ receivedItem.item.Name }}
+                                                <div class="val">
+                                                    +{{ receivedItem.count }} {{ receivedItem.item.Name }}
+                                                    <div class="info">
+                                                        i
+                                                        <div class="ref">
+                                                            <div class="ref_item ref_money">
+                                                                <div class="property">{{ 'Развед. центр ур. 1'|trans({}, 'front.quests') }}</div>
+                                                                <div class="value">
+                                                                        +{{ receivedItem.count * 1.05 }} {{ receivedItem.item.Name }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="ref_item ref_money">
+                                                                <div class="property">{{ 'Развед. центр ур. 2'|trans({}, 'front.quests') }}</div>
+                                                                <div class="value">
+                                                                       +{{ receivedItem.count * 1.15 }} {{ receivedItem.item.Name }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
-                                        </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-{#                                    {% endif %}#}
-                                </div>
+                                        {% endif %}
+                                    {% endfor %}
                                 {% endif %}
                                 <div class="prop">
                                     <div class="name">
