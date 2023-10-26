@@ -46,6 +46,18 @@ class TraderStanding implements TraderStandingInterface, UuidPrimaryKeyInterface
         return $this;
     }
 
+    public function getQuest(): ?QuestInterface
+    {
+        return $this->quest;
+    }
+
+    public function setQuest(?QuestInterface $quest): TraderStandingInterface
+    {
+        $this->quest = $quest;
+
+        return $this;
+    }
+
     public function getTrader(): TraderInterface
     {
         return $this->trader;
