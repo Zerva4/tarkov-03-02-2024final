@@ -23,11 +23,11 @@ class TraderStanding implements TraderStandingInterface, UuidPrimaryKeyInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private string $apiId;
 
-    #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'neededKeys')]
+    #[ORM\ManyToOne(targetEntity: Quest::class, inversedBy: 'traderStandings')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?QuestInterface $quest;
 
-    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'neededKeys')]
+    #[ORM\ManyToOne(targetEntity: Trader::class, inversedBy: 'traderStandings')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private TraderInterface $trader;
 
@@ -80,5 +80,10 @@ class TraderStanding implements TraderStandingInterface, UuidPrimaryKeyInterface
         $this->standing = $standing;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->trader->getShortName() . ' - ' . $this->standing;
     }
 }
