@@ -11,9 +11,11 @@ use App\Entity\Quest\Quest;
 use App\Entity\Quest\QuestKey;
 use App\Entity\Quest\QuestObjective;
 use App\Entity\Trader\Trader;
+use App\Entity\Trader\TraderStanding;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
+use App\Interfaces\Trader\TraderStandingInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Imagick;
@@ -128,6 +130,16 @@ class ImportQuestsCommand extends Command
                         }
                     },
                     finishRewards {
+                        traderStanding {
+                            trader {
+                                id
+                            }
+                            standing
+                        }
+                        skillLevelReward {
+                            name
+                            level
+                         }
                         items {
                             item {
                                 id
@@ -177,6 +189,7 @@ class ImportQuestsCommand extends Command
         $itemRepository = $this->em->getRepository(Item::class);
         $containedItemRepository = $this->em->getRepository(ContainedItem::class);
         $questKeyRepository = $this->em->getRepository(QuestKey::class);
+        $traderStandingRepository = $this->em->getRepository(TraderStanding::class);
 
         foreach ($quests as $quest) {
             $order = (null !== $quest['tarkovDataId']) ? $quest['tarkovDataId'] : 0;
@@ -302,7 +315,35 @@ class ImportQuestsCommand extends Command
 
             // TODO: Set finish rewards. Create after import items
             // Set requiredItems
-            if (count($quest['finishRewards']['items']) > 0) {
+            if (count($quest['finishRewards']['items']) > 0 || count($quest['finishRewards']['traderStanding']) > 0) {
+                // Traders standings
+                if (count($quest['finishRewards']['traderStanding']) > 0) {
+
+                    foreach ($quest['finishRewards']['traderStanding'] as $traderStanding) {
+                        $traderStandingEntity = $traderStandingRepository->findOneBy([
+                            'apiId' => $traderStanding['trader']['id'],
+                            'quest' => $questEntity->getId()
+                        ]);
+
+                        if (!$traderStandingEntity instanceof TraderStandingInterface) {
+                            $traderEntity = $traderRepository->findOneBy([
+                                'apiId' => $traderStanding['trader']['id']
+                            ]);
+                            $traderStandingEntity = new TraderStanding();
+                            $traderStandingEntity
+                                ->setApiId($traderStanding['trader']['id'])
+                                ->setTrader($traderEntity)
+                                ->setStanding($traderStanding['standing'])
+                                ->setQuest($questEntity);
+                            ;
+                            $questEntity->addTraderStanding($traderStandingEntity);
+                            $this->em->persist($traderStandingEntity);
+                        }
+                        unset($traderStanding);
+                    }
+                }
+
+                // Items
                 $finishRewards = [];
                 foreach ($quest['finishRewards']['items'] as $item) {
                     $itemId = $item['item']['id'];

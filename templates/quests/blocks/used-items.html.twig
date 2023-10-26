@@ -1,0 +1,20 @@
+<h4 class="center">{{ 'Необходимо для задания'|trans({}, 'front.quests') }}</h4>
+<div class="container small">
+    <div class="item_views">
+        {% for usedItem in quest.usedItems %}
+            <div class="item_view">
+                <div class="image">
+                    {% if usedItem.item.imageName %}
+                        <img src="{{ asset('/storage/images/items/' ~ usedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ usedItem.item.name }}">
+                    {% else %}
+                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ usedItem.item.name }}">
+                    {% endif %}
+                </div>
+                <div class="contains">
+                    <div class="count_item">x{{ usedItem.count }}</div>
+                    <div class="name">{{ usedItem.item.Name }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
