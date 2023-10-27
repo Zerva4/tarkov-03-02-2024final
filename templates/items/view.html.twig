@@ -52,12 +52,12 @@
 {#                                    <li>1 шт требуется по квесту <a href="#">Оружейник. Часть 8 (АКМ)</a></li>#}
                                     {% if receivedFromQuests is not empty %}
                                         {% for quest in receivedFromQuests %}
-                                            <li>{{ quest.count }} шт выдается за выполнение квеста <a href="#">{{ quest.quest.name }}</a>
+                                            <li>{{ quest.count }} шт выдается за выполнение квеста <a href="{{ absolute_url(path('app_view_quest', {'slug': quest.quest.slug})) }}">{{ quest.quest.name }}</a>
                                         {% endfor %}
                                     {% endif %}
                                     {% if usedInQuests is not empty %}
                                         {% for quest in usedInQuests %}
-                                            <li>Используется при выполнении квеста <a href="#">{{ quest.quest.name }}</a></li>
+                                            <li>Используется при выполнении квеста <a href="{{ absolute_url(path('app_view_quest', {'slug': quest.quest.slug})) }}">{{ quest.quest.name }}</a></li>
                                         {% endfor %}
                                     {% endif %}
                                 </ul>
