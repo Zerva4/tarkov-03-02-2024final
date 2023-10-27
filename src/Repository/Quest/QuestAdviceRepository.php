@@ -5,6 +5,7 @@ namespace App\Repository\Quest;
 use App\Entity\Quest\QuestAdvice;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Quest\QuestAdviceInterface;
+use App\Interfaces\Quest\QuestInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
@@ -24,22 +25,22 @@ class QuestAdviceRepository extends ServiceEntityRepository
         parent::__construct($registry, QuestAdvice::class);
     }
 
-    public function findRandomAdvice(int $mode = AbstractQuery::HYDRATE_OBJECT): ?QuestAdviceInterface
+    public function findRandomAdvice(QuestInterface $quest, int $mode = AbstractQuery::HYDRATE_OBJECT): ?QuestAdviceInterface
     {
         $count = $this->createQueryBuilder('u')
             ->select('COUNT(u.id)')
             ->getQuery()
             ->getSingleScalarResult();
 
-        $rndOffset = rand(1, $count - 1);
-
-        $query = $this->createQueryBuilder('qa')
+        return $this->createQueryBuilder('qa')
+            ->andWhere('qa.published = true')
+//            ->andWhere('qa.quests IN :questId')
+//            ->setParameter('questId', $quest->getId())
+            ->setFirstResult(rand(0, $count - 1))
             ->setMaxResults(1)
-            ->setFirstResult($rndOffset)
+//            ->setFirstResult($rndOffset)
             ->getQuery()
+            ->getSingleResult()
         ;
-        $result = $query->getResult();
-
-        return $result[0] ?? null;
     }
 }

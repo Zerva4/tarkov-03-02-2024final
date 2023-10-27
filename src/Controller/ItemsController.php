@@ -27,6 +27,7 @@ class ItemsController extends AbstractController
 
         // Используется в квесте
         $usedInQuests = $containedItemRepository->findUsedInQuest($item);
+
         // Полученно из квеста
         $receivedFromQuests = $containedItemRepository->findReceivedFromQuest($item);
 
