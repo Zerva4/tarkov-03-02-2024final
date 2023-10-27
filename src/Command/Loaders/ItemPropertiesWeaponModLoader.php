@@ -18,8 +18,8 @@ class ItemPropertiesWeaponModLoader
     {
         $entityProperties
             ->setErgonomics($arrayProperties['ergonomics'] ?? 0)
-            ->setRecoilModifier($arrayProperties['ergonomics'] ?? 0)
-            ->setAccuracyModifier($arrayProperties['ergonomics'] ?? 0)
+            ->setRecoilModifier($arrayProperties['recoilModifier'] ?? 0)
+            ->setAccuracyModifier($arrayProperties['accuracyModifier'] ?? 0)
             // todo: ItemSlot[]
         ;
 

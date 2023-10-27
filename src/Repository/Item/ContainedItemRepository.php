@@ -6,6 +6,7 @@ namespace App\Repository\Item;
 
 use App\Entity\Item\ContainedItem;
 use App\Interfaces\Item\ContainedItemInterface;
+use App\Interfaces\Item\ItemInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
@@ -159,5 +160,63 @@ class ContainedItemRepository extends ServiceEntityRepository
             ])
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function findUsedInQuest(ItemInterface $item): ?array
+    {
+        $containedItems = $this->createQueryBuilder('ci')
+            ->leftJoin('ci.item', 'cii')
+            ->leftJoin('ci.usedInQuests', 'q')
+            ->andWhere('cii.id = :id')
+            ->setParameters([
+                'id' => $item->getId(),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $usedInQuest = null;
+        if ($containedItems) {
+            /** @var ContainedItemInterface $containedItem */
+            foreach ($containedItems as $containedItem) {
+                $quests = $containedItem->getUsedInQuests();
+                foreach ($quests as $quest) {
+                    $questItem['count'] = $containedItem->getCount();
+                    $questItem['quest'] = $quest;
+                    $usedInQuest['quests'][] = $questItem;
+                }
+            }
+        }
+
+        return $usedInQuest;
+    }
+
+    public function findReceivedFromQuest(ItemInterface $item): ?array
+    {
+        $containedItems = $this->createQueryBuilder('ci')
+            ->leftJoin('ci.item', 'cii')
+            ->leftJoin('ci.receivedFromQuests', 'q')
+            ->andWhere('cii.id = :id')
+            ->setParameters([
+                'id' => $item->getId(),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $receivedFromQuest = null;
+        if ($containedItems) {
+            /** @var ContainedItemInterface $containedItem */
+            foreach ($containedItems as $containedItem) {
+                $quests = $containedItem->getReceivedFromQuests();
+                foreach ($quests as $quest) {
+                    $questItem['count'] = $containedItem->getCount();
+                    $questItem['quest'] = $quest;
+                    $receivedFromQuest[] = $questItem;
+                }
+            }
+        }
+
+        return $receivedFromQuest;
     }
 }

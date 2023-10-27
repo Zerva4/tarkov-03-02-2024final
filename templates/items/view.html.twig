@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section>
+            <H2>{{ item.name }}</H2>
+            <div class="container container_bg">
+                <div class="description">
+                    <div class="description_main">
+                        <img src="{{ asset('/storage/images/items/' ~ item.imageName)  | imagine_filter('350x150') }}" alt="{{ item.name }}" />
+                            <div class="character">
+                                {% if item.properties is not empty %}
+                                <span class="center hl">{{ 'Основные характеристики' |trans({}, 'front.items') }}</span>
+                                {% set templateName = 'items/properties/' ~ item.typeItem ~'.html.twig' %}
+                                {% include(templateName) %}
+                                {% endif %}
+                                <span class="center hl">{{ 'Сведения' |trans({}, 'front.items') }}</span>
+                                <div class="character__text">
+                                    <span class="value-stock">{{ 'Вес' |trans({}, 'front.items') }}</span>
+                                    <span class="value-properties">{{ item.weight }} {{ 'кг' |trans({}, 'front.items') }}</span>
+                                </div>
+{#                                <div class="character__text">#}
+{#                                    <span class="value-stock">Продажа</span>#}
+{#                                    <span class="value-properties"><a href="#">Миротворец IV</a></span>#}
+{#                                </div>#}
+{#                                <div class="character__text">#}
+{#                                    <span class="value-stock">Барахолка</span>#}
+{#                                    <span class="value-properties">Продается</span>#}
+{#                                </div>#}
+                            </div>
+
+                    </div>
+                    <div class="description_second">
+                        <div class="reference">
+                            <div class="header_notlink">
+                                <h2 class="h">Описание</h2>
+                            </div>
+                            <div class="text text_notlink">
+                                <Br />
+                                {{ item.description }}
+                            </div>
+                        </div>
+                        {% if (usedInQuests is not empty or receivedFromQuests is not empty) %}
+                        <div class="reference">
+                            <div class="header_notlink">
+                                <h2 class="h">Используется в задачах</h2>
+                            </div>
+                            <div class="text text_notlink">
+                                <ul>
+{#                                    <li>1 шт требуется по квесту <a href="#">Оружейник. Часть 8 (АКМ)</a></li>#}
+                                    {% if receivedFromQuests is not empty %}
+                                        {% for quest in receivedFromQuests %}
+                                            <li>{{ quest.count }} шт выдается за выполнение квеста <a href="#">{{ quest.quest.name }}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if usedInQuests is not empty %}
+                                        {% for quest in usedInQuests %}
+                                            <li>Используется при выполнении квеста <a href="#">{{ quest.quest.name }}</a></li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

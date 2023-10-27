@@ -12,11 +12,13 @@
                 </div>
             </div>
             <div class="image">
-                {% if unlockInCashOffer.item.imageName %}
-                    <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x134') }}" alt="{{ unlockInCashOffer.item.name }}">
-                {% else %}
-                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ unlockInCashOffer.item.name }}">
-                {% endif %}
+                <a href="{{ absolute_url(path('app_view_item', {'slug': unlockInCashOffer.item.slug})) }}">
+                    {% if unlockInCashOffer.item.imageName %}
+                        <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x134') }}" alt="{{ unlockInCashOffer.item.name }}">
+                    {% else %}
+                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ unlockInCashOffer.item.name }}">
+                    {% endif %}
+                </a>
             </div>
             <div class="contains">
                 <div class="name">{{ unlockInCashOffer.item.shortName }}</div>
