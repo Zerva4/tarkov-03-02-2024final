@@ -27,12 +27,13 @@ class ItemsController extends AbstractController
 
         // Используется в квесте
         $usedInQuests = $containedItemRepository->findUsedInQuest($item);
+        dump($usedInQuests);
         // Полученно из квеста
         $receivedFromQuests = $containedItemRepository->findReceivedFromQuest($item);
 
         return $this->render('items/view.html.twig', [
             'item' => $item,
-            'usedInQuests' => $usedInQuests,
+            'usedInQuests' => null,
             'receivedFromQuests' => $receivedFromQuests,
         ]);
     }

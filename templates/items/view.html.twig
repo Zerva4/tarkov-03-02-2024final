@@ -49,7 +49,6 @@
                             </div>
                             <div class="text text_notlink">
                                 <ul>
-{#                                    <li>1 шт требуется по квесту <a href="#">Оружейник. Часть 8 (АКМ)</a></li>#}
                                     {% if receivedFromQuests is not empty %}
                                         {% for quest in receivedFromQuests %}
                                             <li>{{ quest.count }} шт выдается за выполнение квеста <a href="{{ absolute_url(path('app_view_quest', {'slug': quest.quest.slug})) }}">{{ quest.quest.name }}</a>
