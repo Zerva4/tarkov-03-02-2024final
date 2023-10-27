@@ -80,9 +80,9 @@ interface ItemInterface
     public function setShortName(?string $name): ItemInterface;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string;
+    public function getDescription(): ?string;
 
     /**
      * @param string $description

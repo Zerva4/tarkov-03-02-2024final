@@ -283,7 +283,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         return $this;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->translate($this->currentLocale, false)->getDescription();
     }
