@@ -15,6 +15,7 @@ use App\Entity\Workshop\Craft;
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\MapInterface;
+use App\Interfaces\Quest\QuestAdviceInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Quest\QuestObjectiveInterface;
@@ -133,6 +134,10 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
     #[ORM\OneToMany(mappedBy: 'quest', targetEntity: TraderStanding::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $traderStandings;
 
+    #[ORM\ManyToMany(targetEntity: QuestAdvice::class, mappedBy: 'quests', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinTable('quests_advice_mapping')]
+    private Collection $advices;
+
     public function __construct(string $defaultLocale = '%app.default_locale%')
     {
         parent::__construct($defaultLocale);
@@ -145,6 +150,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         $this->unlockInCashOffers = new ArrayCollection();
         $this->neededKeys = new ArrayCollection();
         $this->traderStandings = new ArrayCollection();
+        $this->advices = new ArrayCollection();
     }
 
     public function getApiId(): ?string
@@ -635,6 +641,44 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         if ($this->traderStandings->contains($traderStanding)) {
             $this->traderStandings->removeElement($traderStanding);
             $traderStanding->setQuest(null);
+        }
+
+        return $this;
+    }
+
+    public function getAdvices(): Collection
+    {
+        return $this->advices;
+    }
+
+    public function getRandomAdvice()
+    {
+        $advices = $this->getAdvices()->toArray();
+        dump($advices);
+    }
+
+    public function setAdvices(Collection $advices): QuestInterface
+    {
+        $this->advices = $advices;
+
+        return $this;
+    }
+
+    public function addAdvice(QuestAdviceInterface $advice): QuestInterface
+    {
+        if (!$this->advices->contains($advice)) {
+            $this->advices->add($advice);
+            $advice->addQuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdvice(QuestAdviceInterface $advice): QuestInterface
+    {
+        if ($this->advices->contains($advice)) {
+            $this->advices->removeElement($advice);
+            $advice->removeQuest($this);
         }
 
         return $this;
