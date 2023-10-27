@@ -6,12 +6,14 @@ namespace App\Controller;
 
 use App\Entity\Quest\QuestAdvice;
 use App\Entity\Quest\QuestObjective;
+use App\Interfaces\Quest\QuestInterface;
 use App\Repository\Quest\QuestObjectiveRepository;
 use App\Repository\Quest\QuestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Translation\t;
 
 class QuestsController extends FrontController
 {
@@ -35,9 +37,16 @@ class QuestsController extends FrontController
     {
         $questAdviceRepository = $this->em->getRepository(QuestAdvice::class);
         $quest = $questRepository->findQuestBySlug($slug, $this->getLocale());
+        $quest->getRandomAdvice();
+        if (!$quest instanceof QuestInterface ) {
+            throw $this->createNotFoundException(
+                (string)t('Запрашиваемый ресурс не найден.', [], 'front.items')
+            );
+        }
+        $advice = $questAdviceRepository->findRandomAdvice($quest);
 
         return $this->render('quests/view.html.twig', [
-            'advice' => $questAdviceRepository->findRandomAdvice()->getBody(),
+            'advice' => $advice->getBody(),
             'quest' => $quest,
         ]);
     }
