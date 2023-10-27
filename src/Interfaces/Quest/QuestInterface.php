@@ -376,4 +376,27 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function removeTraderStanding(TraderStandingInterface $traderStanding): QuestInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getAdvices(): Collection;
+
+    /**
+     * @param Collection $advices
+     * @return QuestInterface
+     */
+    public function setAdvices(Collection $advices): QuestInterface;
+
+    /**
+     * @param QuestAdviceInterface $advice
+     * @return QuestInterface
+     */
+    public function addAdvice(QuestAdviceInterface $advice): QuestInterface;
+
+    /**
+     * @param QuestAdviceInterface $advice
+     * @return QuestInterface
+     */
+    public function removeAdvice(QuestAdviceInterface $advice): QuestInterface;
 }
