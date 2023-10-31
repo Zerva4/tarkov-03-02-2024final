@@ -9,6 +9,8 @@ use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
 use DateTime;
+use DateTimeInterface;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
@@ -33,8 +35,13 @@ class Article implements TranslatableInterface, TimestampableInterface
     use TranslatableTrait;
     use TranslatableMagicMethodsTrait;
 
+    public const STATUS_DRAFT = 0;
+    public const STATUS_TO_PUBLISH = 1;
+    public const STATUS_PUBLISHED = 2;
+    public const STATUS_ARCHIVED = 3;
+
     #[ORM\Column(type: 'boolean')]
-    private bool $published;
+    private int $status = self::STATUS_DRAFT;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imagePoster = null;
@@ -56,6 +63,14 @@ class Article implements TranslatableInterface, TimestampableInterface
      * )
      */
     private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'integer', nullable: true, options: ['default' => 1, 'comment' => 'Сложность'])]
+    private ?int $complexity;
+
+    #[ORM\Column(type: 'time', nullable: true)]
+    private ?DateTimeInterface $readingDuration;
+
+    private Collection $categories;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
@@ -107,5 +122,25 @@ class Article implements TranslatableInterface, TimestampableInterface
         }
 
         return $this;
+    }
+
+    public function getComplexity(): ?int
+    {
+        return $this->complexity;
+    }
+
+    public function setComplexity(?int $complexity): void
+    {
+        $this->complexity = $complexity;
+    }
+
+    public function getReadingDuration(): ?DateTimeInterface
+    {
+        return $this->readingDuration;
+    }
+
+    public function setReadingDuration(?DateTimeInterface $readingDuration): void
+    {
+        $this->readingDuration = $readingDuration;
     }
 }

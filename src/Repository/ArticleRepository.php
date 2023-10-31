@@ -47,7 +47,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->select('a.id, a.slug,  a.createdAt, a.updatedAt, a.imagePoster, t.title AS title, t.description AS description')
             ->leftJoin('a.translations', 't')
-            ->andWhere('a.published = true')
+//            ->andWhere('a.published = true')
             ->setFirstResult(0)
             ->setMaxResults($maxItem)
             ->getQuery()
