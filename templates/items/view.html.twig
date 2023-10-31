@@ -54,8 +54,8 @@
                                             <li>{{ quest.count }} шт выдается за выполнение квеста <a href="{{ absolute_url(path('app_view_quest', {'slug': quest.quest.slug})) }}">{{ quest.quest.name }}</a>
                                         {% endfor %}
                                     {% endif %}
-                                    {% if usedInQuests is not empty %}
-                                        {% for quest in usedInQuests %}
+                                    {% if usedInQuests.quests is not empty %}
+                                        {% for quest in usedInQuests.quests %}
                                             <li>Используется при выполнении квеста <a href="{{ absolute_url(path('app_view_quest', {'slug': quest.quest.slug})) }}">{{ quest.quest.name }}</a></li>
                                         {% endfor %}
                                     {% endif %}
