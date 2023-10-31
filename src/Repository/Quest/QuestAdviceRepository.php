@@ -36,11 +36,11 @@ class QuestAdviceRepository extends ServiceEntityRepository
             ->andWhere('qa.published = true')
 //            ->andWhere('qa.quests IN :questId')
 //            ->setParameter('questId', $quest->getId())
-            ->setFirstResult(rand(0, $count - 1))
+            ->setFirstResult(rand(0, $count))
             ->setMaxResults(1)
 //            ->setFirstResult($rndOffset)
             ->getQuery()
-            ->getSingleResult()
+            ->getOneOrNullResult()
         ;
     }
 }
