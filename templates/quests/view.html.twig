@@ -161,8 +161,10 @@
                                 </div>
                                 {% endif %}
                                 {% if quest.receivedItems is not empty %}
+                                    {% set countMoney = 0 %}
                                     {% for receivedItem in quest.receivedItems %}
                                         {% if 'money' in receivedItem.item.types %}
+                                            {% set countMoney = countMoney + 1 %}
                                             <div class="prop">
                                                 <div class="name">
                                                     {{ 'Деньги'|trans({}, 'front.quests') }}
@@ -204,7 +206,7 @@
                             {% if quest.usedItems is not empty %}
                                 {{ include('quests/blocks/used-items.html.twig') }}
                             {% endif %}
-                            {% if quest.receivedItems is not empty %}
+                            {% if (quest.receivedItems is not empty) and (quest.receivedItems | length > countMoney) %}
                                 {{ include('quests/blocks/received-items.html.twig') }}
                             {% endif %}
                             {% if (quest.unlockInCashOffers is not empty) or (quest.unlockBarters is not empty) %}
