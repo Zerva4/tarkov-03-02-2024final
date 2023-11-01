@@ -59,22 +59,6 @@ class ImportMapsCommand extends Command
                     enemies,
                     raidDuration,
                     players
-                    bosses {
-                        name,
-                        spawnChance,
-                        spawnTime,
-                        spawnTimeRandom,
-                        spawnTrigger,
-                        spawnLocations {
-                            name, chance
-                        }
-                        escorts {
-                            name,
-                            amount {
-                                count, chance
-                            }
-                        }
-                    }
                     accessKeys { id, name }
                     accessKeysMinPlayerLevel
                     spawns {
