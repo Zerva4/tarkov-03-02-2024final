@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command\Loaders;
 
-use App\Interfaces\Item\ItemPropertiesAmmoInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesAmmoInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesAmmoLoader

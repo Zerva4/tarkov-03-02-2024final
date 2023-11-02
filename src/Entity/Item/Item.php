@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
+use App\Entity\Item\Properties\ItemProperties;
+use App\Entity\Item\Properties\ItemPropertiesMagazine;
+use App\Entity\Item\Properties\ItemPropertiesWeapon;
 use App\Entity\Quest\QuestKey;
 use App\Entity\Trader\TraderCashOffer;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\Item\ItemInterface;
-use App\Interfaces\Item\ItemPropertiesInterface;
-use App\Interfaces\Item\ItemPropertiesMagazineInterface;
-use App\Interfaces\Item\ItemPropertiesWeaponInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesMagazineInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesWeaponInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;

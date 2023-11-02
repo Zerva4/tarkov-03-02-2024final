@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command\Loaders;
 
-use App\Interfaces\Item\ItemPropertiesWeaponModInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesWeaponModInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesWeaponModLoader

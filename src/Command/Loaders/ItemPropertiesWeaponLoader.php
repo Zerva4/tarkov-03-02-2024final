@@ -6,7 +6,7 @@ namespace App\Command\Loaders;
 
 use App\Entity\Item\Item;
 use App\Interfaces\Item\ItemInterface;
-use App\Interfaces\Item\ItemPropertiesWeaponInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesWeaponInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesWeaponLoader

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Type;
 
 use App\Entity\Item\ItemMaterial;
-use App\Entity\Item\ItemPropertiesChestRig;
+use App\Entity\Item\Properties\ItemPropertiesChestRig;
 use App\Repository\Item\ItemMaterialRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

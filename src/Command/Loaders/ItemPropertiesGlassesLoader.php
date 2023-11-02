@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command\Loaders;
 
 use App\Entity\Item\ItemMaterial;
-use App\Interfaces\Item\ItemPropertiesGlassesInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesGlassesInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesGlassesLoader

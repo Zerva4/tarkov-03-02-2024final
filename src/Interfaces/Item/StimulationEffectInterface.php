@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Interfaces\Item;
 
+use App\Interfaces\Item\Properties\ItemPropertiesFoodDrinkInterface;
+
 interface StimulationEffectInterface
 {
     public function getType(): ?string;
