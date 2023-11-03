@@ -40,11 +40,11 @@
                     <a href="#">{{ 'Новости'|trans({}, 'front.nav') }}</a>
                 </div>
             </div>
-            <div class="search">
-                <input type="text" id="search" class="input" name="search" placeholder="{{ 'Поиск по сайту'|trans({}, 'front.nav') }}">
-                <label for="search" class="icon"></label>
-            </div>
-            <div class="login" id="login_main">{{ 'Войти'|trans({}, 'front.nav') }}</div>
+{#            <div class="search">#}
+{#                <input type="text" id="search" class="input" name="search" placeholder="{{ 'Поиск по сайту'|trans({}, 'front.nav') }}">#}
+{#                <label for="search" class="icon"></label>#}
+{#            </div>#}
+{#            <div class="login" id="login_main">{{ 'Войти'|trans({}, 'front.nav') }}</div>#}
 
             <div class="mobile_menu">
                 <div class="close" id="menu_mobile_close" {{ stimulus_controller('mobile-menu') }} {{ stimulus_action('click->mobile-menu', 'close') }}></div>
