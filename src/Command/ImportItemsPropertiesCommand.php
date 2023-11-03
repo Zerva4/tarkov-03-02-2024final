@@ -588,7 +588,7 @@ class ImportItemsPropertiesCommand extends Command
                 // Set item properties
                 if (count($item['properties']) > 1) {
                     if (!$itemEntity instanceof ItemInterface || null === $itemEntity->getProperties()) {
-                        $entityName = 'App\Entity\Item\\' . $item['properties']['__typename'];
+                        $entityName = 'App\Entity\Item\Properties\\' . $item['properties']['__typename'];
                         $entityProperties = new $entityName();
                     } else {
                         $entityProperties = $itemEntity->getProperties();
