@@ -33,7 +33,7 @@ class QuestsController extends FrontController
         ]);
     }
 
-    #[Route('/quests/{slug}', name: 'app_view_quest', requirements: ['traderName' => '^[A-Za-z0-9-]*$'])]
+    #[Route('/quest/{slug}', name: 'app_view_quest', requirements: ['traderName' => '^[A-Za-z0-9-]*$'])]
     public function viewQuest(string $slug, QuestRepository $questRepository, QuestObjectiveRepository $questObjectiveRepository): Response
     {
         $adviceBody = null;
