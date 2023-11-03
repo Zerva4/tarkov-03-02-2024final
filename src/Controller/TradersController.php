@@ -32,7 +32,7 @@ class TradersController extends FrontController
         return $this->redirectToRoute('app_view_trader', ['traderName' => $this->traders[0]['slug']]);
     }
 
-    #[Route('/traders/{traderName}', name: 'app_view_trader', requirements: ['traderName' => '^[A-Za-z]*$'])]
+    #[Route('/trader/{traderName}', name: 'app_view_trader', requirements: ['traderName' => '^[A-Za-z]*$'])]
     public function trader(string $traderName, TraderLevelRepository $levelRepository, QuestRepository $questRepository): Response
     {
         $this->traders = $this->traderRepository->findAllTraders(
