@@ -5,16 +5,11 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Item\Item;
-use App\Entity\Item\ItemPropertiesAmmo;
 use App\Filter\ItemPropertiesFilter;
-use App\Form\Field\ItemPropertiesAmmoField;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;

@@ -6,7 +6,7 @@ namespace App\Command\Loaders;
 
 use App\Entity\Item\Item;
 use App\Interfaces\Item\ItemInterface;
-use App\Interfaces\Item\ItemPropertiesMagazineInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesMagazineInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesMagazineLoader

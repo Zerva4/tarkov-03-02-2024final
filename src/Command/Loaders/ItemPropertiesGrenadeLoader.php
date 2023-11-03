@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command\Loaders;
 
-use App\Interfaces\Item\ItemPropertiesGrenadeInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesGrenadeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesGrenadeLoader

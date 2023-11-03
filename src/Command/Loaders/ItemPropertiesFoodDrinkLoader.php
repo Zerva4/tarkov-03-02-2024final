@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command\Loaders;
 
 use App\Entity\Item\StimulationEffect;
-use App\Interfaces\Item\ItemPropertiesFoodDrinkInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesFoodDrinkInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesFoodDrinkLoader

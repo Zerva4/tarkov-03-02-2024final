@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
+use App\Entity\Item\Properties\ItemProperties;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ItemCaliberInterface;
-use App\Interfaces\Item\ItemPropertiesInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\ItemCaliberRepository;
 use App\Traits\UuidPrimaryKeyTrait;

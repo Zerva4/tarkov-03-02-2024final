@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
-use App\Interfaces\Item\ItemPropertiesInterface;
+use App\Entity\Item\Properties\ItemProperties;
 use App\Interfaces\Item\ItemStorageGridInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Repository\Item\ItemStorageGridRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\Common\Collections\ArrayCollection;

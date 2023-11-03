@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Item;
 
-use App\Entity\Item\ItemPropertiesScope;
+use App\Entity\Item\Properties\ItemPropertiesScope;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Interfaces\Item;
 
+use App\Interfaces\Item\Properties\ItemPropertiesInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesMagazineInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesWeaponInterface;
 use App\Interfaces\Quest\QuestKeyInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use Doctrine\Common\Collections\Collection;

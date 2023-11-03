@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
+use App\Entity\Item\Properties\ItemProperties;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\ItemMaterialInterface;
-use App\Interfaces\Item\ItemPropertiesInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\ItemMaterialRepository;
 use App\Traits\UuidPrimaryKeyTrait;

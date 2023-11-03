@@ -15,7 +15,7 @@
                 <div class="text">
                     <div class="traders" data-turbo="true">
                         {% for trader in traders %}
-                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="trader">
+                            <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug })) }}" class="trader">
                                 {% if trader.imageName %}
                                 <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('80x80') }}" alt="{{ trader.shortName }}">
                                 {% else %}
@@ -118,7 +118,7 @@
                         <div class="tab active" id="tab_1">
                             <div class="quests" data-turbo="true">
                                 {% for quest in quests %}
-                                <a href="{{ absolute_url(path('app_quests', {})) }}/{{ quest.slug }}/" class="quest">
+                                <a href="{{ absolute_url(path('app_view_quest', {'slug': quest.slug})) }}" class="quest">
                                     <div class="image">
                                         {% if quest.imageName %}
                                             <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.name }}">

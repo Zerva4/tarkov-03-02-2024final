@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Entity\Item\ItemPropertiesAmmo;
-use Symfony\Component\DependencyInjection\Container;
+use App\Entity\Item\Properties\ItemPropertiesAmmo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use function Symfony\Component\Translation\t;

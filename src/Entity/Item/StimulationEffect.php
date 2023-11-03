@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
+use App\Entity\Item\Properties\ItemPropertiesFoodDrink;
 use App\Entity\TranslatableEntity;
-use App\Interfaces\Item\ItemPropertiesFoodDrinkInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesFoodDrinkInterface;
 use App\Interfaces\Item\StimulationEffectInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\StimulationEffectRepository;

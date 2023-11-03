@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command\Loaders;
 
-use App\Interfaces\Item\ItemPropertiesBackpackInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesBackpackInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesBackpackLoader
