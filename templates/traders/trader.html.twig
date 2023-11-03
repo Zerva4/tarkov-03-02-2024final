@@ -15,7 +15,7 @@
                 <div class="text">
                     <div class="traders" data-turbo="true">
                         {% for trader in traders %}
-                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}" class="trader">
+                            <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug })) }}" class="trader">
                                 {% if trader.imageName %}
                                 <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('80x80') }}" alt="{{ trader.shortName }}">
                                 {% else %}
