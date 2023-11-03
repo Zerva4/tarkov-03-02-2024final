@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="main">
                     <div class="directions" data-turbo="true">
-                        <a href="#" class="item">
+                        <a href="{{ absolute_url(path('app_bullets', {})) }}" class="item">
                             <div class="image">
                                 <img src="{{ asset('assets/img/bullets_main.svg') }}" alt="">
                             </div>
@@ -160,7 +160,7 @@
                 <div class="traders_main">
                     {% for trader in traders %}
                         <div class="trader" data-turbo="true">
-                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/" class="image">
+                            <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}" class="image">
                                 {% if trader.imageName %}
                                     <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('118x118') }} " alt="{{ trader.shortName }}" />
                                 {% else %}
@@ -168,12 +168,12 @@
                                 {% endif %}
                             </a>
                             <div class="name">
-                                <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}">{{ trader.shortName }}</a>
+                                <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}">{{ trader.shortName }}</a>
                             </div>
                             <div class="links">
-                                <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/#quests" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
+                                <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#quests" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
                                 {% if trader.cashOffers.count > 0 %}
-                                    <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/#items" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
+                                    <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#items" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
                                 {% endif %}
                             </div>
                         </div>
