@@ -4,13 +4,13 @@
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Снижение скорости' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.speedPenalty }} %</span>
+    <span class="value-properties">{{ item.properties.speedPenalty*100 }} %</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Снижение поворота' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.turnPenalty }} %</span>
+    <span class="value-properties">{{ item.properties.turnPenalty*100 }} %</span>
 </div>
 <div class="character__text">
-    <span class="value-stock">{{ 'Снижение эргономик' |trans({}, 'front.items') }}</span>
+    <span class="value-stock">{{ 'Снижение эргономики' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.ergoPenalty }} %</span>
 </div>
