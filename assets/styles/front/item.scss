@@ -11,6 +11,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    img {
+      max-height: 150px;
+    }
   }
   &_second {
     width: 75%;

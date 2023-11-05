@@ -2,12 +2,34 @@
     <span class="value-stock">{{ 'Калибр' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.caliber }}</span>
 </div>
+{% if item.properties.ammoType is not empty %}
+    <div class="character__text">
+        <span class="value-stock">{{ 'Тип' |trans({}, 'front.items') }}</span>
+        <span class="value-properties">{{ item.properties.ammoType | trans({}, 'front.items') }}</span>
+    </div>
+{% endif %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Кол-во фрагментов' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.projectileCount }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Урон' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.damage }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Бронепробитие' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.penetrationPower }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Урон по броне' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.armorDamage }}%</span>
+</div>
 <div class="character__text">
     <span class="value-stock">{{ 'Макс. кол-во в ячейке' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.stackMaxSize }}</span>
 </div>
 <div class="character__text">
-    <span class="value-stock">{{ 'Трассируещий патрон' |trans({}, 'front.items') }}</span>
+    <span class="value-stock">{{ 'Трассирующий патрон' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{% if item.properties.tracer %}{{ 'Да' | trans({}, 'front.items') }}{% else %}{{ 'Нет' | trans({}, 'front.items') }}{% endif %}</span>
 </div>
 {% if item.properties.tracer %}
@@ -16,58 +38,33 @@
     <span class="value-properties">{{ item.properties.tracerColor | trans({}, 'front.items') }}</span>
 </div>
 {% endif %}
-{% if item.properties.ammoType is not empty %}
-<div class="character__text">
-    <span class="value-stock">{{ 'Эргономика' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.ammoType | trans({}, 'front.items') }}</span>
-</div>
-{% endif %}
-<div class="character__text">
-    <span class="value-stock">{{ 'Кол-во пуль' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.projectileCount }}</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Урон' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.damage }}</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Урон по броне' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.armorDamage }}</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Шанс фрагментации' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.fragmentationChance }} %</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Шанс рикошета' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.ricochetChance }} %</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Шанс пробития' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.penetrationChance }} %</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Сила бронепробития' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.penetrationPower }}</span>
-</div>
+<span class="center hl">{{ 'Дополнительно' |trans({}, 'front.items') }}</span>
 <div class="character__text">
     <span class="value-stock">{{ 'Точность' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.accuracyModifier }} %</span>
+    <span class="value-properties">{{ item.properties.accuracyModifier }}%</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Отдача' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.recoilModifier }} %</span>
+    <span class="value-properties">{{ item.properties.recoilModifier }}%</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Скорость' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.initialSpeed }} {{ 'м/с' |trans({}, 'front.items') }}</span>
 </div>
 <div class="character__text">
-    <span class="value-stock">{{ 'Слабое кровотечени' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.lightBleedModifier }} %</span>
+    <span class="value-stock">{{ 'Шанс фрагментации' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.fragmentationChance*100 }}%</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Шанс рикошета' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.ricochetChance*100 }}%</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Слабое кровотечение' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.lightBleedModifier*100 }}%</span>
 </div><div class="character__text">
     <span class="value-stock">{{ 'Сильное кровотечение' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.heavyBleedModifier }} %</span>
+    <span class="value-properties">{{ item.properties.heavyBleedModifier*100 }}%</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Износ' |trans({}, 'front.items') }}</span>
@@ -79,7 +76,10 @@
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Выносливость за выстрел' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.staminaBurnPerDamage }}</span>
+    <span class="value-properties">
+        {% set variableStaminaBurnPerDamage = item.properties.staminaBurnPerDamage %}
+        {{ variableStaminaBurnPerDamage | number_format(2) }}%
+    </span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Баллистический коэфф.' |trans({}, 'front.items') }}</span>
