@@ -11,6 +11,7 @@
         <span class="value-stock">{{ 'Материал' |trans({}, 'front.items') }}</span>
         <span class="value-properties">{{ item.properties.material.name }}</span>
     </div>
+{% endif %}
 <div class="character__text">
     <span class="value-stock">{{ 'Тип защиты' | trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.armorType | trans({}, 'front.items')  }}</span>
@@ -41,4 +42,3 @@
     <span class="value-stock">{{ 'Заброневой урон' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.bluntThroughput }}</span>
 </div>
-{% endif %}
