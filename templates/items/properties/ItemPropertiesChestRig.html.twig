@@ -4,13 +4,13 @@
     <span class="value-properties">{{ item.properties.class }}</span>
 </div>
 {% endif %}
-{% if item.properties.class is not empty %}
+{% if item.properties.durability is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Прочность' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.durability }}</span>
 </div>
 {% endif %}
-{% if item.properties.class is not empty %}
+{% if item.properties.repairCost is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Стоимость ремонта (1 ед.)' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.repairCost }}</span>
@@ -38,7 +38,7 @@
     <span class="value-stock">{{ 'Емкость' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.capacity }}</span>
 </div>
-{% if item.properties.class is not empty %}
+{% if item.properties.armorType is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Тип защиты' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.armorType |trans({}, 'front.items') }}</span>
