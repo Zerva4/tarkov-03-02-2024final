@@ -72,7 +72,9 @@
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Коэффициент нагрева' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.heatFactor }} %</span>
+    <span class="value-properties">
+        {% set variableHeatFactor = item.properties.heatFactor %}
+        {{ variableHeatFactor | number_format(2) }}%</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Выносливость за выстрел' |trans({}, 'front.items') }}</span>
@@ -80,10 +82,6 @@
         {% set variableStaminaBurnPerDamage = item.properties.staminaBurnPerDamage %}
         {{ variableStaminaBurnPerDamage | number_format(2) }}%
     </span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Баллистический коэфф.' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.ballisticCoefficient }}</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Диаметр' |trans({}, 'front.items') }}</span>
