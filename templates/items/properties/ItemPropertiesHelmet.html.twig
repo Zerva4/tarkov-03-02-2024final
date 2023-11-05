@@ -1,26 +1,37 @@
+{% if item.properties.class is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Класс' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.class }}</span>
 </div>
+{% endif %}
+{% if item.properties.durability is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Прочность' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.durability }}</span>
 </div>
+{% endif %}
+{% if item.properties.repairCost is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Стоимость ремонта (1 ед.)' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.repairCost }}</span>
 </div>
+{% endif %}
+{% if item.properties.speedPenalty is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Снижение скорости' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.speedPenalty }} %</span>
+    <span class="value-properties">{{ item.properties.speedPenalty }}%</span>
 </div>
+{% endif %}
+{% if item.properties.turnPenalty is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Снижение поворота' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.turnPenalty }} %</span>
+    <span class="value-properties">{{ item.properties.turnPenalty }}%</span>
 </div>
+{% endif %}
+{% if item.properties.ergoPenalty is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Снижение эргономик' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.ergoPenalty }} %</span>
+    <span class="value-properties">{{ item.properties.ergoPenalty }}%</span>
 </div>
 {% if item.properties.headZones is not empty %}
 <div class="character__text">
@@ -35,18 +46,6 @@
 <div class="character__text">
     <span class="value-stock">{{ 'Защита от ослепления' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{% if item.properties.blindnessProtection %}{{ 'Да' | trans({}, 'front.items') }}{% else %}{{ 'Нет' | trans({}, 'front.items') }}{% endif %}</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Рикошет X' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.ricochetX }}</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Рикошет Y' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.ricochetY }}</span>
-</div>
-<div class="character__text">
-    <span class="value-stock">{{ 'Рикошет Z' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.ricochetZ }}</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Тип защиты' |trans({}, 'front.items') }}</span>
