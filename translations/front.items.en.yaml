@@ -4,6 +4,8 @@
 Размер: Size
 bullet: Bullet
 buckshot: Buckshot
+Single fire: Single fire
+Full auto: Full auto
 
 Калибр: Caliber
 Макс. кол-во в ячейке: Stack bullets
@@ -62,3 +64,4 @@ Light: Light
 
 tracerRed: Red
 tracerGreen: Green
+yellow: Желтый

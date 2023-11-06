@@ -4,6 +4,8 @@
 Размер: Размер
 bullet: Пуля
 buckshot: Картечь
+Single fire: Полуавтом. режим
+Full auto: Автом. режим
 
 Калибр: Калибр
 Макс. кол-во в ячейке: Макс. кол-во в ячейке
@@ -61,3 +63,4 @@ Light: Легкий
 
 tracerRed: Красный
 tracerGreen: Зеленый
+yellow: Yellow
