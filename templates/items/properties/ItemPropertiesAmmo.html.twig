@@ -41,11 +41,11 @@
 <span class="center hl">{{ 'Дополнительно' |trans({}, 'front.items') }}</span>
 <div class="character__text">
     <span class="value-stock">{{ 'Точность' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.accuracyModifier }}%</span>
+    <span class="value-properties">{{ item.properties.accuracyModifier*100 }}%</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Отдача' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.recoilModifier }}%</span>
+    <span class="value-properties">{{ item.properties.recoilModifier*100 }}%</span>
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Скорость' |trans({}, 'front.items') }}</span>
