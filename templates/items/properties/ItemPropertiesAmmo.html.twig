@@ -79,7 +79,7 @@
 <div class="character__text">
     <span class="value-stock">{{ 'Выносливость за выстрел' |trans({}, 'front.items') }}</span>
     <span class="value-properties">
-        {% set variableStaminaBurnPerDamage = item.properties.staminaBurnPerDamage %}
+        {% set variableStaminaBurnPerDamage = item.properties.staminaBurnPerDamage*100 %}
         {{ variableStaminaBurnPerDamage | number_format(2) }}%
     </span>
 </div>
