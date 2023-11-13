@@ -11,10 +11,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 150px;
 
-    img {
-      max-height: 150px;
-    }
   }
   &_second {
     width: 75%;
