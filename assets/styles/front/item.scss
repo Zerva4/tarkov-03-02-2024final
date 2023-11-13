@@ -11,9 +11,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-height: 150px;
-
+    height: 150px;
   }
+
   &_second {
     width: 75%;
     @media (min-width:320px) and (max-width: 1080px) {
