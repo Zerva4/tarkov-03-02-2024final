@@ -11,7 +11,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 150px;
+  }
+
+  img {
+    min-height: 150px;
   }
 
   &_second {
