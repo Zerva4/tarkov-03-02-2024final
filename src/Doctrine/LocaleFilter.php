@@ -14,7 +14,6 @@ class LocaleFilter extends SQLFilter
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias): string
     {
         if ( is_subclass_of($targetEntity->name, TranslationInterface::class)) {
-//            dump($targetEntity, $targetTableAlias);
             return sprintf('%s.locale = \'%s\'', 't1_.locale', 'en');
         }
 
