@@ -238,6 +238,6 @@ class ItemPropertiesAmmoType extends AbstractType
 
     public function onPreSetData(FormEvent $event): void
     {
-        //dump($event);
+
     }
 }

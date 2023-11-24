@@ -581,7 +581,6 @@ class ImportItemsPropertiesCommand extends Command
             if (empty($item['properties'])) continue;
 
             if (array_keys($this->item_types, $item['properties']['__typename'])) {
-//                dump($item['properties']['__typename']);
                 /** @var ItemInterface $itemEntity */
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
