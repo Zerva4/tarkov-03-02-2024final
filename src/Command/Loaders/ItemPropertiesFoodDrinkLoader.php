@@ -41,10 +41,6 @@ class ItemPropertiesFoodDrinkLoader
             $entityStimulationEffect->mergeNewTranslations();
             $entityProperties->addStimulationEffect($entityStimulationEffect);
         }
-//        dump($arrayProperties['stimEffects']);
-//        $em->persist($entityStimulationEffect);
-//        $entityProperties->addStimulationEffect($entityStimulationEffect);
-
 
         return $entityProperties;
     }

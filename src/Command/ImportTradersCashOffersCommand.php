@@ -147,10 +147,6 @@ class ImportTradersCashOffersCommand extends Command
                             ->getQuery()
                             ->getOneOrNullResult();
 
-//                        if ($cashOfferItemId === '60479fb29c15b12b9a480fb0') {
-//                            dump($result);
-//                        }
-
                         if ($result) {
                             /** @var $cashOfferEntity $cashOfferEntity */
                             $cashOfferEntity = $cashOffersRepository->findOneBy([
