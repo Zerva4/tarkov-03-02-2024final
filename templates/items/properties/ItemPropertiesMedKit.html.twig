@@ -8,7 +8,7 @@
 </div>
 <div class="character__text">
     <span class="value-stock">{{ 'Макс. лечение' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.maxHealPerUse }}</span>
+    <span class="value-properties">{{ item.properties.maxHealPerUse }}{{ 'за 1 исп.' |trans({}, 'front.items') }}</span>
 </div>
 {% if item.properties.cures is not empty %}
 <div class="character__text">
@@ -17,10 +17,10 @@
 </div>
 {% endif %}
 <div class="character__text">
-    <span class="value-stock">{{ 'Очки за слабое кровотечение' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.hpCostLightBleeding }} {{ 'шт' |trans({}, 'front.items') }}</span>
+    <span class="value-stock">{{ 'Очков за слабое кровотечение' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.hpCostLightBleeding }} {{ 'очков' |trans({}, 'front.items') }}</span>
 </div>
 <div class="character__text">
-    <span class="value-stock">{{ 'Очки за сильное кровотечение' |trans({}, 'front.items') }}</span>
-    <span class="value-properties">{{ item.properties.hpCostHeavyBleeding }} {{ 'шт' |trans({}, 'front.items') }}</span>
+    <span class="value-stock">{{ 'Очков за сильное кровотечение' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.hpCostHeavyBleeding }} {{ 'очков' |trans({}, 'front.items') }}</span>
 </div>

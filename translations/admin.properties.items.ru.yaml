@@ -40,7 +40,7 @@ Ammo type (Chest Rig): Тип защиты
 Blunt throughput: Заброневой урон
 Energy: Энергия
 Hydration: Гидратация
-Units: Еденицы
+Units: Единицы
 Blindness protection: Защита от ослепления
 Type: Тип
 Fuse: Задержка перед взрывом
@@ -60,7 +60,7 @@ Distortion: Перекручивание звука уже готового
 Dry volume: Уровень чистого звука
 High frequency gain: Высокочастные шумы
 Resonance: Резонанс
-Deafening: Deafening
+Deafening: Громкость работы
 Ricochet X: Рикошет X
 Ricochet Y: Рикошет Y
 Ricochet Z: Рикошет Z
@@ -78,8 +78,8 @@ Noise intensity: Интенсивность шума
 Noise scale: Размер шума
 Diffuse intensity: Диффузная интенсивность
 Painkiller duration: Продолжительность обезбаливания
-Energy impact: Энергетическое воздействие
-Hydration impact: Увлажняющее воздействие
+Energy impact: Траты энергии
+Hydration impact: Траты воды
 Sighting range: Прицельная дальность
 Min. limb health: Мин. здоровье конечностей
 Max. limb health: Макс. здоровье конечностей

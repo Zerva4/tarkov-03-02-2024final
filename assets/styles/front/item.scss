@@ -12,6 +12,11 @@
     flex-direction: column;
     align-items: center;
   }
+
+  img {
+    max-height: 150px;
+  }
+
   &_second {
     width: 75%;
     @media (min-width:320px) and (max-width: 1080px) {

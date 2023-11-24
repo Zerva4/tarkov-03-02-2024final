@@ -1,0 +1,69 @@
+Основные характеристики: Properties
+Дополнительно: Additional properties
+Сведения: Information
+Размер: Size
+bullet: Bullet
+buckshot: Buckshot
+Single fire: Single fire
+Full auto: Full auto
+
+Калибр: Caliber
+Макс. кол-во в ячейке: Stack bullets
+Трассирующий патрон: Tracer
+Цвет трассера: Tracer color
+Тип: Type
+Кол-во фрагментов: Qty fragments
+Урон: Damage
+Урон по броне: Armor damage
+Шанс фрагментации: Frag.chance
+Шанс рикошета: Ricochet chance
+Шанс пробития: Penetration chance
+Бронепробитие: Penetration
+Точность: Accuracy
+Отдача: Recoil
+Скорость: Speed
+Слабое кровотечение: Light bleed
+Сильное кровотечение: Heavy bleed
+Износ: Burn weapon factor
+Коэффициент нагрева: Heat factor
+Выносливость за выстрел: Stamina burn
+Баллистический коэфф.: Ballistic coefficient
+Диаметр: Diameter
+Масса: Weight
+м/с: m/s
+
+Класс брони: Class armor
+Прочность: Durability
+Материал: Material
+Тип защиты: Type armor
+Снижение скорости: Reduction sped
+Снижение поворота: Reduced turn
+Снижение эргономики: Reduced ergonomic
+Стоимость ремонта (1 ед.): Repair cost (1 unit)
+Защита частей тела: Protection of body parts
+Заброневой урон: Throughput damage
+Heavy: Heavy
+Light: Light
+Емкость: Capacity
+
+Энергия: Energy
+Гидратация: Hydration
+Единиц: Unit
+
+Излечивание: Healing
+Время использования: Usage time
+Используется кол-во раз: Used of times
+секунды: seconds
+за 1 исп.: for 1 unit
+очков: points
+
+Время действия: Action time
+Зоны лечения: Treatment zones
+сек: sec
+ед.: units
+
+tracerRed: Red
+tracerGreen: Green
+yellow: Yellow
+Red: Red
+Green: Green
