@@ -33,6 +33,11 @@ liip_imagine:
 
     filter_sets:
         cache: ~
+        34x34:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 34, 34 ], position: center, mode: inset }
         100x100:
             cache: default
             quality: 100
@@ -73,6 +78,16 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [ 250, 148 ], position: center, mode: inset }
+        257x77:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 257, 77 ], position: center, mode: inset }
+        350x150:
+            cache: default
+            quality: 100
+            filters:
+                thumbnail: { size: [ 350, 150 ], position: center, mode: inset }
         360x210:
             cache: default
             quality: 100

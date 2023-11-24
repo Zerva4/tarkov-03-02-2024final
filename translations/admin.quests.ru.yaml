@@ -1,5 +1,5 @@
 Published: Публикуется
-Title: Наименование
+Name: Наименование
 Photo: Фото
 Description: Описание
 Localization: Переводы
@@ -17,7 +17,7 @@ Experience: Опыт
 Min. player level: Мин. уровень игрока
 Keys: Ключи
 Type: Тип задачи
-Optional: Обязательная цель?
+Optional: Опционально
 TYPE_NULL: Не определен
 TYPE_PLANT_ITEM: Оставить
 TYPE_SHOOT: Убить
@@ -39,3 +39,5 @@ Items: Предметы
 Restartable: Перезапускаемый
 Kappa required: Требуется для каппы
 Lightkeeper required: Требуется для смотрителя
+Standings: Репутации
+Traders standings: Репутации торговцев

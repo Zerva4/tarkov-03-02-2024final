@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces;
 
 use Doctrine\Common\Collections\Collection;
@@ -37,6 +39,10 @@ interface BossInterface
     public function getSlug(): string;
 
     public function setSlug(string $slug): BossInterface;
+
+    public function getName(): string;
+
+    public function setName(string $name): BossInterface;
 
     /**
      * @return Collection

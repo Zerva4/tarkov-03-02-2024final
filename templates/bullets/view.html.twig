@@ -1,0 +1,391 @@
+{% extends 'bullets/index.html.twig' %}
+
+{% block item_list %}
+    <section>
+        <div class="container">
+            {% if items is defined and items is not empty %}
+            <div class="caliber active" data-caliber="{{ slug }}">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="th_bullet">{{ 'Название'|trans({}, 'front.bullets') }}</th>
+                            <th class="th_damage">{{ 'Урон'|trans({}, 'front.bullets') }}</th>
+                            <th class="th_armor_pen">
+                                {{ 'Бронепробитие'|trans({}, 'front.bullets') }}
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref ref_tdhead">
+                                        {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
+                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="no_mobile th_armor_dam">
+                                {{ 'Урон по броне'|trans({}, 'front.bullets') }}
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref ref_tdhead">
+                                        {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
+                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
+                                    </div>
+                                </div>
+                            </th>
+                            <th class="no_mobile th_speed">{{ 'Скорость'|trans({}, 'front.bullets') }}</th>
+                            <th class="no_mobile th_options">{{ 'Дополнительные свойства'|trans({}, 'front.bullets') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr class="bullet_tr tr_bullets">
+                            <td class="td_bullet">
+                                <div class="ammo">
+                                    <div class="img">
+                                        {% if item.imageName %}
+                                            <img src="{{ asset('/storage/images/items/' ~ item.imageName) | imagine_filter('34x34') }}" alt="{{ item.name }}" />
+                                        {% else %}
+                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('34x34') }}" alt="{{ item.name }}" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="name">
+                                        <div class="name_main">
+                                            {{ item.name }}
+                                        </div>
+                                    </div>
+                                    <div class="options">
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="td_damage">{{ item.properties.damage }}</td>
+                            <td class="td_armor_pen">{{ item.properties.penetrationPower }}</td>
+                            <td class="no_mobile td_armor_dam">{{ item.properties.armorDamage }}%</td>
+                            <td class="no_mobile td_speed">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</td>
+                            <td class="no_mobile td_options">
+                                <div class="info info_td">
+                                    i
+                                    <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Легкое кровотечение'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.lightBleedModifier }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Сильное кровотечение'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.heavyBleedModifier }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Фрагментация'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.fragmentationChance * 100 }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Износ оружия'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.durabilityBurnFactor }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Уменьшение выносливости'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.staminaBurnPerDamage }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Нагрев'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.heatFactor }}%</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Стак патронов'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.stackMaxSize }}</div>
+                                        </div>
+                                        <div class="ref_bullets">
+                                            <div class="property property_tracer">
+                                                    {{ 'Трасер'|trans({}, 'front.bullets') }}
+                                            </div>
+                                            <div class="value">
+                                                {% if item.properties.tracer == true %}
+                                                    {{ 'Да'|trans({}, 'front.bullets') }}
+                                                    {% else %}
+                                                    {{ 'Нет'|trans({}, 'front.bullets') }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                    {% if item.properties.accuracyModifier %}
+                                    <div class="item">
+                                        <span class="property">{{ 'Точность'|trans({}, 'front.bullets') }}:</span>
+                                        <span class="value">{{ item.properties.accuracyModifier * 100 }}%</span>
+                                    </div>
+                                    {% endif %}
+                                    {% if item.properties.recoilModifier %}
+                                    <div class="item">
+                                        <span class="property">{{ 'Отдача'|trans({}, 'front.bullets') }}:</span>
+                                        <span class="value">{{ item.properties.recoilModifier * 100 }}%</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="prems_tr">
+                            <td colspan="6" class="prems_td">
+                                <div class="prems">
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="{{ asset('/assets/img/prem_arm.png') | imagine_filter('34x34') }}" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">{{ 'Пробитие (%) брони по классам'|trans({}, 'front.bullets') }}</div>
+                                                <div class="text">*{{ 'пробитие первым патроном'|trans({}, 'front.bullets') }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">
+                                                {% if item.properties.penetrationPower - 10 >= 10 %}
+                                                    {% set variablePenetrationClass1 = 99.8 %}
+                                                {% elseif item.properties.penetrationPower - 10 <= -15 %}
+                                                    {% set variablePenetrationClass1 = 0 %}
+                                                {% else %}
+                                                    {% set variablePenetrationClass1 = 5 %}
+                                                {% endif %}
+                                                {{ variablePenetrationClass1 | number_format(1) }}
+                                            </div>
+                                            <div class="opt">
+                                            </div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">
+
+                                            </div>
+                                            <div class="opt">0</div>
+                                            <div class="opt">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="{{ asset('/assets/img/prem_punch.png') | imagine_filter('34x34') }}" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">{{ 'Урон по броне по классам'|trans({}, 'front.bullets') }}</div>
+                                                <div class="text">*{{ 'без учета материала'|trans({}, 'front.bullets') }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="opts">
+                                            <div class="opt">
+                                                {% if item.properties.penetrationPower / 10 > 1.1  %}
+                                                    {% set variableArmorClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variableArmorClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                {% endif %}
+                                                {{ variableArmorClass1 | number_format(1) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% if item.properties.penetrationPower / 20 > 1.1  %}
+                                                    {% set variableArmorClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variableArmorClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) %}
+                                                {% endif %}
+                                                {{ variableArmorClass2 | number_format(1) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% if item.properties.penetrationPower / 30 > 1.1  %}
+                                                    {% set variableArmorClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variableArmorClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) %}
+                                                {% endif %}
+                                                {{ variableArmorClass3 | number_format(1) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% if item.properties.penetrationPower / 40 > 1.1  %}
+                                                    {% set variableArmorClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variableArmorClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) %}
+                                                {% endif %}
+                                                {{ variableArmorClass4 | number_format(1) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% if item.properties.penetrationPower / 50 > 1.1  %}
+                                                    {% set variableArmorClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variableArmorClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) %}
+                                                {% endif %}
+                                                {{ variableArmorClass5 | number_format(1) }}
+                                            </div>
+                                            <div class="opt">
+                                                {% if item.properties.penetrationPower / 60 > 1.1  %}
+                                                    {% set variableArmorClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                {% else %}
+                                                    {% set variableArmorClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) %}
+                                                {% endif %}
+                                                {{ variableArmorClass6 | number_format(1) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <div class="icon">
+                                            <img src="{{ asset('/assets/img/prem_flatness.png') | imagine_filter('34x34') }}" alt="">
+                                            <div class="group_ref">
+                                                <div class="name">{{ 'Настильность патрона'|trans({}, 'front.bullets') }}</div>
+                                                <div class="text">*{{ 'без учета начальной скорости оружия'|trans({}, 'front.bullets') }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="flatness">
+                                            {% if item.properties.initialSpeed > 300 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
+                                            {% if item.properties.initialSpeed > 650 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
+                                            {% if item.properties.initialSpeed > 900 %}
+                                                <div class="item active"></div>
+                                            {% else %}
+                                                <div class="item"></div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="mobile_ammo_options">
+                            <td colspan="3">
+                                <div class="options">
+                                    <div class="item">
+                                        <div class="name">{{ 'Урон по броне'|trans({}, 'front.bullets') }}</div>
+                                        <div class="value">{{ item.properties.armorDamage }}%</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">{{ 'Скорость'|trans({}, 'front.bullets') }}</div>
+                                        <div class="value">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="name">
+                                                {{ 'Трасер'|trans({}, 'front.bullets') }}
+                                        </div>
+                                        <div class="value">
+                                            {% if item.properties.tracer == true %}
+                                                {{ 'Да'|trans({}, 'front.bullets') }}
+                                                {% else %}
+                                                {{ 'Нет'|trans({}, 'front.bullets') }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="prems">
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="{{ asset('/assets/img/prem_arm.png') | imagine_filter('34x34') }}" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">{{ 'Пробитие брони (%) по классам'|trans({}, 'front.bullets') }}</div>
+                                                    <div class="text">*{{ 'пробитие первым патроном'|trans({}, 'front.bullets') }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">3%</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                                <div class="opt">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="{{ asset('/assets/img/prem_punch.png') | imagine_filter('34x34') }}" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">{{ 'Урон по броне по классам'|trans({}, 'front.bullets') }}</div>
+                                                    <div class="text">*{{ 'без учета материала'|trans({}, 'front.bullets') }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="opts">
+                                                <div class="opt">
+                                                    {% if item.properties.penetrationPower / 10 > 1.1  %}
+                                                        {% set variableArmorClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% else %}
+                                                        {% set variableArmorClass1 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 10) %}
+                                                    {% endif %}
+                                                    {{ variableArmorClass1 | number_format(1) }}
+                                                </div>
+                                                <div class="opt">
+                                                    {% if item.properties.penetrationPower / 20 > 1.1  %}
+                                                        {% set variableArmorClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% else %}
+                                                        {% set variableArmorClass2 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 20) %}
+                                                    {% endif %}
+                                                    {{ variableArmorClass2 | number_format(1) }}
+                                                </div>
+                                                <div class="opt">
+                                                    {% if item.properties.penetrationPower / 30 > 1.1  %}
+                                                        {% set variableArmorClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% else %}
+                                                        {% set variableArmorClass3 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 30) %}
+                                                    {% endif %}
+                                                    {{ variableArmorClass3 | number_format(1) }}
+                                                </div>
+                                                <div class="opt">
+                                                    {% if item.properties.penetrationPower / 40 > 1.1  %}
+                                                        {% set variableArmorClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% else %}
+                                                        {% set variableArmorClass4 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 40) %}
+                                                    {% endif %}
+                                                    {{ variableArmorClass4 | number_format(1) }}
+                                                </div>
+                                                <div class="opt">
+                                                    {% if item.properties.penetrationPower / 50 > 1.1  %}
+                                                        {% set variableArmorClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% else %}
+                                                        {% set variableArmorClass5 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 50) %}
+                                                    {% endif %}
+                                                    {{ variableArmorClass5 | number_format(1) }}
+                                                </div>
+                                                <div class="opt">
+                                                    {% if item.properties.penetrationPower / 60 > 1.1  %}
+                                                        {% set variableArmorClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * 1.1 %}
+                                                    {% else %}
+                                                        {% set variableArmorClass6 = (item.properties.penetrationPower * (item.properties.armorDamage / 100)) * (item.properties.penetrationPower / 60) %}
+                                                    {% endif %}
+                                                    {{ variableArmorClass6 | number_format(1) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="icon">
+                                                <img src="{{ asset('/assets/img/prem_flatness.png') | imagine_filter('34x34') }}" alt="">
+                                                <div class="group_ref">
+                                                    <div class="name">{{ 'Настильность патрона'|trans({}, 'front.bullets') }}</div>
+                                                    <div class="text">*{{ 'без учета начальной скорости оружия'|trans({}, 'front.bullets') }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="flatness">
+                                                {% if item.properties.initialSpeed > 300 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
+                                                {% if item.properties.initialSpeed > 650 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
+                                                {% if item.properties.initialSpeed > 900 %}
+                                                    <div class="item active"></div>
+                                                {% else %}
+                                                    <div class="item"></div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    {{ 'Подробнее'|trans({}, 'front.bullets') }}
+                                    <span class="icon"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="caliber active" data-caliber="no_data">
+                <div class="no_data">
+                    <p align="center">{{ 'Нет данных'|trans({}, 'front.bullets') }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

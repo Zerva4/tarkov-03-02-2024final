@@ -1,0 +1,20 @@
+{% if calibers %}
+<section>
+    <div class="container">
+        <div class="mobile_ammo_chooser_btn">
+            {{ 'Боеприпасы'|trans({}, 'front.bullets') }}
+            <div class="icon">
+            </div>
+        </div>
+        <div class="ammo_chooser">
+            <div class="wrapper">
+                {% for caliber in calibers %}
+                    <a href="{{ absolute_url(path('app_bullets', {})) }}/{{ caliber.slug }}/">
+                        <div class="ammo{% if caliber.slug == slug %} active{% endif %}">{{ caliber.name }}</div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

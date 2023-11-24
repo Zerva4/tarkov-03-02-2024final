@@ -9,9 +9,16 @@ vich_uploader:
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
-        locations:
-            uri_prefix: '%app.locations.images.uri%'
-            upload_destination: '%app.locations.images.path%'
+        maps:
+            uri_prefix: '%app.maps.images.uri%'
+            upload_destination: '%app.maps.images.path%'
+            namer: vich_uploader.namer_uniqid
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        enemies:
+            uri_prefix: '%app.enemies.images.uri%'
+            upload_destination: '%app.enemies.images.path%'
             namer: vich_uploader.namer_uniqid
             inject_on_load: false
             delete_on_update: true

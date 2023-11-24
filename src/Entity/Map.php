@@ -48,14 +48,14 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imageName = null;
 
-    #[Vich\UploadableField(mapping: 'locations', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'maps', fileNameProperty: 'imageName')]
     #[Assert\Valid]
     #[Assert\File(
         maxSize: '2M',
         mimeTypes: ['image/jpg', 'image/gif', 'image/jpeg', 'image/png']
     )]
     /**
-     * @Vich\UploadableField(mapping="locations", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="maps", fileNameProperty="imageName")
      * @Assert\Valid
      * @Assert\File(
      *     maxSize="2M",
@@ -91,6 +91,30 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
 
         $this->quests = new ArrayCollection();
         $this->questsKeys = new ArrayCollection();
+    }
+
+    public function getName(): ?string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): MapInterface
+    {
+        $this->translate()->setName($name);
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(?string $description): MapInterface
+    {
+        $this->translate()->setDescription($description);
+
+        return $this;
     }
 
     public function isPublished(): ?bool
@@ -245,11 +269,6 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->__get('title');
-    }
-
     public function getQuestsKeys(): Collection
     {
         return $this->questsKeys;
@@ -280,5 +299,10 @@ class Map extends TranslatableEntity implements UuidPrimaryKeyInterface, MapInte
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }

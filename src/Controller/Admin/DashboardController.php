@@ -8,9 +8,11 @@ use App\Entity\Article;
 use App\Entity\Barter;
 use App\Entity\Boss;
 use App\Entity\Item\Item;
+use App\Entity\Item\ItemCaliber;
 use App\Entity\Item\ItemMaterial;
 use App\Entity\Map;
 use App\Entity\Quest\Quest;
+use App\Entity\Quest\QuestAdvice;
 use App\Entity\Quest\QuestItem;
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
@@ -57,11 +59,16 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud(t('Common', [], 'menu'), '', Item::class)->setController(ItemCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Quest', [], 'menu'), '', QuestItem::class)->setController(QuestItemCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Materials', [], 'menu'), '', ItemMaterial::class)->setController(ItemMaterialCrudController::class)->setLinkRel('noreferrer'),
+            MenuItem::linkToCrud(t('Calibers', [], 'menu'), '', ItemCaliber::class)->setController(ItemCaliberCrudController::class)->setLinkRel('noreferrer'),
             MenuItem::linkToCrud(t('Barters', [], 'menu'), '', Barter::class)->setController(BarterCrudController::class),
         ];
         $workshopMenu = [
             MenuItem::linkToCrud(t('Places', [], 'menu'), '', Place::class)->setController(PlaceCrudController::class),
             MenuItem::linkToCrud(t('Crafts', [], 'menu'), '', Craft::class)->setController(CraftCrudController::class),
+        ];
+        $questMenu = [
+            MenuItem::linkToCrud(t('List', [], 'menu'), '', Quest::class)->setController(QuestCrudController::class),
+            MenuItem::linkToCrud(t('Advices', [], 'menu'), '', QuestAdvice::class)->setController(QuestAdviceCrudController::class),
         ];
         $tradersMenu = [
             MenuItem::linkToCrud(t('List', [], 'menu'), '', Trader::class)->setController(TraderCrudController::class),
@@ -76,7 +83,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu(t('Traders', [], 'menu'), 'fa fa-cubes')->setSubItems($tradersMenu);
         yield MenuItem::subMenu(t('Items', [], 'menu'), 'fa fa-cubes')->setSubItems($itemsMenu);
         yield MenuItem::subMenu(t('Workshop', [], 'menu'), 'fa fa-cubes')->setSubItems($workshopMenu);
-        yield MenuItem::linkToCrud(t('Quests', [], 'menu'), 'fa fa-question-circle', Quest::class)->setController(QuestCrudController::class);
+        yield MenuItem::subMenu(t('Quests', [], 'menu'), 'fa fa-cubes')->setSubItems($questMenu);
         yield MenuItem::linkToCrud(t('Enemies', [], 'menu'), 'fa fa-skull', Boss::class)->setController(BossCrudController::class);
         yield MenuItem::subMenu(t('Updates', [], 'menu'), 'fa fa-sync')->setSubItems($updatesMenu);
         yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);

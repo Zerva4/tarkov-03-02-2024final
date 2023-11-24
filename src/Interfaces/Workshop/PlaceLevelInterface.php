@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces\Workshop;
+
 use App\Interfaces\Item\ContainedItemInterface;
 use App\Interfaces\SkillInterface;
 use App\Interfaces\Trader\TraderRequiredInterface;
@@ -68,6 +71,17 @@ interface PlaceLevelInterface
      * @return PlaceLevelInterface
      */
     public function setConstructionTime(int $constructionTime): PlaceLevelInterface;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @param string $description
+     * @return PlaceLevelInterface
+     */
+    public function setDescription(string $description): PlaceLevelInterface;
 
     /**
      * @return PlaceInterface|null

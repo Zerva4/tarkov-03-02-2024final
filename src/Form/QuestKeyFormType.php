@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Item\Item;
@@ -20,16 +22,17 @@ class QuestKeyFormType extends AbstractType
             ->add('item', EntityType::class, [
                 'label' => t('Key', [], 'admin.quests'),
                 'class' => Item::class,
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'placeholder' => t('Select item', [], 'admin'),
                 'query_builder' => function (ItemRepository $er) {
                     return $er->createQueryBuilder('item')
                         ->join('item.translations', 'lt', 'WITH', 'item.id = lt.translatable')
                         ->addSelect('lt')
-                        ->andWhere('item.typeProperties = :type')
+                        ->andWhere('item.typeItem = :type')
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
                         ->setParameter('type', 'ItemPropertiesKey')
-                        ->orderBy('lt.title', 'ASC');
+                        ->orderBy('lt.name', 'ASC');
                 },
                 'expanded'=> false,
                 'by_reference' => true,
@@ -38,6 +41,7 @@ class QuestKeyFormType extends AbstractType
             ->add('map', EntityType::class, [
                 'label' => t('Map', [], 'admin.quests'),
                 'class' => Map::class,
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'placeholder' => t('Select item', [], 'admin'),
 //                'query_builder' => function (PlaceRepository $er) {
 //                    return $er->createQueryBuilder('place')

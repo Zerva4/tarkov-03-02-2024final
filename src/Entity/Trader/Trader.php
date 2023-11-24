@@ -13,6 +13,7 @@ use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
 use App\Interfaces\Trader\TraderLevelInterface;
 use App\Interfaces\Trader\TraderRequiredInterface;
+use App\Interfaces\Trader\TraderStandingInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Trader\TraderRepository;
 use App\Traits\SlugTrait;
@@ -91,6 +92,9 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderCashOffer::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $cashOffers;
 
+    #[ORM\OneToMany(mappedBy: 'trader', targetEntity: TraderStanding::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    private Collection $traderStandings;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -99,6 +103,7 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         $this->barters = new ArrayCollection();
         $this->requiredTraders = new ArrayCollection();
         $this->cashOffers = new ArrayCollection();
+        $this->traderStandings = new ArrayCollection();
     }
 
     public function getApiId(): string
@@ -133,6 +138,42 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
     public function setPublished(bool $published): TraderInterface
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->translate()->getFullName();
+    }
+
+    public function setFullName(?string $fullName): TraderInterface
+    {
+        $this->translate()->setFullName($fullName);
+
+        return $this;
+    }
+
+    public function getShortName(): ?string
+    {
+        return $this->translate()->getShortName();
+    }
+
+    public function setShortName(string $shortName): TraderInterface
+    {
+        $this->translate()->setShortName($shortName);
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(?string $description): TraderInterface
+    {
+        $this->translate()->setDescription($description);
 
         return $this;
     }
@@ -352,6 +393,37 @@ class Trader extends TranslatableEntity implements UuidPrimaryKeyInterface, Trad
         if (!$this->cashOffers->contains($cashOffer)) {
             $this->cashOffers->add($cashOffer);
             $cashOffer->setTrader(null);
+        }
+
+        return $this;
+    }
+
+    public function getTraderStandings(): Collection
+    {
+        return $this->traderStandings;
+    }
+
+    public function setTraderStandings(Collection $traderStandings): TraderInterface
+    {
+        $this->traderStandings = $traderStandings;
+
+        return $this;
+    }
+
+    public function addTraderStanding(TraderStandingInterface $traderStanding): TraderInterface
+    {
+        if (!$this->traderStandings->contains($traderStanding)) {
+            $this->traderStandings->add($traderStanding);
+            $traderStanding->setTrader($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraderStanding(TraderStandingInterface $traderStanding): TraderInterface
+    {
+        if ($this->traderStandings->contains($traderStanding)) {
+            $this->traderStandings->removeElement($traderStanding);
         }
 
         return $this;

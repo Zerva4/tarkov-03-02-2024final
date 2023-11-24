@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Interfaces\TagInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ArticleTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -35,13 +34,8 @@ class ArticleTranslation implements UuidPrimaryKeyInterface, TranslationInterfac
     #[ORM\Column(type: 'text')]
     private string $body;
 
-    #[ORM\JoinTable(name: 'articles_tags')]
-    #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
-    private ?Collection $tags;
-
     public function __construct()
     {
-        $this->tags = new ArrayCollection();
     }
 
     public function getTitle(): ?string
@@ -78,48 +72,5 @@ class ArticleTranslation implements UuidPrimaryKeyInterface, TranslationInterfac
         $this->body = $body;
 
         return $this;
-    }
-
-    /**
-     * @return TagInterface[]|null
-     */
-    public function getTags(): ?Collection
-    {
-        return $this->tags;
-    }
-
-    /**
-     * @param ArrayCollection $tags
-     * @return ArticleTranslation
-     */
-    public function setTags(ArrayCollection $tags): self
-    {
-        $this->tags = $tags;
-
-        return $this;
-    }
-
-    /**
-     * @param TagInterface ...$tags
-     * @return ArticleTranslation
-     */
-    public function addTag(TagInterface ...$tags): self
-    {
-        foreach ($tags as $tag) {
-            if (!$this->tags->contains($tag)) {
-                $this->tags->add($tag);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Tag $tag
-     * @return void
-     */
-    public function removeTag(TagInterface $tag): void
-    {
-        $this->tags->removeElement($tag);
     }
 }

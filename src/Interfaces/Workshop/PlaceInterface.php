@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces\Workshop;
 
 use Doctrine\Common\Collections\Collection;
@@ -38,6 +40,17 @@ interface PlaceInterface
      * @return PlaceInterface
      */
     public function setOrderPlace(?int $orderPlace): PlaceInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string;
+
+    /**
+     * @param string $name
+     * @return PlaceInterface
+     */
+    public function setName(string $name): PlaceInterface;
 
     /**
      * @return Collection

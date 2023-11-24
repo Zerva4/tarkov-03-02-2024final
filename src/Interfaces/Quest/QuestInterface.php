@@ -6,10 +6,10 @@ namespace App\Interfaces\Quest;
 
 use App\Interfaces\BarterInterface;
 use App\Interfaces\Item\ContainedItemInterface;
-use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\MapInterface;
 use App\Interfaces\Trader\TraderCashOfferInterface;
 use App\Interfaces\Trader\TraderInterface;
+use App\Interfaces\Trader\TraderStandingInterface;
 use App\Interfaces\Workshop\CraftInterface;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
@@ -51,6 +51,72 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function setPublished(bool $published): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string;
+
+    /**
+     * @param string $name
+     * @return QuestInterface
+     */
+    public function setName(string $name): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getShortName(): ?string;
+
+    /**
+     * @param string $name
+     * @return QuestInterface
+     */
+    public function setShortName(string $name): QuestInterface;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @param string $description
+     * @return QuestInterface
+     */
+    public function setDescription(string $description): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getHowToComplete(): ?string;
+
+    /**
+     * @param string $howToComplete
+     * @return QuestInterface
+     */
+    public function setHowToComplete(string $howToComplete): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getStartDialog(): ?string;
+
+    /**
+     * @param string|null $startDialog
+     * @return QuestInterface
+     */
+    public function setStartDialog(?string $startDialog): QuestInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getSuccessfulDialog(): ?string;
+
+    /**
+     * @param string|null $successfulDialog
+     * @return QuestInterface
+     */
+    public function setSuccessfulDialog(?string $successfulDialog): QuestInterface;
 
     /**
      * @return string|null
@@ -287,4 +353,50 @@ interface QuestInterface
      * @return QuestInterface
      */
     public function removeNeededKey(QuestKeyInterface $questKey): QuestInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getTraderStandings(): Collection;
+
+    /**
+     * @param Collection $traderStandings
+     * @return QuestInterface
+     */
+    public function setTraderStandings(Collection $traderStandings): QuestInterface;
+
+    /**
+     * @param TraderStandingInterface $traderStanding
+     * @return QuestInterface
+     */
+    public function addTraderStanding(TraderStandingInterface $traderStanding): QuestInterface;
+
+    /**
+     * @param TraderStandingInterface $traderStanding
+     * @return QuestInterface
+     */
+    public function removeTraderStanding(TraderStandingInterface $traderStanding): QuestInterface;
+
+    /**
+     * @return Collection
+     */
+    public function getAdvices(): Collection;
+
+    /**
+     * @param Collection $advices
+     * @return QuestInterface
+     */
+    public function setAdvices(Collection $advices): QuestInterface;
+
+    /**
+     * @param QuestAdviceInterface $advice
+     * @return QuestInterface
+     */
+    public function addAdvice(QuestAdviceInterface $advice): QuestInterface;
+
+    /**
+     * @param QuestAdviceInterface $advice
+     * @return QuestInterface
+     */
+    public function removeAdvice(QuestAdviceInterface $advice): QuestInterface;
 }

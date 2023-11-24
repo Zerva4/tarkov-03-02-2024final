@@ -30,7 +30,7 @@ class TraderCrudController extends BaseCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)->setSearchFields([
-            'translations.characterType', 'translations.fullName'
+            'translations.shortName', 'translations.fullName'
         ]);
     }
 

@@ -4,10 +4,11 @@
     <div class="content">
         <section>
             <div class="container">
-                {% if quest is not empty  %}
+            {% if quest is not empty  %}
+                {% if quest.objectives is not empty %}
+                <h1>{{ quest.name }}</h1>
                 <div class="information">
                     <div class="tasks">
-                        {% if quest.objectives is not empty %}
                         <h2>Задачи</h2>
                         <ul class="list">
                             {% for objective in quest.objectives %}
@@ -19,14 +20,11 @@
                         {% endif %}
                     </div>
                     <div class="card">
-                        <h2>
-                            {{ quest.title }}
-                        </h2>
                         <div class="image">
                             {% if quest.imageName %}
-                                <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.title }}">
+                                <img src="{{ asset('/storage/images/quests/' ~ quest.imageName) | imagine_filter('250x148') }}" alt="{{ quest.name }}">
                             {% else %}
-                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('360x210') }}" alt="{{ quest.title }}">
+                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('360x210') }}" alt="{{ quest.name }}">
                             {% endif %}
                         </div>
                         <div class="text">
@@ -65,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
+            {% endif %}
             </div>
         </section>
         {% if quest.howToComplete %}
@@ -115,16 +113,18 @@
             </div>
         </section>
         {% endif %}
+        {% if advice is not empty %}
         <section>
             <div class="container">
                 <div class="note">
                     <div class="icon"></div>
                     <div class="text">
-                        Пробежка не прерывает квест, вам просто не засчитают прохождение локации.
+                        {{ advice|striptags|raw }}
                     </div>
                 </div>
             </div>
         </section>
+        {% endif %}
         <section>
             <div class="container">
                 <div class="reference active">
@@ -145,174 +145,86 @@
                                         +{{ quest.experience }}
                                     </div>
                                 </div>
+                                {% if quest.traderStandings is not empty %}
                                 <div class="prop">
                                     <div class="name">
                                         {{ 'Репутация'|trans({}, 'front.quests') }}
                                     </div>
                                     <div class="val value_options">
+                                        {% for traderStanding in quest.traderStandings %}
                                         <div>
-                                            <span class="option">Прапор</span>
-                                            <span class="text">+0.02</span>
+                                            <span class="option">{{ traderStanding.trader.translate(app.request.locale).shortName }}</span>
+                                            <span class="text">{% if traderStanding.standing > 0 %}+{% endif %}{{ traderStanding.standing }}</span>
                                         </div>
-                                        <div>
-                                            <span class="option">Егерь</span>
-                                            <span class="text">+0.01</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% if quest.receivedItems %}
-                                <div class="prop">
-                                    <div class="name">
-                                        Деньги
-                                    </div>
-{#                                    {% if 'money' not in receivedItem.items.types %}#}
-                                    <div class="val">
-                                        +15000 рублей
-                                        <div class="info">
-                                            i
-                                            <div class="ref">
-                                                <div class="ref_item">
-                                                    <div class="property">Развед. центр ур. 1</div>
-                                                    <div class="value">+15750 рублей</div>
-                                                </div>
-                                                <div class="ref_item">
-                                                    <div class="property">Развед. центр ур. 2</div>
-                                                    <div class="value">+17250 рублей</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-{#                                    {% endif %}#}
-                                </div>
-                                {% endif %}
-                                <div class="prop">
-                                    <div class="name">
-                                        Навыки
-                                    </div>
-                                    <div class="val">
-                                        + 3 навыка <a href="#">снайперские винтовки</a>
-                                    </div>
-                                </div>
-                            </div>
-                            {% if quest.usedItems %}
-                                <h4 class="center">{{ 'Необходимо для задания'|trans({}, 'front.quests') }}</h4>
-                                <div class="container small">
-                                    <div class="crafts">
-                                        {% for usedItem in quest.usedItems %}
-                                            <div class="craft">
-                                                <div class="image">
-                                                    {% if usedItem.item.imageName %}
-                                                        <img src="{{ asset('/storage/images/items/' ~ usedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ usedItem.item.getTitle }}">
-                                                    {% else %}
-                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ usedItem.item.getTitle }}">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="contains">
-                                                    <div class="x">x {{ usedItem.count }}</div>
-                                                    <div class="name">{{ usedItem.item.getShortTitle }}</div>
-                                                </div>
-                                            </div>
                                         {% endfor %}
                                     </div>
                                 </div>
-                            {% endif %}
-                            {% if quest.receivedItems %}
-                            <h4 class="center">{{ 'Выдается за задание'|trans({}, 'front.quests') }}</h4>
-                            <div class="container small">
-                                <div class="crafts">
+                                {% endif %}
+                                {% if quest.receivedItems is not empty %}
+                                    {% set countMoney = 0 %}
                                     {% for receivedItem in quest.receivedItems %}
-{#                                        {% dump(receivedItem.item.types) %}#}
-                                        {% if 'money' not in receivedItem.item.types %}
-                                            <div class="craft">
-                                                <div class="image">
-                                                    {% if receivedItem.item.imageName %}
-                                                        <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
-                                                    {% else %}
-                                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('110x90') }}" alt="{{ receivedItem.item.getTitle }}">
-                                                    {% endif %}
+                                        {% if 'money' in receivedItem.item.types %}
+                                            {% set countMoney = countMoney + 1 %}
+                                            <div class="prop">
+                                                <div class="name">
+                                                    {{ 'Деньги'|trans({}, 'front.quests') }}
                                                 </div>
-                                                <div class="contains">
-                                                    <div class="x">x {{ receivedItem.count }}</div>
-                                                    <div class="name">{{ receivedItem.item.getShortTitle }}</div>
+                                                <div class="val">
+                                                    +{{ receivedItem.count }} {{ receivedItem.item.Name }}
+                                                    <div class="info">
+                                                        i
+                                                        <div class="ref">
+                                                            <div class="ref_item ref_money">
+                                                                <div class="property">{{ 'Развед. центр ур. 1'|trans({}, 'front.quests') }}</div>
+                                                                <div class="value">
+                                                                        +{{ receivedItem.count * 1.05 }} {{ receivedItem.item.Name }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="ref_item ref_money">
+                                                                <div class="property">{{ 'Развед. центр ур. 2'|trans({}, 'front.quests') }}</div>
+                                                                <div class="value">
+                                                                       +{{ receivedItem.count * 1.15 }} {{ receivedItem.item.Name }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         {% endif %}
                                     {% endfor %}
-                                </div>
-                            </div>
-                            {% endif %}
-                            <div class="lock">
-                                <div class="divider"></div>
-                                <div class="lock_icon"></div>
-                                <div class="divider"></div>
-                            </div>
-                            {% if quest.unlockInCashOffers %}
-                            <div class="header_lock">
-                                <div class="header_lock_icon"></div>
-                                <h4>{{ 'Открывает к покупке'|trans({}, 'front.quests') }}</h4>
-                            </div>
-                            <div class="weapons">
-                                {% for unlockInCashOffer in quest.unlockInCashOffers %}
-                                <div class="weapon">
-                                    <div class="info">
-                                        i
-                                        <div class="ref">
-                                            Открывает покупку на <span class="hl">{{ unlockInCashOffer.traderLevel}} уровне</span> лоявльности
-                                        </div>
-                                    </div>
-                                    <div class="top">
-                                        <div class="image">
-                                            {% if unlockInCashOffer.item.imageName %}
-                                                <img src="{{ asset('/storage/images/items/' ~ unlockInCashOffer.item.imageName) | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.getTitle }}">
-                                            {% else %}
-                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ unlockInCashOffer.item.getTitle }}">
-                                            {% endif %}
-                                        </div>
-                                    </div>
+                                {% endif %}
+                                <div class="prop">
                                     <div class="name">
-                                        {{ unlockInCashOffer.item.getTitle }}
+                                        {{ 'Навыки'|trans({}, 'front.quests') }}
+                                    </div>
+                                    <div class="val">
+                                        + 3 {{ 'навыка'|trans({}, 'front.quests') }} <a href="#">снайперские винтовки</a>
                                     </div>
                                 </div>
-                                {% endfor %}
                             </div>
+                            {% if quest.usedItems is not empty %}
+                                {{ include('quests/blocks/used-items.html.twig') }}
                             {% endif %}
-                            {% if quest.unlockBarters %}
-                            <div class="header_lock">
-                                <div class="header_lock_icon"></div>
-                                <h4>{{ 'Открывает к бартеру'|trans({}, 'front.quests') }}</h4>
-                            </div>
-                            <div class="weapons">
-                                {% for unlockBarters in quest.unlockBarters %}
-                                {% for rewardItem in unlockBarters.rewardItems %}
-                                <div class="weapon">
-                                    <div class="info">
-                                        i
-                                        <div class="ref">
-                                            Открывает покупку на <span class="hl">{{ unlockBarters.traderLevel }} уровне</span> лоявльности
-                                        </div>
-                                    </div>
-                                    <div class="top">
-                                        <div class="x">x {{ rewardItem.count }}</div>
-                                        <div class="image">
-                                            {% if rewardItem.item.imageName %}
-                                                <img src="{{ asset('/storage/images/items/' ~ rewardItem.item.imageName) | imagine_filter('180x90') }}" alt="{{ rewardItem.item.getTitle }}">
-                                            {% else %}
-                                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x90') }}" alt="{{ rewardItem.item.getTitle }}">
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    <div class="name">
-                                        {{ rewardItem.item.getTitle }}
-                                    </div>
+                            {% if (quest.receivedItems is not empty) and (quest.receivedItems | length > countMoney) %}
+                                {{ include('quests/blocks/received-items.html.twig') }}
+                            {% endif %}
+                            {% if (quest.unlockInCashOffers is not empty) or (quest.unlockBarters is not empty) %}
+                                <div class="lock">
+                                    <div class="divider"></div>
+                                    <div class="lock_icon"></div>
+                                    <div class="divider"></div>
                                 </div>
-                                {% endfor %}
-                                {% endfor %}
-                            </div>
+                                {% if quest.unlockInCashOffers is not empty %}
+                                    {{ include('quests/blocks/cash-offer.html.twig') }}
+                                {% endif %}
+                                {% if quest.unlockBarters is not empty %}
+                                    {{ include('quests/blocks/barters.html.twig') }}
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
         {% if (quest.startDialog or quest.successfulDialog) %}

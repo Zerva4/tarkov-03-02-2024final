@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Item\Item;
@@ -35,9 +37,10 @@ class TraderCashOfferCrudController extends AbstractCrudController
         $currencyItem = AssociationField::new('currencyItem', t('Currency item', [], 'admin.cash.offer'))
             ->setFormTypeOption('query_builder', function (EntityRepository $entityRepository) {
                     return $entityRepository->createQueryBuilder('i')
-                        ->andWhere('i.id IN (:ids)')
-                        ->setParameter('ids', ['ed2c7df2-f984-42f9-ac8f-bce9725d43ec', '7cd0fff2-0ef1-4e6d-bafd-7b6b1ee39ca7', '84ae6c26-7838-4b38-b38f-de82e4eadbd8']);
+                        ->andWhere('i.apiId IN (:ids)')
+                        ->setParameter('ids', ['5449016a4bdc2d6f028b456f', '5696686a4bdc2da3298b456a', '569668774bdc2da2298b4568']);
             })
+//            ->autocomplete()
             ->setFormTypeOptions(['by_reference' => true])
         ;
         $questUnlock = AssociationField::new('questUnlock', t('Quest unlock', [], 'admin.cash.offer'))

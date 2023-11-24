@@ -7,9 +7,9 @@
   }
 
   .text-hidden {
-		max-height: 0;
+    max-height: 0;
     transition: all .5s ease;
-		margin-bottom: -34px;
+    margin-bottom: -34px;
     opacity: 0;
     @media (min-width: 741px) and (max-width: 900px) {
       margin-bottom: -8px;
@@ -25,8 +25,8 @@
   &.active {
     .text-hidden {
       transition: all .5s ease;
-			max-height: 365px;
-			margin-bottom: 0;
+      max-height: 365px;
+      margin-bottom: 0;
       opacity: 1;
       @media (max-width: 900px) {
         max-height: 740px;

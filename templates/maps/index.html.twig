@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LocationsController!{% endblock %}
+
+{% block content %}
+    <section class="content_map">
+{#        <ul class="nav_list">#}
+{#            <li class="nav_list__element">Таможня</li>#}
+{#            <li class="nav_list__element">Лес</li>#}
+{#            <li class="nav_list__element">Берег</li>#}
+{#            <li class="nav_list__element">Развязка</li>#}
+{#            <li class="nav_list__element">Завод</li>#}
+{#            <li class="nav_list__element">Резерв</li>#}
+{#            <li class="nav_list__element">Лаборатория</li>#}
+{#            <li class="nav_list__element">Маяк</li>#}
+{#            <li class="nav_list__element">Улицы Таркова</li>#}
+{#        </ul>#}
+{#        {{ dump(maps) }}#}
+        <div class="container__cards">
+            {% for map in maps %}
+            <a href="#" class="item" data-map="{{ map.name }}">
+                {% if map.imageName %}
+                    <img src="{{ asset('/storage/images/maps/' ~ map.imageName) | imagine_filter('257x77') }}" alt="{{ map.name }}" class="image" />
+                {% else %}
+                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('257x77') }}" alt="{{ map.name }}" class="image" />
+                {% endif %}
+                <div class="card">
+                    <p class="title">{{ map.name }}</p>
+                    <ul class="text">
+                        <li class="text__element">
+                            <img src="./assets/img/clock.svg" alt="Таймер">
+                            <p class="text__description color" style="margin-left: 8px;">Время локации:</p>
+                            <p class="text__description margin">{{ map.raidDuration|date('H:i') }}</p>
+                        </li>
+                        <li class="text__element">
+                            <img src="./assets/img/players.svg" alt="Игроки">
+                            <p class="text__description color" style="margin-left: 8px;">Игроков:</p>
+                            <p class="text__description margin">{{ map.minPlayersNumber }} - {{ map.maxPlayersNumber }}</p>
+                        </li>
+{#                        <li class="text__element" >#}
+{#                            <img src="./assets/img/bosses.svg" alt="Боссы">#}
+{#                            <p class="text__description color" style="margin-left: 8px;">Решала:</p>#}
+{#                            <p class="text__description margin">15%</p>#}
+{#                        </li>#}
+{#                        <li class="text__element">#}
+{#                            <img src="./assets/img/sectants.svg" alt="Сектанты">#}
+{#                            <p class="text__description color" style="margin-left: 8px;">Сектанты:</p>#}
+{#                            <p class="text__description margin">2%</p>#}
+{#                        </li>#}
+{#                        <li class="text__element">#}
+{#                            <img src="./assets/img/waves.svg" alt="Волны">#}
+{#                            <p class="text__description color" style="margin-left: 8px;">Волны диких:</p>#}
+{#                            <p class="text__description margin">17</p>#}
+{#                        </li>#}
+                    </ul>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

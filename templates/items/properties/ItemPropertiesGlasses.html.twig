@@ -1,0 +1,34 @@
+{% if item.properties.class is not empty %}
+    <div class="character__text">
+    <span class="value-stock">{{ 'Класс брони' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.class }}</span>
+</div>
+{% endif %}
+{% if item.properties.durability is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Прочность' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.durability }}/{{ item.properties.durability }}</span>
+</div>
+{% endif %}
+{% if item.properties.repairCost is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Стоимость ремонта (1 ед.)' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.repairCost }}</span>
+</div>
+{% endif %}
+{% if item.properties.blindnessProtection is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Защита от ослепления' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.blindnessProtection }}</span>
+</div>
+{% endif %}
+{% if item.properties.material is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Материал' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.material.name }}</span>
+</div>
+{% endif %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Заброневой урон' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.bluntThroughput }}</span>
+</div>

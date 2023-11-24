@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderLevel;
 use App\Interfaces\GraphQLClientInterface;
 use App\Interfaces\Trader\TraderInterface;
+use App\Interfaces\Trader\TraderLevelInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -55,21 +58,16 @@ class ImportTradersCommand extends Command
                     name,
                     normalizedName,
                     resetTime,
+                    currency {
+                        id
+                        name
+                    }
+                    discount
                     levels {
                       level,
                       requiredPlayerLevel,
                       requiredCommerce,
                       requiredReputation,
-                    }
-                    currency {
-                      name,
-                      craftsFor {
-                        id,
-                        level,
-                        station {
-                          name
-                        }
-                      }
                     }
                 }
             }
@@ -95,14 +93,14 @@ class ImportTradersCommand extends Command
             $progressBar->advance();
             $traderRepository = $this->em->getRepository(Trader::class);
             $traderEntity = $traderRepository->findOneBy(['apiId' => $trader['id']]);
+            $traderLevelRepository = $this->em->getRepository(TraderLevel::class);
 
             if ($traderEntity instanceof Trader) {
                 $traderEntity->setDefaultLocale($lang);
                 $traderEntity->translate($lang, false)->setShortName($trader['name']);
                 $traderEntity->setPosition($order);
             } else {
-                /** @var TraderInterface $traderEntity */
-                $traderEntity = new Trader();
+                $traderEntity = new Trader($lang);
                 $traderEntity->setDefaultLocale($lang);
                 $traderEntity->setPosition($order);
                 $traderEntity->translate($lang, false)->setFullName(null);
@@ -115,9 +113,15 @@ class ImportTradersCommand extends Command
 
             // Set levels
             if (count($trader['levels']) > 0) {
-                $levelsEntities = new ArrayCollection();
+//                $levelsEntities = new ArrayCollection();
                 foreach ($trader['levels'] as $level) {
-                    $levelEntity = new TraderLevel($lang);
+                    $levelEntity = $traderLevelRepository->findOneBy([
+                        'level' => $level['level'],
+                        'trader' => $traderEntity->getId()
+                    ]);
+                    if (!$levelEntity instanceof TraderLevelInterface) {
+                        $levelEntity = new TraderLevel();
+                    }
                     $levelEntity
                         ->setLevel($level['level'])
                         ->setRequiredPlayerLevel($level['requiredPlayerLevel'])
@@ -126,9 +130,10 @@ class ImportTradersCommand extends Command
                         ->setTrader($traderEntity)
                     ;
                     $this->em->persist($levelEntity);
-                    $levelsEntities->add($levelEntity);
+                    $traderEntity->addLevel($levelEntity);
+                    unset($levelEntity);
                 }
-                $traderEntity->setLevels($levelsEntities);
+//                $traderEntity->setLevels($levelsEntities);
             }
             $traderEntity->setSlug($trader['normalizedName']);
             $this->em->persist($traderEntity);

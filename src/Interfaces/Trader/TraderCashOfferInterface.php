@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Interfaces\Trader;
 
 use App\Interfaces\Item\ItemInterface;
@@ -15,8 +17,8 @@ interface TraderCashOfferInterface
     public function setTraderLevel(?TraderLevelInterface $traderLevel): TraderCashOfferInterface;
     public function getPrice(): int;
     public function setPrice(int $price): TraderCashOfferInterface;
-    public function getCurrency(): string;
-    public function setCurrency(string $currency): TraderCashOfferInterface;
+    public function getCurrency(): ?string;
+    public function setCurrency(?string $currency): TraderCashOfferInterface;
     public function getCurrencyItem(): ?ItemInterface;
     public function setCurrencyItem(?ItemInterface $currencyItem): TraderCashOfferInterface;
     public function getPriceRUB(): int;

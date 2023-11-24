@@ -1,0 +1,24 @@
+<div class="character__text">
+    <span class="value-stock">{{ 'Тип' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.type | trans({}, 'front.items') }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Задержка перед взрывом' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.fuse }} {{ 'сек' |trans({}, 'front.items') }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Мин. расстояние взрыва' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.minExplosionDistance }} {{ 'м' |trans({}, 'front.items') }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Макс. расстояние взрыва' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.maxExplosionDistance }} {{ 'м' |trans({}, 'front.items') }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Кол-во осколков' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.fragments }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Радиус контузии' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.contusionRadius }} {{ 'м' |trans({}, 'front.items') }}</span>
+</div>

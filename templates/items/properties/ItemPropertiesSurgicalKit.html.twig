@@ -1,0 +1,22 @@
+<div class="character__text">
+    <span class="value-stock">{{ 'Используется кол-во раз' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.uses }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Время использования' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.useTime }} {{ 'сек' | trans({}, 'front.items') }}</span>
+</div>
+{% if item.properties.cures %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Зоны лечения' | trans({}, 'front.items') }}</span>
+    <span class="value-properties" style="text-align: right">{% for cure in item.properties.cures %}{{ cure | trans({}, 'front.items') }}<br />{% endfor %}</span>
+</div>
+{% endif %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Мин. здоровье конечностей' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.minLimbHealth }}%</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Макс. здоровье конечностей' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.maxLimbHealth }}%</span>
+</div>

@@ -3,6 +3,8 @@ twig:
     default_path: '%kernel.project_dir%/templates'
 #    form_themes: [ 'admin/field/translation.html.twig', '@EasyAdmin/form/bootstrap_5.html.twig' ]
     form_themes:
+        - '@EasyAdmin/form/bootstrap_5.html.twig'
+        - 'admin/field/translation.html.twig'
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
     globals:
         locales: [ ru, en ]

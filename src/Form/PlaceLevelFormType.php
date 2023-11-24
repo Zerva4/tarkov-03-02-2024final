@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Workshop\PlaceLevel;
@@ -25,6 +27,7 @@ class PlaceLevelFormType extends AbstractType
                 'label' => t('Construction time (sec.)', [], 'admin.places')
             ])
             ->add('requiredItems', CollectionType::class, [
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'label' => t('Required items', [], 'admin.places'),
                 'entry_type' => ContainedItemForm::class,
                 'allow_add' => true,
@@ -46,6 +49,7 @@ class PlaceLevelFormType extends AbstractType
                 'delete_empty' => true
             ])
             ->add('requiredTraders', CollectionType::class, [
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'label' => t('Required traders', [], 'admin.places'),
                 'entry_type' => TraderRequiredType::class,
                 'allow_add' => true,

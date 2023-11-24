@@ -1,0 +1,46 @@
+<div class="character__text">
+    <span class="value-stock">{{ 'Калибр' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.apiCaliber }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Эргономика' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.ergonomics }}</span>
+</div>
+{% if item.properties.fireModes %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Режимы стрельбы' | trans({}, 'front.items') }}</span>
+    <span class="value-properties" style="text-align: right">{% for mode in item.properties.fireModes %}{{ mode }}<br />{% endfor %}</span>
+</div>
+{% endif %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Скорострельность' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.fireRate }}{{ 'выс/сек' | trans({}, 'front.items') }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Макс. прочность' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.maxDurability }}/{{ item.properties.maxDurability }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Эффективная дистанция' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.effectiveDistance }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Вертикальная отдача' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.recoilVertical }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Горизонтальная отдача' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.recoilHorizontal }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Прицельная дальность' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.sightingRange }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Стоимость ремонта (1 ед.)' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.repairCost }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Вес' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.defaultWeight }}</span>
+</div>

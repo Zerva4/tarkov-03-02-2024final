@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Interfaces;
+declare(strict_types=1);
 
-use Ramsey\Uuid\UuidInterface;
+namespace App\Interfaces;
 
 interface MapLocationInterface
 {

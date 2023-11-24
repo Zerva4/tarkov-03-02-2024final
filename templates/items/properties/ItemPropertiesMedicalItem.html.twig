@@ -1,0 +1,14 @@
+<div class="character__text">
+    <span class="value-stock">{{ 'Используется кол-во раз' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.uses }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Время использования' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.useTime }}{{ 'секунды' |trans({}, 'front.items') }}</span>
+</div>
+{% if item.properties.cures is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Излечивание' |trans({}, 'front.items') }}</span>
+    <span class="value-properties" style="text-align: right">>{% for cure in item.properties.cures %}{{ cure | trans({}, 'front.items') }}<br />{% endfor %}</span>
+</div>
+{% endif %}

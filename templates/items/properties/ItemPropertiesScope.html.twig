@@ -1,0 +1,20 @@
+<div class="character__text">
+    <span class="value-stock">{{ 'Эргономика' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.ergonomics }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Прицельная дальность' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.sightingRange }}</span>
+</div>
+{% if item.properties.zoomLevels is not empty %}
+    <div class="character__text">
+        <span class="value-stock">{{ 'Уровни масштабирования' | trans({}, 'front.items') }}</span>
+        <span class="value-properties">{% for level in item.properties.zoomLevels %}{{ level[0] }}{{ level[1] }}<br />{% endfor %}</span>
+    </div>
+{% endif %}
+{% if item.properties.sightModes is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Режимы прицела' | trans({}, 'front.items') }}</span>
+    <span class="value-properties" style="text-align: right">{% for mode in item.properties.sightModes %}{ mode }}<br />{% endfor %}</span>
+</div>
+{% endif %}

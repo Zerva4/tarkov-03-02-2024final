@@ -10,7 +10,6 @@ use App\Form\Field\VichImageField;
 use App\Form\MapLocationForm;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -18,7 +17,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
@@ -33,14 +31,14 @@ class MapCrudController extends BaseCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)->setSearchFields([
-            'id', 'translations.title',
+            'id', 'translations.name',
         ]);
     }
 
     public function configureFields(string $pageName): iterable
     {
         $published = BooleanField::new('published', t('Published', [], 'admin.maps'));
-        $title = TextField::new('title', t('Title', [], 'admin.maps'));
+        $name = TextField::new('name', t('Name', [], 'admin.maps'));
         $locationImage = VichImageField::new('imageFile', t('Photo', [], 'admin.maps')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.maps.images.uri'))
@@ -56,9 +54,9 @@ class MapCrudController extends BaseCrudController
             ->setTargetFieldName('slug')
             ->setRequired(true);
         $translationFields = [
-            'title' => [
+            'name' => [
                 'field_type' => TextType::class,
-                'label' => t('Title', [], 'admin.maps')
+                'label' => t('Name', [], 'admin.maps')
             ],
             'description' => [
                 'attr' => [
@@ -96,7 +94,7 @@ class MapCrudController extends BaseCrudController
                 $locations->setColumns(12)
             ],
             default => [
-                $title->setColumns(12)->setTextAlign('left')
+                $name->setColumns(12)->setTextAlign('left')
                     ->setTemplatePath('admin/field/link-edit.html.twig'),
                 $published->setColumns(1)->setTextAlign('center'),
                 $minPlayersNumber->setColumns(2)->setTextAlign('center'),

@@ -1,0 +1,102 @@
+Caliber: Калибр
+stackMaxSize: Макс. кол-во в ячейке(стеке)
+Tracer: Трассируещий патрон
+Tracer color: Цвет трассера
+Ammo type: Тип патрона
+Projectile count: Кол-во пуль (1 пуля, 8 картечи и тд)
+Damage: Урон
+Armor damage: Урон по броне
+Fragmentation chance: Шанс фрагментации
+Ricochet chance: Шанс рикошета
+Penetration chance: Шанс пробития
+Penetration power: Сила бронепробития
+Accuracy modifier: Точность
+Recoil modifier: Отдача
+Initial speed: Начальная скорость
+Light bleed modifier: Шанс слабого кровотечения
+Heavy bleed modifier: Шанс сильного кровотечения
+Durability burn factor: Износ
+Heat factor: Нагрев
+Stamina burn per damage: Выносливость за выстрел
+Ballistic coefficient: Баллистический коэффициент
+Bullet diameter millimeters: Диаметр пули в мм.
+Bullet mass grams: Масса пули в гр.
+Slash damage: Рубящий урон
+Stab damage: Урон ножом
+Hit radius: Радиус удара
+Capacity: Емкость
+Speed penalty: Снижение скорости
+Turn penalty: Снижение поворота
+Ergo penalty: Снижение эргономик
+Ergonomics: Эргономика
+Center of impact: Центр воздействия
+Deviation curve: Кривая отклонения
+Deviation max: Макс. отклонение
+Class: Класс
+Durability: Прочность
+Repair cost: Стоимость ремонта за 1ед.
+Material: Материал
+Ammo type (Chest Rig): Тип защиты
+Blunt throughput: Заброневой урон
+Energy: Энергия
+Hydration: Гидратация
+Units: Единицы
+Blindness protection: Защита от ослепления
+Type: Тип
+Fuse: Задержка перед взрывом
+Min. explosion distance: Мин. расстояние взрыва
+Max. explosion distance: Макс. расстояние взрыва
+Fragments: Кол-во осколков
+Contusion radius: Радиус контузии
+Ambient volume: Звуки окружения
+Compressor attack: Время срабатывания сжатия
+Compressor gain: Общий уровень громкости
+Compressor release: Скорость восстановления звука
+Compressor threshold: Уровень срабатывания сжатия
+Compressor volume: Глубина сжатия
+Cutoff frequency: Обрезаемая частота
+Distance modifier: Увеличение дальности звука
+Distortion: Перекручивание звука уже готового
+Dry volume: Уровень чистого звука
+High frequency gain: Высокочастные шумы
+Resonance: Резонанс
+Deafening: Громкость работы
+Ricochet X: Рикошет X
+Ricochet Y: Рикошет Y
+Ricochet Z: Рикошет Z
+Uses: Используется кол-во раз
+Load modifier: Модификатор загрузки
+Ammo check modifier: Модификатор проверки боеприпасов
+Malfunction chance: Шанс неисправности
+Use time: Время использования
+Hit points: Очки здоровья
+Max. heal per use: Кол-во очков лечения за 1 использования
+HP cost light bleeding: Кол-во очков лечения слабого кровотечения
+HP cost heavy bleeding: Кол-во очков лечения сильного кровотечения
+Intensity: Интенсивность
+Noise intensity: Интенсивность шума
+Noise scale: Размер шума
+Diffuse intensity: Диффузная интенсивность
+Painkiller duration: Продолжительность обезбаливания
+Energy impact: Траты энергии
+Hydration impact: Траты воды
+Sighting range: Прицельная дальность
+Min. limb health: Мин. здоровье конечностей
+Max. limb health: Макс. здоровье конечностей
+Effective distance: Эффективная дистанция
+Fire rate: Скорострельность
+Max. durability: Макс. прочность
+Recoil vertical: Вертикальная отдача
+Recoil horizontal: Горизонтальная отдача
+Recoil dispersion: Дисперсия отдачи
+Recoil angle: Угол отдачи
+Camera recoil: Отдача камеры
+Camera snap: Привязка камеры
+Deviation max.: Макс. отклонение
+Convergence: Схождение
+Default width: Ширина
+Default height: Высота
+Default ergonomics: Эргономика
+Default recoil vertical: Вертикальная отдача
+Default recoil horizontal: Горизонтальная отдача
+Default weight: Вес

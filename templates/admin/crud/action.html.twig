@@ -1,0 +1,56 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var action \EasyCorp\Bundle\EasyAdminBundle\Dto\ActionDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+
+{% if ea.entity.name == 'Item' %}
+    <div class="dropdown">
+        <button class="action-new btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ action.label|trans|raw }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}">Обычный</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesAmmo">{{ 'ItemPropertiesAmmo'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesArmor">{{ 'ItemPropertiesArmor'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesBackpack">{{ 'ItemPropertiesBackpack'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesBarrel">{{ 'ItemPropertiesBarrel'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesChestRig">{{ 'ItemPropertiesChestRig'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesContainer">{{ 'ItemPropertiesContainer'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesFoodDrink">{{ 'ItemPropertiesFoodDrink'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesGlasses">{{ 'ItemPropertiesGlasses'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesGrenade">{{ 'ItemPropertiesGrenade'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesHeadphone">{{ 'ItemPropertiesHeadphone'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesHelmet">{{ 'ItemPropertiesHelmet'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesKey">{{ 'ItemPropertiesKey'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesMagazine">{{ 'ItemPropertiesMagazine'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesMedicalItem">{{ 'ItemPropertiesMedicalItem'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesMedKit">{{ 'ItemPropertiesMedKit'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesMelee">{{ 'ItemPropertiesMelee'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesNightVision">{{ 'ItemPropertiesNightVision'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesPainkiller">{{ 'ItemPropertiesPainkiller'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesScope">{{ 'ItemPropertiesScope'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesSurgicalKit">{{ 'ItemPropertiesSurgicalKit'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesWeapon">{{ 'ItemPropertiesWeapon'|trans({}, 'admin.items') }}</a></li>
+            <li><a class="dropdown-item" href="{{ action.linkUrl }}&typeItem=ItemPropertiesWeaponMod">{{ 'ItemPropertiesWeaponMod'|trans({}, 'admin.items') }}</a></li>
+        </ul>
+    </div>
+{% else %}
+    {{ dump(ea.entity.name) }}
+    {% if ea.entity.name == 'Item' %}
+        {% set editUrl = action.linkUrl ~ '&typeItem=' ~ entity.instance.typeItem %}
+    {% endif %}
+    {% if 'a' == action.htmlElement %}
+        <a class="{{ isIncludedInDropdown|default(false) ? 'dropdown-item' }} {{ action.cssClass }}"
+           href="{{ editUrl }}"
+        {% for name, value in action.htmlAttributes %}{{ name }}="{{ (value.trans is defined ? value|trans : value)|e('html_attr') }}" {% endfor %}>
+        {%- if action.icon %}<i class="action-icon {{ action.icon }}"></i> {% endif -%}
+        {%- if action.label is not empty -%}<span class="action-label">{{ action.label|trans|raw }}</span>{%- endif -%}
+        </a>
+    {% elseif 'button' == action.htmlElement %}
+        <button class="{{ action.cssClass }}" {% for name, value in action.htmlAttributes %}{{ name }}="{{ (value.trans is defined ? value|trans : value)|e('html_attr') }}" {% endfor %}>
+        <span class="btn-label">
+                {%- if action.icon %}<i class="action-icon {{ action.icon }}"></i> {% endif -%}
+            {%- if action.label is not empty -%}<span class="action-label">{{ action.label|trans|raw }}</span>{%- endif -%}
+            </span>
+        </button>
+    {% endif %}
+{% endif %}

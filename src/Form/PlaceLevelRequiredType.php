@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Workshop\Place;
@@ -18,6 +20,7 @@ class PlaceLevelRequiredType extends AbstractType
     {
         $builder
             ->add('place', EntityType::class, [
+                'attr' => ['data-ea-widget' => 'ea-autocomplete'],
                 'label' => t('Place', [], 'admin.places'),
                 'class' => Place::class,
                 'placeholder' => t('Select item', [], 'admin'),
@@ -27,7 +30,7 @@ class PlaceLevelRequiredType extends AbstractType
                         ->addSelect('lt')
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
-                        ->orderBy('lt.title', 'ASC');
+                        ->orderBy('lt.name', 'ASC');
                 },
                 'expanded'=> false,
                 'by_reference' => true,

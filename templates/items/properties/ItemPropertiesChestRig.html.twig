@@ -1,0 +1,50 @@
+{% if item.properties.class is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Класс' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.class }}</span>
+</div>
+{% endif %}
+{% if item.properties.durability is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Прочность' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.durability }}</span>
+</div>
+{% endif %}
+{% if item.properties.repairCost is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Стоимость ремонта (1 ед.)' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.repairCost }}</span>
+</div>
+{% endif %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Снижение скорости' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.speedPenalty }}%</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Снижение поворота' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.turnPenalty }}%</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Снижение эргономик' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.ergoPenalty }}%</span>
+</div>
+{% if item.properties.zones is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Защита частей тела' |trans({}, 'front.items') }}</span>
+    <span class="value-properties" style="text-align: right">{% for zone in item.properties.zones %}{{ zone }}<br />{% endfor %}</span>
+</div>
+{% endif %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Емкость' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.capacity }}</span>
+</div>
+{% if item.properties.armorType is not empty %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Тип защиты' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.armorType |trans({}, 'front.items') }}</span>
+</div>
+{% endif %}
+<div class="character__text">
+    <span class="value-stock">{{ 'Заброневой урон' |trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.bluntThroughput }}</span>
+</div>

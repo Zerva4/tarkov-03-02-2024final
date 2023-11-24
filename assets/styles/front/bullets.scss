@@ -1,5 +1,4 @@
 .table {
-    width: 100%;
 
     td {
         &.td_bullet {
@@ -11,19 +10,19 @@
         }
 
         &.td_armor_pen {
-            width: 10%;
+            width: 13%;
         }
 
         &.td_armor_dam {
-            width: 10%;
+            width: 11%;
         }
 
         &.td_speed {
-            width: 10%;
+            width: 11%;
         }
 
         &.td_options {
-            width: 30%;
+            width: 25%;
 
             .ref {
                 right: calc(100% + 8px) !important;
@@ -67,7 +66,7 @@
 }
 
 .ammo_chooser {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
 
     @media (min-width:320px) and (max-width:1080px) {
         padding: 0 12px;
@@ -88,34 +87,22 @@
     .wrapper {
         display: flex;
         flex-flow: row wrap;
-        gap: 8px;
+        gap: 4px;
         justify-content: flex-start;
         align-items: flex-start;
 
         .ammo {
-            min-width: 110px;
+            min-width: 120px;
             background: #1E1E1E;
             border-radius: 5px;
             margin-bottom: 4px;
             display: inline-block;
-            padding: 8px 8px 8px 24px;
+            padding: 8px 24px 8px 24px;
             text-align: center;
-            position: relative;
             width: max-content;
             cursor: pointer;
             user-select: none;
             transition: 0.5s ease;
-
-            &::before {
-                position: absolute;
-                content: "";
-                width: 4px;
-                height: 4px;
-                background: $color-text;
-                border-radius: 50%;
-                top: calc(50% - 2px);
-                left: 8px;
-            }
 
             &.active {
                 background: #483013;
@@ -210,8 +197,15 @@
     .item {
         margin: 0 6px !important;
         height: 6px;
-        width: 40px;
+        width: 40px !important;
         background: $color-text;
+        @media (min-width:320px) and (max-width:1080px) {
+            margin: 0 6px !important;
+            height: 8px;
+            padding: 0 !important;
+            width: 75px !important;
+            background: $color-text;
+        }
 
         &.active {
             background: $color-hl;
@@ -222,7 +216,7 @@
 .options {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     flex-flow: row wrap;
     gap: 8px;
 
@@ -255,7 +249,7 @@
             transform: scaleY(0);
             transform-origin: top;
             transition: all 0.5s ease;
-            margin-top: -16px;
+            margin-top: 0px;
 
             &.active {
                 transform: scaleY(1);
@@ -269,21 +263,18 @@
                 display: flex;
                 flex-flow: row nowrap;
                 align-items: center;
-                justify-content: flex-start;
-                margin: 16px;
+                justify-content: space-between;
+                padding: 8px 32px;
+                width: 100%;
             }
 
             .name {
-                flex: 1;
-                text-align: left;
                 margin-right: 5px;
                 color: #828282;
             }
 
             .value {
-                flex: 1;
-                text-align: left;
-                margin-left: 5px;
+                margin-right: 32px;
 
                 .flatness {
                     display: flex;
@@ -309,7 +300,7 @@
         .button {
             color: #000000 !important;
             cursor: pointer;
-            background: #DF870A;
+            background: #828282;
             border-radius: 0px 0px 5px 5px;
             padding: 4px 20px;
             user-select: none;
@@ -324,6 +315,7 @@
             }
 
             &.active {
+                background: #DF870A;
                 .icon {
                     &::before {
                         content: "▲";
@@ -364,11 +356,10 @@
     @media (min-width:320px) and (max-width:1080px) {
         display: block;
         border-radius: 0;
-        padding: 12px 16px;
         visibility: visible !important;
         max-height: 2000px !important;
         opacity: 1 !important;
-        padding: 12px 20px !important;
+        padding: 12px 0px !important;
     }
 
     .group {
@@ -377,14 +368,15 @@
         align-items: center;
 
         @media (min-width:320px) and (max-width:1080px) {
-            margin: 16px 0;
+            margin: 8px 0;
         }
 
         .icon {
             position: relative;
             width: 32px;
             height: 32px;
-            margin-right: 16px;
+            margin-right: 8px;
+            padding-left: 8px;
             cursor: pointer;
 
             img {
@@ -392,6 +384,7 @@
                 top: 0;
                 left: 0;
                 object-fit: contain;
+                margin-left: 4px;
             }
 
             .group_ref {
@@ -400,14 +393,14 @@
                 left: calc(100% + 2px);
                 transform: translate(10%, 0);
                 padding: 8px;
-                background: #151515;
+                background: #1e1e1e !important;
                 box-shadow: 1px 1px 1px #DF870A;
                 border-radius: 0px 5px 5px 0px;
                 visibility: hidden;
                 opacity: 0;
                 transition: all 0.5s ease;
                 z-index: 300;
-                max-width: 400px;
+                max-width: 240px;
                 width: max-content;
                 font-size: 14px;
                 text-align: left;
@@ -419,7 +412,7 @@
 
                 .name {
                     color: #fff;
-                    margin-bottom: 8px;
+                    margin-bottom: 4px;
                 }
 
                 .text {
@@ -440,12 +433,15 @@
             display: flex;
             flex-flow: row nowrap;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
+            margin-left: 4px;
 
             .opt {
                 background: #151515;
                 border-radius: 5px;
                 padding: 4px 6px;
+                width: 45px;
+                height: 25px;
             }
         }
     }

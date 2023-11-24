@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Trader;
 
 use App\Entity\Item\Item;
@@ -38,8 +40,8 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $price;
 
-    #[ORM\Column(type: 'string', length: 10, nullable: false)]
-    private string $currency;
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    private ?string $currency;
 
     #[ORM\ManyToOne(targetEntity: Item::class, fetch: 'EXTRA_LAZY', inversedBy: 'currencyCashOffers')]
     #[ORM\JoinColumn(name: 'currency_item_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
@@ -48,8 +50,8 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $priceRUB;
 
-    #[ORM\ManyToOne(targetEntity: Quest::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', inversedBy: 'unlockInCashOffers')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ORM\ManyToOne(targetEntity: Quest::class, fetch: 'EXTRA_LAZY', inversedBy: 'unlockInCashOffers')]
+    #[ORM\JoinColumn(name: 'quest_unlock_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?QuestInterface $questUnlock = null;
 
     public function getItem(): ?ItemInterface
@@ -100,12 +102,12 @@ class TraderCashOffer implements UuidPrimaryKeyInterface, TimestampableInterface
         return $this;
     }
 
-    public function getCurrency(): string
+    public function getCurrency(): ?string
     {
         return $this->currency;
     }
 
-    public function setCurrency(string $currency): TraderCashOfferInterface
+    public function setCurrency(?string $currency): TraderCashOfferInterface
     {
         $this->currency = $currency;
 

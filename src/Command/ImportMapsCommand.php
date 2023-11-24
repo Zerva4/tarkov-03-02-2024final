@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\Map;
@@ -57,21 +59,12 @@ class ImportMapsCommand extends Command
                     enemies,
                     raidDuration,
                     players
-                    bosses {
-                        name,
-                        spawnChance,
-                        spawnTime,
-                        spawnTimeRandom,
-                        spawnTrigger,
-                        spawnLocations {
-                            name, chance
-                        }
-                        escorts {
-                            name,
-                            amount {
-                                count, chance
-                            }
-                        }
+                    accessKeys { id, name }
+                    accessKeysMinPlayerLevel
+                    spawns {
+                        zoneName
+                        sides
+                        categories
                     }
                 }
             }
@@ -102,15 +95,15 @@ class ImportMapsCommand extends Command
 
             if ($mapEntity instanceof Map) {
                 $mapEntity->setDefaultLocale($lang);
-                $mapEntity->translate($lang, false)->setTitle($map['name']);
-                $mapEntity->translate($lang, false)->setDescription($map['description']);
+                $mapEntity->setName($map['name']);
+                $mapEntity->setDescription($map['description']);
             } else {
                 /** @var MapInterface $mapEntity */
                 $mapEntity = new Map($lang);
                 $mapEntity->setDefaultLocale($lang);
                 /** TranslationInterface */
-                $mapEntity->translate($lang, false)->setTitle($map['name']);
-                $mapEntity->translate($lang, false)->setDescription($map['description']);
+                $mapEntity->setName($map['name']);
+                $mapEntity->setDescription($map['description']);
             }
             $duration = (new DateTime())->setTimestamp((int)$map['raidDuration']*60);
             $mapEntity
@@ -123,6 +116,8 @@ class ImportMapsCommand extends Command
             ;
             $this->em->persist($mapEntity);
             $mapEntity->mergeNewTranslations();
+
+            // todo bosses an zone spawn
         }
         $this->em->flush();
         $progressBar->finish();

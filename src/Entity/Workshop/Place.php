@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Workshop;
 
 use App\Entity\TranslatableEntity;
-use App\Interfaces\Quest\QuestInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Interfaces\Workshop\CraftInterface;
 use App\Interfaces\Workshop\PlaceInterface;
@@ -96,21 +97,26 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getOrderPlace(): ?int
     {
         return $this->orderPlace;
     }
 
-    /**
-     * @param int|null $orderPlace
-     * @return PlaceInterface
-     */
     public function setOrderPlace(?int $orderPlace): PlaceInterface
     {
         $this->orderPlace = $orderPlace;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->translate()->getName();
+    }
+
+    public function setName(string $name): PlaceInterface
+    {
+        $this->translate()->setName($name);
 
         return $this;
     }
@@ -243,6 +249,6 @@ class Place extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
 
     public function __toString(): string
     {
-        return $this->__get('title');
+        return $this->getName();
     }
 }

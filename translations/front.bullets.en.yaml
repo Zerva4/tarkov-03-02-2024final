@@ -1,0 +1,38 @@
+Название: Name
+Урон: Damage
+Боеприпасы: Bullets
+м/с: m/s
+Бронепробитие: Penetration
+Урон по броне: Armor damage
+Больше информации в статье: More information in the article
+Подробнее: More
+Скорость: Speed
+Дополнительные свойства: Additional properties
+Нет данных: No data
+Трасер: Tracer
+Точность: Accuracy
+Отдача: Recoil
+Нет: No
+Да: Yes
+Настильность: Flatness
+Настильность патрона: Flatness bullet
+без учета начальной скорости оружия: without initial weapon speed value
+Пробитие брони (%) по классам: Armor penetration (%) for class
+пробитие первым патроном: Armor penetration only first bullets
+Урон по броне по классам: Armor damage for class
+без учета материала: without destructibility material
+Легкое кровотечение: Light bleed
+Сильное кровотечение: Heavy bleed
+Фрагментация: Frag.chance
+Износ: Burn weapon factor
+Уменьшение выносливости: Stamina burn
+Нагрев: Heat factor
+Стак патронов: Stack bullets
+Представленные данные внутри таблицы являются номинальными значениями. Это означает, что таблица не учитывает множество переменных: The data in the table are nominal values. It means, that the table does not take into account all variables
+понижающий коэффициент брони, который относится и к урону, и к бронепробитию; начальную скорость оружия; дистанцию до цели; различные механики, связанные с погодными условиями игры. Подробнее со всеми тонкостиями можно ознакомиться на соответсвующих страницах механик.: armor reduction factor, which applies to both damage and armor penetration; initial weapon speed; distance to target; various mechanics related to the weather conditions of the raid. More details about all the subtleties can be found on the
+страницах механик: mechanics pages
+PRO-раздел представляет собой дополнительную информацию по характеристикам патрона, а также предлагает готовый расчет следующих характеристик: PRO provides additional information on the characteristics of the cartridge, and also offers a ready-made calculation of the following characteristics
+шанс пробития (%) патроном класс брони от 1 до 6. Шанс соответсвует первому попаданию пулей: change of penetration (%) a bullet for armor class from 1 to 6. The chance corresponds to the first hit by a bullet
+количество очков прочности, которое наносится по броне от 1 до 6 класса, без учета материала брони. Иными словами указан чистый урон по броне: Hit point armor durability that applies to armor classes 1 to 6, without armor material. It is clean armor damage.
+способность лететь по прямой траектории, не требующее дополнительного изменение пристрелки оружия. Определяется тремя уровнями, где 3 уровень означает минимальное требование к пристрелке оружия: The directional bullet to fly a trajectory without requiring additional changes in weapon zeroing. Determined by three levels, where level 3 means the minimum requirement for zeroing weapons
+Справка: Reference

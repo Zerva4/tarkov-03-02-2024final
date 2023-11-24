@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="main">
                     <div class="directions" data-turbo="true">
-                        <a href="#" class="item">
+                        <a href="{{ absolute_url(path('app_bullets', {})) }}" class="item">
                             <div class="image">
                                 <img src="{{ asset('assets/img/bullets_main.svg') }}" alt="">
                             </div>
@@ -14,9 +14,9 @@
                                 {{ 'Патроны'|trans({}, 'front.home') }}
                             </div>
                         </a>
-                        <a href="#" class="item">
+                        <a href="{{ absolute_url(path('app_maps', {})) }}" class="item">
                             <div class="image">
-                                <img src="{{ asset('assets/img/maps_main.svg') }}" alt="">
+                                <img src="{{ asset('assets/img/maps_main.svg') }}" alt="{{ 'Карты'|trans({}, 'front.home') }}">
                             </div>
                             <div class="name">
                                 {{ 'Карты'|trans({}, 'front.home') }}
@@ -34,7 +34,7 @@
                     <div class="now">
                         <div class="main_information">
                             <div class="windows">
-                                <div class="window" id="window_1">
+                                <div class="window active" id="window_1">
                                     <div class="name">
                                         {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
                                     </div>
@@ -42,7 +42,7 @@
                                         {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
                                     </div>
                                     <div class="contains">
-                                        <div>
+                                        <div class="text">
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
                                             error
                                             rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
@@ -62,9 +62,13 @@
                                             est
                                             blanditiis.
                                         </div>
+                                        <div class="overinfo">
+                                            <a href="#">
+                                                Подробнее...</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="window active" id="window_2">
+                                <div class="window" id="window_2">
                                     <div class="name">
                                         {{ 'Ивент'|trans({}, 'front.home') }}
                                     </div>
@@ -72,7 +76,7 @@
                                         {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
                                     </div>
                                     <div class="contains">
-                                        <div>
+                                        <div class="text">
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
                                             error
                                             rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
@@ -103,6 +107,10 @@
                                             necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
                                             est
                                             blanditiis.
+                                        </div>
+                                        <div class="overinfo">
+                                            <a href="#">
+                                                Подробнее...</a>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +122,7 @@
                                         {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
                                     </div>
                                     <div class="contains">
-                                        <div>
+                                        <div class="text">
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
                                             error
                                             rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
@@ -129,10 +137,10 @@
                                 </div>
                             </div>
                             <div class="selects">
-                                <div class="select" data-target="window_1">
+                                <div class="select active" data-target="window_1">
                                     {{ 'Патч'|trans({}, 'front.home') }}
                                 </div>
-                                <div class="select active" data-target="window_2">
+                                <div class="select" data-target="window_2">
                                     {{ 'Ивент'|trans({}, 'front.home') }}
                                 </div>
                                 <div class="select" data-target="window_3">
@@ -152,7 +160,7 @@
                 <div class="traders_main">
                     {% for trader in traders %}
                         <div class="trader" data-turbo="true">
-                            <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}/" class="image">
+                            <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}" class="image">
                                 {% if trader.imageName %}
                                     <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('118x118') }} " alt="{{ trader.shortName }}" />
                                 {% else %}
@@ -160,11 +168,13 @@
                                 {% endif %}
                             </a>
                             <div class="name">
-                                <a href="{{ absolute_url(path('app_traders', {})) }}/{{ trader.slug }}">{{ trader.shortName }}</a>
+                                <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}">{{ trader.shortName }}</a>
                             </div>
                             <div class="links">
-                                <a href="{{ absolute_url(path('app_quests', {})) }}/{{ trader.slug }}" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
-                                <a href="{{ absolute_url(path('app_items', {})) }}/{{ trader.slug }}" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
+                                <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#quests" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
+                                {% if trader.cashOffers.count > 0 %}
+                                    <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#items" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
@@ -204,5 +214,64 @@
             </div>
         </section>
         {% endif %}
+
+        <section>
+            <div class="container medium">
+                <div class="thanks">
+                    <h2 class="center">
+                        Благодарности
+                    </h2>
+                    <p>
+						<span> Выражаю огромную благодарность следующим людям, без которых данный
+						сайт вряд ли получился:</span>
+                    </p>
+                    <span class="hl">Monza</span> - за огромную финансовую поддержку и по
+                    факту «слепую веру» в проект, когда из всего существовало только мое слово.
+                    Без этого человека сайта бы не существовало - и это неоспоримый факт.
+                    <br>
+                    <span class="hl">Matroskin</span> - за четкие советы по работе, безграничной помощи в
+                    правильной технической базе и решению проблем в любое время для и ночи.
+                    <br>
+                    <span class="hl">Bakergarvey</span> - за визуальную концепцию сайта, которая радует
+                    своим стилем и формой.
+                    <br>
+                    <span class="hl">Sentis_Rubus</span> - за моральную поддержку и направление на необходимые
+                    функции сайта, а также передачу ценного опыта руководства.
+                    <br>
+                    <span class="hl">The_Dragonless</span> - за моральную поддержку, а также помощи в создании
+                    большей части первоначальных статей.
+                    <br>
+                    <span class="hl">Всем <a href="https://boosty.to/zervan">подписчикам Boosty</a></span> - за столь
+                    длительное ожидание, но постоянную поддержку, советы и участие в рекомендациях.
+                    <br>
+                    А также всем, кто ждал лично мою реализацию. Ваша поддержка неоценима.
+                    <br>
+                    <p>
+                        Это самый сложный проект, который я создавал. Делая ошибки, постоянно меняя, дополняя,
+                        стараясь найти верное решение. Даже когда казалось, что все готово - всегда находились проблемы,
+                        которые необходимо было закрывать, тратя дополнительное время и ресурсы. В какой-то момент все
+                        посыпалось, и я не знал, что будет дальше. Потраченного времени не вернуть, но я принял все ошибки
+                        и вряд ли буду допускать в будущем.
+                        <br>
+                        Ответить на вопрос «почему все оказалось настолько долго?» - я лично не смогу. Знаю лишь, что
+                        сейчас это пойдет значительно быстрее.
+                        <br>
+                        Работы предстоит еще много: создание карт, вывод статистики, пропись калькуляторов, и многое другое, что было обещано.
+                        Но первые шаги уже сделаны.
+                    <p>
+                        Все изменения по сайту будут анонсироваться на соответствующей странице - <a href="news.html">Новости</a>.
+                        <br>
+                        Если вы желаете помочь развитию, а также имеете какие-либо вопросы, можно написать напрямую
+                        через отдельный <a href="https://t.me/TarkovTown">Telegram</a>.
+
+                    </p>
+                    <p>
+                    <div class="text text_right">
+                        <span class="grey">©Zervan</span></div>
+                    </p>
+                    </p>
+                </div>
+            </div>
+        </section>
     </div>
 {% endblock %}

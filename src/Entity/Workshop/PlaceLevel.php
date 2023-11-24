@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity\Workshop;
 
 use App\Entity\Item\ContainedItem;
@@ -130,6 +132,18 @@ class PlaceLevel extends TranslatableEntity implements UuidPrimaryKeyInterface, 
     public function setConstructionTime(int $constructionTime): PlaceLevelInterface
     {
         $this->constructionTime = $constructionTime;
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->translate()->getDescription();
+    }
+
+    public function setDescription(string $description): PlaceLevelInterface
+    {
+        $this->translate()->setDescription($description);
 
         return $this;
     }

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderRequired;
-use App\Entity\Workshop\PlaceLevelRequired;
 use App\Repository\Trader\TraderRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -28,7 +29,7 @@ class TraderRequiredType extends AbstractType
                         ->addSelect('lt')
                         ->andWhere('lt.locale = :locale')
                         ->setParameter('locale', 'ru')
-                        ->orderBy('lt.characterType', 'ASC');
+                        ->orderBy('lt.shortName', 'ASC');
                 },
                 'expanded'=> false,
                 'by_reference' => true,

@@ -15,6 +15,7 @@ parameters:
     # Locales
     app.default_locale: 'ru'
     app.additional_locales: 'en'
+    app.supported_locales: 'ru|en'
 
     # GraphQL url address
     app.graphql_api_url: '%env(GRAPHQL_API_URL)%'
@@ -33,8 +34,8 @@ parameters:
     app.traders.images.uri: '%app.storage.uri%images/traders'
 
     # Maps image config
-    app.maps.images.path: '%app.storage.path%images/locations'
-    app.maps.images.uri: '%app.storage.uri%images/locations'
+    app.maps.images.path: '%app.storage.path%images/maps'
+    app.maps.images.uri: '%app.storage.uri%images/maps'
 
     # Locations image config
     app.locations.images.path: '%app.storage.path%images/locations'
@@ -78,8 +79,11 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    app.eventListeners.localeParamListener:
-        class: App\EventListener\LocaleParamListener
-        arguments: ["@router", "%app.default_locale%", "%app.additional_locales%"]
-        tags:
-            - { name: kernel.event_subscriber }
+#    app.eventListeners.localeParamListener:
+#        class: App\EventListener\LocaleParamListener
+#        arguments: ["@router", "%app.default_locale%", "%app.supported_locales%"]
+#        tags:
+#            - { name: kernel.event_subscriber }
+
+    Symfony\Component\HttpFoundation\Request:
+        autowire: true
