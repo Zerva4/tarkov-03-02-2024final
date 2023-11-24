@@ -33,8 +33,8 @@ class ItemsController extends AbstractController
 
         return $this->render('items/view.html.twig', [
             'item' => $item,
-            'usedInQuests' => $usedInQuests,
-            'receivedFromQuests' => $receivedFromQuests,
+            'usedInQuests' => $usedInQuests ?? null,
+            'receivedFromQuests' => $receivedFromQuests ?? null,
         ]);
     }
 }

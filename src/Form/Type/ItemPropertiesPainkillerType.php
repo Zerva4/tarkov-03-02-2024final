@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Entity\Item\ItemPropertiesPainkiller;
+use App\Entity\Item\Properties\ItemPropertiesPainkiller;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;

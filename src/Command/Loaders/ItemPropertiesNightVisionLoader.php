@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command\Loaders;
 
-use App\Interfaces\Item\ItemPropertiesNightVisionInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesNightVisionInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesNightVisionLoader

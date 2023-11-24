@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command\Loaders;
 
 use App\Entity\Item\ItemMaterial;
-use App\Interfaces\Item\ItemPropertiesChestRigInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesChestRigInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesChestRigLoader

@@ -147,6 +147,10 @@ class ImportTradersCashOffersCommand extends Command
                             ->getQuery()
                             ->getOneOrNullResult();
 
+//                        if ($cashOfferItemId === '60479fb29c15b12b9a480fb0') {
+//                            dump($result);
+//                        }
+
                         if ($result) {
                             /** @var $cashOfferEntity $cashOfferEntity */
                             $cashOfferEntity = $cashOffersRepository->findOneBy([
@@ -169,18 +173,27 @@ class ImportTradersCashOffersCommand extends Command
                                 ->setTrader($traderEntity)
                                 ->setTraderLevel($traderLevelEntity)
                                 ->setItem($itemEntity)
-                                ->setCurrencyItem($currencyEntity);
+                                ->setCurrencyItem($currencyEntity)
+                                ->setPrice($cashOffer['price'])
+                                ->setPriceRUB($cashOffer['priceRUB'])
+                                ->setCurrency($cashOffer['currency'])
+                            ;
+                            if ($result['quest']) {
+                                $questEntity = $questRepository->findOneBy(['id' => $result['quest']]);
+                                if ($questEntity instanceof QuestInterface) $cashOfferEntity->setQuestUnlock($questEntity);
+                            }
+                            $this->em->persist($cashOfferEntity);
                         }
 
-                        if ($result['quest']) {
-                            $questEntity = $questRepository->findOneBy(['id' => $result['quest']]);
-                            if ($questEntity instanceof QuestInterface) $cashOfferEntity->setQuestUnlock($questEntity);
-                        }
-                        $cashOfferEntity
-                            ->setPrice($cashOffer['price'])
-                            ->setPriceRUB($cashOffer['priceRUB'])
-                            ->setCurrency($cashOffer['currency']);
-                        $this->em->persist($cashOfferEntity);
+//                        if ($result['quest']) {
+//                            $questEntity = $questRepository->findOneBy(['id' => $result['quest']]);
+//                            if ($questEntity instanceof QuestInterface) $cashOfferEntity->setQuestUnlock($questEntity);
+//                        }
+//                        $cashOfferEntity
+//                            ->setPrice($cashOffer['price'])
+//                            ->setPriceRUB($cashOffer['priceRUB'])
+//                            ->setCurrency($cashOffer['currency']);
+//                        $this->em->persist($cashOfferEntity);
                     }
                 }
             }

@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Quest\QuestAdvice;
 use App\Entity\Quest\QuestObjective;
+use App\Interfaces\Quest\QuestAdviceInterface;
 use App\Interfaces\Quest\QuestInterface;
 use App\Repository\Quest\QuestObjectiveRepository;
 use App\Repository\Quest\QuestRepository;
@@ -32,9 +33,10 @@ class QuestsController extends FrontController
         ]);
     }
 
-    #[Route('/quests/{slug}', name: 'app_view_quest', requirements: ['traderName' => '^[A-Za-z0-9-]*$'])]
+    #[Route('/quest/{slug}', name: 'app_view_quest', requirements: ['traderName' => '^[A-Za-z0-9-]*$'])]
     public function viewQuest(string $slug, QuestRepository $questRepository, QuestObjectiveRepository $questObjectiveRepository): Response
     {
+        $adviceBody = null;
         $questAdviceRepository = $this->em->getRepository(QuestAdvice::class);
         $quest = $questRepository->findQuestBySlug($slug, $this->getLocale());
         $quest->getRandomAdvice();
@@ -44,9 +46,11 @@ class QuestsController extends FrontController
             );
         }
         $advice = $questAdviceRepository->findRandomAdvice($quest);
+        if ($advice instanceof QuestAdviceInterface)
+            $adviceBody = $advice->getBody();
 
         return $this->render('quests/view.html.twig', [
-            'advice' => $advice->getBody(),
+            'advice' => $adviceBody,
             'quest' => $quest,
         ]);
     }

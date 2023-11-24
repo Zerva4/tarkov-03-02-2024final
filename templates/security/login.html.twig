@@ -29,7 +29,7 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        Вы вошли как {{ app.user.username }}, <a href="{{ path('app_logout') }}">Выйти</a>
+                        Вы вошли как {{ app.user.login }}, <a href="{{ path('app_logout') }}">Выйти</a>
                     </div>
                 {% endif %}
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command\Loaders;
 
-use App\Interfaces\Item\ItemPropertiesContainerInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesContainerLoader

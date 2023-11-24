@@ -40,11 +40,11 @@
                     <a href="#">{{ 'Новости'|trans({}, 'front.nav') }}</a>
                 </div>
             </div>
-            <div class="search">
-                <input type="text" id="search" class="input" name="search" placeholder="{{ 'Поиск по сайту'|trans({}, 'front.nav') }}">
-                <label for="search" class="icon"></label>
-            </div>
-            <div class="login" id="login_main">{{ 'Войти'|trans({}, 'front.nav') }}</div>
+{#            <div class="search">#}
+{#                <input type="text" id="search" class="input" name="search" placeholder="{{ 'Поиск по сайту'|trans({}, 'front.nav') }}">#}
+{#                <label for="search" class="icon"></label>#}
+{#            </div>#}
+{#            <div class="login" id="login_main">{{ 'Войти'|trans({}, 'front.nav') }}</div>#}
 
             <div class="mobile_menu">
                 <div class="close" id="menu_mobile_close" {{ stimulus_controller('mobile-menu') }} {{ stimulus_action('click->mobile-menu', 'close') }}></div>
@@ -174,7 +174,7 @@
         <div class="mobile_nav">
             <ul class="mobile_nav_list">
                 <li class="mobile_nav_item">
-                    <a href="traders.html">
+                    <a href="{{ absolute_url(path('app_traders', {})) }}">
                         <svg width="20px" height="20px" viewBox="0 0 24 24"  fill="#828282" class="svg fill" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M10.661 7.86213C10.4142 8.04749 10.25 8.31328 10.25 8.75C10.25 9.30228 9.80229 9.75 9.25 9.75C8.69772 9.75 8.25 9.30228 8.25 8.75C8.25 7.68672 8.70818 6.82751 9.46005 6.26288C10.1787 5.72317 11.0967 5.5 12 5.5C13.0779 5.5 13.987 5.82418 14.6436 6.44499C15.2951 7.06101 15.6046 7.88116 15.6531 8.7005C15.7483 10.3042 14.864 12.0687 13.2461 12.9932C13.099 13.0773 13.008 13.1462 12.9529 13.1958C13.0783 13.5886 12.9509 14.0345 12.6034 14.2974C12.163 14.6307 11.5359 14.5438 11.2026 14.1034C11.2026 14.1034 11.2031 14.1041 11.2016 14.1021L11.2005 14.1007C10.9606 13.778 10.865 13.355 10.9137 12.9585C10.9974 12.277 11.4727 11.7031 12.2539 11.2568C13.2157 10.7071 13.7065 9.65911 13.6567 8.8189C13.6328 8.41625 13.4898 8.10656 13.2695 7.89822C13.0542 7.69468 12.6721 7.5 12 7.5C11.3981 7.5 10.9411 7.65183 10.661 7.86213Z"/>
                             <path d="M12 18.5C12.8284 18.5 13.5 17.8284 13.5 17C13.5 16.1716 12.8284 15.5 12 15.5C11.1716 15.5 10.5 16.1716 10.5 17C10.5 17.8284 11.1716 18.5 12 18.5Z"/>
@@ -203,7 +203,7 @@
                         <span>{{ 'Механики'|trans({}, 'front.nav') }}</span></a>
                 </li>
                 <li class="mobile_nav_item">
-                    <a href="bullets.html">
+                    <a href="{{ absolute_url(path('app_bullets', {})) }}">
                         <svg fill="#828282" width="20px" height="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                              viewBox="0 0 503.607 503.607" xml:space="preserve" class="svg fill">
                <g>
@@ -237,7 +237,7 @@
                         <span>{{ 'Патроны'|trans({}, 'front.nav') }}</span></a>
                 </li>
                 <li class="mobile_nav_item">
-                    <a href="map.html">
+                    <a href="{{ absolute_url(path('app_maps', {})) }}">
                         <svg width="20px" height="20px" viewBox="0 0 24 24" class="svg stroke" stroke="#828282" stroke-width="1.7" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.7 15C4.03377 15.6353 3 16.5205 3 17.4997C3 19.4329 7.02944 21 12 21C16.9706 21 21 19.4329 21 17.4997C21 16.5205 19.9662 15.6353 18.3 15M12 9H12.01M18 9C18 13.0637 13.5 15 12 18C10.5 15 6 13.0637 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9ZM13 9C13 9.55228 12.5523 10 12 10C11.4477 10 11 9.55228 11 9C11 8.44772 11.4477 8 12 8C12.5523 8 13 8.44772 13 9Z" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>

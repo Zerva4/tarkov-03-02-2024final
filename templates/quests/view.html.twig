@@ -113,6 +113,7 @@
             </div>
         </section>
         {% endif %}
+        {% if advice is not empty %}
         <section>
             <div class="container">
                 <div class="note">
@@ -123,6 +124,7 @@
                 </div>
             </div>
         </section>
+        {% endif %}
         <section>
             <div class="container">
                 <div class="reference active">
@@ -151,7 +153,7 @@
                                     <div class="val value_options">
                                         {% for traderStanding in quest.traderStandings %}
                                         <div>
-                                            <span class="option">{{ traderStanding.trader.shortName }}</span>
+                                            <span class="option">{{ traderStanding.trader.translate(app.request.locale).shortName }}</span>
                                             <span class="text">{% if traderStanding.standing > 0 %}+{% endif %}{{ traderStanding.standing }}</span>
                                         </div>
                                         {% endfor %}
@@ -159,8 +161,10 @@
                                 </div>
                                 {% endif %}
                                 {% if quest.receivedItems is not empty %}
+                                    {% set countMoney = 0 %}
                                     {% for receivedItem in quest.receivedItems %}
                                         {% if 'money' in receivedItem.item.types %}
+                                            {% set countMoney = countMoney + 1 %}
                                             <div class="prop">
                                                 <div class="name">
                                                     {{ 'Деньги'|trans({}, 'front.quests') }}
@@ -202,7 +206,7 @@
                             {% if quest.usedItems is not empty %}
                                 {{ include('quests/blocks/used-items.html.twig') }}
                             {% endif %}
-                            {% if quest.receivedItems is not empty %}
+                            {% if (quest.receivedItems is not empty) and (quest.receivedItems | length > countMoney) %}
                                 {{ include('quests/blocks/received-items.html.twig') }}
                             {% endif %}
                             {% if (quest.unlockInCashOffers is not empty) or (quest.unlockBarters is not empty) %}

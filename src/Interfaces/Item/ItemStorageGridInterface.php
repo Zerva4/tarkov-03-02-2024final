@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Interfaces\Item;
 
+use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use Doctrine\Common\Collections\Collection;
 
 interface ItemStorageGridInterface
