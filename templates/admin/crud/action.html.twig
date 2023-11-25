@@ -34,7 +34,6 @@
         </ul>
     </div>
 {% else %}
-    {{ dump(ea.entity.name) }}
     {% if ea.entity.name == 'Item' %}
         {% set editUrl = action.linkUrl ~ '&typeItem=' ~ entity.instance.typeItem %}
     {% endif %}
