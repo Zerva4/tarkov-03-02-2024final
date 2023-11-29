@@ -62,13 +62,13 @@
 
         span {
           font-size: 16px;
-          margin: 4px 0 4px;
+          margin: 6px 0 4px;
           text-align: center;
           color: #df870a;
         }
 
         .text {
-          padding: 6px 12px;
+          padding: 0px 24px 24px 24px;
           margin: 0;
           list-style: none;
           display: flex;
@@ -81,7 +81,6 @@
 
             .text__description {
               margin: 0;
-              line-height: 17px;
 
               &.margin {
                 margin-left: 8px;
