@@ -31,11 +31,11 @@
                     <a href="{{ absolute_url(path('app_maps', {})) }}">{{ 'Карты'|trans({}, 'front.nav') }}</a>
                 </div>
                 <div class="item">
-                    <a href="#">{{ 'Механики'|trans({}, 'front.nav') }}</a>
+                    <a href="{{ absolute_url(path('app_mechanics', {})) }}">{{ 'Механики'|trans({}, 'front.nav') }}</a>
                 </div>
-                <div class="item">
-                    <a href="#">{{ 'Убежище'|trans({}, 'front.nav') }}</a>
-                </div>
+{#                <div class="item">#}
+{#                    <a href="#">{{ 'Убежище'|trans({}, 'front.nav') }}</a>#}
+{#                </div>#}
                 <div class="item">
                     <a href="#">{{ 'Новости'|trans({}, 'front.nav') }}</a>
                 </div>
@@ -103,7 +103,7 @@
                         </a>
                     </div>
                     <div class="item">
-                        <a href="#" class="itemlink">
+                        <a href="{{ absolute_url(path('app_mechanics', {})) }}" class="itemlink">
                             <svg height="25px" width="25px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                  viewBox="0 0 512 512"  xml:space="preserve" fill="#DF870A">
                              <g>
@@ -184,7 +184,7 @@
                     </a>
                 </li>
                 <li class="mobile_nav_item">
-                    <a href="mechanics.html">
+                    <a href="{{ absolute_url(path('app_mechanics', {})) }}">
                         <svg height="20px" width="20px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                              viewBox="0 0 512 512"  xml:space="preserve" fill="#828282" class="svg fill">
                    <g>
@@ -243,17 +243,17 @@
                         </svg>
                         <span>{{ 'Карты'|trans({}, 'front.nav') }}</span></a>
                 </li>
-                <li class="mobile_nav_item">
-                    <a href="#" class="login" id="mobile_login" >
-                        <svg width="20px" height="20px" fill="#828282" class="svg fill"  viewBox="0 0 30.586 30.586" xmlns="http://www.w3.org/2000/svg">
-                            <g transform="translate(-546.269 -195.397)">
-                                <path d="M572.138,221.245a15.738,15.738,0,0,0-21.065-.253l-1.322-1.5a17.738,17.738,0,0,1,23.741.28Z"/>
-                                <path d="M561.464,204.152a4.96,4.96,0,1,1-4.96,4.96,4.966,4.966,0,0,1,4.96-4.96m0-2a6.96,6.96,0,1,0,6.96,6.96,6.96,6.96,0,0,0-6.96-6.96Z"/>
-                                <path d="M561.562,197.4a13.293,13.293,0,1,1-13.293,13.293A13.308,13.308,0,0,1,561.562,197.4m0-2a15.293,15.293,0,1,0,15.293,15.293A15.293,15.293,0,0,0,561.562,195.4Z"/>
-                            </g>
-                        </svg>
-                        <span>{{ 'Профиль'|trans({}, 'front.nav') }}</span></a>
-                </li>
+{#                <li class="mobile_nav_item">#}
+{#                    <a href="#" class="login" id="mobile_login" >#}
+{#                        <svg width="20px" height="20px" fill="#828282" class="svg fill"  viewBox="0 0 30.586 30.586" xmlns="http://www.w3.org/2000/svg">#}
+{#                            <g transform="translate(-546.269 -195.397)">#}
+{#                                <path d="M572.138,221.245a15.738,15.738,0,0,0-21.065-.253l-1.322-1.5a17.738,17.738,0,0,1,23.741.28Z"/>#}
+{#                                <path d="M561.464,204.152a4.96,4.96,0,1,1-4.96,4.96,4.966,4.966,0,0,1,4.96-4.96m0-2a6.96,6.96,0,1,0,6.96,6.96,6.96,6.96,0,0,0-6.96-6.96Z"/>#}
+{#                                <path d="M561.562,197.4a13.293,13.293,0,1,1-13.293,13.293A13.308,13.308,0,0,1,561.562,197.4m0-2a15.293,15.293,0,1,0,15.293,15.293A15.293,15.293,0,0,0,561.562,195.4Z"/>#}
+{#                            </g>#}
+{#                        </svg>#}
+{#                        <span>{{ 'Профиль'|trans({}, 'front.nav') }}</span></a>#}
+{#                </li>#}
             </ul>
 
         </div>
