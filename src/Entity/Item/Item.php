@@ -264,36 +264,36 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
 
     public function getName(): ?string
     {
-        return $this->translate($this->currentLocale, false)->getName();
+        return $this->translate()->getName();
     }
 
     public function setName(?string $name): ItemInterface
     {
-        $this->translate($this->currentLocale, false)->setName($name);
+        $this->translate()->setName($name);
 
         return $this;
     }
 
     public function getShortName(): ?string
     {
-        return $this->translate($this->currentLocale, false)->getShortName();
+        return $this->translate()->getShortName();
     }
 
     public function setShortName(?string $name): ItemInterface
     {
-        $this->translate($this->currentLocale, false)->setShortName($name);
+        $this->translate()->setShortName($name);
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->translate($this->currentLocale, false)->getDescription();
+        return $this->translate()->getDescription();
     }
 
     public function setDescription(?string $description): ItemInterface
     {
-        $this->translate($this->currentLocale, false)->setDescription($description);
+        $this->translate()->setDescription($description);
 
         return $this;
     }
