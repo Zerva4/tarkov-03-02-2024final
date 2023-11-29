@@ -21,9 +21,9 @@
             <a href="#" class="item" data-map="{{ map.name }}">
                     <div class="card">
                         {% if map.imageName %}
-                            <img src="{{ asset('/storage/images/maps/' ~ map.imageName) | imagine_filter('257x77') }}" alt="{{ map.name }}" class="image" />
+                            <img src="{{ asset('/storage/images/maps/' ~ map.imageName) | imagine_filter('267x80') }}" alt="{{ map.name }}" class="image" />
                         {% else %}
-                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('257x77') }}" alt="{{ map.name }}" class="image" />
+                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('267x80') }}" alt="{{ map.name }}" class="image" />
                         {% endif %}
                         <span class="title">{{ map.name }}</span>
                         <ul class="text">
