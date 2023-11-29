@@ -9,6 +9,9 @@
     h1 {
         margin: 0;
     }
+    ul {
+        list-style-type: none;
+    }
 
     .tasks {
         flex: 4;
@@ -24,10 +27,6 @@
             padding-left: 20px;
             display: flex;
             flex-direction: column-reverse;
-
-            ul {
-                list-style-type: none;
-            }
 
             .item {
                 line-height: 1.5;
