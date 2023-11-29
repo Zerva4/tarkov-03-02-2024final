@@ -64,7 +64,7 @@
             }
 
             &:hover {
-                border: 1px solid #DF870A;
+                border-bottom: 1px solid #DF870A;
             }
         }
     }
@@ -286,9 +286,10 @@
             img {
                 border-radius: 5px;
                 border: 1px solid #070707;
+                transition: all 0.2s ease;
 
                 &:hover{
-                    border: 1px solid #DF870A;
+                    border-bottom: 1px solid #DF870A;
                 }
             }
         }
