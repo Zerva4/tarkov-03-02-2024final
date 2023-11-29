@@ -1,6 +1,7 @@
 .information {
     display: flex;
     flex-direction: row;
+    gap: 25px;
 
     @media (min-width: 320px) and (max-width: 1080px) {
         flex-direction: column-reverse;
@@ -11,7 +12,8 @@
 
     .tasks {
         flex: 4;
-        padding-right: 60px;
+        border-radius: 10px;
+        padding-left: 30px;
 
         @media (min-width: 320px) and (max-width: 1080px) {
             padding: 0;
@@ -31,6 +33,12 @@
 
     .card {
         flex: 2;
+        background: #151515;
+        padding: 8px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         @media (min-width: 600px) and (max-width: 1080px) {
             display: flex;
@@ -41,8 +49,6 @@
         .image {
             img {
                 flex: 1;
-                width: 100%;
-                min-height: 197px;
                 overflow: hidden;
                 @media (min-width: 320px) and (max-width: 600px) {
                     display: flex;
@@ -52,10 +58,8 @@
         }
 
         .text {
-            background: #151515;
-            border-radius: 0px 0px 10px 10px;
-            padding: 8px 24px;
-            min-width: 258px;
+            padding: 4px 8px;
+            min-width: 240px;
 
             .item {
                 padding: 4px 0;
