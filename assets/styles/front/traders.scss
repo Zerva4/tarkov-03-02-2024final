@@ -66,16 +66,6 @@
             border-radius: 5px;
             overflow: hidden;
 
-            @media (min-width: 320px) and (max-width: 660px) {
-                width: 120px;
-                height: 120px;
-            }
-
-            @media (min-width: 660.1px) and (max-width: 1080px) {
-                width: 128px;
-                height: 128px;
-            }
-
             img {
                 position: absolute;
                 top: 0;
@@ -176,8 +166,6 @@
             justify-content: start;
 
             @media (min-width: 320px) and (max-width: 660px) {
-                width: 280px;
-                height: 156px;
                 align-self: center;
             }
 
