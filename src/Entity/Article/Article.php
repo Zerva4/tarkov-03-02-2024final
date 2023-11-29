@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Article;
 
 use App\Repository\ArticleRepository;
 use App\Traits\SlugTrait;

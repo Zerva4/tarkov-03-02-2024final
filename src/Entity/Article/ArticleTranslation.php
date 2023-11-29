@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Article;
 
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\ArticleTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
