@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Article;
+use App\Entity\Article\Article;
+use App\Entity\Article\ArticleCategory;
 use App\Entity\Barter;
 use App\Entity\Boss;
 use App\Entity\Item\Item;
@@ -16,6 +17,7 @@ use App\Entity\Quest\QuestAdvice;
 use App\Entity\Quest\QuestItem;
 use App\Entity\Trader\Trader;
 use App\Entity\Trader\TraderCashOffer;
+use App\Entity\Update\Update;
 use App\Entity\Update\UpdateCategory;
 use App\Entity\User;
 use App\Entity\Workshop\Craft;
@@ -75,8 +77,12 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud(t('Cash offers', [], 'menu'), '', TraderCashOffer::class)->setController(TraderCashOfferCrudController::class)
         ];
         $updatesMenu = [
-            MenuItem::linkToCrud(t('List', [], 'menu'), '', UpdateCategory::class)->setController(UpdateCrudController::class),
+            MenuItem::linkToCrud(t('List', [], 'menu'), '', Update::class)->setController(UpdateCrudController::class),
             MenuItem::linkToCrud(t('Categories', [], 'menu'), '', UpdateCategory::class)->setController(UpdateCategoryCrudController::class)
+        ];
+        $articlesMenu = [
+            MenuItem::linkToCrud(t('List', [], 'menu'), '', Article::class)->setController(ArticleCrudController::class),
+            MenuItem::linkToCrud(t('Categories', [], 'menu'), '', ArticleCategory::class)->setController(ArticleCategoryCrudController::class)
         ];
         yield MenuItem::section(t('Content', [], 'menu'), '');
         yield MenuItem::linkToCrud(t('Maps', [], 'menu'), 'fa fa-map', Map::class)->setController(MapCrudController::class);
@@ -86,7 +92,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu(t('Quests', [], 'menu'), 'fa fa-cubes')->setSubItems($questMenu);
         yield MenuItem::linkToCrud(t('Enemies', [], 'menu'), 'fa fa-skull', Boss::class)->setController(BossCrudController::class);
         yield MenuItem::subMenu(t('Updates', [], 'menu'), 'fa fa-sync')->setSubItems($updatesMenu);
-        yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);
+        yield MenuItem::subMenu(t('Articles', [], 'menu'), 'fa fa-sync')->setSubItems($articlesMenu);
+//        yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);
         yield MenuItem::section(t('Materials', [], 'menu'), '');
         yield MenuItem::linkToDashboard(t('Photos', [], 'menu'), 'fa fa-camera');
         yield MenuItem::linkToDashboard(t('Videos', [], 'menu'), 'fa fa-video-camera');
