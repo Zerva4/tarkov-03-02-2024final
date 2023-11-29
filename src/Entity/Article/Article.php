@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Article;
 
-use App\Repository\ArticleRepository;
+use App\Interfaces\Article\ArticleCategoryInterface;
+use App\Interfaces\Article\ArticleInterface;
+use App\Repository\Article\ArticleRepository;
 use App\Traits\SlugTrait;
 use App\Traits\TranslatableMagicMethodsTrait;
 use App\Traits\UuidPrimaryKeyTrait;
@@ -27,7 +29,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @Vich\Uploadable
  */
-class Article implements TranslatableInterface, TimestampableInterface
+class Article implements ArticleInterface, TranslatableInterface, TimestampableInterface
 {
     use UuidPrimaryKeyTrait;
     use TimestampableTrait;
@@ -40,8 +42,8 @@ class Article implements TranslatableInterface, TimestampableInterface
     public const STATUS_PUBLISHED = 2;
     public const STATUS_ARCHIVED = 3;
 
-    #[ORM\Column(type: 'boolean')]
-    private int $status = self::STATUS_DRAFT;
+    #[ORM\Column(type: 'integer', options: ['default' => 0, 'comment' => 'Статус'])]
+    private ?int $status = self::STATUS_DRAFT;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $imagePoster = null;
@@ -70,21 +72,23 @@ class Article implements TranslatableInterface, TimestampableInterface
     #[ORM\Column(type: 'time', nullable: true)]
     private ?DateTimeInterface $readingDuration;
 
-    private Collection $categories;
+    #[ORM\ManyToOne(targetEntity: ArticleCategory::class, cascade: ['persist'], inversedBy: 'articles')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private ?ArticleCategoryInterface $category;
 
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         $this->defaultLocale = $defaultLocation;
     }
 
-    public function isPublished(): ?bool
+    public function getStatus(): int
     {
-        return $this->published;
+        return $this->status;
     }
 
-    public function setPublished(bool $published): self
+    public function setStatus(?int $status): ArticleInterface
     {
-        $this->published = $published;
+        $this->status = $status;
 
         return $this;
     }
@@ -94,26 +98,19 @@ class Article implements TranslatableInterface, TimestampableInterface
         return $this->imagePoster;
     }
 
-    public function setImagePoster(?string $imagePoster): self
+    public function setImagePoster(?string $imagePoster): ArticleInterface
     {
         $this->imagePoster = $imagePoster;
 
         return $this;
     }
 
-    /**
-     * @return File|null
-     */
     public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
 
-    /**
-     * @param File|null $imageFile
-     * @return Article
-     */
-    public function setImageFile(?File $imageFile): self
+    public function setImageFile(?File $imageFile): ArticleInterface
     {
         $this->imageFile = $imageFile;
 
@@ -129,9 +126,11 @@ class Article implements TranslatableInterface, TimestampableInterface
         return $this->complexity;
     }
 
-    public function setComplexity(?int $complexity): void
+    public function setComplexity(?int $complexity): ArticleInterface
     {
         $this->complexity = $complexity;
+
+        return $this;
     }
 
     public function getReadingDuration(): ?DateTimeInterface
@@ -139,8 +138,22 @@ class Article implements TranslatableInterface, TimestampableInterface
         return $this->readingDuration;
     }
 
-    public function setReadingDuration(?DateTimeInterface $readingDuration): void
+    public function setReadingDuration(?DateTimeInterface $readingDuration): ArticleInterface
     {
         $this->readingDuration = $readingDuration;
+
+        return $this;
+    }
+
+    public function getCategory(): ?ArticleCategoryInterface
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?ArticleCategoryInterface $category): ArticleInterface
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

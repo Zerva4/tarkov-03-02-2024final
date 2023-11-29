@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Article;
 
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Repository\ArticleTranslationRepository;
+use App\Repository\Article\ArticleTranslationRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
