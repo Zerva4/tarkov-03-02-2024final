@@ -1,10 +1,7 @@
 .content_map {
-  max-width: 1140px;
   margin: 0 auto;
-
-  @media (max-width: 900px) {
-    padding: 0 20px 0;
-  }
+  padding: 0 20px;
+  max-width: 1184px;
 
   .nav_list {
     margin: 0 0 16px;
@@ -37,7 +34,7 @@
   .container__cards {
     display: flex;
     flex-wrap: wrap;
-    gap: 28px 33px;
+    gap: 20px 20px;
     padding: 0;
     justify-content: center;
 
@@ -46,56 +43,63 @@
     }
 
     .item {
-      width: 260px;
-      height: 260px;
       background-color: #151515;
       border-radius: 5px;
       cursor: pointer;
       border: 1px solid rgba(223, 135, 10, 0);
-
-      .image {
-        width: 257px;
-        border-radius: 5px 5px 0 0;
-      }
-
-      .title {
-        font-size: 16px;
-        margin: 4px 0 8px;
-        text-align: center;
-        color: #df870a;
-        line-height: 19px;
-      }
-
-      .text {
-        padding: 0;
-        margin: 0 0 0 12px;
-        list-style: none;
+      .card {
         display: flex;
         flex-direction: column;
-        row-gap: 8px;
+        min-height: auto;
 
-        .text__element {
+        img {
+          height: 60px;
+        }
+
+        .image {
+          border-radius: 5px 5px 0 0;
+        }
+
+        span {
+          font-size: 16px;
+          margin: 6px;
+          text-align: center;
+          color: #df870a;
+        }
+
+        .text {
+          padding: 0px 24px 24px 24px;
+          margin: 0;
+          list-style: none;
           display: flex;
-          align-items: center;
+          flex-direction: column;
+          row-gap: 8px;
 
-          .text__description {
-            margin: 0;
-            line-height: 17px;
-            &.margin {
-              margin-left: 10px;
+          .text__element {
+            display: flex;
+            align-items: center;
+
+            .text__description {
+              margin: 0;
+
+              &.margin {
+                margin-left: 8px;
+              }
+
+              &.color {
+                margin-left: 8px;
+                color: #828282;
+              }
             }
 
-            &.color {
-              color: #828282;
-            }
           }
-
         }
       }
+
     }
 
     .item:hover {
-      border: 1px solid rgba(223, 135, 10, 1);
+      border-bottom: 1px solid #df870a;
     }
   }
 }
