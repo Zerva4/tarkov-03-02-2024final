@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Article;
+use App\Entity\Article\Article;
+use App\Entity\Article\ArticleCategory;
 use App\Form\Field\TranslationField;
 use App\Form\Field\VichImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,14 +37,36 @@ class ArticleCrudController extends BaseCrudController
     {
         $createdAt = DateField::new('createdAt', t('Created', [], 'admin'));
         $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin'));
-        $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
+//        $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
+        $status = ChoiceField::new('status', t('Status', [], 'admin.articles'))
+            ->setChoices([
+                'На рассмотрении' => 0,
+                'К публикации' => 1,
+                'Опубликованно' => 2,
+                'Архивная' => 3
+            ])
+            ->renderAsBadges()
+            ->setEmptyData('Не заданно')
+        ;
         $title = TextField::new('title', t('Title', [], 'admin.articles'));
+        $category = AssociationField::new('category', t('Category', [], 'admin'))
+            ->setQueryBuilder(function($queryBuilder) {
+                return $queryBuilder->join('entity.translations', 'lt', 'WITH', 'entity.id = lt.translatable')
+                    ->addSelect('lt')
+                    ->andWhere('lt.locale = :locale')
+                    ->setParameter('locale', $this->container->get('request_stack')->getCurrentRequest()->getLocale())
+                    ;
+            })
+            ->setColumns(12)
+        ;
         $poster = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
             ->setCustomOption('base_path', $this->getParameter('app.articles.images.uri'))
             ->setFormTypeOption('required', false);
         ;
-        $slug = TextField::new('slug', t('Slug', [], 'admin.articles'))->setRequired(true);
+        $slug = SlugField::new('slug', t('Slug', [], 'admin'))
+            ->setTargetFieldName('slug')
+            ->setRequired(true);
         $translationFields = [
             'title' => [
                 'field_type' => TextType::class,
@@ -60,12 +86,8 @@ class ArticleCrudController extends BaseCrudController
                 'field_type' => CKEditorType::class,
                 'label' => t('Body', [], 'admin.articles')
             ],
-//            'tags' => [
-        //        'label' => t('Tags', [], 'admin.articles')
-//                'field_type' => TagsType::class
-//            ],
         ];
-        $translations = TranslationField::new('translations', t('Localization', [], 'admin.locations'), $translationFields)
+        $translations = TranslationField::new('translations', t('Localization', [], 'admin'), $translationFields)
             ->setFormTypeOptions([
                 'excluded_fields' => ['lang', 'createdAt', 'updatedAt']
             ])
@@ -74,13 +96,15 @@ class ArticleCrudController extends BaseCrudController
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $poster,
-                $published,
-                $slug->setColumns(6),
+                $status->setColumns(4),
+                $category->setColumns(4),
+                $slug->setColumns(4),
                 $translations
             ],
             default => [
                 $title->setColumns(12)->setTextAlign('left'),
-                $published->setColumns(1)->setTextAlign('center'),
+                $status,
+                $category,
                 $createdAt->setColumns(1)->setTextAlign('center'),
                 $updatedAt->setColumns(1)->setTextAlign('center'),
             ]
