@@ -12,6 +12,7 @@
 
     .tasks {
         flex: 4;
+        background: #151515;
         border-radius: 10px;
         padding-left: 30px;
 
@@ -24,6 +25,10 @@
             display: flex;
             flex-direction: column-reverse;
 
+            ul {
+                list-style-type: none;
+            }
+
             .item {
                 line-height: 1.5;
                 font-size: 14px;
@@ -32,13 +37,12 @@
     }
 
     .card {
-        flex: 2;
         background: #151515;
-        padding: 8px;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 8px 16px;
 
         @media (min-width: 600px) and (max-width: 1080px) {
             display: flex;
