@@ -47,7 +47,6 @@
       border-radius: 5px;
       cursor: pointer;
       border: 1px solid rgba(223, 135, 10, 0);
-      width: 23%;
 
       .card {
         display: flex;
@@ -55,7 +54,7 @@
         min-height: auto;
 
         img {
-          height: 60px;
+          height: 80px;
         }
 
         .image {
