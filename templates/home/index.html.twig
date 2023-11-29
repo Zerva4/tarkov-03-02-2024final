@@ -49,18 +49,6 @@
                                             necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
                                             est
                                             blanditiis.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
                                         </div>
                                         <div class="overinfo">
                                             <a href="#">
@@ -125,13 +113,6 @@
                                         <div class="text">
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
                                             error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
                                         </div>
                                     </div>
                                 </div>
@@ -143,9 +124,9 @@
                                 <div class="select" data-target="window_2">
                                     {{ 'Ивент'|trans({}, 'front.home') }}
                                 </div>
-                                <div class="select" data-target="window_3">
-                                    {{ 'Отступники'|trans({}, 'front.home') }}
-                                </div>
+{#                                <div class="select" data-target="window_3">#}
+{#                                    {{ 'Отступники'|trans({}, 'front.home') }}#}
+{#                                </div>#}
                             </div>
                         </div>
                     </div>
@@ -162,9 +143,9 @@
                         <div class="trader" data-turbo="true">
                             <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}" class="image">
                                 {% if trader.imageName %}
-                                    <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('118x118') }} " alt="{{ trader.shortName }}" />
+                                    <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.shortName }}" />
                                 {% else %}
-                                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('118x118') }}" alt="">
+                                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('100x100') }}" alt="">
                                 {% endif %}
                             </a>
                             <div class="name">
@@ -241,7 +222,8 @@
                     <span class="hl">The_Dragonless</span> - за моральную поддержку, а также помощи в создании
                     большей части первоначальных статей.
                     <br>
-                    <span class="hl">Всем <a href="https://boosty.to/zervan">подписчикам Boosty</a></span> - за столь
+                    <span class="hl">Всем <a href="https://boosty.to/zervan" style="color: #df870a">
+                    подписчикам Boosty</a></span> - за столь
                     длительное ожидание, но постоянную поддержку, советы и участие в рекомендациях.
                     <br>
                     А также всем, кто ждал лично мою реализацию. Ваша поддержка неоценима.
@@ -259,10 +241,10 @@
                         Работы предстоит еще много: создание карт, вывод статистики, пропись калькуляторов, и многое другое, что было обещано.
                         Но первые шаги уже сделаны.
                     <p>
-                        Все изменения по сайту будут анонсироваться на соответствующей странице - <a href="news.html">Новости</a>.
+                        Все изменения по сайту будут анонсироваться на соответствующей странице - <a href="news.html" style="color: #df870a">Новости</a>.
                         <br>
                         Если вы желаете помочь развитию, а также имеете какие-либо вопросы, можно написать напрямую
-                        через отдельный <a href="https://t.me/TarkovTown">Telegram</a>.
+                        через отдельный <a href="https://t.me/TarkovTown" style="color: #df870a">Telegram</a>.
 
                     </p>
                     <p>

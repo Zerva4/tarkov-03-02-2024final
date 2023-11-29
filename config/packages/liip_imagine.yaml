@@ -42,7 +42,10 @@ liip_imagine:
             cache: default
             quality: 100
             filters:
-                thumbnail: { size: [ 100, 100 ], position: center, mode: inset }
+                fixed:
+                    width: 100
+                    height: 100
+#                thumbnail: { size: [ 100, 100 ], position: center, mode: inset }
         120x120:
             cache: default
             quality: 100
