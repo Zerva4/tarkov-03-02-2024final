@@ -13,8 +13,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Symfony\Component\Translation\t;
@@ -37,7 +40,8 @@ class ArticleCrudController extends BaseCrudController
     {
         $createdAt = DateField::new('createdAt', t('Created', [], 'admin'));
         $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin'));
-//        $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
+        $complexity = IntegerField::new('complexity', t('Complexity', [], 'admin.articles'));
+        $readingDuration = TimeField::new('readingDuration', t('Reading duration', [], 'admin.articles'));
         $status = ChoiceField::new('status', t('Status', [], 'admin.articles'))
             ->setChoices([
                 'На рассмотрении' => 0,
@@ -96,8 +100,10 @@ class ArticleCrudController extends BaseCrudController
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $poster,
-                $status->setColumns(4),
-                $category->setColumns(4),
+                $status->setColumns(2),
+                $category->setColumns(2),
+                $complexity->setColumns(2),
+                $readingDuration->setColumns(2),
                 $slug->setColumns(4),
                 $translations
             ],
