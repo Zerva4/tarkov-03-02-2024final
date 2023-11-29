@@ -33,7 +33,7 @@ class ArticleCrudController extends BaseCrudController
     {
         $createdAt = DateField::new('createdAt', t('Created', [], 'admin'));
         $updatedAt = DateField::new('updatedAt', t('Updated', [], 'admin'));
-        $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
+//        $published = BooleanField::new('published', t('Published', [], 'admin.articles'));
         $title = TextField::new('title', t('Title', [], 'admin.articles'));
         $poster = VichImageField::new('imageFile', t('Photo', [], 'admin.locations')->getMessage())
             ->setTemplatePath('admin/field/vich_image.html.twig')
@@ -74,13 +74,13 @@ class ArticleCrudController extends BaseCrudController
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $poster,
-                $published,
+//                $published,
                 $slug->setColumns(6),
                 $translations
             ],
             default => [
                 $title->setColumns(12)->setTextAlign('left'),
-                $published->setColumns(1)->setTextAlign('center'),
+//                $published->setColumns(1)->setTextAlign('center'),
                 $createdAt->setColumns(1)->setTextAlign('center'),
                 $updatedAt->setColumns(1)->setTextAlign('center'),
             ]
