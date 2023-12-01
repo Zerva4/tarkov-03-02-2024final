@@ -15,6 +15,8 @@ export default class extends Controller {
         if (path.length > 1) {
             this.categoryUrl = this.findCurrentCategory(path[1])
             this.categoryInput.textContent = this.findCurrentCategory(path[1]);
+        } else {
+            this.categoryInput.textContent = "Все"
         }
 
         this.category.addEventListener("mouseleave", () => {
