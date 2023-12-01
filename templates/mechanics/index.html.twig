@@ -8,57 +8,11 @@
     <p class="subtitle__tablet">
         Разбор тем, на которые много вопросов, но очень мало ответов.
     </p>
-    <div class="header">
-        <h1 class="title">Механики</h1>
-        <div class="navbar">
-            <div class="category" {{ stimulus_controller('article-categories') }}>
-                <div class="element">
-                    <div class="headlines">
-                        <p class="text" style="margin-right: 13px">Тема:</p>
-                        <p class="text color_white">Все</p>
-                    </div>
-                    <button class="triangle"></button>
-                </div>
-                <div class="dropdown dropdown-hidden">
-                    <ul class="list">
-                        <li class="text text_all" data-slug="">Все</li>
-                        {% for category in categories %}
-                            <li class="text" data-slug="{{ category.slug }}">{{ category.name }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-{#            <div class="author">#}
-{#                <div class="element">#}
-{#                    <div class="headlines">#}
-{#                        <p class="text" style="margin-right: 11px">Автор:</p>#}
-{#                        <p class="text color_white">Все</p>#}
-{#                    </div>#}
-{#                    <button class="triangle"></button>#}
-{#                </div>#}
-{#                <div class="dropdown dropdown-hidden">#}
-{#                    <ul class="list">#}
-{#                        <li class="text text_all">Все</li>#}
-{#                        <li class="text">Tarkov.Town</li>#}
-{#                        <li class="text">Шерпы</li>#}
-{#                        <li class="text">Пользователи</li>#}
-{#                    </ul>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="element toggle__container">#}
-{#                <p class="text" style="margin-right: 15px">Премиум:</p>#}
-{#                <div class="toggle toggle_no_active">#}
-{#                    <div class="circle"></div>#}
-{#                </div>#}
-{#            </div>#}
-        </div>
-    </div>
-    <p class="subtitle">
-    </p>
+    {{ include('mechanics/blocks/filter.html.twig') }}
     <div class="container__cards">
         {% for article in pagination.items %}
         <article>
-            <a>
+            <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" title="{{ article.title }}">
                 <img
                         src="/assets/img/mechanics_image.png"
                         alt="Фон"

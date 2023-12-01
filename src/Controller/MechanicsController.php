@@ -13,6 +13,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Translation\t;
 
 class MechanicsController extends FrontController
 {
@@ -31,41 +32,71 @@ class MechanicsController extends FrontController
         );
     }
 
-    #[Route('/mechanics', name: 'app_mechanics')]
-    public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
+    public function findCurrentCategory(string $slug): ?array
     {
-        $dql   = "SELECT a FROM App\Entity\Article\Article a";
-        $query = $em->createQuery($dql);
+        foreach($this->categories as $category) {
+            if ($category['slug'] === $slug) return $category;
+        }
+
+        return null;
+    }
+
+    #[Route('/mechanics/{page<\d+>?1}', name: 'app_mechanics', requirements: ['page' => '\d+'])]
+    public function index(int $page, EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
+    {
+        $articleCategory = $em->getRepository(Article::class);
 
         $pagination = $paginator->paginate(
-            $query, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
+            $articleCategory->getQueryArticlesByCategory(), /* query NOT result */
+            $page, /*page number*/
             10 /*limit per page*/
         );
 
         return $this->render('mechanics/index.html.twig', [
+            'currentCategory' => null,
             'categories' => $this->categories,
             'pagination' => $pagination,
         ]);
     }
 
-    #[Route('/mechanics/{slugCategory}', name: 'app_mechanics_category')]
-    public function viewByCategory(string $slugCategory, EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
+    #[Route('/mechanics/{slugCategory}/{page<\d+>?1}', name: 'app_mechanics_category', requirements: ['page' => '\d+'])]
+    public function indexByCategory(string $slugCategory, int $page, EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
-        dump($slugCategory);
         $articleCategory = $em->getRepository(Article::class);
-
+        $currentCategory = $this->findCurrentCategory($slugCategory);
         $pagination = $paginator->paginate(
-            $articleCategory->findArticleByCategory($slugCategory), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
+            $articleCategory->getQueryArticlesByCategory($slugCategory), /* query NOT result */
+            $page, /*page number*/
             10 /*limit per page*/
         );
 
-        dump($pagination);
-
         return $this->render('mechanics/index.html.twig', [
+            'currentCategory' => $currentCategory,
             'categories' => $this->categories,
             'pagination' => $pagination,
+        ]);
+    }
+
+    #[Route('/mechanics/{slugCategory}/{slugArticle}', name: 'app_mechanics_view')]
+    public function view(string $slugCategory, string $slugArticle, EntityManagerInterface $em, Request $request): Response
+    {
+        $currentCategory = $this->findCurrentCategory($slugCategory);
+        if (null === $currentCategory) {
+            throw $this->createNotFoundException(
+                (string)t('Запрашиваемый ресурс не найден.', [], 'front.items')
+            );
+        }
+
+        $articleRepository = $em->getRepository(Article::class);
+        $article = $articleRepository->findArticleBySlug($slugCategory, $slugArticle);
+        if (null === $article) {
+            throw $this->createNotFoundException(
+                (string)t('Запрашиваемый ресурс не найден.', [], 'front.items')
+            );
+        }
+
+        return $this->render('mechanics/view.html.twig', [
+            'article' => $article,
         ]);
     }
 }
