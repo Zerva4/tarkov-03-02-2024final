@@ -11,7 +11,7 @@
     <div class="header">
         <h1 class="title">Механики</h1>
         <div class="navbar">
-            <div class="category">
+            <div class="category" {{ stimulus_controller('article-categories') }}>
                 <div class="element">
                     <div class="headlines">
                         <p class="text" style="margin-right: 13px">Тема:</p>
@@ -21,14 +21,10 @@
                 </div>
                 <div class="dropdown dropdown-hidden">
                     <ul class="list">
-                        <li class="text text_all">Все</li>
-                        <li class="text">Броня</li>
-                        <li class="text">Медицина</li>
-                        <li class="text">PVP</li>
-                        <li class="text">Оружие</li>
-                        <li class="text">Дикие</li>
-                        <li class="text">Убежище</li>
-                        <li class="text">Боеприпасы</li>
+                        <li class="text text_all" data-slug="">Все</li>
+                        {% for category in categories %}
+                            <li class="text" data-slug="{{ category.slug }}">{{ category.name }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -60,19 +56,19 @@
     <p class="subtitle">
     </p>
     <div class="container__cards">
-        {% for article in pagination %}
+        {% for article in pagination.items %}
         <article>
             <a>
                 <img
-                        src="./assets/img/mechanics_image.png"
+                        src="/assets/img/mechanics_image.png"
                         alt="Фон"
                         class="image"
                 />
                 <div class="card">
                     <div class="card__text">
-                        <p class="title">{{ article.translate.title }}</p>
+                        <p class="title">{{ article.title }}</p>
                         <p class="description">
-                            {{ article.translate.description|raw }}
+                            {{ article.description|raw }}
                         </p>
                     </div>
                     <div class="item__footer">
@@ -85,7 +81,7 @@
                         {% endif %}
                         {% if article.readingDuration is not empty %}
                         <div class="timer">
-                            <img src="./assets/img/clock.svg" alt="Часы" />
+                            <img src="/assets/img/clock.svg" alt="Часы" />
                             <p class="timer__text">{{ article.readingDuration | date('H:i') }} минут</p>
                         </div>
                         {% endif %}
