@@ -4,6 +4,7 @@ namespace App\Repository\Article;
 
 use App\Entity\Article\ArticleCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,28 +22,18 @@ class ArticleCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, ArticleCategory::class);
     }
 
-//    /**
-//     * @return ArticleCategory[] Returns an array of ArticleCategory objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?ArticleCategory
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findAllCategory(string $locale, int $mode = AbstractQuery::HYDRATE_ARRAY): ?array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id, c.slug, t.name AS name')
+            ->leftJoin('c.translations', 't')
+            ->andWhere('c.published = true')
+            ->andWhere('t.locale = :locale')
+            ->orderBy('t.name', 'ASC')
+            ->setParameter('locale', $locale)
+            ->getQuery()
+            ->setResultCacheLifetime(0)
+            ->getResult($mode)
+        ;
+    }
 }

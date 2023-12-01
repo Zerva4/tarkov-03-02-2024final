@@ -7,6 +7,7 @@ namespace App\Repository\Article;
 use App\Entity\Article\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -54,5 +55,20 @@ class ArticleRepository extends ServiceEntityRepository
             ->setResultCacheLifetime(0)
             ->getResult($mode)
         ;
+    }
+
+    public function findArticleByCategory(string $slugCategory)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id, a.slug, a.createdAt, a.updatedAt, a.imagePoster, a.complexity, a.readingDuration, t.title AS title, t.description AS description, c.slug AS slugCategory')
+            ->leftJoin('a.translations', 't')
+            ->leftJoin('a.category', 'c')
+            ->andWhere('a.status = :status')
+            ->andWhere('c.slug = :slugCategory')
+            ->setParameters([
+                'status' => Article::STATUS_PUBLISHED,
+                'slugCategory' => $slugCategory
+            ])
+            ->getQuery();
     }
 }
