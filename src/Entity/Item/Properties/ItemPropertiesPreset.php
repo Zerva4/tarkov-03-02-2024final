@@ -26,10 +26,10 @@ class ItemPropertiesPreset extends ItemProperties implements ItemPropertiesInter
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Горизонтальная отдача'])]
     private int $recoilHorizontal = 0;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Эргономика'])]
+    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Точность'])]
     private float $moa = 0;
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false, 'comment' => 'Эргономика'])]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false, 'comment' => 'По умолчанию'])]
     private bool $default = false;
 
     public function getBaseItem(): ?ItemInterface
