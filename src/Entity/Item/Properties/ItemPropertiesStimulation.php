@@ -9,7 +9,7 @@ use App\Interfaces\Item\StimulationEffectInterface;
 use App\Repository\Item\Properties\ItemPropertiesStimulationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Table(name: 'items_properties_stimulation_effect', options: ['comment' => 'Свойства стимуляции'])]
+#[ORM\Table(name: 'items_properties_stimulation', options: ['comment' => 'Свойства стимуляции'])]
 #[ORM\Entity(repositoryClass: ItemPropertiesStimulationRepository::class)]
 class ItemPropertiesStimulation extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesStimulationInterface
 {
