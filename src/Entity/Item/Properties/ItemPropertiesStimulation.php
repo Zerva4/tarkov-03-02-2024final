@@ -19,7 +19,7 @@ class ItemPropertiesStimulation extends ItemProperties implements ItemProperties
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => ''])]
     private ?array $cures = null;
 
-    #[ORM\OneToOne(targetEntity: StimulationEffect::class, cascade: ['persist, remove'], fetch: 'EAGER')]
+    #[ORM\OneToOne(targetEntity: StimulationEffect::class, cascade: ['persist'], fetch: 'EAGER')]
     #[ORM\JoinColumn(referencedColumnName: 'id', unique: false, onDelete: 'CASCADE')]
     private ?StimulationEffectInterface $stimulationEffect = null;
 
