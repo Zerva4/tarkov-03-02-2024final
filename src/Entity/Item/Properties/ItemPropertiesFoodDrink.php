@@ -8,7 +8,7 @@ use App\Entity\Item\StimulationEffect;
 use App\Interfaces\Item\Properties\ItemPropertiesFoodDrinkInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\StimulationEffectInterface;
-use App\Repository\Item\ItemPropertiesFoodDrinkRepository;
+use App\Repository\Item\Properties\ItemPropertiesFoodDrinkRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

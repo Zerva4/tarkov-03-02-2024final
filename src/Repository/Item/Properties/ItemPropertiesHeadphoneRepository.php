@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
 use App\Entity\Item\Properties\ItemPropertiesHeadphone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

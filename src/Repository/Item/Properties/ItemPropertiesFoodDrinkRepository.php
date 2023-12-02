@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesMedKit;
+use App\Entity\Item\Properties\ItemPropertiesFoodDrink;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesMedKit>
+ * @extends ServiceEntityRepository<ItemPropertiesFoodDrink>
  *
- * @method ItemPropertiesMedKit|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesMedKit|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesMedKit[]    findAll()
- * @method ItemPropertiesMedKit[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesFoodDrink|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesFoodDrink|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesFoodDrink[]    findAll()
+ * @method ItemPropertiesFoodDrink[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesMedKitRepository extends ServiceEntityRepository
+class ItemPropertiesFoodDrinkRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesMedKit::class);
+        parent::__construct($registry, ItemPropertiesFoodDrink::class);
     }
 
 //    /**
-//     * @return ItemPropertiesMedKit[] Returns an array of ItemPropertiesMedKit objects
+//     * @return ItemPropertiesFoodDrink[] Returns an array of ItemPropertiesFoodDrink objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesMedKitRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesMedKit
+//    public function findOneBySomeField($value): ?ItemPropertiesFoodDrink
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

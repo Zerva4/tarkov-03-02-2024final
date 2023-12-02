@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesHelmetInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
-use App\Repository\Item\ItemPropertiesHelmetRepository;
+use App\Repository\Item\Properties\ItemPropertiesHelmetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_helmet', options: ['comment' => 'Таблица свойств для шлемов'])]

@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesChestRig;
+use App\Entity\Item\Properties\ItemPropertiesArmor;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesChestRig>
+ * @extends ServiceEntityRepository<ItemPropertiesArmor>
  *
- * @method ItemPropertiesChestRig|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesChestRig|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesChestRig[]    findAll()
- * @method ItemPropertiesChestRig[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesArmor|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesArmor|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesArmor[]    findAll()
+ * @method ItemPropertiesArmor[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesChestRigRepository extends ServiceEntityRepository
+class ItemPropertiesArmorRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesChestRig::class);
+        parent::__construct($registry, ItemPropertiesArmor::class);
     }
 
 //    /**
-//     * @return ItemPropertiesChestRig[] Returns an array of ItemPropertiesChestRig objects
+//     * @return ItemPropertiesArmor[] Returns an array of ItemPropertiesArmor objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesChestRigRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesChestRig
+//    public function findOneBySomeField($value): ?ItemPropertiesArmor
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

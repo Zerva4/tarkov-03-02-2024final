@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesContainerInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
-use App\Repository\Item\ItemPropertiesContainerRepository;
+use App\Repository\Item\Properties\ItemPropertiesContainerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_container', options: ['comment' => 'Таблица свойств для контейнера'])]

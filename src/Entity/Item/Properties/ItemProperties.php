@@ -14,7 +14,7 @@ use App\Interfaces\Item\ItemMaterialInterface;
 use App\Interfaces\Item\ItemStorageGridInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
-use App\Repository\Item\ItemPropertiesRepository;
+use App\Repository\Item\Properties\ItemPropertiesRepository;
 use App\Traits\UuidPrimaryKeyTrait;
 use Doctrine\ORM\Mapping as ORM;
 

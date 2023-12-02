@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesMedKitInterface;
-use App\Repository\Item\ItemPropertiesMedKitRepository;
+use App\Repository\Item\Properties\ItemPropertiesMedKitRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_med_kit', options: ['comment' => 'Таблица свойств для мед. аптечки'])]

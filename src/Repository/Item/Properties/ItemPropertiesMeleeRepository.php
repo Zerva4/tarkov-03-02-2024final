@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesNightVision;
+use App\Entity\Item\Properties\ItemPropertiesMelee;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesNightVision>
+ * @extends ServiceEntityRepository<ItemPropertiesMelee>
  *
- * @method ItemPropertiesNightVision|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesNightVision|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesNightVision[]    findAll()
- * @method ItemPropertiesNightVision[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesMelee|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesMelee|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesMelee[]    findAll()
+ * @method ItemPropertiesMelee[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesNightVisionRepository extends ServiceEntityRepository
+class ItemPropertiesMeleeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesNightVision::class);
+        parent::__construct($registry, ItemPropertiesMelee::class);
     }
 
 //    /**
-//     * @return ItemPropertiesNightVision[] Returns an array of ItemPropertiesNightVision objects
+//     * @return ItemPropertiesMelee[] Returns an array of ItemPropertiesMelee objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesNightVisionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesNightVision
+//    public function findOneBySomeField($value): ?ItemPropertiesMelee
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

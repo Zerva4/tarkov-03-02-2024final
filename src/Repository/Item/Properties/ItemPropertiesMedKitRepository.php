@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesGlasses;
+use App\Entity\Item\Properties\ItemPropertiesMedKit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesGlasses>
+ * @extends ServiceEntityRepository<ItemPropertiesMedKit>
  *
- * @method ItemPropertiesGlasses|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesGlasses|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesGlasses[]    findAll()
- * @method ItemPropertiesGlasses[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesMedKit|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesMedKit|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesMedKit[]    findAll()
+ * @method ItemPropertiesMedKit[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesGlassesRepository extends ServiceEntityRepository
+class ItemPropertiesMedKitRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesGlasses::class);
+        parent::__construct($registry, ItemPropertiesMedKit::class);
     }
 
 //    /**
-//     * @return ItemPropertiesGlasses[] Returns an array of ItemPropertiesGlasses objects
+//     * @return ItemPropertiesMedKit[] Returns an array of ItemPropertiesMedKit objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesGlassesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesGlasses
+//    public function findOneBySomeField($value): ?ItemPropertiesMedKit
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

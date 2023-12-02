@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesBarrelInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
-use App\Repository\Item\ItemPropertiesBarrelRepository;
+use App\Repository\Item\Properties\ItemPropertiesBarrelRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_barrel', options: ['comment' => 'Таблица свойств для бочки'])]

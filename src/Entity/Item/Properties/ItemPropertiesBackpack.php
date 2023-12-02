@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesBackpackInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
-use App\Repository\Item\ItemPropertiesBackpackRepository;
+use App\Repository\Item\Properties\ItemPropertiesBackpackRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_backpack', options: ['comment' => 'Таблица свойств для рюкзаков'])]
