@@ -209,8 +209,9 @@ class ImportItemsPropertiesCommand extends Command
                   ... Melee
                   ... NightVision
                   ... Painkiller
-                  ... ItemPropertiesStim
+                  ... Preset
                   ... Scope
+                  ... Stimulator
                   ... SurgicalKit
                   ... Grenade
                   ... Weapon
@@ -485,6 +486,17 @@ class ImportItemsPropertiesCommand extends Command
                 percent
                 skillName
               }
+            }
+            
+            fragment Preset on ItemPropertiesPreset {
+                baseItem {
+                    id, name
+                }
+                ergonomics
+                recoilVertical
+                recoilHorizontal
+                moa
+                default
             }
             
             fragment Painkiller on ItemPropertiesPainkiller {
