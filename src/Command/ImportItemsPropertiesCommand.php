@@ -209,6 +209,7 @@ class ImportItemsPropertiesCommand extends Command
                   ... Melee
                   ... NightVision
                   ... Painkiller
+                  ... ItemPropertiesStim
                   ... Scope
                   ... SurgicalKit
                   ... Grenade
@@ -470,6 +471,20 @@ class ImportItemsPropertiesCommand extends Command
               noiseIntensity
               noiseScale
               diffuseIntensity
+            }
+            
+            fragment Stimulator on ItemPropertiesStim {
+              useTime
+              cures
+              stimEffects {
+                type
+                chance
+                delay
+                duration
+                value
+                percent
+                skillName
+              }
             }
             
             fragment Painkiller on ItemPropertiesPainkiller {

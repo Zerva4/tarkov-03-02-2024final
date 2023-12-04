@@ -201,6 +201,9 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
     #[ORM\ManyToMany(targetEntity: ItemPropertiesWeapon::class, mappedBy: 'allowedAmmo', cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
     private ?Collection $allowedWeapons;
 
+    #[ORM\OneToMany(mappedBy: 'defaultAmmo', targetEntity: ItemPropertiesWeapon::class, cascade: ['persist'], fetch: 'EXTRA_LAZY', orphanRemoval: false)]
+    private ?Collection $defaultFordWeapons;
+
     public function __construct(string $defaultLocation = '%app.default_locale%')
     {
         parent::__construct($defaultLocation);
@@ -212,6 +215,7 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         $this->allowedMagazine = new ArrayCollection();
         $this->presetsWeapons = new ArrayCollection();
         $this->allowedWeapons = new ArrayCollection();
+        $this->defaultFordWeapons = new ArrayCollection();
     }
 
     public static function getItemTypes(): array
@@ -673,6 +677,38 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         if ($this->allowedWeapons->contains($itemPropertiesWeapon)) {
             $this->allowedWeapons->removeElement($itemPropertiesWeapon);
             $itemPropertiesWeapon->removeAllowedAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function getDefaultFordWeapons(): ?Collection
+    {
+        return $this->defaultFordWeapons;
+    }
+
+    public function setDefaultFordWeapons(?Collection $defaultFordWeapons): ItemInterface
+    {
+        $this->defaultFordWeapons = $defaultFordWeapons;
+
+        return $this;
+    }
+
+    public function addDefaultFordWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if (!$this->defaultFordWeapons->contains($itemPropertiesWeapon)) {
+            $this->defaultFordWeapons->add($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultAmmo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDefaultForWeapon(ItemPropertiesWeaponInterface $itemPropertiesWeapon): ItemInterface
+    {
+        if ($this->defaultFordWeapons->contains($itemPropertiesWeapon)) {
+            $this->defaultFordWeapons->removeElement($itemPropertiesWeapon);
+            $itemPropertiesWeapon->setDefaultAmmo(null);
         }
 
         return $this;

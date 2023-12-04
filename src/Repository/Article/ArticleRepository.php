@@ -7,6 +7,7 @@ namespace App\Repository\Article;
 use App\Entity\Article\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -53,6 +54,42 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->setResultCacheLifetime(0)
             ->getResult($mode)
+        ;
+    }
+
+    public function getQueryArticlesByCategory(?string $slugCategory = null): Query
+    {
+        $dql = $this->createQueryBuilder('a')
+            ->select('a.id, a.slug, a.createdAt, a.updatedAt, a.imagePoster, a.complexity, a.readingDuration, t.title AS title, t.description AS description, c.slug AS slugCategory')
+            ->leftJoin('a.translations', 't')
+            ->leftJoin('a.category', 'c')
+            ->andWhere('a.status = :status')
+            ->setParameters([
+                'status' => Article::STATUS_PUBLISHED,
+            ]);
+        if (null !== $slugCategory) {
+            $dql->andWhere('c.slug = :slugCategory')->setParameter('slugCategory', $slugCategory);
+        }
+
+        return $dql->getQuery();
+    }
+
+    public function findArticleBySlug(string $slugCategory, string $slugArticle, int $mode = AbstractQuery::HYDRATE_OBJECT): ?array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id, a.slug, a.createdAt, a.updatedAt, a.imagePoster, a.complexity, a.readingDuration, t.title AS title, t.description AS description, t.body AS body, c.slug AS slugCategory')
+            ->leftJoin('a.translations', 't')
+            ->leftJoin('a.category', 'c')
+            ->andWhere('a.status = :status')
+            ->andWhere('a.slug = :slugArticle')
+            ->andWhere('c.slug = :slugCategory')
+            ->setParameters([
+                'status' => Article::STATUS_PUBLISHED,
+                'slugCategory' => $slugCategory,
+                'slugArticle' => $slugArticle
+            ])
+            ->getQuery()
+            ->getOneOrNullResult($mode)
         ;
     }
 }
