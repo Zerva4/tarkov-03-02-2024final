@@ -17,20 +17,20 @@ class ItemPropertiesPreset extends ItemProperties implements ItemPropertiesInter
     #[ORM\JoinColumn(referencedColumnName: 'id', unique: false, onDelete: 'SET NULL', options: ['default' => null, 'comment' => 'Базовое оружие'])]
     private ?ItemInterface $baseItem = null;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Эргономика'])]
-    private float $ergonomics = 0;
+    #[ORM\Column(type: 'float', nullable: true, options: ['default' => 0, 'comment' => 'Эргономика'])]
+    private ?float $ergonomics = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Вертикальная отдача'])]
-    private int $recoilVertical = 0;
+    #[ORM\Column(type: 'integer', nullable: true, options: ['default' => 0, 'comment' => 'Вертикальная отдача'])]
+    private ?int $recoilVertical = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Горизонтальная отдача'])]
-    private int $recoilHorizontal = 0;
+    #[ORM\Column(type: 'integer', nullable: true, options: ['default' => 0, 'comment' => 'Горизонтальная отдача'])]
+    private ?int $recoilHorizontal = 0;
 
-    #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Точность'])]
-    private float $moa = 0;
+    #[ORM\Column(type: 'float', nullable: true, options: ['default' => 0, 'comment' => 'Точность'])]
+    private ?float $moa = 0;
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false, 'comment' => 'По умолчанию'])]
-    private bool $default = false;
+    #[ORM\Column(type: 'boolean', options: ['default' => false, 'comment' => 'По умолчанию'])]
+    private bool $isDefault;
 
     public function getBaseItem(): ?ItemInterface
     {
@@ -44,62 +44,62 @@ class ItemPropertiesPreset extends ItemProperties implements ItemPropertiesInter
         return $this;
     }
 
-    public function getErgonomics(): float
+    public function getErgonomics(): ?float
     {
         return $this->ergonomics;
     }
 
-    public function setErgonomics(float $ergonomics): ItemPropertiesPresetInterface
+    public function setErgonomics(?float $ergonomics): ItemPropertiesPresetInterface
     {
         $this->ergonomics = $ergonomics;
 
         return $this;
     }
 
-    public function getRecoilVertical(): int
+    public function getRecoilVertical(): ?int
     {
         return $this->recoilVertical;
     }
 
-    public function setRecoilVertical(int $recoilVertical): ItemPropertiesPresetInterface
+    public function setRecoilVertical(?int $recoilVertical): ItemPropertiesPresetInterface
     {
         $this->recoilVertical = $recoilVertical;
 
         return $this;
     }
 
-    public function getRecoilHorizontal(): int
+    public function getRecoilHorizontal(): ?int
     {
         return $this->recoilHorizontal;
     }
 
-    public function setRecoilHorizontal(int $recoilHorizontal): ItemPropertiesPresetInterface
+    public function setRecoilHorizontal(?int $recoilHorizontal): ItemPropertiesPresetInterface
     {
         $this->recoilHorizontal = $recoilHorizontal;
 
         return $this;
     }
 
-    public function getMoa(): float
+    public function getMoa(): ?float
     {
         return $this->moa;
     }
 
-    public function setMoa(float $moa): ItemPropertiesPresetInterface
+    public function setMoa(?float $moa): ItemPropertiesPresetInterface
     {
         $this->moa = $moa;
 
         return $this;
     }
 
-    public function isDefault(): bool
+    public function getIsDefault(): bool
     {
-        return $this->default;
+        return $this->isDefault;
     }
 
-    public function setDefault(bool $default): ItemPropertiesPresetInterface
+    public function setIsDefault(bool $isDefault = false): ItemPropertiesPresetInterface
     {
-        $this->default = $default;
+        $this->isDefault = $isDefault;
 
         return $this;
     }

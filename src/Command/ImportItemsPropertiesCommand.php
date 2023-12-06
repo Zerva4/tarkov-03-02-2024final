@@ -26,28 +26,30 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportItemsPropertiesCommand extends Command
 {
     private array $item_types = [
-        'ItemPropertiesAmmo',
-        'ItemPropertiesArmor',
-        'ItemPropertiesBackpack',
-        'ItemPropertiesBarrel',
-        'ItemPropertiesChestRig',
-        'ItemPropertiesContainer',
-        'ItemPropertiesFoodDrink',
-        'ItemPropertiesGlasses',
-        'ItemPropertiesGrenade',
-        'ItemPropertiesHeadphone',
-        'ItemPropertiesHelmet',
-        'ItemPropertiesKey',
-        'ItemPropertiesMagazine',
-        'ItemPropertiesMedicalItem',
-        'ItemPropertiesMedKit',
-        'ItemPropertiesMelee',
-        'ItemPropertiesNightVision',
-        'ItemPropertiesPainkiller',
-        'ItemPropertiesScope',
-        'ItemPropertiesSurgicalKit',
-        'ItemPropertiesWeapon',
-        'ItemPropertiesWeaponMod'
+//        'ItemPropertiesAmmo',
+//        'ItemPropertiesArmor',
+//        'ItemPropertiesBackpack',
+//        'ItemPropertiesBarrel',
+//        'ItemPropertiesChestRig',
+//        'ItemPropertiesContainer',
+//        'ItemPropertiesFoodDrink',
+//        'ItemPropertiesGlasses',
+//        'ItemPropertiesGrenade',
+//        'ItemPropertiesHeadphone',
+//        'ItemPropertiesHelmet',
+//        'ItemPropertiesKey',
+//        'ItemPropertiesMagazine',
+//        'ItemPropertiesMedicalItem',
+//        'ItemPropertiesMedKit',
+//        'ItemPropertiesMelee',
+//        'ItemPropertiesNightVision',
+        'ItemPropertiesPreset',
+//        'ItemPropertiesPainkiller',
+//        'ItemPropertiesStimulation',
+//        'ItemPropertiesScope',
+//        'ItemPropertiesSurgicalKit',
+//        'ItemPropertiesWeapon',
+//        'ItemPropertiesWeaponMod'
     ];
 
     private array $item_calibres = [
@@ -607,13 +609,19 @@ class ImportItemsPropertiesCommand extends Command
             $progressBar->advance();
             if (empty($item['properties'])) continue;
 
+            if ($item['properties']['__typename'] === 'ItemPropertiesStim') {
+                $item['properties']['__typename'] = 'ItemPropertiesStimulation';
+            }
+
             if (array_keys($this->item_types, $item['properties']['__typename'])) {
                 /** @var ItemInterface $itemEntity */
                 $itemEntity = $itemRepository->findOneBy(['apiId' => $item['id']]);
 
+                if (!$itemEntity instanceof ItemInterface) continue;
+
                 // Set item properties
                 if (count($item['properties']) > 1) {
-                    if (!$itemEntity instanceof ItemInterface || null === $itemEntity->getProperties()) {
+                    if (null === $itemEntity->getProperties()) {
                         $entityName = 'App\Entity\Item\Properties\\' . $item['properties']['__typename'];
                         $entityProperties = new $entityName();
                     } else {
@@ -663,7 +671,7 @@ class ImportItemsPropertiesCommand extends Command
                     $this->em->persist($itemEntity);
                     $this->em->flush();
                 }
-                unset($itemEntity, $entityProperties, $loader);
+                unset($entityProperties, $loader);
             }
         }
 

@@ -18,8 +18,8 @@ class ItemPropertiesPresetLoader
         $entityBaseItem = null;
         $itemRepository = $em->getRepository(Item::class);
 
-        if (isset($arrayProperties['defaultAmmo']))
-            $entityBaseItem = $itemRepository->findOneBy(['apiId' => $arrayProperties['defaultAmmo']['id']]);
+        if (isset($arrayProperties['baseItem']))
+            $entityBaseItem = $itemRepository->findOneBy(['apiId' => $arrayProperties['baseItem']['id']]);
 
         $entityProperties
             ->setBaseItem($entityBaseItem)
@@ -27,10 +27,8 @@ class ItemPropertiesPresetLoader
             ->setRecoilVertical($arrayProperties['recoilVertical'] ?? 0)
             ->setRecoilHorizontal($arrayProperties['recoilHorizontal'] ?? 0)
             ->setMoa($arrayProperties['moa'] ?? 0)
-            ->setDefault($arrayProperties['default'] ?? false)
+            ->setIsDefault($arrayProperties['default'] ?? false)
         ;
-
-        unset($entityBaseItem, $itemRepository);
 
         return $entityProperties;
     }
