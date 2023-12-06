@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231202200439 extends AbstractMigration
+final class Version20231206073835 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20231202200439 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE items_properties_preset (id UUID NOT NULL, base_item_id UUID DEFAULT NULL, ergonomics DOUBLE PRECISION DEFAULT \'0\' NOT NULL, recoil_vertical INT DEFAULT 0 NOT NULL, recoil_horizontal INT DEFAULT 0 NOT NULL, moa DOUBLE PRECISION DEFAULT \'0\' NOT NULL, "default" BOOLEAN DEFAULT false NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE items_properties_preset (id UUID NOT NULL, base_item_id UUID DEFAULT NULL, ergonomics DOUBLE PRECISION DEFAULT \'0\', recoil_vertical INT DEFAULT 0, recoil_horizontal INT DEFAULT 0, moa DOUBLE PRECISION DEFAULT \'0\', is_default BOOLEAN DEFAULT false NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_9370DDE02669EB3A ON items_properties_preset (base_item_id)');
         $this->addSql('COMMENT ON TABLE items_properties_preset IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_preset.id IS \'(DC2Type:uuid)\'');
@@ -29,7 +29,7 @@ final class Version20231202200439 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN items_properties_preset.recoil_vertical IS \'Вертикальная отдача\'');
         $this->addSql('COMMENT ON COLUMN items_properties_preset.recoil_horizontal IS \'Горизонтальная отдача\'');
         $this->addSql('COMMENT ON COLUMN items_properties_preset.moa IS \'Точность\'');
-        $this->addSql('COMMENT ON COLUMN items_properties_preset."default" IS \'По умолчанию\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_preset.is_default IS \'По умолчанию\'');
         $this->addSql('CREATE TABLE items_properties_stimulation (id UUID NOT NULL, stimulation_effect_id UUID DEFAULT NULL, use_time INT DEFAULT 0 NOT NULL, cures JSONB DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_E89198D2BED5BCD2 ON items_properties_stimulation (stimulation_effect_id)');
         $this->addSql('COMMENT ON TABLE items_properties_stimulation IS \'Свойства стимуляции\'');

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231202205136 extends AbstractMigration
+final class Version20231206080033 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,6 +20,8 @@ final class Version20231202205136 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('DROP INDEX UNIQ_19DB0FF0126F525E');
+        $this->addSql('CREATE INDEX IDX_19DB0FF0126F525E ON items_properties (item_id)');
         $this->addSql('COMMENT ON COLUMN items_properties_armor.blunt_throughput IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_chest_rig.blunt_throughput IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_food_drink.energy IS \'\'');
@@ -32,11 +34,6 @@ final class Version20231202205136 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.ricochet_z IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.blunt_throughput IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_medical_item.cures IS \'\'');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER ergonomics DROP NOT NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER recoil_vertical DROP NOT NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER recoil_horizontal DROP NOT NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER moa DROP NOT NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER is_default DROP NOT NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_stimulation.cures IS \'\'');
         $this->addSql('COMMENT ON COLUMN stimulation_effect.chance IS \'\'');
         $this->addSql('COMMENT ON COLUMN stimulation_effect.delay IS \'\'');
@@ -65,11 +62,8 @@ final class Version20231202205136 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN stimulation_effect.value IS NULL');
         $this->addSql('COMMENT ON COLUMN stimulation_effect.percent IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_stimulation.cures IS NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER ergonomics SET NOT NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER recoil_vertical SET NOT NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER recoil_horizontal SET NOT NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER moa SET NOT NULL');
-        $this->addSql('ALTER TABLE items_properties_preset ALTER is_default SET NOT NULL');
+        $this->addSql('DROP INDEX uniq_19db0ff0126f525e');
+        $this->addSql('CREATE INDEX uniq_19db0ff0126f525e ON items_properties (item_id)');
         $this->addSql('COMMENT ON COLUMN items_properties_medical_item.cures IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.deafening IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.ricochet_x IS NULL');
