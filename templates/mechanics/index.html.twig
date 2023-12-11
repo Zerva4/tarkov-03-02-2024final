@@ -4,21 +4,23 @@
 
 {% block content %}
 <div class="content_mechanics">
-    <h1 class="title__tablet">Механики</h1>
-    <p class="subtitle__tablet">
-        Разбор тем, на которые много вопросов, но очень мало ответов.
-    </p>
+    <div class="line_navbar">
+        <div class="header">
+            <h1 class="title">Механики</h1>
+            <p class="subtitle">
+                Разбор тем, на которые много вопросов, но очень мало ответов.
+            </p>
+        </div>
     {{ include('mechanics/blocks/filter.html.twig') }}
+    </div>
     <div class="container__cards">
         {% for article in pagination.items %}
         <article>
             <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" title="{{ article.title }}">
-                <img
-                        src="/assets/img/mechanics_image.png"
-                        alt="Фон"
-                        class="image"
-                />
                 <div class="card">
+                <img src="/assets/img/mechanics_image.png"
+                     alt="Фон"
+                     class="image"/>
                     <div class="card__text">
                         <p class="title">{{ article.title }}</p>
                         <p class="description">
