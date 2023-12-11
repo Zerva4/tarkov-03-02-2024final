@@ -62,7 +62,7 @@
 {#    {{ include('mechanics/blocks/filter.html.twig') }}#}
     <div class="container__cards">
         {% for article in pagination.items %}
-        <article>
+        <article class="item">
             <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" title="{{ article.title }}">
                 <div class="card">
                     <img src="/assets/img/mechanics_image.png"
