@@ -384,8 +384,6 @@ class ImportQuestsCommand extends Command
                         $questKeyEntity = $questKeyRepository->findByQuestAndItemIds($questEntity->getId(), $key['id']);
 
                         if (!$questKeyEntity instanceof QuestKeyInterface) {
-//                            dump($questKeyEntity);
-//                            die();
                             $itemEntity = $itemRepository->findOneBy(['apiId' => $key['id']]);
                             if (null === $itemEntity) continue;
                             $keyEntity = new QuestKey();

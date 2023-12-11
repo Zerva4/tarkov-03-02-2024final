@@ -11,11 +11,15 @@ parameters:
 #    doctrine_behaviors_timestampable_date_field_type: "datetimez"
 
     container.dumper.inline_factories: true
+    debug:
+        container:
+            dump: false
 
     # Locales
     app.default_locale: 'ru'
     app.additional_locales: 'en'
     app.supported_locales: 'ru|en'
+    default_timezone: 'Europe/Moscow'
 
     # GraphQL url address
     app.graphql_api_url: '%env(GRAPHQL_API_URL)%'

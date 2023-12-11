@@ -379,6 +379,6 @@ class ContainedItem implements UuidPrimaryKeyInterface, TimestampableInterface, 
 
     public function __toString(): string
     {
-        return $this->item->getName();
+        return $this->getItem()->getName();
     }
 }

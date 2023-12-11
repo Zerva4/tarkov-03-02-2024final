@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_weapon', options: ['comment' => 'Свойств для оружия'])]
+#[ORM\Index(columns: ['api_caliber'], name: 'items_api_caliber_key_idx')]
 #[ORM\Entity(repositoryClass: ItemPropertiesWeaponRepository::class)]
 class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesWeaponInterface
 {
@@ -90,9 +91,9 @@ class ItemPropertiesWeapon extends ItemProperties implements ItemPropertiesInter
     #[ORM\Column(type: 'float', nullable: false, options: ['default' => 0, 'comment' => 'Вес по умолчанию'])]
     private float $defaultWeight;
 
-    #[ORM\OneToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\ManyToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EAGER')]
     #[ORM\JoinColumn(referencedColumnName: 'id', unique: false, onDelete: 'SET NULL')]
-    private ?ItemInterface $defaultAmmo;
+    private ?ItemInterface $defaultAmmo = null;
     
     #[ORM\OneToOne(targetEntity: Item::class, cascade: ['persist'], fetch: 'EAGER')]
     #[ORM\JoinColumn(referencedColumnName: 'id', unique: false, onDelete: 'SET NULL')]

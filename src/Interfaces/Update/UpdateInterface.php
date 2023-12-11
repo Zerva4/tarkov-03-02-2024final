@@ -36,10 +36,10 @@ interface UpdateInterface
     public function getDateAdded(): DateTime;
 
     /**
-     * @param DateTime $addedDate
+     * @param DateTime $dateAdded
      * @return UpdateInterface
      */
-    public function setDateAdded(DateTime $addedDate): UpdateInterface;
+    public function setDateAdded(DateTime $dateAdded): UpdateInterface;
 
     /**
      * @return DateTime|null
@@ -47,8 +47,8 @@ interface UpdateInterface
     public function getDateAdded2(): ?DateTime;
 
     /**
-     * @param DateTime|null $addedDate
+     * @param DateTime|null $dateAdded
      * @return UpdateInterface
      */
-    public function setDateAdded2(?DateTime $addedDate): UpdateInterface;
+    public function setDateAdded2(?DateTime $dateAdded): UpdateInterface;
 }

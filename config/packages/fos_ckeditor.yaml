@@ -5,6 +5,7 @@ fos_ck_editor:
     configs:
         eft_config:
             toolbar: [
+                [ 'Source' ]
                 [ 'Undo', 'Redo' ],
                 [ 'Styles', 'Format' ],
                 [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ],

@@ -64,7 +64,7 @@
             }
 
             &:hover {
-                border: 1px solid #DF870A;
+                border-bottom: 1px solid #DF870A;
             }
         }
     }
@@ -285,14 +285,11 @@
         .image {
             img {
                 border-radius: 5px;
-                width: 100px;
-                height: auto;
+                border: 1px solid #070707;
+                transition: all 0.2s ease;
 
-                @media (min-width:320px) and (max-width:1080px) {
-                    width: 110px;
-                }
                 &:hover{
-                    border: 1px solid #DF870A;
+                    border-bottom: 1px solid #DF870A;
                 }
             }
         }

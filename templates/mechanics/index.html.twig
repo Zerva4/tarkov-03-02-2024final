@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block content %}
+<div class="content_mechanics">
+    <h1 class="title__tablet">Механики</h1>
+    <p class="subtitle__tablet">
+        Разбор тем, на которые много вопросов, но очень мало ответов.
+    </p>
+    {{ include('mechanics/blocks/filter.html.twig') }}
+    <div class="container__cards">
+        {% for article in pagination.items %}
+        <article>
+            <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" title="{{ article.title }}">
+                <img
+                        src="/assets/img/mechanics_image.png"
+                        alt="Фон"
+                        class="image"
+                />
+                <div class="card">
+                    <div class="card__text">
+                        <p class="title">{{ article.title }}</p>
+                        <p class="description">
+                            {{ article.description|raw }}
+                        </p>
+                    </div>
+                    <div class="item__footer">
+                        {% if article.complexity > 0 %}
+                        <div class="level">
+                            {% for i in 1..article.complexity %}
+                            <div class="level__element"></div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% if article.readingDuration is not empty %}
+                        <div class="timer">
+                            <img src="/assets/img/clock.svg" alt="Часы" />
+                            <p class="timer__text">{{ article.readingDuration | date('H:i') }} минут</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+{% endblock %}

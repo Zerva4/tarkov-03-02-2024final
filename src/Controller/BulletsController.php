@@ -19,6 +19,7 @@ class BulletsController extends AbstractController
     {
         $this->calibers = $caliberRepository->findByType();
     }
+
     #[Route('/bullets', name: 'app_bullets')]
     public function index(): Response
     {

@@ -17,11 +17,11 @@ class ItemPropertiesWeaponLoader
         $entityDefaultPreset = null;
         $itemRepository = $em->getRepository(Item::class);
 
-//        if (isset($arrayProperties['defaultAmmo']))
-//            $entityDefaultAmmo = $itemRepository->findOneBy(['apiId' => $arrayProperties['defaultAmmo']['id']]);
-//
-//        if (isset($arrayProperties['defaultPreset']))
-//            $entityDefaultPreset = $itemRepository->findOneBy(['apiId' => $arrayProperties['defaultPreset']['id']]);
+        if (isset($arrayProperties['defaultAmmo']))
+            $entityDefaultAmmo = $itemRepository->findOneBy(['apiId' => $arrayProperties['defaultAmmo']['id']]);
+
+        if (isset($arrayProperties['defaultPreset']))
+            $entityDefaultPreset = $itemRepository->findOneBy(['apiId' => $arrayProperties['defaultPreset']['id']]);
 
         if (isset($arrayProperties['allowedAmmo'])) {
             foreach ($arrayProperties['allowedAmmo'] as $allowedAmmo) {
@@ -44,7 +44,7 @@ class ItemPropertiesWeaponLoader
         $entityProperties
             ->setApiCaliber($arrayProperties['caliber'])
             ->setDefaultAmmo($entityDefaultAmmo) // todo: Check mapping
-            ->setDefaultPreset($entityDefaultPreset) // todo: Check mapping
+            ->setDefaultPreset($entityDefaultPreset)
             ->setEffectiveDistance($arrayProperties['effectiveDistance'])
             ->setErgonomics($arrayProperties['effectiveDistance'])
             ->setFireModes($arrayProperties['fireModes'])
