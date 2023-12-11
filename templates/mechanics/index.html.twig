@@ -69,10 +69,8 @@
                      alt="Фон"
                      class="image"/>
                     <div class="card__text">
-                        <p class="title">{{ article.title }}</p>
-                        <p class="description">
-                            {{ article.description|raw }}
-                        </p>
+                        <h3 class="title">{{ article.title }}</h3>
+                        <div class="description">{{ article.description|raw }}</div>
                     </div>
                     <div class="item__footer">
                         {% if article.complexity > 0 %}

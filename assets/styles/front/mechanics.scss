@@ -258,9 +258,6 @@
           min-height: auto;
         }
 
-        img {
-          height: 60px;
-        }
         .image {
           border-radius: 5px 5px 0 0;
         }
@@ -305,6 +302,10 @@
           .timer {
             display: flex;
             column-gap: 9px;
+
+            img {
+              height: 16px;
+            }
 
             .timer__text {
               font-weight: 300;
