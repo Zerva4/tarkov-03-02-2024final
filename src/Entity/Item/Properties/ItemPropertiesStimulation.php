@@ -7,6 +7,8 @@ use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesStimulationInterface;
 use App\Interfaces\Item\StimulationEffectInterface;
 use App\Repository\Item\Properties\ItemPropertiesStimulationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_stimulation', options: ['comment' => 'Свойства стимуляции'])]
@@ -14,14 +16,19 @@ use Doctrine\ORM\Mapping as ORM;
 class ItemPropertiesStimulation extends ItemProperties implements ItemPropertiesInterface, ItemPropertiesStimulationInterface
 {
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Время действия'])]
-    private int $useTime = 0;
+    private int $useTime;
 
     #[ORM\Column(type: 'json', nullable: true, options: ["jsonb" => true, 'comment' => ''])]
     private ?array $cures = null;
 
-    #[ORM\OneToOne(targetEntity: StimulationEffect::class, cascade: ['persist'], fetch: 'EAGER')]
+    #[ORM\OneToMany(mappedBy: 'properties', targetEntity: StimulationEffect::class, cascade: ['persist'], fetch: 'EAGER')]
     #[ORM\JoinColumn(referencedColumnName: 'id', unique: false, onDelete: 'CASCADE')]
-    private ?StimulationEffectInterface $stimulationEffect = null;
+    private Collection $stimulationEffects;
+
+    public function __construct()
+    {
+        $this->stimulationEffects = new ArrayCollection();
+    }
 
     public function getUseTime(): int
     {
@@ -47,14 +54,34 @@ class ItemPropertiesStimulation extends ItemProperties implements ItemProperties
         return $this;
     }
 
-    public function getStimulationEffect(): ?StimulationEffectInterface
+    public function getStimulationEffects(): Collection
     {
-        return $this->stimulationEffect;
+        return $this->stimulationEffects;
     }
 
-    public function setStimulationEffect(?StimulationEffectInterface $stimulationEffect): ItemPropertiesStimulationInterface
+    public function setStimulationEffects(Collection $stimulationEffects): ItemPropertiesStimulationInterface
     {
-        $this->stimulationEffect = $stimulationEffect;
+        $this->stimulationEffects = $stimulationEffects;
+
+        return $this;
+    }
+
+    public function addStimulationEffect(StimulationEffectInterface $stimulationEffect): ItemPropertiesStimulationInterface
+    {
+        if (!$this->stimulationEffects->contains($stimulationEffect)) {
+            $this->stimulationEffects->add($stimulationEffect);
+            $stimulationEffect->setProperties($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStimulationEffect(StimulationEffectInterface $stimulationEffect): ItemPropertiesStimulationInterface
+    {
+        if ($this->stimulationEffects->contains($stimulationEffect)) {
+            $this->stimulationEffects->removeElement($stimulationEffect);
+            $stimulationEffect->setProperties(null);
+        }
 
         return $this;
     }

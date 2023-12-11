@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity\Item;
 
+use App\Entity\Item\Properties\ItemProperties;
 use App\Entity\Item\Properties\ItemPropertiesFoodDrink;
 use App\Entity\TranslatableEntity;
 use App\Interfaces\Item\Properties\ItemPropertiesFoodDrinkInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\StimulationEffectInterface;
 use App\Interfaces\UuidPrimaryKeyInterface;
 use App\Repository\Item\StimulationEffectRepository;
@@ -34,9 +36,9 @@ class StimulationEffect extends TranslatableEntity implements StimulationEffectI
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false, 'comment' => ''])]
     private bool $percent;
 
-    #[ORM\ManyToOne(targetEntity: ItemPropertiesFoodDrink::class, inversedBy: 'stimulationEffects')]
+    #[ORM\ManyToOne(targetEntity: ItemProperties::class, inversedBy: 'stimulationEffects')]
     #[ORM\JoinColumn(name: 'properties_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    private ?ItemPropertiesFoodDrinkInterface $properties = null;
+    private ?ItemPropertiesInterface $properties = null;
 
     public function __construct(string $defaultLocale = '%app.default_locale%')
     {
@@ -127,12 +129,12 @@ class StimulationEffect extends TranslatableEntity implements StimulationEffectI
         return $this;
     }
 
-    public function getProperties(): ?ItemPropertiesFoodDrinkInterface
+    public function getProperties(): ?ItemPropertiesInterface
     {
         return $this->properties;
     }
 
-    public function setProperties(?ItemPropertiesFoodDrinkInterface $properties): StimulationEffectInterface
+    public function setProperties(?ItemPropertiesInterface $properties): StimulationEffectInterface
     {
         $this->properties = $properties;
 

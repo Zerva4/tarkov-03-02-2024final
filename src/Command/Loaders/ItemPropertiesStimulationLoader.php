@@ -4,6 +4,7 @@ namespace App\Command\Loaders;
 
 use App\Entity\Item\StimulationEffect;
 use App\Interfaces\Item\Properties\ItemPropertiesStimulationInterface;
+use App\Interfaces\Item\StimulationEffectInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ItemPropertiesStimulationLoader
@@ -15,7 +16,14 @@ class ItemPropertiesStimulationLoader
         string $locale = '%app.default_locale%'
     ): ItemPropertiesStimulationInterface
     {
-        $stimulationEffectEntity = new StimulationEffect($locale);
+        $stimulationEffectEntity = $entityProperties->getStimulationEffect();
+
+        if (!$stimulationEffectEntity instanceof StimulationEffectInterface)
+            $stimulationEffectEntity = new StimulationEffect($locale);
+
+        $stimulationEffectEntity
+            ->setCurrentLocale($locale)
+        ;
         $stimulationEffectEntity
             ->setType($arrayProperties['stimEffects']['useTime'] ?? null)
             ->setChance($arrayProperties['stimEffects']['chance'] ?? null)
