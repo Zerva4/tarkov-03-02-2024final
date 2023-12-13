@@ -1766,7 +1766,6 @@ svg path {
 	}
 }
 .navigation {
-
 	.pagination {
 		display: flex;
 		width: 100%;
@@ -1779,23 +1778,24 @@ svg path {
 		overflow-y: hidden;
 
 		.next .last .page .first .previous {
-			min-width: 28px;
+			min-width: 30px;
 			display: flex;
 			background-color: #151515;
 			padding: 6px;
 			border: solid 1px #151515;
+			border-radius: 3px;
 			justify-content: center;
+			transition: .3s;
 			&:hover {
 				background-color: #DF870A;
-				transition: all 0.5s ease;
 			}
 		}
 		.current {
-			min-width: 28px;
+			min-width: 30px;
 			display: flex;
 			background-color: #DF870A;
+			border: solid 1px #DF870A;
 			padding: 6px;
-			border: solid 1px #151515;
 			justify-content: center;
 		}
 	}
