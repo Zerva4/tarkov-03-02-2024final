@@ -1690,7 +1690,7 @@ footer {
 	}
 }
 svg path {
-	stroke:inherit;
+	stroke: inherit;
 	stroke-width:inherit;
 	fill:inherit;
 }
@@ -1762,6 +1762,41 @@ svg path {
 			visibility: visible;
 			opacity: 1;
 			transform: translate(0%, 0%);
+		}
+	}
+}
+.navigation {
+
+	.pagination {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		gap: 8px;
+		margin-top: 24px;
+		font-size: 16px;
+		overflow-x: auto;
+		overflow-y: hidden;
+
+		.next .last .page .first .previous {
+			min-width: 28px;
+			display: flex;
+			background-color: #151515;
+			padding: 6px;
+			border: solid 1px #151515;
+			justify-content: center;
+			&:hover {
+				background-color: #DF870A;
+				transition: all 0.5s ease;
+			}
+		}
+		.current {
+			min-width: 28px;
+			display: flex;
+			background-color: #DF870A;
+			padding: 6px;
+			border: solid 1px #151515;
+			justify-content: center;
 		}
 	}
 }
