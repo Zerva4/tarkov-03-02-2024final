@@ -25,75 +25,75 @@
                             <ul class="list">
                                 <li class="text text_all" data-slug="">Все</li>
                                 {% for category in categories %}
-                                <li class="text" data-slug="{{ category.slug }}">{{ category.name }}</li>
+                                    <li class="text" data-slug="{{ category.slug }}">{{ category.name }}</li>
                                 {% endfor %}
                             </ul>
                         </div>
                     </div>
 
-{#                    <div class="author">#}
-{#                        <div class="element">#}
-{#                          <div class="headlines">#}
-{#                            <p class="text" style="margin-right: 11px">Автор:</p>#}
-{#                            <p class="text color_white">Все</p>#}
-{#                          </div>#}
-{#                          <button class="triangle"></button>#}
-{#                        </div>#}
-{#                        <div class="dropdown dropdown-hidden">#}
-{#                          <ul class="list">#}
-{#                            <li class="text text_all">Все</li>#}
-{#                            <li class="text">Tarkov.Town</li>#}
-{#                            <li class="text">Шерпы</li>#}
-{#                            <li class="text">Пользователи</li>#}
-{#                          </ul>#}
-{#                        </div>#}
-{#                  </div>#}
-{#                    #}
-{#                    <div class="element toggle__container">#}
-{#                        <p class="text" style="margin-right: 15px">Премиум:</p>#}
-{#                        <div class="toggle toggle_no_active">#}
-{#                            <div class="circle"></div>#}
-{#                        </div>#}
-{#                    </div>#}
+                    {#                    <div class="author">#}
+                    {#                        <div class="element">#}
+                    {#                          <div class="headlines">#}
+                    {#                            <p class="text" style="margin-right: 11px">Автор:</p>#}
+                    {#                            <p class="text color_white">Все</p>#}
+                    {#                          </div>#}
+                    {#                          <button class="triangle"></button>#}
+                    {#                        </div>#}
+                    {#                        <div class="dropdown dropdown-hidden">#}
+                    {#                          <ul class="list">#}
+                    {#                            <li class="text text_all">Все</li>#}
+                    {#                            <li class="text">Tarkov.Town</li>#}
+                    {#                            <li class="text">Шерпы</li>#}
+                    {#                            <li class="text">Пользователи</li>#}
+                    {#                          </ul>#}
+                    {#                        </div>#}
+                    {#                  </div>#}
+                    {#                    #}
+                    {#                    <div class="element toggle__container">#}
+                    {#                        <p class="text" style="margin-right: 15px">Премиум:</p>#}
+                    {#                        <div class="toggle toggle_no_active">#}
+                    {#                            <div class="circle"></div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
 
                 </div>
             </div>
         </div>
-{#    {{ include('mechanics/blocks/filter.html.twig') }}#}
-    <div class="container__cards">
-        {% for article in pagination.items %}
-        <article class="item">
-            <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" title="{{ article.title }}">
-                <div class="card">
-                    <img src="/assets/img/mechanics_image.png"
-                     alt="Фон"
-                     class="image"/>
-                    <div class="card__text">
-                        <h3 class="title">{{ article.title }}</h3>
-                        <div class="description">{{ article.description|raw }}</div>
-                    </div>
-                    <div class="item__footer">
-                        {% if article.complexity > 0 %}
-                        <div class="level">
-                            {% for i in 1..article.complexity %}
-                            <div class="level__element"></div>
-                            {% endfor %}
+        {#    {{ include('mechanics/blocks/filter.html.twig') }}#}
+        <div class="container__cards">
+            {% for article in pagination.items %}
+                <article class="item">
+                    <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" title="{{ article.title }}">
+                        <div class="card">
+                            <img src="/assets/img/mechanics_image.png"
+                                 alt="Фон"
+                                 class="image"/>
+                            <div class="card__text">
+                                <h3 class="title">{{ article.title }}</h3>
+                                <div class="description">{{ article.description|raw }}</div>
+                            </div>
+                            <div class="item__footer">
+                                {% if article.complexity > 0 %}
+                                    <div class="level">
+                                        {% for i in 1..article.complexity %}
+                                            <div class="level__element"></div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if article.readingDuration is not empty %}
+                                    <div class="timer">
+                                        <img src="/assets/img/clock.svg" alt="Часы" />
+                                        <p class="timer__text">{{ article.readingDuration | date('H:i') }} минут</p>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-                        {% endif %}
-                        {% if article.readingDuration is not empty %}
-                        <div class="timer">
-                            <img src="/assets/img/clock.svg" alt="Часы" />
-                            <p class="timer__text">{{ article.readingDuration | date('H:i') }} минут</p>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </a>
-        </article>
-        {% endfor %}
-    </div>
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
-    </div>
-</section>
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </section>
 {% endblock %}
