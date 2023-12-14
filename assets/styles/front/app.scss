@@ -1690,7 +1690,7 @@ footer {
 	}
 }
 svg path {
-	stroke:inherit;
+	stroke: inherit;
 	stroke-width:inherit;
 	fill:inherit;
 }
@@ -1767,6 +1767,7 @@ svg path {
 }
 
 @import '../decor/variables.scss';
+@import '../decor/pagination.scss';
 @import '../decor/itemproperties.scss';
 @import 'main.scss';
 @import 'article.scss';
