@@ -1763,6 +1763,21 @@ svg path {
 	}
 }
 
+.author {
+	display: flex;
+	justify-content: flex-end;
+	font-size: 14px;
+	margin-top: 16px;
+
+	.title_name {
+		color: #828282;
+	}
+	.author_name {
+		color: #df870a;
+		margin-left: 8px;
+	}
+}
+
 @import '../decor/variables.scss';
 @import '../decor/pagination.scss';
 @import '../decor/itemproperties.scss';
