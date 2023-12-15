@@ -45,6 +45,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	catch { }
 
 	try {
+		let tabs = document.querySelectorAll('.select_abils');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click',switchSkills);
+		});
+	}
+	catch { }
+
+	try {
 		let tabs = document.querySelectorAll('.main_information .select');
 
 		tabs.forEach((item) => {
@@ -494,6 +503,23 @@ function switchTab(event) {
 
 }
 
+function switchSkills(event) {
+	let tabs_parent = this.closest('.abils');
+	let active_switch = tabs_parent.querySelector('.select_abils.active');
+	let active_tab = tabs_parent.querySelector('.abil.active');
+	let target_tab = tabs_parent.querySelector('#' + this.getAttribute('data-abil'));
+
+	if (active_switch) {
+		active_switch.classList.remove('active');
+	}
+
+	if (active_tab) {
+		active_tab.classList.remove('active');
+	}
+
+	this.classList.add('active');
+	target_tab.classList.add('active');
+}
 function openMobileMenu(event) {
 	let mobile_menu = document.querySelector('.mobile_menu');
 
