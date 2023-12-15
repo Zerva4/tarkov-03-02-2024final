@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		let tabs = document.querySelectorAll('.select_abils');
 
 		tabs.forEach((item) => {
-			item.addEventListener('click', switchSkills);
+			item.addEventListener('click',switchSkills);
 		});
 	}
 	catch { }
