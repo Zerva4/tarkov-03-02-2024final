@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	catch { }
 
 	try {
-		let tabs = document.querySelectorAll('.selects_abils');
+		let tabs = document.querySelectorAll('.select_abils');
 
 		tabs.forEach((item) => {
-			item.addEventListener('click', (e) => switchSkills(e));
+			item.addEventListener('click', switchSkills);
 		});
 	}
 	catch { }
@@ -504,10 +504,10 @@ function switchTab(event) {
 }
 
 function switchSkills(event) {
-	let tabs_parent = event.target.closest('.abils');
+	let tabs_parent = this.closest('.abils');
 	let active_switch = tabs_parent.querySelector('.select_abils.active');
 	let active_tab = tabs_parent.querySelector('.abil.active');
-	let target_tab = tabs_parent.querySelector('#' + event.target.closest('.select_abils').getAttribute('data-abil'));
+	let target_tab = tabs_parent.querySelector('#' + this.getAttribute('data-abil'));
 
 	if (active_switch) {
 		active_switch.classList.remove('active');
@@ -517,10 +517,8 @@ function switchSkills(event) {
 		active_tab.classList.remove('active');
 	}
 
-	if (target_tab) {
-		target_tab.classList.add('active');
-		event.target.classList.add('active');
-	}
+	this.classList.add('active');
+	target_tab.classList.add('active');
 }
 function openMobileMenu(event) {
 	let mobile_menu = document.querySelector('.mobile_menu');
