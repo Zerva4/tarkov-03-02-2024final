@@ -10,7 +10,7 @@
         margin: 0;
     }
 
-    .selects {
+    .selects_abils {
         display: flex;
         flex-flow: row wrap;
         gap: 32px;
@@ -21,7 +21,7 @@
             margin-bottom: 32px;
         }
 
-        .select {
+        .select_abils {
             cursor: pointer;
             text-align: center;
 

@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	catch { }
 
 	try {
-		let tabs = document.querySelectorAll('.selects');
+		let tabs = document.querySelectorAll('.selects_abils');
 
 		tabs.forEach((item) => {
 			item.addEventListener('click', (e) => switchSkills(e));
@@ -505,9 +505,9 @@ function switchTab(event) {
 
 function switchSkills(event) {
 	let tabs_parent = event.target.closest('.abils');
-	let active_switch = tabs_parent.querySelector('.select.active');
+	let active_switch = tabs_parent.querySelector('.select_abils.active');
 	let active_tab = tabs_parent.querySelector('.abil.active');
-	let target_tab = tabs_parent.querySelector('#' + event.target.closest('.select').getAttribute('data-abil'));
+	let target_tab = tabs_parent.querySelector('#' + event.target.closest('.select_abils').getAttribute('data-abil'));
 
 	if (active_switch) {
 		active_switch.classList.remove('active');
