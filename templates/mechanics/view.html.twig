@@ -1,15 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ article.title }} | Tarkov.Town{% endblock %}
 {% block content %}
-    <section class="content_mechanics">
-        <h1 class="title__tablet">Механики</h1>
-        <p class="subtitle__tablet">
-
-        </p>
-        {{ include('blocks/seo.html.twig') }}
-        <p class="subtitle">
-
-        </p>
-        {{ dump(article) }}
-    </section>
+        <div class="container">
+        <H1>{{ article.title }}</H1>
+        {{ article.body|raw }}
+        </div>
 {% endblock %}

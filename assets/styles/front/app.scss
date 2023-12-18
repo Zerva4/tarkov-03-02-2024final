@@ -867,9 +867,6 @@ nav {
 
 // Content
 
-.content {
-	min-height: 70vh;
-}
 .line_separator {
 	display: flex;
 	flex-flow: row nowrap;
@@ -1690,7 +1687,7 @@ footer {
 	}
 }
 svg path {
-	stroke:inherit;
+	stroke: inherit;
 	stroke-width:inherit;
 	fill:inherit;
 }
@@ -1767,6 +1764,7 @@ svg path {
 }
 
 @import '../decor/variables.scss';
+@import '../decor/pagination.scss';
 @import '../decor/itemproperties.scss';
 @import 'main.scss';
 @import 'article.scss';
