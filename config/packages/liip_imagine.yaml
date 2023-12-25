@@ -60,8 +60,6 @@ liip_imagine:
             filters:
                 thumbnail: { size: [ 180, 134 ], position: center, mode: inset }
         78x78:
-<<<<<<< HEAD
-=======
             cache: default
             quality: 100
             filters:
@@ -70,7 +68,6 @@ liip_imagine:
                     height: 78
 #                thumbnail: { size: [ 158, 158 ], position: center, mode: inset }
         80x80:
->>>>>>> fecb994 (traders)
             cache: default
             quality: 100
             filters:
