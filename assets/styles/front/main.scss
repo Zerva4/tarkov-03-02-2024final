@@ -379,3 +379,34 @@
         color: #DF870A;
     }
 }
+.stream-players {
+    display: block;
+    margin-top: 20px;
+
+    .stream-view {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+
+        &_exit {
+            border-radius: 5px;
+        }
+
+        iframe{
+            border: solid 1px #df860a73;
+            border-radius: 5px;
+        }
+
+        .btn_stream {
+            background-color: #4CAF50;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            color: rgb(0, 0, 0);
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            text-decoration: none;
+        }
+    }
+}
