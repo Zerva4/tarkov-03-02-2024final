@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
 //	}
 //	catch { }
 
-	try {
-		let reference_btns = document.querySelectorAll('.reference .header');
-		reference_btns.forEach((item) => {
-			item.addEventListener('click', (e) => switchReference(e));
-		});
-	}
-	catch { }
+	// try {
+	// 	let reference_btns = document.querySelectorAll('.reference .header');
+	// 	reference_btns.forEach((item) => {
+	// 		item.addEventListener('click', (e) => switchReference(e));
+	// 	});
+	// }
+	// catch { }
 
 	try {
 		let collapse_btns = document.querySelectorAll('.collapse-box .collapse-box__title');
