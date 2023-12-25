@@ -1,23 +1,24 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ quest.name }} | Tarkov.Town{% endblock %}
 {% block content %}
     <div class="content">
         <section>
             <div class="container">
-            {% if quest is not empty  %}
-                {% if quest.objectives is not empty %}
-                <h1>{{ quest.name }}</h1>
-                <div class="information">
-                    <div class="tasks">
+                {% if quest is not empty  %}
+                    {% if quest.objectives is not empty %}
+                        <h1>{{ quest.name }}</h1>
+                        <div class="information">
+                        <div class="tasks">
                         <h2>Задачи</h2>
                         <ul class="list">
                             {% for objective in quest.objectives %}
-                            <li class="item">
-                                — {{ objective.description }}
-                            </li>
+                                <li class="item">
+                                    — {{ objective.description }}
+                                </li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
+                    {% endif %}
                     </div>
                     <div class="card">
                         <div class="image">
@@ -62,68 +63,68 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endif %}
+                    </div>
+                {% endif %}
             </div>
         </section>
         {% if quest.howToComplete %}
-        <section>
-            <div class="container">
-                <div class="reference active">
-                    <div class="header">
-                        <h2 class="h">{{ 'Выполнение'|trans({}, 'front.quests') }}</h2>
-                        <div class="line"></div>
-                        <div class="btn">
-                        </div>
-                    </div>
-                    <div class="text">
-                        <div class="execution">
-                            <div class="text">
-                                {{ quest.howToComplete | raw }}
+            <section>
+                <div class="container">
+                    <div class="reference active">
+                        <div class="header">
+                            <h2 class="h">{{ 'Выполнение'|trans({}, 'front.quests') }}</h2>
+                            <div class="line"></div>
+                            <div class="btn">
                             </div>
-{#                            <div class="locations">#}
-{#                                <div class="location">#}
-{#                                    <div class="image">#}
-{#                                        <img src="media/location.png" alt="">#}
-{#                                    </div>#}
-{#                                    <div class="name">#}
-{#                                        Таможенный терминал#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="location">#}
-{#                                    <div class="image">#}
-{#                                        <img src="media/location.png" alt="">#}
-{#                                    </div>#}
-{#                                    <div class="name">#}
-{#                                        Таможенный терминал#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="location">#}
-{#                                    <div class="image">#}
-{#                                        <img src="media/location.png" alt="">#}
-{#                                    </div>#}
-{#                                    <div class="name">#}
-{#                                        Таможенный терминал#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
+                        </div>
+                        <div class="text">
+                            <div class="execution">
+                                <div class="text">
+                                    {{ quest.howToComplete | raw }}
+                                </div>
+                                {#                            <div class="locations">#}
+                                {#                                <div class="location">#}
+                                {#                                    <div class="image">#}
+                                {#                                        <img src="media/location.png" alt="">#}
+                                {#                                    </div>#}
+                                {#                                    <div class="name">#}
+                                {#                                        Таможенный терминал#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                                <div class="location">#}
+                                {#                                    <div class="image">#}
+                                {#                                        <img src="media/location.png" alt="">#}
+                                {#                                    </div>#}
+                                {#                                    <div class="name">#}
+                                {#                                        Таможенный терминал#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                                <div class="location">#}
+                                {#                                    <div class="image">#}
+                                {#                                        <img src="media/location.png" alt="">#}
+                                {#                                    </div>#}
+                                {#                                    <div class="name">#}
+                                {#                                        Таможенный терминал#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+                                {#                            </div>#}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
         {% endif %}
         {% if advice is not empty %}
-        <section>
-            <div class="container">
-                <div class="note">
-                    <div class="icon"></div>
-                    <div class="text">
-                        {{ advice|striptags|raw }}
+            <section>
+                <div class="container">
+                    <div class="note">
+                        <div class="icon"></div>
+                        <div class="text">
+                            {{ advice|striptags|raw }}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
         {% endif %}
         <section>
             <div class="container">
@@ -146,19 +147,19 @@
                                     </div>
                                 </div>
                                 {% if quest.traderStandings is not empty %}
-                                <div class="prop">
-                                    <div class="name">
-                                        {{ 'Репутация'|trans({}, 'front.quests') }}
-                                    </div>
-                                    <div class="val value_options">
-                                        {% for traderStanding in quest.traderStandings %}
-                                        <div>
-                                            <span class="option">{{ traderStanding.trader.translate(app.request.locale).shortName }}</span>
-                                            <span class="text">{% if traderStanding.standing > 0 %}+{% endif %}{{ traderStanding.standing }}</span>
+                                    <div class="prop">
+                                        <div class="name">
+                                            {{ 'Репутация'|trans({}, 'front.quests') }}
                                         </div>
-                                        {% endfor %}
+                                        <div class="val value_options">
+                                            {% for traderStanding in quest.traderStandings %}
+                                                <div>
+                                                    <span class="option">{{ traderStanding.trader.translate(app.request.locale).shortName }}</span>
+                                                    <span class="text">{% if traderStanding.standing > 0 %}+{% endif %}{{ traderStanding.standing }}</span>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
-                                </div>
                                 {% endif %}
                                 {% if quest.receivedItems is not empty %}
                                     {% set countMoney = 0 %}
@@ -177,18 +178,17 @@
                                                             <div class="ref_item ref_money">
                                                                 <div class="property">{{ 'Развед. центр ур. 1'|trans({}, 'front.quests') }}</div>
                                                                 <div class="value">
-                                                                        +{{ receivedItem.count * 1.05 }} {{ receivedItem.item.Name }}
+                                                                    +{{ receivedItem.count * 1.05 }} {{ receivedItem.item.Name }}
                                                                 </div>
                                                             </div>
                                                             <div class="ref_item ref_money">
                                                                 <div class="property">{{ 'Развед. центр ур. 2'|trans({}, 'front.quests') }}</div>
                                                                 <div class="value">
-                                                                       +{{ receivedItem.count * 1.15 }} {{ receivedItem.item.Name }}
+                                                                    +{{ receivedItem.count * 1.15 }} {{ receivedItem.item.Name }}
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         {% endif %}
@@ -228,84 +228,84 @@
             </div>
         </section>
         {% if (quest.startDialog or quest.successfulDialog) %}
-        <section>
-            <div class="container">
-                <div class="reference active">
-                    <div class="header">
-                        <h2 class="h">{{ 'Линия квеста'|trans({}, 'front.quests') }}</h2>
-                        <div class="line"></div>
-                        <div class="btn">
-                        </div>
-                    </div>
-                    <div class="text">
-                        <div class="dialog">
-                            <div class="trader">
-                                <div class="image">
-                                    {% if quest.imageName %}
-                                        <img src="{{ asset('/storage/images/traders/' ~ quest.trader.imageName) | imagine_filter('118x118') }}" alt="{{ quest.trader.shortName }}">
-                                    {% else %}
-                                        <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('118x118') }}" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="name">
-                                    {{ quest.trader.shortName }}
-                                </div>
+            <section>
+                <div class="container">
+                    <div class="reference active">
+                        <div class="header">
+                            <h2 class="h">{{ 'Линия квеста'|trans({}, 'front.quests') }}</h2>
+                            <div class="line"></div>
+                            <div class="btn">
                             </div>
-                            <div class="dialog_info">
-                                {% if quest.startDialog %}
-                                <div class="block">
-                                    <div class="name">
-                                        {{ 'Начало диалога'|trans({}, 'front.quests') }}
+                        </div>
+                        <div class="text">
+                            <div class="dialog">
+                                <div class="trader">
+                                    <div class="image">
+                                        {% if quest.imageName %}
+                                            <img src="{{ asset('/storage/images/traders/' ~ quest.trader.imageName) | imagine_filter('118x118') }}" alt="{{ quest.trader.shortName }}">
+                                        {% else %}
+                                            <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('118x118') }}" alt="">
+                                        {% endif %}
                                     </div>
-                                    <div class="text">
-                                        {{ quest.startDialog | raw }}
+                                    <div class="name">
+                                        {{ quest.trader.shortName }}
                                     </div>
                                 </div>
-                                {% endif %}
-                                {% if quest.successfulDialog %}
-                                <div class="block">
-                                    <div class="name">
-                                        {{ 'Успешно выполненное задание'|trans({}, 'front.quests') }}
-                                    </div>
-                                    <div class="text">
-                                        {{ quest.successfulDialog | raw }}
-                                    </div>
+                                <div class="dialog_info">
+                                    {% if quest.startDialog %}
+                                        <div class="block">
+                                            <div class="name">
+                                                {{ 'Начало диалога'|trans({}, 'front.quests') }}
+                                            </div>
+                                            <div class="text">
+                                                {{ quest.startDialog | raw }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if quest.successfulDialog %}
+                                        <div class="block">
+                                            <div class="name">
+                                                {{ 'Успешно выполненное задание'|trans({}, 'front.quests') }}
+                                            </div>
+                                            <div class="text">
+                                                {{ quest.successfulDialog | raw }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {#                                <div class="controls">#}
+                                    {#                                    <div class="prev">#}
+                                    {#                                        <div class="name">#}
+                                    {#                                            Предыдущие квест(ы)#}
+                                    {#                                        </div>#}
+                                    {#                                        <div class="btns">#}
+                                    {#                                            <a href="#" class="button">#}
+                                    {#                                                "Проверка на вшивость"#}
+                                    {#                                            </a>#}
+                                    {#                                            <a href="#" class="button">#}
+                                    {#                                                "Поисковая миссия"#}
+                                    {#                                            </a>#}
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
+                                    {#                                    <div class="next">#}
+                                    {#                                        <div class="name">#}
+                                    {#                                            Следующие квест(ы)#}
+                                    {#                                        </div>#}
+                                    {#                                        <div class="btns">#}
+                                    {#                                            <a href="#" class="button">#}
+                                    {#                                                "Проверка на вшивость"#}
+                                    {#                                            </a href="#">#}
+                                    {#                                            <a href="#" class="button">#}
+                                    {#                                                "Поисковая миссия"#}
+                                    {#                                            </a>#}
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
+                                    {#                                </div>#}
                                 </div>
-                                {% endif %}
-{#                                <div class="controls">#}
-{#                                    <div class="prev">#}
-{#                                        <div class="name">#}
-{#                                            Предыдущие квест(ы)#}
-{#                                        </div>#}
-{#                                        <div class="btns">#}
-{#                                            <a href="#" class="button">#}
-{#                                                "Проверка на вшивость"#}
-{#                                            </a>#}
-{#                                            <a href="#" class="button">#}
-{#                                                "Поисковая миссия"#}
-{#                                            </a>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    <div class="next">#}
-{#                                        <div class="name">#}
-{#                                            Следующие квест(ы)#}
-{#                                        </div>#}
-{#                                        <div class="btns">#}
-{#                                            <a href="#" class="button">#}
-{#                                                "Проверка на вшивость"#}
-{#                                            </a href="#">#}
-{#                                            <a href="#" class="button">#}
-{#                                                "Поисковая миссия"#}
-{#                                            </a>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
         {% endif %}
     </div>
 {% endblock %}

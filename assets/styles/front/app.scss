@@ -867,9 +867,6 @@ nav {
 
 // Content
 
-.content {
-	min-height: 70vh;
-}
 .line_separator {
 	display: flex;
 	flex-flow: row nowrap;
@@ -1690,7 +1687,7 @@ footer {
 	}
 }
 svg path {
-	stroke:inherit;
+	stroke: inherit;
 	stroke-width:inherit;
 	fill:inherit;
 }
@@ -1766,7 +1763,23 @@ svg path {
 	}
 }
 
+.author {
+	display: flex;
+	justify-content: flex-end;
+	font-size: 14px;
+	margin-top: 16px;
+
+	.title_name {
+		color: #828282;
+	}
+	.author_name {
+		color: #df870a;
+		margin-left: 8px;
+	}
+}
+
 @import '../decor/variables.scss';
+@import '../decor/pagination.scss';
 @import '../decor/itemproperties.scss';
 @import 'main.scss';
 @import 'article.scss';
