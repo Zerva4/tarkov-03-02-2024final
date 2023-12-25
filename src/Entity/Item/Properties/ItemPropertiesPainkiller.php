@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesPainkillerInterface;
-use App\Repository\Item\ItemPropertiesPainkillerRepository;
+use App\Repository\Item\Properties\ItemPropertiesPainkillerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_painkiller', options: ['comment' => 'Свойства для обезбаливающенр'])]

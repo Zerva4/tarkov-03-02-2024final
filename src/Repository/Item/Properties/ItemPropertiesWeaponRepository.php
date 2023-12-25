@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesBackpack;
+use App\Entity\Item\Properties\ItemPropertiesWeapon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesBackpack>
+ * @extends ServiceEntityRepository<ItemPropertiesWeapon>
  *
- * @method ItemPropertiesBackpack|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesBackpack|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesBackpack[]    findAll()
- * @method ItemPropertiesBackpack[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesWeapon|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesWeapon|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesWeapon[]    findAll()
+ * @method ItemPropertiesWeapon[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesBackpackRepository extends ServiceEntityRepository
+class ItemPropertiesWeaponRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesBackpack::class);
+        parent::__construct($registry, ItemPropertiesWeapon::class);
     }
 
 //    /**
-//     * @return ItemPropertiesBackpack[] Returns an array of ItemPropertiesBackpack objects
+//     * @return ItemPropertiesWeapon[] Returns an array of ItemPropertiesWeapon objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesBackpackRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesBackpack
+//    public function findOneBySomeField($value): ?ItemPropertiesWeapon
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

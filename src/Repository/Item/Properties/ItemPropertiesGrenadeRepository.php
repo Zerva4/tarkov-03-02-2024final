@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesFoodDrink;
+use App\Entity\Item\Properties\ItemPropertiesGrenade;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesFoodDrink>
+ * @extends ServiceEntityRepository<ItemPropertiesGrenade>
  *
- * @method ItemPropertiesFoodDrink|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesFoodDrink|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesFoodDrink[]    findAll()
- * @method ItemPropertiesFoodDrink[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesGrenade|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesGrenade|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesGrenade[]    findAll()
+ * @method ItemPropertiesGrenade[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesFoodDrinkRepository extends ServiceEntityRepository
+class ItemPropertiesGrenadeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesFoodDrink::class);
+        parent::__construct($registry, ItemPropertiesGrenade::class);
     }
 
 //    /**
-//     * @return ItemPropertiesFoodDrink[] Returns an array of ItemPropertiesFoodDrink objects
+//     * @return ItemPropertiesGrenade[] Returns an array of ItemPropertiesGrenade objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesFoodDrinkRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesFoodDrink
+//    public function findOneBySomeField($value): ?ItemPropertiesGrenade
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

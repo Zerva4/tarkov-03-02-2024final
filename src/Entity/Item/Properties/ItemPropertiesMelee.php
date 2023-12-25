@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesMeleeInterface;
-use App\Repository\Item\ItemPropertiesMeleeRepository;
+use App\Repository\Item\Properties\ItemPropertiesMeleeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_melee', options: ['comment' => 'Свойства предметов для ближнего боя'])]

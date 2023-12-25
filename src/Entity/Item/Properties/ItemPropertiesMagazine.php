@@ -8,7 +8,7 @@ use App\Entity\Item\Item;
 use App\Interfaces\Item\ItemInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesMagazineInterface;
-use App\Repository\Item\ItemPropertiesMagazineRepository;
+use App\Repository\Item\Properties\ItemPropertiesMagazineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesScope;
+use App\Entity\Item\Properties\ItemPropertiesMagazine;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesScope>
+ * @extends ServiceEntityRepository<ItemPropertiesMagazine>
  *
- * @method ItemPropertiesScope|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesScope|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesScope[]    findAll()
- * @method ItemPropertiesScope[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesMagazine|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesMagazine|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesMagazine[]    findAll()
+ * @method ItemPropertiesMagazine[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesScopeRepository extends ServiceEntityRepository
+class ItemPropertiesMagazineRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesScope::class);
+        parent::__construct($registry, ItemPropertiesMagazine::class);
     }
 
 //    /**
-//     * @return ItemPropertiesScope[] Returns an array of ItemPropertiesScope objects
+//     * @return ItemPropertiesMagazine[] Returns an array of ItemPropertiesMagazine objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesScopeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesScope
+//    public function findOneBySomeField($value): ?ItemPropertiesMagazine
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

@@ -54,7 +54,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
   "ItemPropertiesNightVision" => 1
   "ItemPropertiesPreset" => 1
   "ItemPropertiesArmorAttachment" => 1
-  "ItemPropertiesStim" => 1
+  "ItemPropertiesStimulation" => 1
   "ItemPropertiesSurgicalKit" => 1
 **/
 
@@ -90,7 +90,9 @@ class Item extends TranslatableEntity implements UuidPrimaryKeyInterface, ItemIn
         'ItemPropertiesMedKit',
         'ItemPropertiesMelee',
         'ItemPropertiesNightVision',
+        'ItemPropertiesPreset',
         'ItemPropertiesPainkiller',
+        'ItemPropertiesStimulation',
         'ItemPropertiesScope',
         'ItemPropertiesSurgicalKit',
         'ItemPropertiesWeapon',

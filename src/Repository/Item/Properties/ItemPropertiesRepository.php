@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesBarrel;
+use App\Entity\Item\Properties\ItemProperties;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesBarrel>
+ * @extends ServiceEntityRepository<ItemProperties>
  *
- * @method ItemPropertiesBarrel|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesBarrel|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesBarrel[]    findAll()
- * @method ItemPropertiesBarrel[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemProperties|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemProperties|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemProperties[]    findAll()
+ * @method ItemProperties[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesBarrelRepository extends ServiceEntityRepository
+class ItemPropertiesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesBarrel::class);
+        parent::__construct($registry, ItemProperties::class);
     }
 
 //    /**
-//     * @return ItemPropertiesBarrel[] Returns an array of ItemPropertiesBarrel objects
+//     * @return ItemProperties[] Returns an array of ItemProperties objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesBarrelRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesBarrel
+//    public function findOneBySomeField($value): ?ItemProperties
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

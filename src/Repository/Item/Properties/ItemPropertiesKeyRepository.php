@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesPainkiller;
+use App\Entity\Item\Properties\ItemPropertiesKey;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesPainkiller>
+ * @extends ServiceEntityRepository<ItemPropertiesKey>
  *
- * @method ItemPropertiesPainkiller|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesPainkiller|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesPainkiller[]    findAll()
- * @method ItemPropertiesPainkiller[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesKey|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesKey|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesKey[]    findAll()
+ * @method ItemPropertiesKey[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesPainkillerRepository extends ServiceEntityRepository
+class ItemPropertiesKeyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesPainkiller::class);
+        parent::__construct($registry, ItemPropertiesKey::class);
     }
 
 //    /**
-//     * @return ItemPropertiesPainkiller[] Returns an array of ItemPropertiesPainkiller objects
+//     * @return ItemPropertiesKey[] Returns an array of ItemPropertiesKey objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesPainkillerRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesPainkiller
+//    public function findOneBySomeField($value): ?ItemPropertiesKey
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

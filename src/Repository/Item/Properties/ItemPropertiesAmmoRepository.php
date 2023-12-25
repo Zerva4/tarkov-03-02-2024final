@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemProperties;
+use App\Entity\Item\Properties\ItemPropertiesAmmo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemProperties>
+ * @extends ServiceEntityRepository<ItemPropertiesAmmo>
  *
- * @method ItemProperties|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemProperties|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemProperties[]    findAll()
- * @method ItemProperties[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesAmmo|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesAmmo|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesAmmo[]    findAll()
+ * @method ItemPropertiesAmmo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesRepository extends ServiceEntityRepository
+class ItemPropertiesAmmoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemProperties::class);
+        parent::__construct($registry, ItemPropertiesAmmo::class);
     }
 
 //    /**
-//     * @return ItemProperties[] Returns an array of ItemProperties objects
+//     * @return ItemPropertiesAmmo[] Returns an array of ItemPropertiesAmmo objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemProperties
+//    public function findOneBySomeField($value): ?ItemPropertiesAmmo
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

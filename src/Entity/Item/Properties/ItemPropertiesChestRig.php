@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesChestRigInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
-use App\Repository\Item\ItemPropertiesChestRigRepository;
+use App\Repository\Item\Properties\ItemPropertiesChestRigRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_chest_rig', options: ['comment' => 'Таблица свойств для разгрозочного жилета'])]

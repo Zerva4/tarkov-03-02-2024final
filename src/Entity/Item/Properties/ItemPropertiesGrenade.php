@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesGrenadeInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
-use App\Repository\Item\ItemPropertiesGrenadeRepository;
+use App\Repository\Item\Properties\ItemPropertiesGrenadeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_grenade', options: ['comment' => 'Таблица свойств для гранат'])]

@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesNightVisionInterface;
-use App\Repository\Item\ItemPropertiesNightVisionRepository;
+use App\Repository\Item\Properties\ItemPropertiesNightVisionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_night_vision', options: ['comment' => 'Свойства предметов ночного видения'])]
