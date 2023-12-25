@@ -117,6 +117,18 @@ document.addEventListener('DOMContentLoaded', function () {
 	catch { }
 
 	try {
+		let stream_view_btn = document.querySelector('.btn_stream');
+		stream_view_btn.addEventListener('click', closeStreamView);
+	}
+	catch { }
+
+	try {
+		let stream_view_btn = document.querySelector('.btn_stream');
+		stream_view_btn.addEventListener('click', OpenStreamView);
+	}
+	catch { }
+
+	try {
 		let ammo_options_btns = document.querySelectorAll('.mobile_ammo_options .button');
 
 		ammo_options_btns.forEach((item) => {
@@ -853,4 +865,17 @@ function openCaliber(event) {
 			container.classList.add('active');
 		}
 	}
+}
+
+function closeStreamView(event) {
+	let stream_view = document.querySelector('.btn_stream_view');
+
+	stream_view.classList.remove('active');
+
+}
+function OpenStreamView(event) {
+	let stream_view = document.querySelector('.btn_stream_view');
+
+	stream_view.classList.add('active');
+
 }
