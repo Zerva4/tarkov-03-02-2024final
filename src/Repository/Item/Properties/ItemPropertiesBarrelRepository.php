@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesSurgicalKit;
+use App\Entity\Item\Properties\ItemPropertiesBarrel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesSurgicalKit>
+ * @extends ServiceEntityRepository<ItemPropertiesBarrel>
  *
- * @method ItemPropertiesSurgicalKit|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesSurgicalKit|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesSurgicalKit[]    findAll()
- * @method ItemPropertiesSurgicalKit[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesBarrel|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesBarrel|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesBarrel[]    findAll()
+ * @method ItemPropertiesBarrel[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesSurgicalKitRepository extends ServiceEntityRepository
+class ItemPropertiesBarrelRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesSurgicalKit::class);
+        parent::__construct($registry, ItemPropertiesBarrel::class);
     }
 
 //    /**
-//     * @return ItemPropertiesSurgicalKit[] Returns an array of ItemPropertiesSurgicalKit objects
+//     * @return ItemPropertiesBarrel[] Returns an array of ItemPropertiesBarrel objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesSurgicalKitRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesSurgicalKit
+//    public function findOneBySomeField($value): ?ItemPropertiesBarrel
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

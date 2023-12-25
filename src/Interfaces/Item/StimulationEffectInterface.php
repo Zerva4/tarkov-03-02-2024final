@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Interfaces\Item;
 
-use App\Interfaces\Item\Properties\ItemPropertiesFoodDrinkInterface;
+use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 
 interface StimulationEffectInterface
 {
@@ -22,6 +22,6 @@ interface StimulationEffectInterface
     public function getSkillName(): ?string;
     public function setSkillName(?string $skillName): StimulationEffectInterface;
     public function setPercent(bool $percent): StimulationEffectInterface;
-    public function getProperties(): ?ItemPropertiesFoodDrinkInterface;
-    public function setProperties(?ItemPropertiesFoodDrinkInterface $properties): StimulationEffectInterface;
+    public function getProperties(): ?ItemPropertiesInterface;
+    public function setProperties(?ItemPropertiesInterface $properties): StimulationEffectInterface;
 }

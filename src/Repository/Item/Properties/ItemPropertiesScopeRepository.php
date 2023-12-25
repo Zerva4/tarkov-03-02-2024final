@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesMelee;
+use App\Entity\Item\Properties\ItemPropertiesScope;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesMelee>
+ * @extends ServiceEntityRepository<ItemPropertiesScope>
  *
- * @method ItemPropertiesMelee|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesMelee|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesMelee[]    findAll()
- * @method ItemPropertiesMelee[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesScope|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesScope|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesScope[]    findAll()
+ * @method ItemPropertiesScope[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesMeleeRepository extends ServiceEntityRepository
+class ItemPropertiesScopeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesMelee::class);
+        parent::__construct($registry, ItemPropertiesScope::class);
     }
 
 //    /**
-//     * @return ItemPropertiesMelee[] Returns an array of ItemPropertiesMelee objects
+//     * @return ItemPropertiesScope[] Returns an array of ItemPropertiesScope objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesMeleeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesMelee
+//    public function findOneBySomeField($value): ?ItemPropertiesScope
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesKeyInterface;
-use App\Repository\Item\ItemPropertiesKeyRepository;
+use App\Repository\Item\Properties\ItemPropertiesKeyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_key', options: ['comment' => 'Таблица свойств для ключей'])]

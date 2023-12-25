@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesMagazine;
+use App\Entity\Item\Properties\ItemPropertiesBackpack;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesMagazine>
+ * @extends ServiceEntityRepository<ItemPropertiesBackpack>
  *
- * @method ItemPropertiesMagazine|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesMagazine|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesMagazine[]    findAll()
- * @method ItemPropertiesMagazine[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesBackpack|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesBackpack|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesBackpack[]    findAll()
+ * @method ItemPropertiesBackpack[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesMagazineRepository extends ServiceEntityRepository
+class ItemPropertiesBackpackRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesMagazine::class);
+        parent::__construct($registry, ItemPropertiesBackpack::class);
     }
 
 //    /**
-//     * @return ItemPropertiesMagazine[] Returns an array of ItemPropertiesMagazine objects
+//     * @return ItemPropertiesBackpack[] Returns an array of ItemPropertiesBackpack objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesMagazineRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesMagazine
+//    public function findOneBySomeField($value): ?ItemPropertiesBackpack
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

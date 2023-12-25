@@ -120,13 +120,16 @@ class ImportItemsCommand extends Command
                 'По умолчанию'
             ], '', $item['shortName']));
 
+            $typeName = (isset($item['properties']) ) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
+            if ($typeName === 'ItemPropertiesStim') $typeName = 'ItemPropertiesStimulation';
+
             if ($itemEntity instanceof Item) {
                 $itemEntity->setDefaultLocale($lang);
                 $itemEntity->setCurrentLocale($lang);
                 $itemEntity->setName($item['name']);
                 $itemEntity->setShortName($item['shortName']);
+                $itemEntity->setTypeItem($typeName);
             } else {
-                $typeName = (isset($item['properties'])) ? $typeName = $item['properties']['__typename'] : 'ItemPropertiesDefault';
                 /** @var ItemInterface $itemEntity */
                 $itemEntity = new Item($lang);
                 $itemEntity->setDefaultLocale($lang);

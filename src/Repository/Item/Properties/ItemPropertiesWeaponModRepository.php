@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesGrenade;
+use App\Entity\Item\Properties\ItemPropertiesWeaponMod;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesGrenade>
+ * @extends ServiceEntityRepository<ItemPropertiesWeaponMod>
  *
- * @method ItemPropertiesGrenade|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesGrenade|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesGrenade[]    findAll()
- * @method ItemPropertiesGrenade[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesWeaponMod|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesWeaponMod|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesWeaponMod[]    findAll()
+ * @method ItemPropertiesWeaponMod[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesGrenadeRepository extends ServiceEntityRepository
+class ItemPropertiesWeaponModRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesGrenade::class);
+        parent::__construct($registry, ItemPropertiesWeaponMod::class);
     }
 
 //    /**
-//     * @return ItemPropertiesGrenade[] Returns an array of ItemPropertiesGrenade objects
+//     * @return ItemPropertiesWeaponMod[] Returns an array of ItemPropertiesWeaponMod objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesGrenadeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesGrenade
+//    public function findOneBySomeField($value): ?ItemPropertiesWeaponMod
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

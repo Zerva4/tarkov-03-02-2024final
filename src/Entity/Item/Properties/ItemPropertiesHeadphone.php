@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesHeadphoneInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
-use App\Repository\Item\ItemPropertiesHeadphoneRepository;
+use App\Repository\Item\Properties\ItemPropertiesHeadphoneRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_headphone', options: ['comment' => 'Таблица свойств для наушников'])]
