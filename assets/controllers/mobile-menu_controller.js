@@ -7,6 +7,7 @@ export default class extends Controller {
 
     connect() {
         this.isOpen = false;
+        this.mobileMenu.addEventListener('click', this.toggle);
     }
 
     toggle() {
