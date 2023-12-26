@@ -854,3 +854,16 @@ function openCaliber(event) {
 		}
 	}
 }
+
+function closeStreamView(event) {
+	let stream_view = document.querySelector('.btn_stream_view');
+
+	stream_view.classList.remove('active');
+
+}
+function OpenStreamView(event) {
+	let stream_view = document.querySelector('.btn_stream_view');
+
+	stream_view.classList.add('active');
+
+}
