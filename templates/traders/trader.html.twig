@@ -107,7 +107,7 @@
         <div class="container">
             <div class="block">
                 <div class="tabs">
-                    <div class="switchers">
+                    <div class="switchers" {{ stimulus_controller('tab-switcher') }}>
                         <div class="switcher active" data-tab="tab_1">
                             {{ 'Квесты'|trans({}, 'front.traders') }}
                         </div>
