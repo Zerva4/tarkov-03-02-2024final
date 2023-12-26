@@ -1,7 +1,7 @@
 {% if calibers %}
 <section>
     <div class="container">
-        <div class="mobile_ammo_chooser_btn">
+        <div class="mobile_ammo_chooser_btn" {{ stimulus_controller('mobile-caliber-chooser') }}>
             {{ 'Боеприпасы'|trans({}, 'front.bullets') }}
             <div class="icon">
             </div>
