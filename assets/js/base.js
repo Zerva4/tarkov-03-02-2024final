@@ -132,14 +132,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	catch { }
 
-	try {
-		let bullets = document.querySelectorAll('.bullet_tr');
-
-		bullets.forEach((item) => {
-			item.addEventListener('click', (e) => rowClickHandle(e));
-		});
-	}
-	catch { }
+	// try {
+	// 	let bullets = document.querySelectorAll('.bullet_tr');
+	//
+	// 	bullets.forEach((item) => {
+	// 		item.addEventListener('click', (e) => rowClickHandle(e));
+	// 	});
+	// }
+	// catch { }
 
 	try {
 		let calibers = document.querySelectorAll('.ammo_chooser .ammo');
