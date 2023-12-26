@@ -6,7 +6,7 @@
         <div class="container">
             {% if items is defined and items is not empty %}
             <div class="caliber active" data-caliber="{{ slug }}">
-                <table class="table">
+                <table class="table" {{ stimulus_controller('bullet-info mobile-bullet-info') }}>
                     <thead>
                         <tr>
                             <th class="th_bullet">{{ 'Название'|trans({}, 'front.bullets') }}</th>
@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                     {% for item in items %}
-                        <tr class="bullet_tr tr_bullets" {{ stimulus_controller('bullet-info') }}>
+                        <tr class="bullet_tr tr_bullets">
                             <td class="td_bullet">
                                 <div class="ammo">
                                     <div class="img">

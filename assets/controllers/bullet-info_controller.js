@@ -9,7 +9,7 @@ export default class extends Controller {
     }
 
     connect() {
-        super.connect();
+        // super.connect();
 
         this.bullets.forEach((item) => {
             item.addEventListener('click', (e) => this.showInfo(e));
@@ -17,8 +17,8 @@ export default class extends Controller {
     }
 
     showInfo(event) {
-        let target = event.target.closest('.bullet_tr');
-        let prem = target.nextElementSibling;
+        const target = event.target.closest('.bullet_tr');
+        const prem = target.nextElementSibling;
 
         if (!target.classList.contains('active')) {
             prem.classList.add('active');

@@ -12,7 +12,6 @@ export default class extends Controller {
         this.referenceButtons.forEach((Button) => {
             Button.addEventListener('click', (e) => {
                 Button.parentElement.classList.toggle('active');
-                console.log(Button.parentElement);
             });
         });
     }

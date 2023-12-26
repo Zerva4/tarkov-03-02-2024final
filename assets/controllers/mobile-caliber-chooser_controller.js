@@ -20,8 +20,7 @@ export default class extends Controller {
         if (chooser.classList.contains('active')) {
             chooser.classList.remove('active');
             event.target.classList.remove('active');
-        }
-        else {
+        } else {
             chooser.classList.add('active');
             event.target.classList.add('active');
         }
