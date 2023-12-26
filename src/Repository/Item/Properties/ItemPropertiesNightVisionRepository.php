@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesWeapon;
+use App\Entity\Item\Properties\ItemPropertiesNightVision;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesWeapon>
+ * @extends ServiceEntityRepository<ItemPropertiesNightVision>
  *
- * @method ItemPropertiesWeapon|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesWeapon|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesWeapon[]    findAll()
- * @method ItemPropertiesWeapon[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesNightVision|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesNightVision|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesNightVision[]    findAll()
+ * @method ItemPropertiesNightVision[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesWeaponRepository extends ServiceEntityRepository
+class ItemPropertiesNightVisionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesWeapon::class);
+        parent::__construct($registry, ItemPropertiesNightVision::class);
     }
 
 //    /**
-//     * @return ItemPropertiesWeapon[] Returns an array of ItemPropertiesWeapon objects
+//     * @return ItemPropertiesNightVision[] Returns an array of ItemPropertiesNightVision objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesWeaponRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesWeapon
+//    public function findOneBySomeField($value): ?ItemPropertiesNightVision
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

@@ -1,0 +1,24 @@
+<div class="character__text">
+    <span class="value-stock">{{ 'Базовое оружие' | trans({}, 'front.items') }}</span>
+    <span class="value-properties"><a href="{{ absolute_url(path('app_view_item', {'slug': item.properties.baseItem.slug})) }}">{{ item.properties.baseItem.name }}</a></span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Эргономика' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.ergonomics }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Вертикальная отдача' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.recoilVertical }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Горизонтальная отдача' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.recoilHorizontal }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'Точность оружия' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{{ item.properties.moa }}</span>
+</div>
+<div class="character__text">
+    <span class="value-stock">{{ 'По умолчанию' | trans({}, 'front.items') }}</span>
+    <span class="value-properties">{% if item.properties.isDefault %}{{ 'Да' | trans({}, 'front.items') }}{% else %}{{ 'Нет' | trans({}, 'front.items') }}{% endif %}</span>
+</div>

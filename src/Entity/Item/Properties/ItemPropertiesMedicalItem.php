@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesMedicalItemInterface;
-use App\Repository\Item\ItemPropertiesMedicalItemRepository;
+use App\Repository\Item\Properties\ItemPropertiesMedicalItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_medical_item', options: ['comment' => 'Таблица свойств для мед. предметов'])]

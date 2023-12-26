@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesHelmet;
+use App\Entity\Item\Properties\ItemPropertiesGlasses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesHelmet>
+ * @extends ServiceEntityRepository<ItemPropertiesGlasses>
  *
- * @method ItemPropertiesHelmet|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesHelmet|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesHelmet[]    findAll()
- * @method ItemPropertiesHelmet[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesGlasses|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesGlasses|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesGlasses[]    findAll()
+ * @method ItemPropertiesGlasses[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesHelmetRepository extends ServiceEntityRepository
+class ItemPropertiesGlassesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesHelmet::class);
+        parent::__construct($registry, ItemPropertiesGlasses::class);
     }
 
 //    /**
-//     * @return ItemPropertiesHelmet[] Returns an array of ItemPropertiesHelmet objects
+//     * @return ItemPropertiesGlasses[] Returns an array of ItemPropertiesGlasses objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesHelmetRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesHelmet
+//    public function findOneBySomeField($value): ?ItemPropertiesGlasses
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

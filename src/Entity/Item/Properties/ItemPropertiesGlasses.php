@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesGlassesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
-use App\Repository\Item\ItemPropertiesGlassesRepository;
+use App\Repository\Item\Properties\ItemPropertiesGlassesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_glasses', options: ['comment' => 'Таблица свойств для очков'])]

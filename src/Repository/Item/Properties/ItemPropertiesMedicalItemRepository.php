@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesArmor;
+use App\Entity\Item\Properties\ItemPropertiesMedicalItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesArmor>
+ * @extends ServiceEntityRepository<ItemPropertiesMedicalItem>
  *
- * @method ItemPropertiesArmor|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesArmor|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesArmor[]    findAll()
- * @method ItemPropertiesArmor[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesMedicalItem|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesMedicalItem|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesMedicalItem[]    findAll()
+ * @method ItemPropertiesMedicalItem[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesArmorRepository extends ServiceEntityRepository
+class ItemPropertiesMedicalItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesArmor::class);
+        parent::__construct($registry, ItemPropertiesMedicalItem::class);
     }
 
 //    /**
-//     * @return ItemPropertiesArmor[] Returns an array of ItemPropertiesArmor objects
+//     * @return ItemPropertiesMedicalItem[] Returns an array of ItemPropertiesMedicalItem objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesArmorRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesArmor
+//    public function findOneBySomeField($value): ?ItemPropertiesMedicalItem
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

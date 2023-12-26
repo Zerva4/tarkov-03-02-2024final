@@ -43,8 +43,6 @@ export default class extends Controller {
 
     initialize() {
         super.initialize();
-
-
     }
 
     findCurrentCategory(slug)

@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesContainer;
+use App\Entity\Item\Properties\ItemPropertiesHelmet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesContainer>
+ * @extends ServiceEntityRepository<ItemPropertiesHelmet>
  *
- * @method ItemPropertiesContainer|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesContainer|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesContainer[]    findAll()
- * @method ItemPropertiesContainer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesHelmet|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesHelmet|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesHelmet[]    findAll()
+ * @method ItemPropertiesHelmet[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesContainerRepository extends ServiceEntityRepository
+class ItemPropertiesHelmetRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesContainer::class);
+        parent::__construct($registry, ItemPropertiesHelmet::class);
     }
 
 //    /**
-//     * @return ItemPropertiesContainer[] Returns an array of ItemPropertiesContainer objects
+//     * @return ItemPropertiesHelmet[] Returns an array of ItemPropertiesHelmet objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesContainerRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesContainer
+//    public function findOneBySomeField($value): ?ItemPropertiesHelmet
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

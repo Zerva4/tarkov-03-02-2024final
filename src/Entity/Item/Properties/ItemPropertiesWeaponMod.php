@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesWeaponModInterface;
-use App\Repository\Item\ItemPropertiesWeaponModRepository;
+use App\Repository\Item\Properties\ItemPropertiesWeaponModRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_weapon_mod', options: ['comment' => 'Свойства для модификаций оружия'])]

@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesSurgicalKitInterface;
-use App\Repository\Item\ItemPropertiesSurgicalKitRepository;
+use App\Repository\Item\Properties\ItemPropertiesSurgicalKitRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_surgical_kit', options: ['comment' => 'Свойства хирурнических наборов'])]

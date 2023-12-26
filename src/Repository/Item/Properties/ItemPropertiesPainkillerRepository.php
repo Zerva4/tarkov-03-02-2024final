@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Item;
+namespace App\Repository\Item\Properties;
 
-use App\Entity\Item\Properties\ItemPropertiesWeaponMod;
+use App\Entity\Item\Properties\ItemPropertiesPainkiller;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemPropertiesWeaponMod>
+ * @extends ServiceEntityRepository<ItemPropertiesPainkiller>
  *
- * @method ItemPropertiesWeaponMod|null find($id, $lockMode = null, $lockVersion = null)
- * @method ItemPropertiesWeaponMod|null findOneBy(array $criteria, array $orderBy = null)
- * @method ItemPropertiesWeaponMod[]    findAll()
- * @method ItemPropertiesWeaponMod[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ItemPropertiesPainkiller|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ItemPropertiesPainkiller|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ItemPropertiesPainkiller[]    findAll()
+ * @method ItemPropertiesPainkiller[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ItemPropertiesWeaponModRepository extends ServiceEntityRepository
+class ItemPropertiesPainkillerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemPropertiesWeaponMod::class);
+        parent::__construct($registry, ItemPropertiesPainkiller::class);
     }
 
 //    /**
-//     * @return ItemPropertiesWeaponMod[] Returns an array of ItemPropertiesWeaponMod objects
+//     * @return ItemPropertiesPainkiller[] Returns an array of ItemPropertiesPainkiller objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -38,7 +38,7 @@ class ItemPropertiesWeaponModRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ItemPropertiesWeaponMod
+//    public function findOneBySomeField($value): ?ItemPropertiesPainkiller
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

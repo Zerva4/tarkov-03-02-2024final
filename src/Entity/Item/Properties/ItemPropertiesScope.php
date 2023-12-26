@@ -6,7 +6,7 @@ namespace App\Entity\Item\Properties;
 
 use App\Interfaces\Item\Properties\ItemPropertiesInterface;
 use App\Interfaces\Item\Properties\ItemPropertiesScopeInterface;
-use App\Repository\Item\ItemPropertiesScopeRepository;
+use App\Repository\Item\Properties\ItemPropertiesScopeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'items_properties_scope', options: ['comment' => 'Свойства прицелов'])]
