@@ -135,14 +135,7 @@
                                         </div>
                                         <div class="opts">
                                             <div class="opt">
-                                                {% if item.properties.penetrationPower - 10 >= 10 %}
-                                                    {% set variablePenetrationClass1 = 99.8 %}
-                                                {% elseif item.properties.penetrationPower - 10 <= -15 %}
-                                                    {% set variablePenetrationClass1 = 0 %}
-                                                {% else %}
-                                                    {% set variablePenetrationClass1 = 5 %}
-                                                {% endif %}
-                                                {{ variablePenetrationClass1 | number_format(1) }}
+                                                {{ include('bullets.calc.html.twig') }}
                                             </div>
                                             <div class="opt">
                                             </div>
