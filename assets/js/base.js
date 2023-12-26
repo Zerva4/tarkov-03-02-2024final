@@ -11,47 +11,47 @@ document.addEventListener('DOMContentLoaded', function () {
 //	}
 //	catch { }
 
-	try {
-		let reference_btns = document.querySelectorAll('.reference .header');
-		reference_btns.forEach((item) => {
-			item.addEventListener('click', (e) => switchReference(e));
-		});
-	}
-	catch { }
+	// try {
+	// 	let reference_btns = document.querySelectorAll('.reference .header');
+	// 	reference_btns.forEach((item) => {
+	// 		item.addEventListener('click', (e) => switchReference(e));
+	// 	});
+	// }
+	// catch { }
 
-	try {
-		let collapse_btns = document.querySelectorAll('.collapse-box .collapse-box__title');
-		collapse_btns.forEach((item) => {
-			item.addEventListener('click', (e) => switchCollapse(e));
-		});
-	}
-	catch { }
+	// try {
+	// 	let collapse_btns = document.querySelectorAll('.collapse-box .collapse-box__title');
+	// 	collapse_btns.forEach((item) => {
+	// 		item.addEventListener('click', (e) => switchCollapse(e));
+	// 	});
+	// }
+	// catch { }
+	//
+	// try {
+	// 	const auhorized_profile_avatar = document.querySelector('.auhorized_profile_avatar');
+	// 	auhorized_profile_avatar.addEventListener('click', openProfileMenu);
+	// }
+	// catch { }
+	//
+	// document.addEventListener('click', closeProfileMenu);
 
-	try {
-		const auhorized_profile_avatar = document.querySelector('.auhorized_profile_avatar');
-		auhorized_profile_avatar.addEventListener('click', openProfileMenu);
-	}
-	catch { }
+	// try {
+	// 	let tabs = document.querySelectorAll('.switchers');
+	//
+	// 	tabs.forEach((item) => {
+	// 		item.addEventListener('click', (e) => switchTab(e));
+	// 	});
+	// }
+	// catch { }
 
-	document.addEventListener('click', closeProfileMenu);
-
-	try {
-		let tabs = document.querySelectorAll('.switchers');
-
-		tabs.forEach((item) => {
-			item.addEventListener('click', (e) => switchTab(e));
-		});
-	}
-	catch { }
-
-	try {
-		let tabs = document.querySelectorAll('.select_abils');
-
-		tabs.forEach((item) => {
-			item.addEventListener('click',switchSkills);
-		});
-	}
-	catch { }
+	// try {
+	// 	let tabs = document.querySelectorAll('.select_abils');
+	//
+	// 	tabs.forEach((item) => {
+	// 		item.addEventListener('click',switchSkills);
+	// 	});
+	// }
+	// catch { }
 
 	try {
 		let tabs = document.querySelectorAll('.main_information .select');
@@ -61,281 +61,269 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 	catch { }
+	//
+	// try {
+	// 	let login = document.getElementById('login');
+	//
+	// 	login.addEventListener('click', openLoginModal);
+	// }
+	// catch { }
+	//
+	// try {
+	// 	let login = document.getElementById('login_main');
+	//
+	// 	login.addEventListener('click', openLoginModal);
+	// }
+	// catch { }
+	//
+	// try {
+	// 	let login = document.getElementById('mobile_login');
+	//
+	// 	login.addEventListener('click', openLoginModal);
+	// }
+	// catch { }
 
-	try {
-		let login = document.getElementById('login');
+	// try {
+	// 	let closes = document.querySelectorAll('.modal_wrapper .modal .close');
+	//
+	// 	closes.forEach((item) => {
+	// 		item.addEventListener('click', (e) => closeModal(e));
+	// 	});
+	//
+	// 	let wrappers = document.querySelectorAll('.modal_wrapper');
+	//
+	// 	wrappers.forEach((item) => {
+	// 		item.addEventListener('click', (e) => closeModal(e));
+	// 	});
+	// }
+	// catch { }
 
-		login.addEventListener('click', openLoginModal);
-	}
-	catch { }
+	// try {
+	// 	let auth_btn = document.querySelectorAll('.modal_wrapper .auth_btn');
+	//
+	// 	auth_btn.forEach((item) => {
+	// 		item.addEventListener('click', (e) => switchAuthModal(e));
+	// 	});
+	// }
+	// catch { }
 
-	try {
-		let login = document.getElementById('login_main');
+	// try {
+	// 	let collapsers = document.querySelectorAll('.mobile_collapser');
+	//
+	// 	collapsers.forEach((item) => {
+	// 		item.addEventListener('click', (e) => switchCraftMobileCollapse(e));
+	// 	});
+	// }
+	// catch { }
 
-		login.addEventListener('click', openLoginModal);
-	}
-	catch { }
+	// try {
+	// 	let ammo_options_btns = document.querySelectorAll('.mobile_ammo_options .button');
+	//
+	// 	ammo_options_btns.forEach((item) => {
+	// 		item.addEventListener('click', (e) => openMobileAmmoOptions(e));
+	// 	});
+	// }
+	// catch { }
 
-	try {
-		let login = document.getElementById('mobile_login');
+	// try {
+	// 	let mobile_ammo_chooser_btn = document.querySelector('.mobile_ammo_chooser_btn');
+	//
+	// 	mobile_ammo_chooser_btn.addEventListener('click', (e) => openMobileAmmoChooser(e));
+	// }
+	// catch { }
 
-		login.addEventListener('click', openLoginModal);
-	}
-	catch { }
+	// try {
+	// 	let bullets = document.querySelectorAll('.bullet_tr');
+	//
+	// 	bullets.forEach((item) => {
+	// 		item.addEventListener('click', (e) => rowClickHandle(e));
+	// 	});
+	// }
+	// catch { }
 
-	try {
-		let closes = document.querySelectorAll('.modal_wrapper .modal .close');
-
-		closes.forEach((item) => {
-			item.addEventListener('click', (e) => closeModal(e));
-		});
-
-		let wrappers = document.querySelectorAll('.modal_wrapper');
-
-		wrappers.forEach((item) => {
-			item.addEventListener('click', (e) => closeModal(e));
-		});
-	}
-	catch { }
-
-	try {
-		let auth_btn = document.querySelectorAll('.modal_wrapper .auth_btn');
-
-		auth_btn.forEach((item) => {
-			item.addEventListener('click', (e) => switchAuthModal(e));
-		});
-	}
-	catch { }
-
-	try {
-		let collapsers = document.querySelectorAll('.mobile_collapser');
-
-		collapsers.forEach((item) => {
-			item.addEventListener('click', (e) => switchCraftMobileCollapse(e));
-		});
-	}
-	catch { }
-
-	try {
-		let stream_view_btn = document.querySelector('.btn_stream');
-		stream_view_btn.addEventListener('click', closeStreamView);
-	}
-	catch { }
-
-	try {
-		let stream_view_btn = document.querySelector('.btn_stream');
-		stream_view_btn.addEventListener('click', OpenStreamView);
-	}
-	catch { }
-
-	try {
-		let ammo_options_btns = document.querySelectorAll('.mobile_ammo_options .button');
-
-		ammo_options_btns.forEach((item) => {
-			item.addEventListener('click', (e) => openMobileAmmoOptions(e));
-		});
-	}
-	catch { }
-
-	try {
-		let mobile_ammo_chooser_btn = document.querySelector('.mobile_ammo_chooser_btn');
-
-		mobile_ammo_chooser_btn.addEventListener('click', (e) => openMobileAmmoChooser(e));
-	}
-	catch { }
-
-	try {
-		let bullets = document.querySelectorAll('.bullet_tr');
-
-		bullets.forEach((item) => {
-			item.addEventListener('click', (e) => rowClickHandle(e));
-		});
-	}
-	catch { }
-
-	try {
-		let calibers = document.querySelectorAll('.ammo_chooser .ammo');
-
-		calibers.forEach((item) => {
-			item.addEventListener('click', (e) => openCaliber(e));
-		});
-	}
-	catch { }
+	// try {
+	// 	let calibers = document.querySelectorAll('.ammo_chooser .ammo');
+	//
+	// 	calibers.forEach((item) => {
+	// 		item.addEventListener('click', (e) => openCaliber(e));
+	// 	});
+	// }
+	// catch { }
 
 	// news-page
 
-	try {
-		let news__secondary_mobile_patch = document.querySelector('.news__secondary_mobile_patch');
-
-		news__secondary_mobile_patch.addEventListener('click', (e) => openMobileNewsPatch(e));
-	}
-	catch { }
-
-	try {
-		let news__secondary_mobile_event = document.querySelector('.news__secondary_mobile_event');
-
-		news__secondary_mobile_event.addEventListener('click', (e) => openMobileNewsEvent(e));
-	}
-	catch { }
-
-	try {
-		let news__secondary_mobile_site = document.querySelector('.news__secondary_mobile_site');
-
-		news__secondary_mobile_site.addEventListener('click', (e) => openMobileNewsSite(e));
-	}
-	catch { }
-
-	try {
-		let tabs = document.querySelectorAll('.news_patch .secondary__data');
-
-		tabs.forEach((item) => {
-			item.addEventListener('click', switchPatch);
-		});
-	}
-	catch { }
-
-	try {
-		let tabs = document.querySelectorAll('.news_event .secondary__data');
-
-		tabs.forEach((item) => {
-			item.addEventListener('click', switchEvent);
-		});
-	}
-	catch { }
-
-	try {
-		let tabs = document.querySelectorAll('.news_site .secondary__data');
-
-		tabs.forEach((item) => {
-			item.addEventListener('click', switchSite);
-		});
-	}
-	catch { }
-
-	try {
-		let tabs = document.querySelectorAll('.section_body .news_list__element');
-
-		tabs.forEach((item) => {
-			item.addEventListener('click', switchNews);
-		});
-	}
-	catch { }
+	// try {
+	// 	let news__secondary_mobile_patch = document.querySelector('.news__secondary_mobile_patch');
+	//
+	// 	news__secondary_mobile_patch.addEventListener('click', (e) => openMobileNewsPatch(e));
+	// }
+	// catch { }
+	//
+	// try {
+	// 	let news__secondary_mobile_event = document.querySelector('.news__secondary_mobile_event');
+	//
+	// 	news__secondary_mobile_event.addEventListener('click', (e) => openMobileNewsEvent(e));
+	// }
+	// catch { }
+	//
+	// try {
+	// 	let news__secondary_mobile_site = document.querySelector('.news__secondary_mobile_site');
+	//
+	// 	news__secondary_mobile_site.addEventListener('click', (e) => openMobileNewsSite(e));
+	// }
+	// catch { }
+	//
+	// try {
+	// 	let tabs = document.querySelectorAll('.news_patch .secondary__data');
+	//
+	// 	tabs.forEach((item) => {
+	// 		item.addEventListener('click', switchPatch);
+	// 	});
+	// }
+	// catch { }
+	//
+	// try {
+	// 	let tabs = document.querySelectorAll('.news_event .secondary__data');
+	//
+	// 	tabs.forEach((item) => {
+	// 		item.addEventListener('click', switchEvent);
+	// 	});
+	// }
+	// catch { }
+	//
+	// try {
+	// 	let tabs = document.querySelectorAll('.news_site .secondary__data');
+	//
+	// 	tabs.forEach((item) => {
+	// 		item.addEventListener('click', switchSite);
+	// 	});
+	// }
+	// catch { }
+	//
+	// try {
+	// 	let tabs = document.querySelectorAll('.section_body .news_list__element');
+	//
+	// 	tabs.forEach((item) => {
+	// 		item.addEventListener('click', switchNews);
+	// 	});
+	// }
+	// catch { }
 
 	// health-page
-	try {
-		let buttonsTables = document.querySelectorAll('.button-table');
-		buttonsTables.forEach((element) => {
-			element.addEventListener('click', (event) => {
-				buttonHandler(event);
-				element.querySelector('.button-icon').classList.toggle('active');
-			})
-		})
-	}
-	catch { }
+	// try {
+	// 	let buttonsTables = document.querySelectorAll('.button-table');
+	// 	buttonsTables.forEach((element) => {
+	// 		element.addEventListener('click', (event) => {
+	// 			buttonHandler(event);
+	// 			element.querySelector('.button-icon').classList.toggle('active');
+	// 		})
+	// 	})
+	// }
+	// catch { }
 
-	try {
-		let head = document.querySelector('#part1');
-		let breast = document.querySelector('#part2');
-		let rightArm = document.querySelector('#part3');
-		let abdomen = document.querySelector('#part4');
-		let rigthLeg = document.querySelector('#part5');
-		let leftLeg = document.querySelector('#part6');
-		let leftArm = document.querySelector('#part7');
-		let titleChange = document.querySelectorAll('.changeable-title');
-		let subTitleFracture = document.querySelectorAll('.changeable-subtitle_fracture');
-		let subTitleDestroyed = document.querySelectorAll('.changeable-subtitle_destroyed');
-		let subTitleProperties = document.querySelectorAll('.changeable-subtitle_properties');
-		leftArm.classList.add('selected_color');
-		head.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
-		breast.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
-		rightArm.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
-		abdomen.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
-		rigthLeg.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
-		leftLeg.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
-		leftArm.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
-	}
-	catch { }
+	// try {
+	// 	let head = document.querySelector('#part1');
+	// 	let breast = document.querySelector('#part2');
+	// 	let rightArm = document.querySelector('#part3');
+	// 	let abdomen = document.querySelector('#part4');
+	// 	let rigthLeg = document.querySelector('#part5');
+	// 	let leftLeg = document.querySelector('#part6');
+	// 	let leftArm = document.querySelector('#part7');
+	// 	let titleChange = document.querySelectorAll('.changeable-title');
+	// 	let subTitleFracture = document.querySelectorAll('.changeable-subtitle_fracture');
+	// 	let subTitleDestroyed = document.querySelectorAll('.changeable-subtitle_destroyed');
+	// 	let subTitleProperties = document.querySelectorAll('.changeable-subtitle_properties');
+	// 	leftArm.classList.add('selected_color');
+	// 	head.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
+	// 	breast.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
+	// 	rightArm.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
+	// 	abdomen.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
+	// 	rigthLeg.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
+	// 	leftLeg.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
+	// 	leftArm.addEventListener('click', (e) => clickHandler(e, titleChange, subTitleFracture, subTitleProperties));
+	// }
+	// catch { }
 
 	// mechanics-page
-	try {
-		let blockToggle = document.querySelector(".toggle__container");
-		let togglePremium = document.querySelector(".toggle");
-		let category = document.querySelector(".category");
-		let categoryInput = category.querySelector(".color_white");
-		let blockCategory = category.querySelector(".element");
-		let buttonCategory = category.querySelector(".triangle");
-		let listCategory = category.querySelector(".dropdown");
-		let categoriesSelected = listCategory.querySelectorAll(".text");
-		let blockAuthor = document.querySelector(".author");
-		let buttonAuthor = blockAuthor.querySelector(".triangle");
-		let listAuthor = blockAuthor.querySelector(".dropdown");
-		let authorSelected = listAuthor.querySelectorAll(".text");
-		let authorInput = blockAuthor.querySelector(".color_white");
-		let containerCards = document.querySelector(".container__cards");
-		let containerCardsItems = containerCards.querySelectorAll(".item");
-
-		const urlParams = new URLSearchParams(window.location.search);
-		const categoryUrl = urlParams.get("category");
-		const author = urlParams.get("author");
-		const premium = urlParams.get("premium");
-
-		categoryInput.textContent = categoryUrl || "Все";
-		authorInput.textContent = author || "Все";
-		if (premium === "true") {
-			togglePremium.classList.remove("toggle_no_active");
-		} else if (premium === "false") {
-			togglePremium.classList.add("toggle_no_active");
-		}
-
-		filterCards(categoryInput, authorInput, togglePremium, containerCardsItems);
-
-		blockToggle.addEventListener("click", () => {
-			togglePremium.classList.toggle("toggle_no_active");
-			updateFilters(categoryInput, authorInput, togglePremium);
-		});
-
-		category.addEventListener("mouseleave", () => {
-			listCategory.classList.add("dropdown-hidden");
-			buttonCategory.classList.remove("active");
-		});
-
-		blockAuthor.addEventListener("mouseleave", () => {
-			listAuthor.classList.add("dropdown-hidden");
-			buttonAuthor.classList.remove("active");
-		});
-
-		blockCategory.addEventListener("click", () => {
-			listCategory.classList.toggle("dropdown-hidden");
-			buttonCategory.classList.toggle("active");
-			blockCategory.classList.toggle("active");
-		});
-
-		blockAuthor.addEventListener("click", () => {
-			listAuthor.classList.toggle("dropdown-hidden");
-			buttonAuthor.classList.toggle("active");
-			blockAuthor.classList.toggle("active");
-		});
-		categoriesSelected.forEach((category) => {
-			category.addEventListener("click", (evt) => {
-				categoryInput.textContent = evt.target.textContent;
-
-				listCategory.classList.add("dropdown-hidden");
-				buttonCategory.classList.remove("active");
-				updateFilters(categoryInput, authorInput, togglePremium);
-			});
-		});
-		authorSelected.forEach((author) => {
-			author.addEventListener("click", (evt) => {
-				authorInput.textContent = evt.target.textContent;
-				updateFilters(categoryInput, authorInput, togglePremium);
-			});
-
-			listAuthor.classList.add("dropdown-hidden");
-			buttonAuthor.classList.remove("active");
-		});
-
-	}
-	catch { }
+	// try {
+	// 	let blockToggle = document.querySelector(".toggle__container");
+	// 	let togglePremium = document.querySelector(".toggle");
+	// 	let category = document.querySelector(".category");
+	// 	let categoryInput = category.querySelector(".color_white");
+	// 	let blockCategory = category.querySelector(".element");
+	// 	let buttonCategory = category.querySelector(".triangle");
+	// 	let listCategory = category.querySelector(".dropdown");
+	// 	let categoriesSelected = listCategory.querySelectorAll(".text");
+	// 	let blockAuthor = document.querySelector(".author");
+	// 	let buttonAuthor = blockAuthor.querySelector(".triangle");
+	// 	let listAuthor = blockAuthor.querySelector(".dropdown");
+	// 	let authorSelected = listAuthor.querySelectorAll(".text");
+	// 	let authorInput = blockAuthor.querySelector(".color_white");
+	// 	let containerCards = document.querySelector(".container__cards");
+	// 	let containerCardsItems = containerCards.querySelectorAll(".item");
+	//
+	// 	const urlParams = new URLSearchParams(window.location.search);
+	// 	const categoryUrl = urlParams.get("category");
+	// 	const author = urlParams.get("author");
+	// 	const premium = urlParams.get("premium");
+	//
+	// 	categoryInput.textContent = categoryUrl || "Все";
+	// 	authorInput.textContent = author || "Все";
+	// 	if (premium === "true") {
+	// 		togglePremium.classList.remove("toggle_no_active");
+	// 	} else if (premium === "false") {
+	// 		togglePremium.classList.add("toggle_no_active");
+	// 	}
+	//
+	// 	filterCards(categoryInput, authorInput, togglePremium, containerCardsItems);
+	//
+	// 	blockToggle.addEventListener("click", () => {
+	// 		togglePremium.classList.toggle("toggle_no_active");
+	// 		updateFilters(categoryInput, authorInput, togglePremium);
+	// 	});
+	//
+	// 	category.addEventListener("mouseleave", () => {
+	// 		listCategory.classList.add("dropdown-hidden");
+	// 		buttonCategory.classList.remove("active");
+	// 	});
+	//
+	// 	blockAuthor.addEventListener("mouseleave", () => {
+	// 		listAuthor.classList.add("dropdown-hidden");
+	// 		buttonAuthor.classList.remove("active");
+	// 	});
+	//
+	// 	blockCategory.addEventListener("click", () => {
+	// 		listCategory.classList.toggle("dropdown-hidden");
+	// 		buttonCategory.classList.toggle("active");
+	// 		blockCategory.classList.toggle("active");
+	// 	});
+	//
+	// 	blockAuthor.addEventListener("click", () => {
+	// 		listAuthor.classList.toggle("dropdown-hidden");
+	// 		buttonAuthor.classList.toggle("active");
+	// 		blockAuthor.classList.toggle("active");
+	// 	});
+	// 	categoriesSelected.forEach((category) => {
+	// 		category.addEventListener("click", (evt) => {
+	// 			categoryInput.textContent = evt.target.textContent;
+	//
+	// 			listCategory.classList.add("dropdown-hidden");
+	// 			buttonCategory.classList.remove("active");
+	// 			updateFilters(categoryInput, authorInput, togglePremium);
+	// 		});
+	// 	});
+	// 	authorSelected.forEach((author) => {
+	// 		author.addEventListener("click", (evt) => {
+	// 			authorInput.textContent = evt.target.textContent;
+	// 			updateFilters(categoryInput, authorInput, togglePremium);
+	// 		});
+	//
+	// 		listAuthor.classList.add("dropdown-hidden");
+	// 		buttonAuthor.classList.remove("active");
+	// 	});
+	//
+	// }
+	// catch { }
 
 });
 
