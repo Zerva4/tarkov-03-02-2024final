@@ -35,14 +35,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	document.addEventListener('click', closeProfileMenu);
 
-	try {
-		let tabs = document.querySelectorAll('.switchers');
-
-		tabs.forEach((item) => {
-			item.addEventListener('click', (e) => switchTab(e));
-		});
-	}
-	catch { }
+	// try {
+	// 	let tabs = document.querySelectorAll('.switchers');
+	//
+	// 	tabs.forEach((item) => {
+	// 		item.addEventListener('click', (e) => switchTab(e));
+	// 	});
+	// }
+	// catch { }
 
 	try {
 		let tabs = document.querySelectorAll('.select_abils');
