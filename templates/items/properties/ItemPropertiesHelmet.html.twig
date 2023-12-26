@@ -33,6 +33,7 @@
     <span class="value-stock">{{ 'Снижение эргономик' |trans({}, 'front.items') }}</span>
     <span class="value-properties">{{ item.properties.ergoPenalty }}%</span>
 </div>
+{% endif %}
 {% if item.properties.headZones is not empty %}
 <div class="character__text">
     <span class="value-stock">{{ 'Защита зон головы' |trans({}, 'front.items') }}</span>
