@@ -106,7 +106,8 @@
             "cache:clear": "symfony-cmd",
             "ckeditor:install --tag=4.22.1": "symfony-cmd",
             "ckfinder:download": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "ckeditor:install": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
