@@ -20,7 +20,7 @@ export default class extends Controller {
         let tabs_parent = event.target.closest('.abils');
         let active_switch = tabs_parent.querySelector('.select_abils.active');
         let active_tab = tabs_parent.querySelector('.abil.active');
-        let target_tab = tabs_parent.querySelector('#' + this.getAttribute('data-abil'));
+        let target_tab = tabs_parent.querySelector('#' + event.target.closest('.select_abils').getAttribute('data-tab'));
 
         if (active_switch) {
             active_switch.classList.remove('active');
