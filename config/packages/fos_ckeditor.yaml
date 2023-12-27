@@ -4,6 +4,16 @@ fos_ck_editor:
     default_config: eft_config
     configs:
         eft_config:
+            mode: 'modal'
+            extraPlugins: [ 'filebrowser' ]
+            extraAllowedContent : "div[*]"
+            allowedContent: true
+            image_previewTextSince: ''
+            removeDialogTabs: 'image:advanced, link:advanced'
+            filebrowserBrowseUrl: '/bundles/cksourceckfinder/ckfinder/ckfinder.html'
+#            filebrowserImageBrowseUrl: '/ckfinder/connector?type=Images'
+#            filebrowserUploadUrl: '/ckfinder/connector?command=QuickUpload&type=Files'
+#            filebrowserImageUploadUrl: '/ckfinder/connector?command=QuickUpload&type=Images'
             toolbar: [
                 [ 'Source' ]
                 [ 'Undo', 'Redo' ],

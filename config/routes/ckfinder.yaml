@@ -2,4 +2,4 @@
 
 ckfinder_connector:
   resource: "@CKSourceCKFinderBundle/Resources/config/routing.yml"
-  prefix: '/admin'
+  prefix: '/'
