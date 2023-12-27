@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    tabs = document.querySelectorAll('.wrapper');
+    tabs = document.querySelectorAll('.selects_abils');
 
     initialize()
     {
