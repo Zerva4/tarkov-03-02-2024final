@@ -2,10 +2,19 @@
 
 ckfinder:
   connector:
+    licenseName: LICENSE-NAME
+    licenseKey: LICENSE-KEY
     authenticationClass: App\Security\CKFinderAuthentication
-
+    backends:
+      - name: default
+        baseUrl: '/storage/uploads/'
+        root: '%kernel.project_dir%/public/storage/uploads'
     resourceTypes:
-      MyResource:
-        name: MyResource
+      files:
+        name: 'Файлы'
         backend: default
-        directory: myResource
+        directory: 'files'
+      images:
+        name: 'Картинки'
+        backend: default
+        directory: 'images'
