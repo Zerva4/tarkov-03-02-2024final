@@ -39,17 +39,17 @@ class QuestsController extends FrontController
         $adviceBody = null;
         $questAdviceRepository = $this->em->getRepository(QuestAdvice::class);
         $quest = $questRepository->findQuestBySlug($slug, $this->getLocale());
-        $quest->getAdvice();
+        $quest->getRandomAdvice();
         if (!$quest instanceof QuestInterface ) {
             throw $this->createNotFoundException(
                 (string)t('Запрашиваемый ресурс не найден.', [], 'front.items')
             );
         }
-        $advice = $questAdviceRepository->findAdvice($quest);
+        $advice = $questAdviceRepository->findRandomAdvice($quest);
         if ($advice instanceof QuestAdviceInterface)
             $adviceBody = $advice->getBody();
 
-        return $this->render('quests/view.html.twig', [
+        return $advice->render('quests/view.html.twig', [
             'advice' => $adviceBody,
             'quest' => $quest,
         ]);
