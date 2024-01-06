@@ -4,13 +4,13 @@
         {% for usedItem in quest.usedItems %}
             <div class="item_view">
                 <div class="image">
-                    <a href="{{ absolute_url(path('app_view_item', {'slug': usedItem.item.slug})) }}">
+{#                    <a href="{{ absolute_url(path('app_view_item', {'slug': usedItem.item.slug})) }}">#}
                         {% if usedItem.item.imageName %}
                             <img src="{{ asset('/storage/images/items/' ~ usedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ usedItem.item.name }}">
                         {% else %}
                             <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ usedItem.item.name }}">
                         {% endif %}
-                    </a>
+{#                    </a>#}
                 </div>
                 <div class="contains">
                     <div class="count_item">x{{ usedItem.count }}</div>
