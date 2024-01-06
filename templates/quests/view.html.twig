@@ -196,8 +196,7 @@
                                 {% endif %}
                                 {% if quest.slug is not empty %}
                                     {% set QuestName = quest.slug %}
-                                    {{ QuestName }}
-{#                                    {% if QuestName = the-huntsman-path-relentless %}#}
+                                 {% if QuestName == 'the-huntsman-path-relentless' %}
                                 <div class="prop">
                                     <div class="name">
                                         {{ 'Навыки'|trans({}, 'front.quests') }}
@@ -206,6 +205,7 @@
                                         + 3 {{ 'навыка'|trans({}, 'front.quests') }} <a href="#">снайперские винтовки</a>
                                     </div>
                                 </div>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             {% if quest.usedItems is not empty %}
