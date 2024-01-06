@@ -4,6 +4,8 @@
 {% block content %}
     <div class="content">
     {% if traders is not empty %}
+        {% if trader.slug == 'btr-driver' %}
+        {% else %}
     <section>
         <div class="container">
             <div class="reference page_traders" {{ stimulus_controller('reference-button') }}>
@@ -29,6 +31,7 @@
             </div>
         </div>
     </section>
+        {% endif %}
     {% endif %}
 
     <section>
