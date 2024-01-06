@@ -71,7 +71,9 @@
                                 </g>
                                 </svg>
                                 <p class="text__description color">Сектанты:</p>
-                                <p class="text__description margin">{{ map.minPlayersNumber }}</p>
+                                <p class="text__description margin">
+                                    {{ include('maps/mapOptions/mapSecta.html.twig') }}
+                                </p>
                             </li>
                             <li class="text__element">
                                 <svg width="16px" height="16px" stroke-width="2" stroke="#df870a" viewBox="0 -2 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +84,9 @@
                                     </g>
                                 </svg>
                                 <p class="text__description color">Волн Диких:</p>
-                                <p class="text__description margin">{{ map.minPlayersNumber }}</p>
+                                <p class="text__description margin">
+                                    {{ include('maps/mapOptions/mapWave.html.twig') }}
+                                </p>
                             </li>
                         </ul>
                     </div>
