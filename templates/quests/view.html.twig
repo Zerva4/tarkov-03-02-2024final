@@ -196,12 +196,6 @@
                                 {% endif %}
                                 {% if quest.slug is not empty %}
                                     {{ include('quests/questsSkills/questsSkills.html.twig') }}
-                                 {% if quest.slug == 'the-huntsman-path-relentless' %}
-                                <div class="prop">
-                                    <div class="name">{{ 'Навыки'|trans({}, 'front.quests') }}</div>
-                                    <div class="val">+ 3{{ 'навыка'|trans({}, 'front.quests') }} снайперские винтовки</div>
-                                </div>
-                                    {% endif %}
                                 {% endif %}
                             </div>
                             {% if quest.usedItems is not empty %}
