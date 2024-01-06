@@ -195,7 +195,8 @@
                                     {% endfor %}
                                 {% endif %}
                                 {% if quest.slug is not empty %}
-                                    {% if 'slug' = the-huntsman-path-relentless %}
+                                    {% set QuestName = quest.slug %}
+                                    {% if QuestName == the-huntsman-path-relentless %}
                                 <div class="prop">
                                     <div class="name">
                                         {{ 'Навыки'|trans({}, 'front.quests') }}
