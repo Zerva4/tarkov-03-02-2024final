@@ -1,12 +1,17 @@
 {% if quest.slug == 'the-huntsman-path-relentless' %}
     <div class="prop">
         <div class="name">{{ 'Навыки'|trans({}, 'front.quests') }}</div>
-        <div class="val">+3 {{ 'навыка'|trans({}, 'front.quests') }} снайперские винтовки</div>
+        <div class="val val_quests">+3 {{ 'навыка'|trans({}, 'front.quests') }} снайперские винтовки</div>
     </div>
 {% elseif quest.slug == 'crisis' %}
     <div class="prop">
         <div class="name">{{ 'Навыки'|trans({}, 'front.quests') }}</div>
-        <div class="val">+8 {{ 'навыка'|trans({}, 'front.quests') }} здоровья</div>
+        <div class="val val_quests">+8 {{ 'навыка'|trans({}, 'front.quests') }} здоровья</div>
+    </div>
+{% elseif quest.slug == 'swift-one' %}
+    <div class="prop">
+        <div class="name">{{ 'Навыки'|trans({}, 'front.quests') }}</div>
+        <div class="val val_quests">+1 {{ 'навыка'|trans({}, 'front.quests') }} здоровья</div>
     </div>
 {% else %}
 {% endif %}
