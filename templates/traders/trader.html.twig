@@ -18,6 +18,8 @@
                 <div class="text">
                     <div class="traders" data-turbo="true">
                         {% for trader in traders %}
+                            {% if trader.slug == 'btr-driver' %}
+                            {% else %}
                             <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug })) }}" class="trader">
                                 {% if trader.imageName %}
                                 <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('78x78') }}" alt="{{ trader.shortName }}">
@@ -25,6 +27,7 @@
                                     <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('78x78') }}" alt="">
                                 {% endif %}
                             </a>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
