@@ -39,13 +39,13 @@ class QuestsController extends FrontController
         $adviceBody = null;
         $questAdviceRepository = $this->em->getRepository(QuestAdvice::class);
         $quest = $questRepository->findQuestBySlug($slug, $this->getLocale());
-        $quest->getRandomAdvice();
+        $quest->getRandomAdvice($quest);
         if (!$quest instanceof QuestInterface ) {
             throw $this->createNotFoundException(
                 (string)t('Запрашиваемый ресурс не найден.', [], 'front.items')
             );
         }
-        $advice = $questAdviceRepository->setRandomAdvice($quest);
+        $advice = $questAdviceRepository->findRandomAdvice($quest);
         if ($advice instanceof QuestAdviceInterface)
             $adviceBody = $advice->getBody();
 
