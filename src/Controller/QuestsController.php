@@ -37,7 +37,7 @@ class QuestsController extends FrontController
     public function viewQuest(string $slug, QuestRepository $questRepository, QuestObjectiveRepository $questObjectiveRepository): Response
     {
         $adviceBody = null;
-        $questAdviceRepository = getRepository(QuestAdvice::class);
+        $questAdviceRepository = $this->em->getRepository(QuestAdvice::class);
         $quest = $questRepository->findQuestBySlug($slug, $this->getLocale());
         $quest->getRandomAdvice();
         if (!$quest instanceof QuestInterface ) {
