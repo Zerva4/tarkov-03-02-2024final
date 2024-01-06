@@ -49,7 +49,7 @@ class QuestsController extends FrontController
         if ($advice instanceof QuestAdviceInterface)
             $adviceBody = $advice->getBody();
 
-        return $advice->render('quests/view.html.twig', [
+        return $this->render('quests/view.html.twig', [
             'advice' => $adviceBody,
             'quest' => $quest,
         ]);
