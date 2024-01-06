@@ -114,7 +114,6 @@
                 </div>
             </section>
         {% endif %}
-        {% for advice in advices %}
         {% if advice is not empty %}
             <section>
                 <div class="container">
@@ -127,7 +126,6 @@
                 </div>
             </section>
         {% endif %}
-        {% endfor %}
         <section>
             <div class="container">
                 <div class="reference active" {{ stimulus_controller('reference-button') }}>
