@@ -651,7 +651,7 @@ class Quest extends TranslatableEntity implements UuidPrimaryKeyInterface, Trans
         return $this->advices;
     }
 
-    public function getRandomAdvice(): QuestInterface
+    public function getRandomAdvice()
     {
         $advices = $this->getAdvices()->toArray();
     }
