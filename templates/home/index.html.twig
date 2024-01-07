@@ -141,6 +141,8 @@
                 <h2 class="center">{{ 'Торговцы'|trans({}, 'front.home') }}</h2>
                 <div class="traders_main">
                     {% for trader in traders %}
+                        {% if trader.slug == 'btr-driver' %}
+                        {% else %}
                         <div class="trader" data-turbo="true">
                             <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}" class="image">
                                 {% if trader.imageName %}
@@ -159,6 +161,7 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

@@ -5,13 +5,13 @@
             {% if 'money' not in receivedItem.item.types %}
                 <div class="item_view">
                     <div class="image">
-                        <a href="{{ absolute_url(path('app_view_item', {'slug': receivedItem.item.slug})) }}">
+{#                        <a href="{{ absolute_url(path('app_view_item', {'slug': receivedItem.item.slug})) }}">#}
                             {% if receivedItem.item.imageName %}
                                 <img src="{{ asset('/storage/images/items/' ~ receivedItem.item.imageName) | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
                             {% else %}
                                 <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134') }}" alt="{{ receivedItem.item.name }}">
                             {% endif %}
-                        </a>
+{#                        </a>#}
                     </div>
                     <div class="contains">
                         <div class="count_item">x{{ receivedItem.count }}</div>

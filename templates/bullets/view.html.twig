@@ -17,7 +17,7 @@
                                     i
                                     <div class="ref ref_tdhead">
                                         {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
-                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
+                                        <a href="https://tarkov.town/mechanics">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
                                     </div>
                                 </div>
                             </th>
@@ -27,11 +27,11 @@
                                     i
                                     <div class="ref ref_tdhead">
                                         {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
-                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
+                                        <a href="https://tarkov.town/mechanics">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
                                     </div>
                                 </div>
                             </th>
-                            <th class="no_mobile th_speed">{{ 'Скорость'|trans({}, 'front.bullets') }}</th>
+{#                            <th class="no_mobile th_speed">{{ 'Скорость'|trans({}, 'front.bullets') }}</th>#}
                             <th class="no_mobile th_options">{{ 'Дополнительные свойства'|trans({}, 'front.bullets') }}</th>
                         </tr>
                     </thead>
@@ -59,11 +59,15 @@
                             <td class="td_damage">{{ item.properties.damage }}</td>
                             <td class="td_armor_pen">{{ item.properties.penetrationPower }}</td>
                             <td class="no_mobile td_armor_dam">{{ item.properties.armorDamage }}%</td>
-                            <td class="no_mobile td_speed">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</td>
+{#                            <td class="no_mobile td_speed">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</td>#}
                             <td class="no_mobile td_options">
                                 <div class="info info_td">
                                     i
                                     <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Скорость'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.lightBleedModifier }} {{ 'м/с'|trans({}, 'front.bullets') }}</div>
+                                        </div>
                                         <div class="ref_bullets">
                                             <div class="property">{{ 'Легкое кровотечение'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.lightBleedModifier }}%</div>

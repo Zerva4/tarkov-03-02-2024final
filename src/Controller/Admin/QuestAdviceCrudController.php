@@ -56,6 +56,7 @@ class QuestAdviceCrudController extends BaseCrudController
                 $published,
                 $body->setColumns(12)->setTemplatePath('admin/field/advice-body.html.twig'),
                 $createdAt->setColumns(1)->setTextAlign('center'),
+                $quests->setColumns(1)->setTextAlign('center'),
                 $updatedAt->setColumns(1)->setTextAlign('center'),
             ]
         };

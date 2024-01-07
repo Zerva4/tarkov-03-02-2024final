@@ -65,6 +65,7 @@ class BarterCrudController extends AbstractCrudController
                 $published,
                 $trader,
                 $traderLevel,
+                $rewardItems,
                 $questUnlock,
                 $createdAt,
                 $updatedAt

@@ -1646,6 +1646,10 @@ footer {
 				position: relative;
 				flex: 1;
 
+				&_quests {
+					flex: none;
+				}
+
 				&.value_options {
 					display: flex;
 					flex-flow: row nowrap;
