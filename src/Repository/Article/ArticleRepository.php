@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository\Article;
 
 use App\Entity\Article\Article;
+use App\Entity\Article\ArticleCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
@@ -57,15 +58,19 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getQueryArticlesByCategory(?string $slugCategory = null): Query
+    public function getQueryArticlesByCategory(?string $locale = 'ru', ?string $slugCategory = null, int $type = ArticleCategory::TYPE_ARTICLE): Query
     {
         $dql = $this->createQueryBuilder('a')
             ->select('a.id, a.slug, a.createdAt, a.updatedAt, a.imagePoster, a.complexity, a.readingDuration, t.title AS title, t.description AS description, c.slug AS slugCategory')
             ->leftJoin('a.translations', 't')
             ->leftJoin('a.category', 'c')
+            ->andWhere('t.locale = :locale')
             ->andWhere('a.status = :status')
+            ->andWhere('c.type = :type')
             ->setParameters([
                 'status' => Article::STATUS_PUBLISHED,
+                'type' => $type,
+                'locale' => $locale,
             ]);
         if (null !== $slugCategory) {
             $dql->andWhere('c.slug = :slugCategory')->setParameter('slugCategory', $slugCategory);

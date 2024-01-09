@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article\Article;
+use App\Entity\Article\ArticleCategory;
 use App\Repository\Article\ArticleCategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerExceptionInterface;
@@ -10,7 +11,6 @@ use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function Symfony\Component\Translation\t;
@@ -28,7 +28,8 @@ class MechanicsController extends FrontController
     {
         $this->params = $params;
         $this->categories = $categoryRepository->findAllCategory(
-            $this->params->get('app.default_locale')
+            $this->params->get('app.default_locale'),
+            ArticleCategory::TYPE_ARTICLE
         );
     }
 
@@ -47,7 +48,7 @@ class MechanicsController extends FrontController
         $articleCategory = $em->getRepository(Article::class);
 
         $pagination = $paginator->paginate(
-            $articleCategory->getQueryArticlesByCategory(), /* query NOT result */
+            $articleCategory->getQueryArticlesByCategory('ru', null, ArticleCategory::TYPE_ARTICLE), /* query NOT result */
             $page, /*page number*/
             10 /*limit per page*/
         );
@@ -65,7 +66,7 @@ class MechanicsController extends FrontController
         $articleCategory = $em->getRepository(Article::class);
         $currentCategory = $this->findCurrentCategory($slugCategory);
         $pagination = $paginator->paginate(
-            $articleCategory->getQueryArticlesByCategory($slugCategory), /* query NOT result */
+            $articleCategory->getQueryArticlesByCategory('ru', $slugCategory), /* query NOT result */
             $page, /*page number*/
             10 /*limit per page*/
         );

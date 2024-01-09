@@ -22,15 +22,17 @@ class ArticleCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, ArticleCategory::class);
     }
 
-    public function findAllCategory(string $locale, int $mode = AbstractQuery::HYDRATE_ARRAY): ?array
+    public function findAllCategory(string $locale, int $type = ArticleCategory::TYPE_ARTICLE, int $mode = AbstractQuery::HYDRATE_ARRAY): ?array
     {
         return $this->createQueryBuilder('c')
             ->select('c.id, c.slug, t.name AS name')
             ->leftJoin('c.translations', 't')
             ->andWhere('c.published = true')
+            ->andWhere('c.type = :type')
             ->andWhere('t.locale = :locale')
             ->orderBy('t.name', 'ASC')
             ->setParameter('locale', $locale)
+            ->setParameter('type', $type)
             ->getQuery()
             ->setResultCacheLifetime(0)
             ->getResult($mode)
