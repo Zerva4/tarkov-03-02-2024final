@@ -33,7 +33,7 @@ class ArticleCategoryCrudController extends BaseCrudController
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
         $published = BooleanField::new('published', t('Published', [], 'admin'));
-        $type = ChoiceField::new('type', t('Type', [], 'admin.article'))
+        $type = ChoiceField::new('type', t('Type', [], 'admin.articles'))
             ->setChoices([
                 'Mechanics' => '0',
                 'Update' => '1'
