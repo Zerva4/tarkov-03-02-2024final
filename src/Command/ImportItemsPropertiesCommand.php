@@ -105,6 +105,10 @@ class ImportItemsPropertiesCommand extends Command
             'name' => '5.7x28',
             'slug' => '5-7x28'
         ],
+        'Caliber68x51' => [
+            'name' => '68x51',
+            'slug' => '68x51'
+        ],
         'Caliber762x25TT' => [
             'name' => '7.62x25',
             'slug' => '7-62x25'
