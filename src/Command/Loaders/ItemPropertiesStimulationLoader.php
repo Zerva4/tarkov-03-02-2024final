@@ -16,13 +16,15 @@ class ItemPropertiesStimulationLoader
         string $locale = '%app.default_locale%'
     ): ItemPropertiesStimulationInterface
     {
-//        $stimulationEffectCollection = $entityProperties->getStimulationEffects();
+        $entityProperties
+            ->setUseTime($arrayProperties['useTime'] ?? 0)
+            ->setCures($arrayProperties['cures'] ?? [])
+        ;
+
+        if (!isset($arrayProperties['stimEffects'])) return $entityProperties;
 
         foreach ($arrayProperties['stimEffects'] as $apiEffects) {
             $stimulationEffectEntity = new StimulationEffect($locale);
-//            $stimulationEffectEntity
-//                ->setCurrentLocale($locale)
-//            ;
             $stimulationEffectEntity
                 ->setType($apiEffects['useTime'] ?? null)
                 ->setChance($apiEffects['chance'] ?? null)
@@ -32,14 +34,10 @@ class ItemPropertiesStimulationLoader
                 ->setPercent($apiEffects['percent'] ?? false)
                 ->setSkillName($apiEffects['skillName'] ?? 0)
             ;
+            $stimulationEffectEntity->mergeNewTranslations();
             $entityProperties->addStimulationEffect($stimulationEffectEntity);
         }
 
-        $entityProperties
-            ->setUseTime($arrayProperties['useTime'] ?? 0)
-            ->setCures($arrayProperties['cures'] ?? [])
-//            ->setStimulationEffects($stimulationEffectCollection)
-        ;
         return $entityProperties;
     }
 }
