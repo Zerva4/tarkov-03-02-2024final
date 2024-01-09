@@ -18,6 +18,17 @@ interface ArticleCategoryInterface
     public function setPublished(bool $published): ArticleCategoryInterface;
 
     /**
+     * @return int
+     */
+    public function getType(): int;
+
+    /**
+     * @param int $type
+     * @return ArticleCategoryInterface
+     */
+    public function setType(int $type): ArticleCategoryInterface;
+
+    /**
      * @return Collection
      */
     public function getArticles(): Collection;
