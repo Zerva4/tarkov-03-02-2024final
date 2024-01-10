@@ -32,141 +32,12 @@
                             </div>
                         </a>
                     </div>
-                    <div class="now">
-                        <div class="main_information">
-                            <div class="windows">
-                                <div class="window active" id="window_1">
-                                    <div class="name">
-                                        {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
-                                    </div>
-                                    <div class="subname">
-                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
-                                    </div>
-                                    <div class="contains">
-                                        <div class="text">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
-                                        </div>
-                                        <div class="overinfo">
-                                            <a href="#">
-                                                Подробнее...</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="window" id="window_2">
-                                    <div class="name">
-                                        {{ 'Ивент'|trans({}, 'front.home') }}
-                                    </div>
-                                    <div class="subname">
-                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
-                                    </div>
-                                    <div class="contains">
-                                        <div class="text">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                            rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                                            necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                                            est
-                                            blanditiis.
-                                        </div>
-                                        <div class="overinfo">
-                                            <a href="#">
-                                                Подробнее...</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="window" id="window_3">
-                                    <div class="name">
-                                        {{ 'Отступники'|trans({}, 'front.home') }}
-                                    </div>
-                                    <div class="subname">
-                                        {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
-                                    </div>
-                                    <div class="contains">
-                                        <div class="text">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                                            error
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="selects">
-                                <div class="select active" data-target="window_1">
-                                    {{ 'Патч'|trans({}, 'front.home') }}
-                                </div>
-                                <div class="select" data-target="window_2">
-                                    {{ 'Ивент'|trans({}, 'front.home') }}
-                                </div>
-{#                                <div class="select" data-target="window_3">#}
-{#                                    {{ 'Отступники'|trans({}, 'front.home') }}#}
-{#                                </div>#}
-                            </div>
-                        </div>
-                    </div>
+                    {{ include('home/blocks/last-news.html.twig') }}
                 </div>
             </div>
         </section>
 
-        {% if traders is not empty %}
-        <section>
-            <div class="container medium">
-                <h2 class="center">{{ 'Торговцы'|trans({}, 'front.home') }}</h2>
-                <div class="traders_main">
-                    {% for trader in traders %}
-                        {% if trader.slug == 'btr-driver' %}
-                        {% else %}
-                        <div class="trader" data-turbo="true">
-                            <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}" class="image">
-                                {% if trader.imageName %}
-                                    <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.shortName }}" />
-                                {% else %}
-                                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('100x100') }}" alt="">
-                                {% endif %}
-                            </a>
-                            <div class="name">
-                                <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}">{{ trader.shortName }}</a>
-                            </div>
-                            <div class="links">
-                                <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#quests" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
-                                {% if trader.cashOffers.count > 0 %}
-                                    <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#items" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-        {% endif %}
+        {{ include('home/blocks/traders.html.twig') }}
 
 {#        <section class="btn_stream_view active">
             <div class="container">
@@ -183,37 +54,7 @@
             </div>
         </section>#}
 
-        {% if articles is not empty %}
-        <section>
-            <div class="container">
-                <h2 class="articles_header">{{ 'Статьи и медиа'|trans({}, 'front.home') }}</h2>
-                <div class="articles">
-                    {% for article in articles %}
-                    <a href="{{ absolute_url(path('app_quests', {})) }}/articles{{ article.slug }}/" class="article">
-                        <div class="date">
-                            {{ article.updatedAt|date("d.m.Y") }}
-                        </div>
-                        <div class="contains">
-                            <div class="name">
-                                {{ article.title }}
-                            </div>
-                            <div class="text">
-                                {{ article.description|striptags('')|raw }}
-                            </div>
-                        </div>
-                        <div class="image">
-                            {% if article.imagePoster is not empty %}
-                                <img src="{{ asset('/storage/images/articles/' ~ article.imagePoster) | imagine_filter('180x134') }}" alt="{{ article.title }}">
-                            {% else %}
-                                <img src="{{ asset('/assets/img/NonImage.jpg') | imagine_filter('180x134')  }}" width="180" height="134" alt="{{ article.title }}">
-                            {% endif %}
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-        {% endif %}
+        {{ include('home/blocks/last-articles.html.twig') }}
 
         <section>
             <div class="container medium">
