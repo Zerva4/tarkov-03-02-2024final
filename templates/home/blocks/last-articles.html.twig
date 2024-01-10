@@ -1,9 +1,9 @@
-{% if articles is not empty %}
+{% if lastArticles is not empty %}
     <section>
         <div class="container">
             <h2 class="articles_header">{{ 'Статьи и медиа'|trans({}, 'front.home') }}</h2>
             <div class="articles">
-                {% for article in articles %}
+                {% for article in lastArticles %}
                     <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" class="article">
                         <div class="date">
                             {{ article.createdAt|date("d.m.Y") }}
