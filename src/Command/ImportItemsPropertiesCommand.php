@@ -26,30 +26,30 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportItemsPropertiesCommand extends Command
 {
     private array $item_types = [
-//        'ItemPropertiesAmmo',
-//        'ItemPropertiesArmor',
-//        'ItemPropertiesBackpack',
-//        'ItemPropertiesBarrel',
-//        'ItemPropertiesChestRig',
-//        'ItemPropertiesContainer',
-//        'ItemPropertiesFoodDrink',
-//        'ItemPropertiesGlasses',
-//        'ItemPropertiesGrenade',
-//        'ItemPropertiesHeadphone',
-//        'ItemPropertiesHelmet',
-//        'ItemPropertiesKey',
-//        'ItemPropertiesMagazine',
-//        'ItemPropertiesMedicalItem',
-//        'ItemPropertiesMedKit',
-//        'ItemPropertiesMelee',
-//        'ItemPropertiesNightVision',
+        'ItemPropertiesAmmo',
+        'ItemPropertiesArmor',
+        'ItemPropertiesBackpack',
+        'ItemPropertiesBarrel',
+        'ItemPropertiesChestRig',
+        'ItemPropertiesContainer',
+        'ItemPropertiesFoodDrink',
+        'ItemPropertiesGlasses',
+        'ItemPropertiesGrenade',
+        'ItemPropertiesHeadphone',
+        'ItemPropertiesHelmet',
+        'ItemPropertiesKey',
+        'ItemPropertiesMagazine',
+        'ItemPropertiesMedicalItem',
+        'ItemPropertiesMedKit',
+        'ItemPropertiesMelee',
+        'ItemPropertiesNightVision',
         'ItemPropertiesPreset',
-//        'ItemPropertiesPainkiller',
-//        'ItemPropertiesStimulation',
-//        'ItemPropertiesScope',
-//        'ItemPropertiesSurgicalKit',
-//        'ItemPropertiesWeapon',
-//        'ItemPropertiesWeaponMod'
+        'ItemPropertiesPainkiller',
+        'ItemPropertiesStimulation',
+        'ItemPropertiesScope',
+        'ItemPropertiesSurgicalKit',
+        'ItemPropertiesWeapon',
+        'ItemPropertiesWeaponMod'
     ];
 
     private array $item_calibres = [
@@ -104,6 +104,10 @@ class ImportItemsPropertiesCommand extends Command
         'Caliber57x28' => [
             'name' => '5.7x28',
             'slug' => '5-7x28'
+        ],
+        'Caliber68x51' => [
+            'name' => '68x51',
+            'slug' => '68x51'
         ],
         'Caliber762x25TT' => [
             'name' => '7.62x25',

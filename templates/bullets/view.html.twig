@@ -17,7 +17,7 @@
                                     i
                                     <div class="ref ref_tdhead">
                                         {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
-                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
+                                        <a href="https://tarkov.town/mechanics">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
                                     </div>
                                 </div>
                             </th>
@@ -27,11 +27,11 @@
                                     i
                                     <div class="ref ref_tdhead">
                                         {{ 'Больше информации в статье'|trans({}, 'front.bullets') }}<br>
-                                        <a href="#.html">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
+                                        <a href="https://tarkov.town/mechanics">{{ 'Подробнее'|trans({}, 'front.bullets') }}...</a>
                                     </div>
                                 </div>
                             </th>
-                            <th class="no_mobile th_speed">{{ 'Скорость'|trans({}, 'front.bullets') }}</th>
+{#                            <th class="no_mobile th_speed">{{ 'Скорость'|trans({}, 'front.bullets') }}</th>#}
                             <th class="no_mobile th_options">{{ 'Дополнительные свойства'|trans({}, 'front.bullets') }}</th>
                         </tr>
                     </thead>
@@ -59,11 +59,15 @@
                             <td class="td_damage">{{ item.properties.damage }}</td>
                             <td class="td_armor_pen">{{ item.properties.penetrationPower }}</td>
                             <td class="no_mobile td_armor_dam">{{ item.properties.armorDamage }}%</td>
-                            <td class="no_mobile td_speed">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</td>
+{#                            <td class="no_mobile td_speed">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</td>#}
                             <td class="no_mobile td_options">
                                 <div class="info info_td">
                                     i
                                     <div class="ref">
+                                        <div class="ref_bullets">
+                                            <div class="property">{{ 'Скорость'|trans({}, 'front.bullets') }}</div>
+                                            <div class="value">{{ item.properties.initialSpeed }} {{ 'м/с'|trans({}, 'front.bullets') }}</div>
+                                        </div>
                                         <div class="ref_bullets">
                                             <div class="property">{{ 'Легкое кровотечение'|trans({}, 'front.bullets') }}</div>
                                             <div class="value">{{ item.properties.lightBleedModifier }}%</div>
@@ -135,23 +139,23 @@
                                         </div>
                                         <div class="opts">
                                             <div class="opt">
-                                                {% if item.properties.penetrationPower - 10 >= 10 %}
-                                                    {% set variablePenetrationClass1 = 99.8 %}
-                                                {% elseif item.properties.penetrationPower - 10 <= -15 %}
-                                                    {% set variablePenetrationClass1 = 0 %}
-                                                {% else %}
-                                                    {% set variablePenetrationClass1 = 5 %}
-                                                {% endif %}
-                                                {{ variablePenetrationClass1 | number_format(1) }}
+                                                {{ include('bullets//calcBullets/bullets.calc10.html.twig') }}
                                             </div>
                                             <div class="opt">
+                                                {{ include('bullets//calcBullets/bullets.calc20.html.twig') }}
                                             </div>
-                                            <div class="opt">0</div>
                                             <div class="opt">
-
+                                                {{ include('bullets//calcBullets/bullets.calc30.html.twig') }}
                                             </div>
-                                            <div class="opt">0</div>
-                                            <div class="opt">0</div>
+                                            <div class="opt">
+                                                {{ include('bullets//calcBullets/bullets.calc40.html.twig') }}
+                                            </div>
+                                            <div class="opt">
+                                                {{ include('bullets//calcBullets/bullets.calc50.html.twig') }}
+                                            </div>
+                                            <div class="opt">
+                                                {{ include('bullets//calcBullets/bullets.calc60.html.twig') }}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="group">
@@ -275,12 +279,24 @@
                                                 </div>
                                             </div>
                                             <div class="opts">
-                                                <div class="opt">3%</div>
-                                                <div class="opt">0</div>
-                                                <div class="opt">0</div>
-                                                <div class="opt">0</div>
-                                                <div class="opt">0</div>
-                                                <div class="opt">0</div>
+                                                <div class="opt">
+                                                    {{ include('bullets//calcBullets/bullets.calc10.html.twig') }}
+                                                </div>
+                                                <div class="opt">
+                                                    {{ include('bullets//calcBullets/bullets.calc20.html.twig') }}
+                                                </div>
+                                                <div class="opt">
+                                                    {{ include('bullets//calcBullets/bullets.calc30.html.twig') }}
+                                                </div>
+                                                <div class="opt">
+                                                    {{ include('bullets//calcBullets/bullets.calc40.html.twig') }}
+                                                </div>
+                                                <div class="opt">
+                                                    {{ include('bullets//calcBullets/bullets.calc50.html.twig') }}
+                                                </div>
+                                                <div class="opt">
+                                                    {{ include('bullets//calcBullets/bullets.calc60.html.twig') }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="group">

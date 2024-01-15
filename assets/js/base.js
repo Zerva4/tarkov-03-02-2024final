@@ -503,7 +503,7 @@ function switchTab(event) {
 
 }
 
-function switchSkills(event) {
+/*function switchSkills(event) {
 	let tabs_parent = this.closest('.abils');
 	let active_switch = tabs_parent.querySelector('.select_abils.active');
 	let active_tab = tabs_parent.querySelector('.abil.active');
@@ -519,7 +519,7 @@ function switchSkills(event) {
 
 	this.classList.add('active');
 	target_tab.classList.add('active');
-}
+}*/
 function openMobileMenu(event) {
 	let mobile_menu = document.querySelector('.mobile_menu');
 
@@ -853,4 +853,17 @@ function openCaliber(event) {
 			container.classList.add('active');
 		}
 	}
+}
+
+function closeStreamView(event) {
+	let stream_view = document.querySelector('.btn_stream_view');
+
+	stream_view.classList.remove('active');
+
+}
+function OpenStreamView(event) {
+	let stream_view = document.querySelector('.btn_stream_view');
+
+	stream_view.classList.add('active');
+
 }

@@ -16,29 +16,28 @@ class ItemPropertiesStimulationLoader
         string $locale = '%app.default_locale%'
     ): ItemPropertiesStimulationInterface
     {
-        $stimulationEffectEntity = $entityProperties->getStimulationEffect();
-
-        if (!$stimulationEffectEntity instanceof StimulationEffectInterface)
-            $stimulationEffectEntity = new StimulationEffect($locale);
-
-        $stimulationEffectEntity
-            ->setCurrentLocale($locale)
-        ;
-        $stimulationEffectEntity
-            ->setType($arrayProperties['stimEffects']['useTime'] ?? null)
-            ->setChance($arrayProperties['stimEffects']['chance'] ?? null)
-            ->setDelay($arrayProperties['stimEffects']['delay'] ?? null)
-            ->setDuration($arrayProperties['stimEffects']['duration'] ?? 0)
-            ->setValue($arrayProperties['stimEffects']['value'] ?? null)
-            ->setPercent($arrayProperties['stimEffects']['percent'] ?? false)
-            ->setSkillName($arrayProperties['stimEffects']['skillName'] ?? 0)
-        ;
-
         $entityProperties
             ->setUseTime($arrayProperties['useTime'] ?? 0)
             ->setCures($arrayProperties['cures'] ?? [])
-            ->setStimulationEffect($stimulationEffectEntity)
         ;
+
+        if (!isset($arrayProperties['stimEffects'])) return $entityProperties;
+
+        foreach ($arrayProperties['stimEffects'] as $apiEffects) {
+            $stimulationEffectEntity = new StimulationEffect($locale);
+            $stimulationEffectEntity
+                ->setType($apiEffects['useTime'] ?? null)
+                ->setChance($apiEffects['chance'] ?? null)
+                ->setDelay($apiEffects['delay'] ?? null)
+                ->setDuration($apiEffects['duration'] ?? 0)
+                ->setValue($apiEffects['value'] ?? null)
+                ->setPercent($apiEffects['percent'] ?? false)
+                ->setSkillName($apiEffects['skillName'] ?? 0)
+            ;
+            $stimulationEffectEntity->mergeNewTranslations();
+            $entityProperties->addStimulationEffect($stimulationEffectEntity);
+        }
+
         return $entityProperties;
     }
 }

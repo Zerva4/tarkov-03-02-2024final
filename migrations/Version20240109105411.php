@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231202175157 extends AbstractMigration
+final class Version20240109105411 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,6 +20,8 @@ final class Version20231202175157 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE articles_category ADD type INT DEFAULT 0 NOT NULL');
+        $this->addSql('COMMENT ON COLUMN articles_category.type IS \'Тип категории\'');
         $this->addSql('COMMENT ON COLUMN items_properties_armor.blunt_throughput IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_chest_rig.blunt_throughput IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_food_drink.energy IS \'\'');
@@ -32,9 +34,7 @@ final class Version20231202175157 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.ricochet_z IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.blunt_throughput IS \'\'');
         $this->addSql('COMMENT ON COLUMN items_properties_medical_item.cures IS \'\'');
-        $this->addSql('DROP INDEX IF EXISTS "uniq_d61c9e346da59d65;"');
-        $this->addSql('CREATE INDEX IDX_D61C9E346DA59D65 ON items_properties_weapon (default_ammo_id)');
-        $this->addSql('CREATE INDEX items_api_caliber_key_idx ON items_properties_weapon (api_caliber)');
+        $this->addSql('COMMENT ON COLUMN items_properties_stimulation.cures IS \'\'');
         $this->addSql('COMMENT ON COLUMN stimulation_effect.chance IS \'\'');
         $this->addSql('COMMENT ON COLUMN stimulation_effect.delay IS \'\'');
         $this->addSql('COMMENT ON COLUMN stimulation_effect.duration IS \'\'');
@@ -48,27 +48,26 @@ final class Version20231202175157 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
+        $this->addSql('COMMENT ON COLUMN items_properties_glasses.blunt_throughput IS NULL');
+        $this->addSql('COMMENT ON COLUMN items_properties_food_drink.energy IS NULL');
+        $this->addSql('COMMENT ON COLUMN items_properties_food_drink.hydration IS NULL');
+        $this->addSql('COMMENT ON COLUMN items_properties_food_drink.units IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_chest_rig.blunt_throughput IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_armor.blunt_throughput IS NULL');
+        $this->addSql('COMMENT ON COLUMN stimulation_effect_translation.type IS NULL');
+        $this->addSql('COMMENT ON COLUMN stimulation_effect_translation.skill_name IS NULL');
+        $this->addSql('ALTER TABLE articles_category DROP type');
+        $this->addSql('COMMENT ON COLUMN stimulation_effect.chance IS NULL');
+        $this->addSql('COMMENT ON COLUMN stimulation_effect.delay IS NULL');
+        $this->addSql('COMMENT ON COLUMN stimulation_effect.duration IS NULL');
+        $this->addSql('COMMENT ON COLUMN stimulation_effect.value IS NULL');
+        $this->addSql('COMMENT ON COLUMN stimulation_effect.percent IS NULL');
+        $this->addSql('COMMENT ON COLUMN items_properties_stimulation.cures IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_medical_item.cures IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.deafening IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.ricochet_x IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.ricochet_y IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.ricochet_z IS NULL');
         $this->addSql('COMMENT ON COLUMN items_properties_helmet.blunt_throughput IS NULL');
-        $this->addSql('COMMENT ON COLUMN stimulation_effect_translation.type IS NULL');
-        $this->addSql('COMMENT ON COLUMN stimulation_effect_translation.skill_name IS NULL');
-        $this->addSql('DROP INDEX IDX_D61C9E346DA59D65');
-        $this->addSql('DROP INDEX items_api_caliber_key_idx');
-        $this->addSql('CREATE UNIQUE INDEX "uniq_d61c9e346da59d65;" ON items_properties_weapon (default_ammo_id)');
-        $this->addSql('COMMENT ON COLUMN stimulation_effect.chance IS NULL');
-        $this->addSql('COMMENT ON COLUMN stimulation_effect.delay IS NULL');
-        $this->addSql('COMMENT ON COLUMN stimulation_effect.duration IS NULL');
-        $this->addSql('COMMENT ON COLUMN stimulation_effect.value IS NULL');
-        $this->addSql('COMMENT ON COLUMN stimulation_effect.percent IS NULL');
-        $this->addSql('COMMENT ON COLUMN items_properties_glasses.blunt_throughput IS NULL');
-        $this->addSql('COMMENT ON COLUMN items_properties_food_drink.energy IS NULL');
-        $this->addSql('COMMENT ON COLUMN items_properties_food_drink.hydration IS NULL');
-        $this->addSql('COMMENT ON COLUMN items_properties_food_drink.units IS NULL');
     }
 }

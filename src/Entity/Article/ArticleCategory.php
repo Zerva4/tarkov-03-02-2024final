@@ -25,8 +25,14 @@ class ArticleCategory extends TranslatableEntity implements ArticleCategoryInter
     use TimestampableTrait;
     use SlugTrait;
 
+    public const TYPE_ARTICLE = 0;
+    public const TYPE_UPDATE = 1;
+
     #[ORM\Column(type: 'boolean')]
     private bool $published;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0, 'comment' => 'Тип категории'])]
+    private int $type;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Article::class, cascade: ['persist'], fetch: 'EXTRA_LAZY')]
     private Collection $articles;
@@ -46,6 +52,18 @@ class ArticleCategory extends TranslatableEntity implements ArticleCategoryInter
     public function setPublished(bool $published): ArticleCategoryInterface
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): ArticleCategoryInterface
+    {
+        $this->type = $type;
 
         return $this;
     }

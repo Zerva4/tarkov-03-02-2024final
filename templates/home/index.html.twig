@@ -141,6 +141,8 @@
                 <h2 class="center">{{ 'Торговцы'|trans({}, 'front.home') }}</h2>
                 <div class="traders_main">
                     {% for trader in traders %}
+                        {% if trader.slug == 'btr-driver' %}
+                        {% else %}
                         <div class="trader" data-turbo="true">
                             <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}" class="image">
                                 {% if trader.imageName %}
@@ -159,11 +161,27 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </section>
         {% endif %}
+
+{#        <section class="btn_stream_view active">
+            <div class="container">
+                <div class="stream-players">
+                    <div class="stream-view">
+                        <iframe src="https://player.twitch.tv/?channel=inseq&parent=https://eft.i-tools.ru" frameborder="0" autoplay="true" muted="false" allowfullscreen="true" scrolling="no" height="256" width="420"></iframe>
+                        <div class="stream-view-exit">
+                            <div class="btn_stream">
+                                X
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>#}
 
         {% if articles is not empty %}
         <section>

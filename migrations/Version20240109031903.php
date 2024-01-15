@@ -10,11 +10,11 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231103072141 extends AbstractMigration
+final class Version20240109031903 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Base structure database';
+        return '';
     }
 
     public function up(Schema $schema): void
@@ -24,11 +24,23 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_D5428AEDAA08CB10 ON Users (login)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_D5428AEDE7927C74 ON Users (email)');
         $this->addSql('COMMENT ON COLUMN Users.id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE articles (id UUID NOT NULL, status BOOLEAN NOT NULL, image_poster VARCHAR(255) DEFAULT NULL, complexity INT DEFAULT 1, reading_duration TIME(0) WITHOUT TIME ZONE DEFAULT NULL, slug VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE articles (id UUID NOT NULL, category_id UUID DEFAULT NULL, status INT DEFAULT 0 NOT NULL, image_poster VARCHAR(255) DEFAULT NULL, complexity INT DEFAULT 1, reading_duration TIME(0) WITHOUT TIME ZONE DEFAULT NULL, slug VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_BFDD3168989D9B62 ON articles (slug)');
+        $this->addSql('CREATE INDEX IDX_BFDD316812469DE2 ON articles (category_id)');
         $this->addSql('CREATE INDEX articles_slug_idx ON articles (slug)');
         $this->addSql('COMMENT ON COLUMN articles.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN articles.category_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN articles.status IS \'Статус\'');
         $this->addSql('COMMENT ON COLUMN articles.complexity IS \'Сложность\'');
+        $this->addSql('CREATE TABLE articles_category (id UUID NOT NULL, published BOOLEAN NOT NULL, slug VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_A7D8EFDB989D9B62 ON articles_category (slug)');
+        $this->addSql('CREATE INDEX articles_category_slug_idx ON articles_category (slug)');
+        $this->addSql('COMMENT ON COLUMN articles_category.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE articles_category_translation (id UUID NOT NULL, translatable_id UUID DEFAULT NULL, name VARCHAR(255) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, locale VARCHAR(5) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_BF34118A2C2AC5D3 ON articles_category_translation (translatable_id)');
+        $this->addSql('CREATE UNIQUE INDEX articles_category_translation_unique_translation ON articles_category_translation (translatable_id, locale)');
+        $this->addSql('COMMENT ON COLUMN articles_category_translation.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN articles_category_translation.translatable_id IS \'(DC2Type:uuid)\'');
         $this->addSql('CREATE TABLE articles_translation (id UUID NOT NULL, translatable_id UUID DEFAULT NULL, title VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, body TEXT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, locale VARCHAR(5) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_105C720E2C2AC5D3 ON articles_translation (translatable_id)');
         $this->addSql('CREATE INDEX articles_locale_idx ON articles_translation (locale)');
@@ -304,6 +316,16 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN items_properties_painkiller.painkiller_duration IS \'Продолжительность обезбаливания\'');
         $this->addSql('COMMENT ON COLUMN items_properties_painkiller.energy_impact IS \'Энергетическое воздействие\'');
         $this->addSql('COMMENT ON COLUMN items_properties_painkiller.hydration_impact IS \'Увлажняющее воздействие\'');
+        $this->addSql('CREATE TABLE items_properties_preset (id UUID NOT NULL, base_item_id UUID DEFAULT NULL, ergonomics DOUBLE PRECISION DEFAULT \'0\', recoil_vertical INT DEFAULT 0, recoil_horizontal INT DEFAULT 0, moa DOUBLE PRECISION DEFAULT \'0\', is_default BOOLEAN DEFAULT false NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_9370DDE02669EB3A ON items_properties_preset (base_item_id)');
+        $this->addSql('COMMENT ON TABLE items_properties_preset IS \'\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_preset.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_preset.base_item_id IS \'Базовое оружие(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_preset.ergonomics IS \'Эргономика\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_preset.recoil_vertical IS \'Вертикальная отдача\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_preset.recoil_horizontal IS \'Горизонтальная отдача\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_preset.moa IS \'Точность\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_preset.is_default IS \'По умолчанию\'');
         $this->addSql('CREATE TABLE items_properties_scope (id UUID NOT NULL, ergonomics DOUBLE PRECISION DEFAULT \'0\' NOT NULL, sight_modes JSONB DEFAULT NULL, sighting_range INT DEFAULT 0 NOT NULL, recoil_modifier DOUBLE PRECISION DEFAULT \'0\' NOT NULL, zoom_levels JSONB DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON TABLE items_properties_scope IS \'Свойства прицелов\'');
         $this->addSql('COMMENT ON COLUMN items_properties_scope.id IS \'(DC2Type:uuid)\'');
@@ -312,6 +334,10 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN items_properties_scope.sighting_range IS \'Прицельная дальность\'');
         $this->addSql('COMMENT ON COLUMN items_properties_scope.recoil_modifier IS \'Модификатор отдачи\'');
         $this->addSql('COMMENT ON COLUMN items_properties_scope.zoom_levels IS \'Уровни масштабирования\'');
+        $this->addSql('CREATE TABLE items_properties_stimulation (id UUID NOT NULL, use_time INT DEFAULT 0 NOT NULL, cures JSONB DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('COMMENT ON TABLE items_properties_stimulation IS \'Свойства стимуляции\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_stimulation.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN items_properties_stimulation.use_time IS \'Время действия\'');
         $this->addSql('CREATE TABLE items_properties_surgical_kit (id UUID NOT NULL, uses INT DEFAULT 0 NOT NULL, use_time INT DEFAULT 0 NOT NULL, cures JSONB DEFAULT NULL, min_limb_health DOUBLE PRECISION DEFAULT \'0\' NOT NULL, max_limb_health DOUBLE PRECISION DEFAULT \'0\' NOT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON TABLE items_properties_surgical_kit IS \'Свойства хирурнических наборов\'');
         $this->addSql('COMMENT ON COLUMN items_properties_surgical_kit.id IS \'(DC2Type:uuid)\'');
@@ -321,8 +347,9 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN items_properties_surgical_kit.min_limb_health IS \'Мин. здоровье конечностей\'');
         $this->addSql('COMMENT ON COLUMN items_properties_surgical_kit.max_limb_health IS \'Макс. здоровье конечностей\'');
         $this->addSql('CREATE TABLE items_properties_weapon (id UUID NOT NULL, default_ammo_id UUID DEFAULT NULL, default_preset_id UUID DEFAULT NULL, api_caliber VARCHAR(64) DEFAULT \'\' NOT NULL, effective_distance INT DEFAULT 0 NOT NULL, ergonomics DOUBLE PRECISION DEFAULT \'0\' NOT NULL, fire_modes JSONB DEFAULT NULL, fire_rate INT DEFAULT 0 NOT NULL, max_durability INT DEFAULT 0 NOT NULL, recoil_vertical INT DEFAULT 0 NOT NULL, recoil_horizontal INT DEFAULT 0 NOT NULL, repair_cost INT DEFAULT 0 NOT NULL, sighting_range INT DEFAULT 0 NOT NULL, center_of_impact DOUBLE PRECISION DEFAULT \'0\' NOT NULL, deviation_curve DOUBLE PRECISION DEFAULT \'0\' NOT NULL, recoil_dispersion INT DEFAULT 0 NOT NULL, recoil_angle INT DEFAULT 0 NOT NULL, camera_recoil DOUBLE PRECISION DEFAULT \'0\' NOT NULL, camera_snap DOUBLE PRECISION DEFAULT \'0\' NOT NULL, deviation_max DOUBLE PRECISION DEFAULT \'0\' NOT NULL, convergence DOUBLE PRECISION DEFAULT \'0\' NOT NULL, default_width INT DEFAULT 0 NOT NULL, default_height INT DEFAULT 0 NOT NULL, default_ergonomics DOUBLE PRECISION DEFAULT \'0\' NOT NULL, default_recoil_vertical INT DEFAULT 0 NOT NULL, default_recoil_horizontal INT DEFAULT 0 NOT NULL, default_weight DOUBLE PRECISION DEFAULT \'0\' NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_D61C9E346DA59D65 ON items_properties_weapon (default_ammo_id)');
+        $this->addSql('CREATE INDEX IDX_D61C9E346DA59D65 ON items_properties_weapon (default_ammo_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_D61C9E34110AA6C8 ON items_properties_weapon (default_preset_id)');
+        $this->addSql('CREATE INDEX items_api_caliber_key_idx ON items_properties_weapon (api_caliber)');
         $this->addSql('COMMENT ON TABLE items_properties_weapon IS \'Свойств для оружия\'');
         $this->addSql('COMMENT ON COLUMN items_properties_weapon.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN items_properties_weapon.default_ammo_id IS \'(DC2Type:uuid)\'');
@@ -606,6 +633,8 @@ final class Version20231103072141 extends AbstractMigration
         $$ LANGUAGE plpgsql;');
         $this->addSql('DROP TRIGGER IF EXISTS notify_trigger ON messenger_messages;');
         $this->addSql('CREATE TRIGGER notify_trigger AFTER INSERT OR UPDATE ON messenger_messages FOR EACH ROW EXECUTE PROCEDURE notify_messenger_messages();');
+        $this->addSql('ALTER TABLE articles ADD CONSTRAINT FK_BFDD316812469DE2 FOREIGN KEY (category_id) REFERENCES articles_category (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE articles_category_translation ADD CONSTRAINT FK_BF34118A2C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES articles_category (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE articles_translation ADD CONSTRAINT FK_105C720E2C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES articles (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE barters ADD CONSTRAINT FK_BFBBE8101273968F FOREIGN KEY (trader_id) REFERENCES traders (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE barters ADD CONSTRAINT FK_BFBBE81038F70DB1 FOREIGN KEY (quest_unlock_barters) REFERENCES quests (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -651,7 +680,10 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('ALTER TABLE items_properties_melee ADD CONSTRAINT FK_30BFBF92BF396750 FOREIGN KEY (id) REFERENCES items_properties (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE items_properties_night_vision ADD CONSTRAINT FK_4206B5D9BF396750 FOREIGN KEY (id) REFERENCES items_properties (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE items_properties_painkiller ADD CONSTRAINT FK_C47ED2F4BF396750 FOREIGN KEY (id) REFERENCES items_properties (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE items_properties_preset ADD CONSTRAINT FK_9370DDE02669EB3A FOREIGN KEY (base_item_id) REFERENCES items (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE items_properties_preset ADD CONSTRAINT FK_9370DDE0BF396750 FOREIGN KEY (id) REFERENCES items_properties (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE items_properties_scope ADD CONSTRAINT FK_FFF791E0BF396750 FOREIGN KEY (id) REFERENCES items_properties (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE items_properties_stimulation ADD CONSTRAINT FK_E89198D2BF396750 FOREIGN KEY (id) REFERENCES items_properties (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE items_properties_surgical_kit ADD CONSTRAINT FK_76754621BF396750 FOREIGN KEY (id) REFERENCES items_properties (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE items_properties_weapon ADD CONSTRAINT FK_D61C9E346DA59D65 FOREIGN KEY (default_ammo_id) REFERENCES items (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE items_properties_weapon ADD CONSTRAINT FK_D61C9E34110AA6C8 FOREIGN KEY (default_preset_id) REFERENCES items (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -694,7 +726,7 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('ALTER TABLE quests_objectives_translation ADD CONSTRAINT FK_5E497B392C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES quests_objectives (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE quests_translation ADD CONSTRAINT FK_E0FE32B52C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES quests (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE skills_translation ADD CONSTRAINT FK_517C959D2C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES skills (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE stimulation_effect ADD CONSTRAINT FK_B7BC1EBF3691D1CA FOREIGN KEY (properties_id) REFERENCES items_properties_food_drink (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE stimulation_effect ADD CONSTRAINT FK_B7BC1EBF3691D1CA FOREIGN KEY (properties_id) REFERENCES items_properties (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE stimulation_effect_translation ADD CONSTRAINT FK_A8E1182A2C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES stimulation_effect (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE traders_cash_offers ADD CONSTRAINT FK_2E627939126F525E FOREIGN KEY (item_id) REFERENCES items (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE traders_cash_offers ADD CONSTRAINT FK_2E6279391273968F FOREIGN KEY (trader_id) REFERENCES traders (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -714,6 +746,9 @@ final class Version20231103072141 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('ALTER TABLE articles DROP CONSTRAINT FK_BFDD316812469DE2');
+        $this->addSql('ALTER TABLE articles_category_translation DROP CONSTRAINT FK_BF34118A2C2AC5D3');
         $this->addSql('ALTER TABLE articles_translation DROP CONSTRAINT FK_105C720E2C2AC5D3');
         $this->addSql('ALTER TABLE barters DROP CONSTRAINT FK_BFBBE8101273968F');
         $this->addSql('ALTER TABLE barters DROP CONSTRAINT FK_BFBBE81038F70DB1');
@@ -759,7 +794,10 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('ALTER TABLE items_properties_melee DROP CONSTRAINT FK_30BFBF92BF396750');
         $this->addSql('ALTER TABLE items_properties_night_vision DROP CONSTRAINT FK_4206B5D9BF396750');
         $this->addSql('ALTER TABLE items_properties_painkiller DROP CONSTRAINT FK_C47ED2F4BF396750');
+        $this->addSql('ALTER TABLE items_properties_preset DROP CONSTRAINT FK_9370DDE02669EB3A');
+        $this->addSql('ALTER TABLE items_properties_preset DROP CONSTRAINT FK_9370DDE0BF396750');
         $this->addSql('ALTER TABLE items_properties_scope DROP CONSTRAINT FK_FFF791E0BF396750');
+        $this->addSql('ALTER TABLE items_properties_stimulation DROP CONSTRAINT FK_E89198D2BF396750');
         $this->addSql('ALTER TABLE items_properties_surgical_kit DROP CONSTRAINT FK_76754621BF396750');
         $this->addSql('ALTER TABLE items_properties_weapon DROP CONSTRAINT FK_D61C9E346DA59D65');
         $this->addSql('ALTER TABLE items_properties_weapon DROP CONSTRAINT FK_D61C9E34110AA6C8');
@@ -819,6 +857,8 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('ALTER TABLE updates_translation DROP CONSTRAINT FK_D08162432C2AC5D3');
         $this->addSql('DROP TABLE Users');
         $this->addSql('DROP TABLE articles');
+        $this->addSql('DROP TABLE articles_category');
+        $this->addSql('DROP TABLE articles_category_translation');
         $this->addSql('DROP TABLE articles_translation');
         $this->addSql('DROP TABLE barters');
         $this->addSql('DROP TABLE barters_required_items');
@@ -856,7 +896,9 @@ final class Version20231103072141 extends AbstractMigration
         $this->addSql('DROP TABLE items_properties_melee');
         $this->addSql('DROP TABLE items_properties_night_vision');
         $this->addSql('DROP TABLE items_properties_painkiller');
+        $this->addSql('DROP TABLE items_properties_preset');
         $this->addSql('DROP TABLE items_properties_scope');
+        $this->addSql('DROP TABLE items_properties_stimulation');
         $this->addSql('DROP TABLE items_properties_surgical_kit');
         $this->addSql('DROP TABLE items_properties_weapon');
         $this->addSql('DROP TABLE items_properties_weapon_presets');

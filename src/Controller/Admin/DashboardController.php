@@ -91,7 +91,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu(t('Workshop', [], 'menu'), 'fa fa-cubes')->setSubItems($workshopMenu);
         yield MenuItem::subMenu(t('Quests', [], 'menu'), 'fa fa-cubes')->setSubItems($questMenu);
         yield MenuItem::linkToCrud(t('Enemies', [], 'menu'), 'fa fa-skull', Boss::class)->setController(BossCrudController::class);
-        yield MenuItem::subMenu(t('Updates', [], 'menu'), 'fa fa-sync')->setSubItems($updatesMenu);
+//        yield MenuItem::subMenu(t('Updates', [], 'menu'), 'fa fa-sync')->setSubItems($updatesMenu);
         yield MenuItem::subMenu(t('Articles', [], 'menu'), 'fa fa-sync')->setSubItems($articlesMenu);
 //        yield MenuItem::linkToCrud(t('Articles', [], 'menu'), 'fa fa-newspaper', Article::class)->setController(ArticleCrudController::class);
         yield MenuItem::section(t('Materials', [], 'menu'), '');

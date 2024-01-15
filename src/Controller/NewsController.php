@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function Symfony\Component\Translation\t;
 
-class MechanicsController extends FrontController
+class NewsController extends FrontController
 {
     private ?array $categories;
     private ContainerBagInterface $params;
@@ -29,7 +29,7 @@ class MechanicsController extends FrontController
         $this->params = $params;
         $this->categories = $categoryRepository->findAllCategory(
             $this->params->get('app.default_locale'),
-            ArticleCategory::TYPE_ARTICLE
+            ArticleCategory::TYPE_UPDATE
         );
     }
 
@@ -42,13 +42,13 @@ class MechanicsController extends FrontController
         return null;
     }
 
-    #[Route('/mechanics/{page<\d+>?1}', name: 'app_mechanics', requirements: ['page' => '\d+'])]
+    #[Route('/news/{page<\d+>?1}', name: 'app_news', requirements: ['page' => '\d+'])]
     public function index(int $page, EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
         $articleCategory = $em->getRepository(Article::class);
 
         $pagination = $paginator->paginate(
-            $articleCategory->getQueryArticlesByCategory('ru', null, ArticleCategory::TYPE_ARTICLE), /* query NOT result */
+            $articleCategory->getQueryArticlesByCategory('ru', null, ArticleCategory::TYPE_UPDATE), /* query NOT result */
             $page, /*page number*/
             10 /*limit per page*/
         );
@@ -60,7 +60,7 @@ class MechanicsController extends FrontController
         ]);
     }
 
-    #[Route('/mechanics/{slugCategory}/{page<\d+>?1}', name: 'app_mechanics_category', requirements: ['page' => '\d+'])]
+    #[Route('/news/{slugCategory}/{page<\d+>?1}', name: 'app_news_category', requirements: ['page' => '\d+'])]
     public function indexByCategory(string $slugCategory, int $page, EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
         $articleCategory = $em->getRepository(Article::class);
@@ -78,7 +78,7 @@ class MechanicsController extends FrontController
         ]);
     }
 
-    #[Route('/mechanics/{slugCategory}/{slugArticle}', name: 'app_mechanics_view')]
+    #[Route('/news/{slugCategory}/{slugArticle}', name: 'app_news_view')]
     public function view(string $slugCategory, string $slugArticle, EntityManagerInterface $em, Request $request): Response
     {
         $currentCategory = $this->findCurrentCategory($slugCategory);

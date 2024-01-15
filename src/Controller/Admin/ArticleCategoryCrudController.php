@@ -7,6 +7,7 @@ use App\Form\Field\TranslationField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -32,6 +33,13 @@ class ArticleCategoryCrudController extends BaseCrudController
         $createdAt = DateField::new('createdAt', 'Created');
         $updatedAt = DateField::new('updatedAt', 'Updated');
         $published = BooleanField::new('published', t('Published', [], 'admin'));
+        $type = ChoiceField::new('type', t('Type', [], 'admin.articles'))
+            ->setChoices([
+                'Mechanics' => '0',
+                'Update' => '1'
+            ])
+            ->setRequired(true)
+        ;
         $slug = SlugField::new('slug', t('Slug', [], 'admin'))
             ->setTargetFieldName('slug')
             ->setDisabled(false)
@@ -53,12 +61,13 @@ class ArticleCategoryCrudController extends BaseCrudController
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $published,
-                $slug->setColumns(12)->setDisabled(false),
+                $type->setColumns(6),
+                $slug->setColumns(6)->setDisabled(false),
                 $translations,
             ],
             default => [
                 $name->setTemplatePath('admin/field/link-edit.html.twig'),
-                $published, $createdAt, $updatedAt],
+                $published, $type, $createdAt, $updatedAt],
         };
     }
 }
