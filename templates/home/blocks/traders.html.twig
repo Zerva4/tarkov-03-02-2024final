@@ -1,0 +1,32 @@
+{% if traders is not empty %}
+    <section>
+        <div class="container medium">
+            <h2 class="center">{{ 'Торговцы'|trans({}, 'front.home') }}</h2>
+            <div class="traders_main">
+                {% for trader in traders %}
+                    {% if trader.slug == 'btr-driver' %}
+                    {% else %}
+                        <div class="trader" data-turbo="true">
+                            <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}" class="image">
+                                {% if trader.imageName %}
+                                    <img src="{{ asset('/storage/images/traders/' ~ trader.imageName) | imagine_filter('100x100') }} " alt="{{ trader.shortName }}" />
+                                {% else %}
+                                    <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('100x100') }}" alt="">
+                                {% endif %}
+                            </a>
+                            <div class="name">
+                                <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}">{{ trader.shortName }}</a>
+                            </div>
+                            <div class="links">
+                                <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#quests" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
+                                {% if trader.cashOffers.count > 0 %}
+                                    <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#items" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
