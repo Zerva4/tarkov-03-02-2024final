@@ -1,0 +1,31 @@
+{% if lastArticles is not empty %}
+    <section>
+        <div class="container">
+            <h2 class="articles_header">{{ 'Статьи и медиа'|trans({}, 'front.home') }}</h2>
+            <div class="articles">
+                {% for article in lastArticles %}
+                    <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" class="article">
+                        <div class="date">
+                            {{ article.createdAt|date("d.m.Y") }}
+                        </div>
+                        <div class="contains">
+                            <div class="name">
+                                {{ article.title }}
+                            </div>
+                            <div class="text">
+                                {{ article.description|striptags('')|raw }}
+                            </div>
+                        </div>
+                        <div class="image">
+                            {% if article.imagePoster is not empty %}
+                                <img src="{{ asset('/storage/images/articles/' ~ article.imagePoster) | imagine_filter('180x134') }}" alt="{{ article.title }}">
+                            {% else %}
+                                <img src="{{ asset('/assets/img/image-cap.png') | imagine_filter('180x134')  }}" width="180" height="134" alt="{{ article.title }}">
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}

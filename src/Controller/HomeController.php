@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Article\ArticleCategory;
 use App\Repository\Article\ArticleRepository;
 use App\Repository\Trader\TraderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,25 +17,11 @@ class HomeController extends AbstractController
     public function index(TraderRepository $traderRepository, ArticleRepository $articleRepository): Response
     {
         $tradersList = $traderRepository->findAll();
-        $articlesList = $articleRepository->findLastHomeArticles(3);
+        $articlesList = $articleRepository->findLastArticles('ru', 3, ArticleCategory::TYPE_ARTICLE);
 
         return $this->render('home/index.html.twig', [
             'traders' => $tradersList,
             'articles' => $articlesList,
         ]);
     }
-
-//    #[Route('/delete', name: 'app_delete')]
-//    public function delete(EntityManagerInterface $em): Response
-//    {
-//        $query = $em->createQuery(
-//            'DELETE FROM App\Entity\Item\ItemPropertiesFoodDrink e WHERE e.energy >= :ageparameter'
-//        )->setParameter('ageparameter', 0)->execute();
-//        $em->flush();
-//
-//        return $this->render('home/index.html.twig', [
-//            'traders' => $tradersList,
-//            'articles' => $articlesList,
-//        ]);
-//    }
 }
