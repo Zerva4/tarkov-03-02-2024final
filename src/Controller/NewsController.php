@@ -71,7 +71,7 @@ class NewsController extends FrontController
             10 /*limit per page*/
         );
 
-        return $this->render('mechanics/index.html.twig', [
+        return $this->render('news/index.html.twig', [
             'currentCategory' => $currentCategory,
             'categories' => $this->categories,
             'pagination' => $pagination,
@@ -96,7 +96,7 @@ class NewsController extends FrontController
             );
         }
 
-        return $this->render('mechanics/view.html.twig', [
+        return $this->render('news/view.html.twig', [
             'article' => $article,
         ]);
     }
