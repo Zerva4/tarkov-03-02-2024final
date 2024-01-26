@@ -150,64 +150,64 @@ document.addEventListener('DOMContentLoaded', function () {
 	// }
 	// catch { }
 
-	// news-page
+	//news-page
 
-	// try {
-	// 	let news__secondary_mobile_patch = document.querySelector('.news__secondary_mobile_patch');
-	//
-	// 	news__secondary_mobile_patch.addEventListener('click', (e) => openMobileNewsPatch(e));
-	// }
-	// catch { }
-	//
-	// try {
-	// 	let news__secondary_mobile_event = document.querySelector('.news__secondary_mobile_event');
-	//
-	// 	news__secondary_mobile_event.addEventListener('click', (e) => openMobileNewsEvent(e));
-	// }
-	// catch { }
-	//
-	// try {
-	// 	let news__secondary_mobile_site = document.querySelector('.news__secondary_mobile_site');
-	//
-	// 	news__secondary_mobile_site.addEventListener('click', (e) => openMobileNewsSite(e));
-	// }
-	// catch { }
-	//
-	// try {
-	// 	let tabs = document.querySelectorAll('.news_patch .secondary__data');
-	//
-	// 	tabs.forEach((item) => {
-	// 		item.addEventListener('click', switchPatch);
-	// 	});
-	// }
-	// catch { }
-	//
-	// try {
-	// 	let tabs = document.querySelectorAll('.news_event .secondary__data');
-	//
-	// 	tabs.forEach((item) => {
-	// 		item.addEventListener('click', switchEvent);
-	// 	});
-	// }
-	// catch { }
-	//
-	// try {
-	// 	let tabs = document.querySelectorAll('.news_site .secondary__data');
-	//
-	// 	tabs.forEach((item) => {
-	// 		item.addEventListener('click', switchSite);
-	// 	});
-	// }
-	// catch { }
-	//
-	// try {
-	// 	let tabs = document.querySelectorAll('.section_body .news_list__element');
-	//
-	// 	tabs.forEach((item) => {
-	// 		item.addEventListener('click', switchNews);
-	// 	});
-	// }
-	// catch { }
+	try {
+		let news__secondary_mobile_patch = document.querySelector('.news__secondary_mobile_patch');
+
+		news__secondary_mobile_patch.addEventListener('click', (e) => openMobileNewsPatch(e));
+	}
+	catch { }
+
+	try {
+		let news__secondary_mobile_event = document.querySelector('.news__secondary_mobile_event');
+
+		news__secondary_mobile_event.addEventListener('click', (e) => openMobileNewsEvent(e));
+	}
+	catch { }
+
+	try {
+		let news__secondary_mobile_site = document.querySelector('.news__secondary_mobile_site');
+
+		news__secondary_mobile_site.addEventListener('click', (e) => openMobileNewsSite(e));
+	}
+	catch { }
+
+	try {
+		let tabs = document.querySelectorAll('.news_patch .secondary__data');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click', switchPatch);
+		});
+	}
+	catch { }
+
+	try {
+		let tabs = document.querySelectorAll('.news_event .secondary__data');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click', switchEvent);
+		});
+	}
+	catch { }
+
+	try {
+		let tabs = document.querySelectorAll('.news_site .secondary__data');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click', switchSite);
+		});
+	}
+	catch { }
+
+	try {
+		let tabs = document.querySelectorAll('.section_body .news_list__element');
+
+		tabs.forEach((item) => {
+			item.addEventListener('click', switchNews);
+		});
+	}
+	catch { }
 
 	// health-page
 	// try {
