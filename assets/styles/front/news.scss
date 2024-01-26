@@ -1,4 +1,7 @@
 .section_body {
+    margin: 0 auto;
+    max-width: 1144px;
+
     .section_view{
         display: none;
         &.active{
