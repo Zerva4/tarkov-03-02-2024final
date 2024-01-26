@@ -19,9 +19,9 @@
                             </div>
                             <div class="links">
                                 <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#quests" class="link">{{ 'Квесты'|trans({}, 'front.home') }}</a>
-{#                                {% if trader.cashOffers.count > 0 %}#}
-{#                                    <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#items" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>#}
-{#                                {% endif %}#}
+                                {% if trader.cashOffers.count > 0 %}
+                                    <a href="{{ absolute_url(path('app_view_trader', {'traderName': trader.slug})) }}/#items" class="link">{{ 'Товары'|trans({}, 'front.home') }}</a>
+                                {% endif %}
                             </div>
                         </div>
                     {% endif %}
