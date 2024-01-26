@@ -3,7 +3,7 @@
         <div class="container">
             <h2 class="articles_header">{{ 'Статьи и медиа'|trans({}, 'front.home') }}</h2>
             <div class="articles">
-                {% for article in lastArticles %}
+                {% for article in articles %}
                     <a href="{{ absolute_url(path('app_mechanics_view', {'slugCategory': article.slugCategory, 'slugArticle': article.slug})) }}" class="article">
                         <div class="date">
                             {{ article.createdAt|date("d.m.Y") }}
