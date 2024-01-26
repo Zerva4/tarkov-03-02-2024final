@@ -1,6 +1,6 @@
 <div class="now">
     <div class="main_information">
-        <div class="windows">
+        <div class="windows" {{ stimulus_controller('tab-windows')}} >
             <div class="window active" id="window_1">
                 <div class="name">
                     {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
@@ -18,8 +18,7 @@
                         blanditiis.
                     </div>
                     <div class="overinfo">
-                        <a href="#">
-                            Подробнее...</a>
+                        <a href="#">Подробнее...</a>
                     </div>
                 </div>
             </div>
@@ -84,7 +83,7 @@
 {#                </div>#}
 {#            </div>#}
         </div>
-        <div class="selects" {{ stimulus_controller('tab-windows') }}>
+        <div class="selects">
             <div class="select active" data-tab="window_1">
                 {{ 'Патч'|trans({}, 'front.home') }}
             </div>
