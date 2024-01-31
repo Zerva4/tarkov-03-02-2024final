@@ -41,7 +41,7 @@ bin/console doctrine:migrations:migrate
 ```
 bin/console app:admin:create -l логин -m эл.почта -p пароль
 ```
-- Настройте веб сервер указывающий на папку public, примеры конфигураций можно найти на сайте https://symfony.com/doc/current/setup/web_server_configuration.html
+- Настройте веб сервер указывающий на папку public, примеры конфигураций можно найти на [сайте](https://symfony.com/doc/current/setup/web_server_configuration.html)
 
 
 ## Импорт данных
