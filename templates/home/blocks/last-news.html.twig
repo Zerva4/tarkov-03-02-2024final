@@ -1,6 +1,6 @@
 <div class="now">
     <div class="main_information">
-        <div class="windows">
+        <div class="windows" {{ stimulus_controller('tab-windows')}} >
             <div class="window active" id="window_1">
                 <div class="name">
                     {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
@@ -18,8 +18,7 @@
                         blanditiis.
                     </div>
                     <div class="overinfo">
-                        <a href="#">
-                            Подробнее...</a>
+                        <a href="#">Подробнее...</a>
                     </div>
                 </div>
             </div>
@@ -87,9 +86,9 @@
         {% if newsCategories is not empty %}
         <div class="selects">
             {% for category in newsCategories %}
-            <div class="select {% if loop.index == 1 %}active{% endif %}" data-target="window_{{ loop.index }}">
-                {{ category.name }}
-            </div>
+                <div class="select {% if loop.index == 1 %}active{% endif %}" data-target="window_{{ loop.index }}">
+                    {{ category.name }}
+                </div>
             {% endfor %}
         </div>
         {% endif %}
