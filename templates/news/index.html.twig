@@ -4,346 +4,55 @@
 
 {% block content %}
     <div class="section_body">
-        <section class="news_content">
-            <ul class="news_list">
-                <li class="news_list__element active" data-target="news_1">Патчи</li>
-                <li class="news_list__element" data-target="news_2">Ивенты</li>
-                <li class="news_list__element" data-target="news_3">Обновление сайта</li>
-                <li class="news_list__element" data-target="news_4">Время вайпа</li>
-            </ul>
+        <section class="container news_content">
+            {{ include('news/blocks/category.html.twig') }}
         </section>
 
-        <section class="section_view active" id="news_1">
-            <div class="wrapper_content">
-                <div class="news_patch">
+        <section class="section_view active">
+            <div class="container">
+                <div class="news_patch" {{ stimulus_controller('news') }}>
                     <div class="news__secondary_mobile_patch">
-                        История: Патчи
+                        История: {{ currentCategory.name }}
                         <div class="icon">
                         </div>
                     </div>
                     <div class="news__secondary">
                         <ul class="secondary__name">
-                            <li>История: Патчи</li>
+                            <li>История: {{ currentCategory.name }}</li>
                         </ul>
-                        <ul class="secondary__list secondary__list_patch">
-                            <li class="secondary__data active" data-target="patch_3">
-                                Обновление 1.33.552334
+                        {% if articles is not empty %}
+                        <ul id="news_list" class="secondary__list secondary__list_patch">
+                            {% for article in articles %}
+                            <li class="secondary__data {% if loop.first %}active{% endif %}" data-target="patch_{{ loop.index }}">
+                                {{ article.title }}
                             </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Обновление 0.43.232334
-                            </li>
-                            <li class="secondary__data" data-target="patch_1">
-                                Обновление 4.63.552334
-                            </li>
+                            {% endfor %}
                         </ul>
+                        {% endif %}
                     </div>
                     <div class="news__main">
-                        <div class="news_content_view active" id="patch_3">
+                        {% if articles is not empty %}
+                        {% for article in articles %}
+                        <div class="news_content_view  {% if loop.first %}active{% endif %}" id="patch_{{ loop.index }}">
                             <div class="header_list">
                                 <div class="logo">
-                                    <img src="assets/img/bosses.svg" width="102" height="60" alt="">
+                                    <img src="{{ asset('assets/img/bosses.svg') }}" width="102" height="60" alt="">
                                 </div>
                                 <div class="text_date">
                                     <div class="text">
-                                        Обновление Patch 2
+                                        Обновление {{ article.title }}
                                     </div>
                                     <div class="date">
-                                        30.05.2023
+                                        {{ article.createdAt|date("d.m.Y") }}
                                     </div>
                                 </div>
                             </div>
                             <div class="news_text">
-                                Тут меняется пачтльное размещение ассортимента товаров у торговца (сейчас там заглушка), без перезагрузочное решение по части обновления, и конечно система регистрации - там сложности на каждом шагу, но вполне решаемые.
-
-                                Проблемы внутреннего характера немного отодвинули запуск на пару недель вперед, поэтому полноценный запуск и показ ожидается к середине лета.
-                                Но я настолько ненавижу уже какие то даты говорить, что лучше скажу - мы работаем очень быстро.
-
+                                {{ article.body|raw }}
                             </div>
                         </div>
-                        <div class="news_content_view" id="patch_2">
-                            <div class="header_list">
-                                <div class="logo">
-                                    <img src="assets/img/burger.png" width="102" height="60" alt="">
-                                </div>
-                                <div class="text_date">
-                                    <div class="text">
-                                        Павтч 565656
-                                    </div>
-                                    <div class="date">
-                                        25.05.2023
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="news_text">
-                                Ну и доработки. Такие как правильное размещение ассортимента товаров у торговца (сейчас там заглушка), без перезагрузочное решение по части обновления, и конечно система регистрации - там сложности на каждом шагу, но вполне решаемые.
-                            </div>
-                        </div>
-                        <div class="news_content_view" id="patch_1">
-                            <div class="header_list">
-                                <div class="logo">
-                                    <img src="assets/img/burger.png" width="102" height="60" alt="">
-                                </div>
-                                <div class="text_date">
-                                    <div class="text">
-                                        Обновление Пепеп
-                                    </div>
-                                    <div class="date">
-                                        20.05.2023
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="news_text">
-                                Проблемы внутреннего характера немного отодвинули запуск на пару недель вперед, поэтому полноценный запуск и показ ожидается к середине лета.
-                                Но я настолько ненавижу уже какие то даты говорить, что лучше скажу - мы работаем очень быстро.
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section_view" id="news_2">
-            <div class="wrapper_content">
-                <div class="news_event">
-                    <div class="news__secondary_mobile_event">
-                        История: Ивенты
-                        <div class="icon">
-                        </div>
-                    </div>
-                    <div class="news__secondary">
-                        <ul class="secondary__name">
-                            <li>История: Ивенты</li>
-                        </ul>
-                        <ul class="secondary__list secondary__list_event">
-                            <li class="secondary__data active" data-target="patch_3">
-                                Королевство кривых
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Сумрак
-                            </li>
-                            <li class="secondary__data" data-target="patch_1">
-                                Погоня
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                перезагрузочное
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Кабала
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Флекс
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Чувство
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="news__main">
-                        <div class="news_content_view active" id="patch_3">
-                            <div class="header_list">
-                                <div class="logo">
-                                    <img src="assets/img/bosses.svg" width="102" height="60" alt="">
-                                </div>
-                                <div class="text_date">
-                                    <div class="text">
-                                        Обновление 444.43.32423
-                                    </div>
-                                    <div class="date">
-                                        31.05.2023
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="news_text">
-                                Ну и доработки. Такие как правильное размещение ассортимента товаров у торговца (сейчас там заглушка), без перезагрузочное решение по части обновления, и конечно система регистрации - там сложности на каждом шагу, но вполне решаемые.
-
-                                Проблемы внутреннего характера немного отодвинули запуск на пару недель вперед, поэтому полноценный запуск и показ ожидается к середине лета.
-                                Но я настолько ненавижу уже какие то даты говорить, что лучше скажу - мы работаем очень быстро.
-
-                            </div>
-                        </div>
-                        <div class="news_content_view" id="patch_2">
-                            <div class="header_list">
-                                <div class="logo">
-                                    <img src="assets/img/burger.png" width="102" height="60" alt="">
-                                </div>
-                                <div class="text_date">
-                                    <div class="text">
-                                        Обновление 0.43.32423
-                                    </div>
-                                    <div class="date">
-                                        25.05.2023
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="news_text">
-                                Ну и доработки. Такие как правильное размещение ассортимента товаров у торговца (сейчас там заглушка), без перезагрузочное решение по части обновления, и конечно система регистрации - там сложности на каждом шагу, но вполне решаемые.
-                            </div>
-                        </div>
-                        <div class="news_content_view" id="patch_1">
-                            <div class="header_list">
-                                <div class="logo">
-                                    <img src="assets/img/burger.png" width="102" height="60" alt="">
-                                </div>
-                                <div class="text_date">
-                                    <div class="text">
-                                        Обновление 0.43.32423
-                                    </div>
-                                    <div class="date">
-                                        25.05.2023
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="news_text">
-                                Проблемы внутреннего характера немного отодвинули запуск на пару недель вперед, поэтому полноценный запуск и показ ожидается к середине лета.
-                                Но я настолько ненавижу уже какие то даты говорить, что лучше скажу - мы работаем очень быстро.
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section_view" id="news_3">
-            <div class="wrapper_content">
-                <div class="news_site">
-                    <div class="news__secondary_mobile_site">
-                        История: Обновление сайта
-                        <div class="icon">
-                        </div>
-                    </div>
-                    <div class="news__secondary">
-                        <ul class="secondary__name">
-                            <li>Обновления сайта</li>
-                        </ul>
-                        <ul class="secondary__list secondary__list_site">
-                            <li class="secondary__data active" data-target="patch_3">
-                                Обновление 0.8
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Обновление 0.6
-                            </li>
-                            <li class="secondary__data" data-target="patch_1">
-                                Обновление 0.55
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Обновление 0.43.232334
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Обновление 0.33.343
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Обновление 0.24.56
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Обновление 0.22.234544
-                            </li>
-                            <li class="secondary__data" data-target="patch_2">
-                                Обновление 0.21.33334
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="news__main">
-                        <div class="news_content_view active" id="patch_3">
-                            <div class="header_list">
-                                <div class="logo">
-                                    <img src="assets/img/bosses.svg" width="102" height="60" alt="">
-                                </div>
-                                <div class="text_date">
-                                    <div class="text">
-                                        Обновление 444.43.32423
-                                    </div>
-                                    <div class="date">
-                                        31.05.2023
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="news_text">
-                                Ну и доработки. Такие как правильное размещение ассортимента товаров у торговца (сейчас там заглушка), без перезагрузочное решение по части обновления, и конечно система регистрации - там сложности на каждом шагу, но вполне решаемые.
-
-                                Проблемы внутреннего характера немного отодвинули запуск на пару недель вперед, поэтому полноценный запуск и показ ожидается к середине лета.
-                                Но я настолько ненавижу уже какие то даты говорить, что лучше скажу - мы работаем очень быстро.
-
-                            </div>
-                        </div>
-                        <div class="news_content_view" id="patch_2">
-                            <div class="header_list">
-                                <div class="logo">
-                                    <img src="assets/img/burger.png" width="102" height="60" alt="">
-                                </div>
-                                <div class="text_date">
-                                    <div class="text">
-                                        Обновление 0.43.32423
-                                    </div>
-                                    <div class="date">
-                                        25.05.2023
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="news_text">
-                                Ну и доработки. Такие как правильное размещение ассортимента товаров у торговца (сейчас там заглушка), без перезагрузочное решение по части обновления, и конечно система регистрации - там сложности на каждом шагу, но вполне решаемые.
-                            </div>
-                        </div>
-                        <div class="news_content_view" id="patch_1">
-                            <div class="header_list">
-                                <div class="logo">
-                                    <img src="assets/img/burger.png" width="102" height="60" alt="">
-                                </div>
-                                <div class="text_date">
-                                    <div class="text">
-                                        Обновление 0.43.32423
-                                    </div>
-                                    <div class="date">
-                                        25.05.2023
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="news_text">
-                                Проблемы внутреннего характера немного отодвинули запуск на пару недель вперед, поэтому полноценный запуск и показ ожидается к середине лета.
-                                Но я настолько ненавижу уже какие то даты говорить, что лучше скажу - мы работаем очень быстро.
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section_view" id="news_4">
-            <div class="wrapper_content">
-                <div class="news_wipe">
-                    <div class="news__full">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Версия патча</th>
-                                <th>Начало вайпа</th>
-                                <th>Конец вайпа</th>
-                                <th>Длительность</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="wipe_tr">
-                                <td>0.13.5345</td>
-                                <td>20.07.2023</td>
-                                <td>25.08.2023</td>
-                                <td>25 дней</td>
-                            </tr>
-                            <tr class="wipe_tr">
-                                <td>0.12.94435</td>
-                                <td>20.07.2022</td>
-                                <td>25.08.2022</td>
-                                <td>9215 дней</td>
-                            </tr>
-                            <tr class="wipe_tr">
-                                <td>0.11.345345</td>
-                                <td>20.07.2021</td>
-                                <td>25.08.2021</td>
-                                <td>85 дней</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

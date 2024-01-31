@@ -1,0 +1,9 @@
+{% if categories is not empty %}
+    <div class="category">
+        <ul class="news_list">
+            {% for category in categories %}
+                <li class="news_list__element {% if currentCategory.slug == category.slug %}active{% endif %}"> <a href="{{ absolute_url(path('app_news_category', {'slugCategory': category.slug})) }}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article\Article;
 use App\Entity\Article\ArticleCategory;
 use App\Repository\Article\ArticleCategoryRepository;
+use App\Repository\Article\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -42,39 +43,28 @@ class NewsController extends FrontController
         return null;
     }
 
-    #[Route('/news/{page<\d+>?1}', name: 'app_news', requirements: ['page' => '\d+'])]
-    public function index(int $page, EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
+    #[Route('/news', name: 'app_news')]
+    public function index(EntityManagerInterface $em, Request $request): Response
     {
-        $articleCategory = $em->getRepository(Article::class);
-
-        $pagination = $paginator->paginate(
-            $articleCategory->getQueryArticlesByCategory('ru', null, ArticleCategory::TYPE_UPDATE), /* query NOT result */
-            $page, /*page number*/
-            10 /*limit per page*/
-        );
-
-        return $this->render('news/index.html.twig', [
-            'currentCategory' => null,
-            'categories' => $this->categories,
-            'pagination' => $pagination,
-        ]);
+        return $this->redirectToRoute('app_news_category', ['slugCategory' => $this->categories[0]['slug']]);
     }
 
-    #[Route('/news/{slugCategory}/{page<\d+>?1}', name: 'app_news_category', requirements: ['page' => '\d+'])]
-    public function indexByCategory(string $slugCategory, int $page, EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
+    #[Route('/news/{slugCategory}', name: 'app_news_category')]
+    public function indexByCategory(string $slugCategory, EntityManagerInterface $em, Request $request): Response
     {
-        $articleCategory = $em->getRepository(Article::class);
         $currentCategory = $this->findCurrentCategory($slugCategory);
-        $pagination = $paginator->paginate(
-            $articleCategory->getQueryArticlesByCategory('ru', $slugCategory), /* query NOT result */
-            $page, /*page number*/
-            10 /*limit per page*/
-        );
+        $articlesRepository = $em->getRepository(Article::class);
+        $articlesList = $articlesRepository->getQueryNewsByCategory(
+            $this->params->get('app.default_locale'),
+            10,
+            $slugCategory,
+            ArticleCategory::TYPE_UPDATE
+        )->getResult();
 
         return $this->render('news/index.html.twig', [
             'currentCategory' => $currentCategory,
             'categories' => $this->categories,
-            'pagination' => $pagination,
+            'articles' => $articlesList
         ]);
     }
 
