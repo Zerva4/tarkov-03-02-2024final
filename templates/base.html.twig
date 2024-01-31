@@ -14,7 +14,9 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        {% if app.environment != 'dev'  %}
         {{ include('blocks/metric.html.twig') }}
+        {% endif %}
     </head>
     <body>
         {{ include('blocks/nav.html.twig') }}
