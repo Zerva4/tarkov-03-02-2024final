@@ -100,11 +100,13 @@ class ArticleCrudController extends BaseCrudController
         return match ($pageName) {
             Crud::PAGE_EDIT, Crud::PAGE_NEW => [
                 $poster,
+                $createdAt->setColumns(2),
+                $updatedAt->setColumns(2),
                 $status->setColumns(2),
                 $category->setColumns(2),
                 $complexity->setColumns(2),
                 $readingDuration->setColumns(2),
-                $slug->setColumns(4),
+                $slug->setColumns(12),
                 $translations
             ],
             default => [

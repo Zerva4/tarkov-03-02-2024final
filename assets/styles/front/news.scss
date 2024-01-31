@@ -1,4 +1,7 @@
 .section_body {
+    margin: 0 auto;
+    max-width: 1144px;
+
     .section_view{
         display: none;
         &.active{
@@ -123,7 +126,7 @@
         display: flex;
         flex-direction: column;
         background-color: #151515;
-        width: 350px;
+        width: 308px;
         border-radius: 5px;
         padding: 0 16px 16px;
         box-sizing: border-box;

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Новости | Tarkov.Town{% endblock %}
+
+{% block content %}
+    <div class="section_body">
+        <section class="container news_content">
+            {{ include('news/blocks/category.html.twig') }}
+        </section>
+
+        <section class="section_view active">
+            <div class="container">
+                <div class="news_patch" {{ stimulus_controller('news') }}>
+                    <div class="news__secondary_mobile_patch">
+                        История: {{ currentCategory.name }}
+                        <div class="icon">
+                        </div>
+                    </div>
+                    <div class="news__secondary">
+                        <ul class="secondary__name">
+                            <li>История: {{ currentCategory.name }}</li>
+                        </ul>
+                        {% if articles is not empty %}
+                        <ul id="news_list" class="secondary__list secondary__list_patch">
+                            {% for article in articles %}
+                            <li class="secondary__data {% if loop.first %}active{% endif %}" data-target="patch_{{ loop.index }}">
+                                {{ article.title }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="news__main">
+                        {% if articles is not empty %}
+                        {% for article in articles %}
+                        <div class="news_content_view  {% if loop.first %}active{% endif %}" id="patch_{{ loop.index }}">
+                            <div class="header_list">
+                                <div class="logo">
+                                    <img src="{{ asset('assets/img/bosses.svg') }}" width="102" height="60" alt="">
+                                </div>
+                                <div class="text_date">
+                                    <div class="text">
+                                        Обновление {{ article.title }}
+                                    </div>
+                                    <div class="date">
+                                        {{ article.createdAt|date("d.m.Y") }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news_text">
+                                {{ article.body|raw }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -88,6 +88,31 @@ class ArticleRepository extends ServiceEntityRepository
         return $dql->getQuery();
     }
 
+    public function getQueryNewsByCategory(?string $locale = 'ru', ?int $maxItem = 3, ?string $slugCategory = null, int $type = ArticleCategory::TYPE_ARTICLE): Query
+    {
+        $dql = $this->createQueryBuilder('a')
+            ->select('a.id, a.slug, a.createdAt, a.updatedAt, a.imagePoster, a.complexity, a.readingDuration, t.title AS title, t.description AS description, t.body AS body, c.slug AS slugCategory')
+            ->leftJoin('a.translations', 't')
+            ->leftJoin('a.category', 'c')
+            ->andWhere('t.locale = :locale')
+            ->andWhere('a.status = :status')
+            ->andWhere('c.type = :type')
+            ->orderBy('a.createdAt', 'ASC')
+            ->setParameters([
+                'status' => Article::STATUS_PUBLISHED,
+                'type' => $type,
+                'locale' => $locale,
+            ])
+            ->setFirstResult(0)
+            ->setMaxResults($maxItem)
+        ;
+        if (null !== $slugCategory) {
+            $dql->andWhere('c.slug = :slugCategory')->setParameter('slugCategory', $slugCategory);
+        }
+
+        return $dql->getQuery();
+    }
+
     public function findArticleBySlug(string $slugCategory, string $slugArticle, string $locale = 'ru', int $mode = AbstractQuery::HYDRATE_OBJECT): ?array
     {
         return $this->createQueryBuilder('a')

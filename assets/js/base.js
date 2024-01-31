@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	// }
 	// catch { }
 
-	// news-page
+	//news-page
 
 	// try {
 	// 	let news__secondary_mobile_patch = document.querySelector('.news__secondary_mobile_patch');
