@@ -20,7 +20,8 @@ composer install
 ```
 yarn install
 ```
-- Соберите JS фалйы
+
+- Соберите JS файлы
 ```
 yarn run build
 ```
