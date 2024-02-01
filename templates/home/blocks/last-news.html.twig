@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="window" id="window_2"  {{ stimulus_controller('news') }}>
-                {% if articles is not empty %}
+                {% if lastArticles is not empty %}
                 {% for article in articles %}
                 <div class="name">
                     {{ article.title }}
