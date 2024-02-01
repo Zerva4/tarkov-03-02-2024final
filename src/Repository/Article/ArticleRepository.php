@@ -44,7 +44,7 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLastArticles(?string $locale = 'ru', $offset = null, int $maxItem = 3, int $type = ArticleCategory::TYPE_ARTICLE, int $mode = AbstractQuery::HYDRATE_OBJECT)
+    public function findLastArticles(?string $locale = 'ru', int $maxItem = 3, int $type = ArticleCategory::TYPE_ARTICLE, int $mode = AbstractQuery::HYDRATE_OBJECT)
     {
         return $this->createQueryBuilder('a')
             ->select('a.id, a.slug,  a.createdAt, a.updatedAt, a.imagePoster, t.title AS title, t.description AS description, c.slug AS slugCategory')
