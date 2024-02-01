@@ -59,7 +59,7 @@ class ArticleRepository extends ServiceEntityRepository
                 'type' => $type,
                 'locale' => $locale,
             ])
-            ->setFirstResult(2)
+            ->setFirstResult($offset)
             ->setMaxResults($maxItem)
             ->getQuery()
             ->setResultCacheLifetime(0)
