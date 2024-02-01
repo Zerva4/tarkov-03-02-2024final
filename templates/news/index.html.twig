@@ -31,7 +31,7 @@
                         {% endif %}
                     </div>
                     <div class="news__main">
-                        {% if articles is not empty %}
+                        {% if lastArticles is not empty %}
                         {% for article in articles %}
                         <div class="news_content_view  {% if loop.first %}active{% endif %}" id="patch_{{ loop.index }}">
                             <div class="header_list">
