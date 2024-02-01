@@ -1,3 +1,4 @@
+{% if lastArticles is not empty %}
 <div class="now">
     <div class="main_information">
         <div class="windows" {{ stimulus_controller('tab-windows')}} >
@@ -23,7 +24,6 @@
                 </div>
             </div>
             <div class="window" id="window_2"  {{ stimulus_controller('news') }}>
-                {% if lastArticles is not empty %}
                     {% for article in lastArticles %}
                 <div class="name">
                     {{ article.title }}
@@ -41,7 +41,6 @@
                     </div>
                 </div>
                      {% endfor %}
-                {% endif %}
             </div>
         </div>
         {% if newsCategories is not empty %}
@@ -55,3 +54,4 @@
         {% endif %}
     </div>
 </div>
+{% endif %}
