@@ -86,7 +86,7 @@
         {% if newsCategories is not empty %}
         <div class="selects">
             {% for category in newsCategories %}
-                <div class="select {% if loop.index == 1 %}active{% endif %}" data-target="window_{{ loop.index }}">
+                <div class="select {% if loop.index == 1 %}active{% endif %}" data-tab="window_{{ loop.index }}">
                     {{ category.name }}
                 </div>
             {% endfor %}
