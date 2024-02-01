@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="window" id="window_2"  {{ stimulus_controller('news') }}>
-                    {% for article in lastArticles %}
+                {% for article in articles %}
                 <div class="name">
                     {{ article.title }}
                 </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="contains">
                     <div class="text">
-                        {{ article.body|striptags('')|raw }}
+                        {{ article.body|raw }}
                     </div>
                     <div class="overinfo">
                         <a href="#">
