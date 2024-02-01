@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="window" id="window_2"  {{ stimulus_controller('news') }}>
-                {% for article in articles %}
+                    {% for article in lastArticles %}
                 <div class="name">
                     {{ article.title }}
                 </div>
