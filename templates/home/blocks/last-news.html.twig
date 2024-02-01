@@ -1,6 +1,6 @@
 <div class="now">
     <div class="main_information">
-        <div class="windows" {{ stimulus_controller('tab-windows')}}{{ stimulus_controller('news') }}>
+        <div class="windows" {{ stimulus_controller('tab-windows')}} >
             <div class="window active" id="window_1">
                 <div class="name">
                     {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
@@ -22,9 +22,9 @@
                     </div>
                 </div>
             </div>
-            {% if articles is not empty %}
-            <div class="window" id="window_2">
-                {% for article in articles %}
+            <div class="window" id="window_2"  {{ stimulus_controller('news') }}>
+                {% if lastArticles is not empty %}
+                    {% for article in lastArticles %}
                 <div class="name">
                     {{ article.title }}
                 </div>
@@ -40,8 +40,8 @@
                             Подробнее...</a>
                     </div>
                 </div>
-                {% endfor %}
-            {% endif %}
+                     {% endfor %}
+                {% endif %}
             </div>
         </div>
         {% if newsCategories is not empty %}
