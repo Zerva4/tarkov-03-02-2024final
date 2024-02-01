@@ -1,6 +1,6 @@
 <div class="now">
     <div class="main_information">
-        <div class="windows" {{ stimulus_controller('tab-windows')}} >
+        <div class="windows" {{ stimulus_controller('tab-windows')}}{{ stimulus_controller('news') }}>
             <div class="window active" id="window_1">
                 <div class="name">
                     {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
@@ -22,9 +22,9 @@
                     </div>
                 </div>
             </div>
-            <div class="window" id="window_2"  {{ stimulus_controller('news') }}>
-                {% if articles is not empty %}
-                    {% for article in articles %}
+            {% if articles is not empty %}
+            <div class="window" id="window_2">
+                {% for article in articles %}
                 <div class="name">
                     {{ article.title }}
                 </div>
@@ -40,22 +40,8 @@
                             Подробнее...</a>
                     </div>
                 </div>
-                     {% endfor %}
-                {% endif %}
-            </div>
-            <div class="window" id="window_3">
-                <div class="name">
-                    {{ 'Отступники'|trans({}, 'front.home') }}
-                </div>
-                <div class="subname">
-                    {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
-                </div>
-                <div class="contains">
-                    <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                        error
-                    </div>
-                </div>
+                {% endfor %}
+            {% endif %}
             </div>
         </div>
         {% if newsCategories is not empty %}
