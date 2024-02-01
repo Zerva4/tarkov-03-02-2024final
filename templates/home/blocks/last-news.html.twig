@@ -22,51 +22,26 @@
                     </div>
                 </div>
             </div>
-            <div class="window" id="window_2">
+            <div class="window" id="window_2"  {{ stimulus_controller('news') }}>
+                {% if articles is not empty %}
+                    {% for article in articles %}
                 <div class="name">
-                    {{ 'Ивент'|trans({}, 'front.home') }}
+                    {{ article.title }}
                 </div>
                 <div class="subname">
-                    {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
+                    {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :
                 </div>
                 <div class="contains">
                     <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                        error
-                        rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                        necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                        est
-                        blanditiis.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                        error
-                        rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                        necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                        est
-                        blanditiis.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                        error
-                        rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                        necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                        est
-                        blanditiis.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                        error
-                        rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                        necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                        est
-                        blanditiis.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                        error
-                        rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                        necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                        est
-                        blanditiis.
+                        {{ article.body|raw }}
                     </div>
                     <div class="overinfo">
                         <a href="#">
                             Подробнее...</a>
                     </div>
                 </div>
+                     {% endfor %}
+                {% endif %}
             </div>
             <div class="window" id="window_3">
                 <div class="name">
