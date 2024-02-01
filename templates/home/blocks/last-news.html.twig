@@ -33,11 +33,11 @@
                 </div>
                 <div class="contains">
                     <div class="text">
-                        {{ article.description|striptags('')|raw }}
+                        {{ article.body|striptags('')|raw }}
                     </div>
                     <div class="overinfo">
                         <a href="#">
-                            Подробнее...</a>
+                            {{ article.description|striptags('')|raw }}Подробнее...</a>
                     </div>
                 </div>
                      {% endfor %}
