@@ -23,8 +23,7 @@
                 </div>
             </div>
             <div class="window" id="window_2"  {{ stimulus_controller('news') }}>
-                {% if lastArticles is not empty %}
-                    {% for article in lastArticles %}
+                {% if article is not empty %}
                 <div class="name">
                     {{ article.title }}
                 </div>
@@ -40,7 +39,6 @@
                             Подробнее...</a>
                     </div>
                 </div>
-                     {% endfor %}
                 {% endif %}
             </div>
         </div>
