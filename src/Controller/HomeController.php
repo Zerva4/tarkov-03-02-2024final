@@ -20,11 +20,13 @@ class HomeController extends AbstractController
         $tradersList = $traderRepository->findAll();
         $articlesList = $articleRepository->findLastArticles('ru', 3, ArticleCategory::TYPE_ARTICLE);
         $newsCategories = $categoryRepository->findAllCategory('ru', ArticleCategory::TYPE_UPDATE);
+        $windowNews = $articleRepository ->findArticleBySlug('ru', 3, ArticleCategory::TYPE_ARTICLE);
 
         return $this->render('home/index.html.twig', [
             'traders' => $tradersList,
             'lastArticles' => $articlesList,
-            'newsCategories' => $newsCategories
+            'newsCategories' => $newsCategories,
+            '$windowNews' => $windowNews
         ]);
     }
 }
