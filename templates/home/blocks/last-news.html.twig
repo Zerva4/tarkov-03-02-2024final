@@ -22,25 +22,27 @@
             </div>
             {% endif %}
             {% endfor %}
-{#                {% for article in newsMain %}#}
-{#            <div class="window" id="window_2">#}
-{#                <div class="name">#}
-{#                    {{ article.title }}#}
-{#                </div>#}
-{#                <div class="subname">#}
-{#                    {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :#}
-{#                </div>#}
-{#                <div class="contains">#}
-{#                    <div class="text">#}
-{#                        {{ article.description|striptags('')|raw }}#}
-{#                    </div>#}
-{#                    <div class="overinfo">#}
-{#                        <a href="#">#}
-{#                            Подробнее...</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#                {% endfor %}#}
+                {% for article in newsMain %}
+                    {% if article.slug == 'main-patch' %}
+            <div class="window" id="window_2">
+                <div class="name">
+                    {{ article.title }}
+                </div>
+                <div class="subname">
+                    {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :
+                </div>
+                <div class="contains">
+                    <div class="text">
+                        {{ article.description|striptags('')|raw }}
+                    </div>
+                    <div class="overinfo">
+                        <a href="#">
+                            Подробнее...</a>
+                    </div>
+                </div>
+            </div>
+                {% endif %}
+                {% endfor %}
         </div>
         {% if newsCategories is not empty %}
         <div class="selects">
