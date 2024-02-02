@@ -1,34 +1,41 @@
 <div class="now">
     <div class="main_information">
+        {% if articles is not empty %}
         <div class="windows" {{ stimulus_controller('tab-windows')}} >
+            {% for article in articles %}
+                {% if article.slug == 'main-patch' %}
+                {% else %}
             <div class="window active" id="window_1">
                 <div class="name">
-                    2223
+                    {{ article.title }}
                 </div>
                 <div class="subname">
-                    {{ 'Список изменений от'|trans({}, 'front.home') }} 04/10/2222 :
-{#                    {{ article.createdAt|date("d.m.Y") }}#}
+                    {{ 'Список изменений от'|trans({}, 'front.home') }}{{ article.createdAt|date("d.m.Y") }} :
                 </div>
                 <div class="contains">
                     <div class="text">
-                        fghfghfghfghfghfgh
-{#                        {{ article.description|striptags('')|raw }}#}
+                        {{ article.description|striptags('')|raw }}
                     </div>
                     <div class="overinfo">
                         <a href="#">Подробнее...</a>
                     </div>
                 </div>
             </div>
+                    {% endif %}
+            {% endfor %}
+                {% for article in articles %}
+                {% if article.slug == 'main-update' %}
+                {% else %}
             <div class="window" id="window_2">
                 <div class="name">
-                    656565
+                    {{ article.title }}
                 </div>
                 <div class="subname">
-                    {{ 'Список изменений от'|trans({}, 'front.home') }}  :
+                    {{ 'Список изменений от'|trans({}, 'front.home') }}{{ article.createdAt|date("d.m.Y") }} :
                 </div>
                 <div class="contains">
                     <div class="text">
-                        234234234234234
+                        {{ article.description|striptags('')|raw }}
                     </div>
                     <div class="overinfo">
                         <a href="#">
@@ -36,7 +43,9 @@
                     </div>
                 </div>
             </div>
+                {% endif %}
         </div>
+        {% endif %}
         {% if newsCategories is not empty %}
         <div class="selects">
             {% for category in newsCategories %}
