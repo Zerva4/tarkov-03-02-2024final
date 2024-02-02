@@ -7,10 +7,9 @@
             {% for category in newsCategories %}
             <div class="window {% if loop.index == 1 %}active{% endif %}" id="window_{{ loop.index }}">
                 <div class="name">
-                    {% if article.category.slug == 'update' %}
+                    {% if category.slug == 'update' %}
                     {{ article.title }}
-                    {% else %}
-                        {% endif %}
+                    {% endif %}
                 </div>
                 <div class="subname">
                     {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :
