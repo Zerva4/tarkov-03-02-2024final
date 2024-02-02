@@ -23,8 +23,8 @@
                 </div>
             </div>
             <div class="window" id="window_2">
-                {% if newsMain is not empty %}
-                    {% for article in articles %}
+                {% if lastArticles is not empty %}
+                    {% for article in lastArticles %}
                 <div class="name">
                     {{ article.title }}
                 </div>
