@@ -53,7 +53,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('t.locale = :locale')
             ->andWhere('a.status = :status')
             ->andWhere('c.type = :type')
-            ->orderBy('a.createdAt', 'ASC')
+            ->orderBy('a.createdAt', 'DESC')
             ->setParameters([
                 'status' => Article::STATUS_PUBLISHED,
                 'type' => $type,
