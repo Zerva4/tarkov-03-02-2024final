@@ -26,7 +26,7 @@ class HomeController extends AbstractController
             'traders' => $tradersList,
             'lastArticles' => $articlesList,
             'newsCategories' => $newsCategories,
-            '$newsMain' => $NewsList
+            'newsMain' => $NewsList
         ]);
     }
 }
