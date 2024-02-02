@@ -25,6 +25,9 @@
             <div class="window" id="window_2">
                 {% if newsMain is not empty %}
                     {% for article in newsMain %}
+                        {% if newsCategories is not empty %}
+                            {% for category in newsCategories %}
+                                {% if category.name == 'update' %}
                 <div class="name">
                     {{ article.title }}
                 </div>
@@ -40,6 +43,9 @@
                             Подробнее...</a>
                     </div>
                 </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                      {% endfor %}
                 {% endif %}
             </div>
