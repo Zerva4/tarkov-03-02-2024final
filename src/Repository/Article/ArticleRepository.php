@@ -66,7 +66,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult($mode)
         ;
     }
-    public function findNewsArticles(?string $locale = 'ru', int $maxItem = 1, int $type = ArticleCategory::TYPE_UPDATE, int $mode = AbstractQuery::HYDRATE_OBJECT)
+    public function findNewsArticles(?string $locale = 'ru', int $maxItem = 1000, int $type = ArticleCategory::TYPE_UPDATE, int $mode = AbstractQuery::HYDRATE_OBJECT)
     {
         return $this->createQueryBuilder('a')
             ->select('a.id, a.slug,  a.createdAt, a.updatedAt, a.imagePoster, t.title AS title, t.description AS description, t.body AS body, c.slug AS slugCategory')
