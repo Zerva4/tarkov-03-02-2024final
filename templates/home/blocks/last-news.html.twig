@@ -27,7 +27,7 @@
                     {% for article in newsMain %}
                         {% if newsCategories is not empty %}
                             {% for category in newsCategories %}
-                                {% if category.name == 'update' %}
+                                {% if category.slug == 'patch' %}
                 <div class="name">
                     {{ article.title }}
                 </div>
