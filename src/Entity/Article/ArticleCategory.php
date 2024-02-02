@@ -27,7 +27,6 @@ class ArticleCategory extends TranslatableEntity implements ArticleCategoryInter
 
     public const TYPE_ARTICLE = 0;
     public const TYPE_UPDATE = 1;
-    public const TYPE_PATCH = 2;
 
     #[ORM\Column(type: 'boolean')]
     private bool $published;
