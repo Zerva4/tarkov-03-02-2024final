@@ -1,11 +1,9 @@
 <div class="now">
-    {% if newsMain is not empty %}
     <div class="main_information">
-        {% if newsCategories is not empty %}
         <div class="windows" {{ stimulus_controller('tab-windows')}} >
-            {% for category in newsCategories %}
+            {% if newsMain is not empty %}
             {% for article in newsMain %}
-            <div class="window {% if loop.index == 1 %}active{% endif %}" id="window_{{ loop.index }}">
+            <div class="window active" id="window_1">
                 <div class="name">
                     {{ article.title }}
                 </div>
@@ -22,32 +20,29 @@
                 </div>
             </div>
             {% endfor %}
+            {% endif %}
+            {% if patchMain is not empty %}
+            {% for article in patchMain %}
+            <div class="window" id="window_2">
+                <div class="name">
+                    {{ article.title }}
+                </div>
+                <div class="subname">
+                    {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :
+                </div>
+                <div class="contains">
+                    <div class="text">
+                        {{ article.description|striptags('')|raw }}
+                    </div>
+                    <div class="overinfo">
+                        <a href="#">
+                            Подробнее...</a>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
+            {% endif %}
         </div>
-        {% endif %}
-{#            <div class="window" id="window_2">#}
-{#                        {% if newsCategories is not empty %}#}
-{#                            {% for category in newsCategories %}#}
-{#                                {% if category.slug == 'patch' %}#}
-{#                <div class="name">#}
-{#                    {{ article.title }}#}
-{#                </div>#}
-{#                <div class="subname">#}
-{#                    {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :#}
-{#                </div>#}
-{#                <div class="contains">#}
-{#                    <div class="text">#}
-{#                        {{ article.description|striptags('')|raw }}#}
-{#                    </div>#}
-{#                    <div class="overinfo">#}
-{#                        <a href="#">#}
-{#                            Подробнее...</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#                                {% endif %}#}
-{#                            {% endfor %}#}
-{#                        {% endif %}#}
-{#            </div>#}
         {% if newsCategories is not empty %}
         <div class="selects">
             {% for category in newsCategories %}
@@ -58,5 +53,4 @@
         </div>
         {% endif %}
     </div>
-    {% endif %}
 </div>
