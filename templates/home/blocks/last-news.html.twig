@@ -4,7 +4,7 @@
         {% if newsCategories is not empty %}
         <div class="windows" {{ stimulus_controller('tab-windows')}} >
             {% for category in newsCategories %}
-            {% for article in newsMain %}
+{#            {% for article in newsMain %}#}
             <div class="window {% if loop.index == 1 %}active{% endif %}" id="window_{{ loop.index }}">
                 <div class="name">
                     {{ article.title }}
@@ -22,7 +22,7 @@
                 </div>
             </div>
             {% endfor %}
-            {% endfor %}
+{#            {% endfor %}#}
 {#            <div class="window" id="window_2">#}
 {#                        {% if newsCategories is not empty %}#}
 {#                            {% for category in newsCategories %}#}
