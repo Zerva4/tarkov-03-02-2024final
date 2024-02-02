@@ -6,7 +6,7 @@
             <div class="window active" id="window_1">
                         {% if newsCategories is not empty %}
                         {% for category in newsCategories %}
-                            {% if category.name == 'Update' or 'Обновление' %}
+                            {% if category.slug == 'update' %}
                 <div class="name">
                     {{ article.title }}
                 </div>
@@ -28,7 +28,7 @@
             <div class="window" id="window_2">
                         {% if newsCategories is not empty %}
                             {% for category in newsCategories %}
-                                {% if category.name == 'Patch' or 'Патч' %}
+                                {% if category.slug == 'patch' %}
                 <div class="name">
                     {{ article.title }}
                 </div>
