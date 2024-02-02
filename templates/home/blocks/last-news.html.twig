@@ -1,14 +1,15 @@
+{% if newsMain is not empty %}
+{% for article in newsMain %}
 <div class="now">
     <div class="main_information">
         <div class="windows" {{ stimulus_controller('tab-windows')}} >
             <div class="window active" id="window_1">
-                {% if newsMain is not empty %}
-                    {% for article in newsMain %}
                         {% if newsCategories is not empty %}
                         {% for category in newsCategories %}
                             {% if category.slug == 'update' %}
                 <div class="name">
                     {{ article.title }}
+                    {{ category.slug }}
                 </div>
                 <div class="subname">
                     {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :
@@ -24,12 +25,8 @@
                             {% endif %}
                         {% endfor %}
                         {% endif %}
-                    {% endfor %}
-                {% endif %}
             </div>
             <div class="window" id="window_2">
-                {% if newsMain is not empty %}
-                    {% for article in newsMain %}
                         {% if newsCategories is not empty %}
                             {% for category in newsCategories %}
                                 {% if category.slug == 'patch' %}
@@ -51,8 +48,6 @@
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-                     {% endfor %}
-                {% endif %}
             </div>
         </div>
         {% if newsCategories is not empty %}
@@ -65,3 +60,5 @@
         </div>
         {% endif %}
 </div>
+{% endfor %}
+{% endif %}
