@@ -155,7 +155,7 @@
         }
         .secondary__list{
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             margin: 0;
             padding: 0px;
             height: 324px;
@@ -207,7 +207,7 @@
             }
 
             .secondary__data + .secondary__data {
-                margin-top: 8px;
+                margin-bottom: 8px;
             }
             &_patch, &_event, &_site{
 
