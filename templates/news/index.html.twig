@@ -23,7 +23,7 @@
                         {% if articles is not empty %}
                         <ul id="news_list" class="secondary__list secondary__list_patch">
                             {% for article in articles %}
-                            <li class="secondary__data {% if loop.first %}active{% endif %}" data-target="patch_{{ loop.index }}">
+                            <li class="secondary__data {% if loop.last %}active{% endif %}" data-target="patch_{{ loop.index }}">
                                 {{ article.title }}
                             </li>
                             {% endfor %}
