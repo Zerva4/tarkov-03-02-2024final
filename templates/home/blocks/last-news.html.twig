@@ -1,8 +1,8 @@
 <div class="now">
     <div class="main_information">
-        {% if articles is not empty %}
+        {% if newsMain is not empty %}
         <div class="windows" {{ stimulus_controller('tab-windows')}} >
-            {% for article in articles %}
+            {% for article in newsMain %}
                 {% if article.slug == 'main-patch' %}
                 {% else %}
             <div class="window active" id="window_1">
@@ -23,7 +23,7 @@
             </div>
                     {% endif %}
             {% endfor %}
-                {% for article in articles %}
+                {% for article in newsMain %}
                 {% if article.slug == 'main-update' %}
                 {% else %}
             <div class="window" id="window_2">
