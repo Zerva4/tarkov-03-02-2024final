@@ -23,7 +23,7 @@
                         {% if articles is not empty %}
                         <ul id="news_list" class="secondary__list secondary__list_patch">
                             {% for article in articles %}
-                            <li class="secondary__data {% if loop.last %}active{% endif %}" data-target="patch_{{ loop.index }}">
+                            <li class="secondary__data {% if loop.last %}active{% endif %}" data-target="patch_{{ loop.last.index }}">
                                 {{ article.title }}
                             </li>
                             {% endfor %}
@@ -33,7 +33,7 @@
                     <div class="news__main">
                         {% if articles is not empty %}
                         {% for article in articles %}
-                        <div class="news_content_view  {% if loop.last %}active{% endif %}" id="patch_{{ loop.index }}">
+                        <div class="news_content_view  {% if loop.last %}active{% endif %}" id="patch_{{ loop.last.index }}">
                             <div class="header_list">
                                 <div class="logo">
                                     <img src="{{ asset('assets/img/bosses.svg') }}" width="102" height="60" alt="">
