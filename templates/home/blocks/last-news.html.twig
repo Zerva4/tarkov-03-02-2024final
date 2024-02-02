@@ -4,7 +4,6 @@
         <div class="windows" {{ stimulus_controller('tab-windows')}} >
             {% for article in newsMain %}
                 {% if article.slug == 'main-patch' %}
-                {% else %}
             <div class="window active" id="window_1">
                 <div class="name">
                     {{ article.title }}
@@ -21,11 +20,11 @@
                     </div>
                 </div>
             </div>
+                {% else %}
                     {% endif %}
             {% endfor %}
                 {% for article in newsMain %}
                 {% if article.slug == 'main-update' %}
-                {% else %}
             <div class="window" id="window_2">
                 <div class="name">
                     {{ article.title }}
@@ -43,6 +42,7 @@
                     </div>
                 </div>
             </div>
+                {% else %}
                 {% endif %}
                 {% endfor %}
         </div>
