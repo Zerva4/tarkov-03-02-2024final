@@ -6,10 +6,9 @@
             <div class="window active" id="window_1">
                         {% if newsCategories is not empty %}
                         {% for category in newsCategories %}
-                            {% if category.slug == 'patch' %}
+                            {% if article.slug == 'update' %}
                 <div class="name">
                     {{ article.title }}
-                    {{ category.slug }}
                 </div>
                 <div class="subname">
                     {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :
