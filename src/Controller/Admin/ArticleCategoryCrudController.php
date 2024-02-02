@@ -67,7 +67,7 @@ class ArticleCategoryCrudController extends BaseCrudController
             ],
             default => [
                 $name->setTemplatePath('admin/field/link-edit.html.twig'),
-                $published, $type, $createdAt, $updatedAt],
+                $published, $type, $slug, $createdAt, $updatedAt],
         };
     }
 }

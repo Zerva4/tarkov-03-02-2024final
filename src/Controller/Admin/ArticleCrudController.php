@@ -112,6 +112,7 @@ class ArticleCrudController extends BaseCrudController
             default => [
                 $title->setColumns(12)->setTextAlign('left'),
                 $status,
+                $slug,
                 $category,
                 $complexity,
                 $readingDuration,

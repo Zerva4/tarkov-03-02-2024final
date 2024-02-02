@@ -22,7 +22,7 @@
                         </ul>
                         {% if articles is not empty %}
                         <ul id="news_list" class="secondary__list secondary__list_patch">
-                            {% for article in articles %}
+                            {% for article in articles|reverse %}
                             <li class="secondary__data {% if loop.first %}active{% endif %}" data-target="patch_{{ loop.index }}">
                                 {{ article.title }}
                             </li>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="news__main">
                         {% if articles is not empty %}
-                        {% for article in articles %}
+                        {% for article in articles|reverse  %}
                         <div class="news_content_view  {% if loop.first %}active{% endif %}" id="patch_{{ loop.index }}">
                             <div class="header_list">
                                 <div class="logo">

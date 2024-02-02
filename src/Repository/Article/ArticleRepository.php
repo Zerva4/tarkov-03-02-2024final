@@ -53,7 +53,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('t.locale = :locale')
             ->andWhere('a.status = :status')
             ->andWhere('c.type = :type')
-            ->orderBy('a.createdAt', 'ASC')
+            ->orderBy('a.createdAt', 'DESC')
             ->setParameters([
                 'status' => Article::STATUS_PUBLISHED,
                 'type' => $type,
@@ -66,7 +66,50 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult($mode)
         ;
     }
-
+    public function findNewsArticles(?string $locale = 'ru', int $maxItem = 1000, int $type = ArticleCategory::TYPE_UPDATE, int $mode = AbstractQuery::HYDRATE_OBJECT)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id, a.slug,  a.createdAt, a.updatedAt, a.imagePoster, t.title AS title, t.description AS description, t.body AS body, c.slug AS slugCategory')
+            ->leftJoin('a.translations', 't')
+            ->leftJoin('a.category', 'c')
+            ->andWhere('t.locale = :locale')
+            ->andWhere('a.status = :status')
+            ->andWhere('c.type = :type')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameters([
+                'status' => Article::STATUS_PUBLISHED,
+                'type' => $type,
+                'locale' => $locale,
+            ])
+            ->setFirstResult(0)
+            ->setMaxResults($maxItem)
+            ->getQuery()
+            ->setResultCacheLifetime(0)
+            ->getResult($mode)
+            ;
+    }
+    public function findPatchArticles(?string $locale = 'ru', int $maxItem = 1, int $type = ArticleCategory::TYPE_PATCH, int $mode = AbstractQuery::HYDRATE_OBJECT)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id, a.slug,  a.createdAt, a.updatedAt, a.imagePoster, t.title AS title, t.description AS description, t.body AS body, c.slug AS slugCategory')
+            ->leftJoin('a.translations', 't')
+            ->leftJoin('a.category', 'c')
+            ->andWhere('t.locale = :locale')
+            ->andWhere('a.status = :status')
+            ->andWhere('c.type = :type')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameters([
+                'status' => Article::STATUS_PUBLISHED,
+                'type' => $type,
+                'locale' => $locale,
+            ])
+            ->setFirstResult(0)
+            ->setMaxResults($maxItem)
+            ->getQuery()
+            ->setResultCacheLifetime(0)
+            ->getResult($mode)
+            ;
+    }
     public function getQueryArticlesByCategory(?string $locale = 'ru', ?string $slugCategory = null, int $type = ArticleCategory::TYPE_ARTICLE): Query
     {
         $dql = $this->createQueryBuilder('a')
