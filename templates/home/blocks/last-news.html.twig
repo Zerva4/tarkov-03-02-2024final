@@ -2,25 +2,30 @@
     <div class="main_information">
         <div class="windows" {{ stimulus_controller('tab-windows')}} >
             <div class="window active" id="window_1">
+                {% if newsMain is not empty %}
+                    {% for article in newsMain %}
+                        {% if newsCategories is not empty %}
+                        {% for category in newsCategories %}
+                            {% if category.slug == 'update' %}
                 <div class="name">
-                    {{ 'Последний патч'|trans({}, 'front.home') }} | 13.13.13.0043290
+                    {{ article.title }}
                 </div>
                 <div class="subname">
-                    {{ 'Список изменений от'|trans({}, 'front.home') }} 01.01.2023 :
+                    {{ 'Список изменений от'|trans({}, 'front.home') }} {{ article.createdAt|date("d.m.Y") }} :
                 </div>
                 <div class="contains">
                     <div class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-                        error
-                        rem temporibus veritatis incidunt animi vero eos voluptate placeat amet
-                        necessitatibus, quibusdam itaque aliquam libero magni repellendus odio
-                        est
-                        blanditiis.
+                        {{ article.description|striptags('')|raw }}
                     </div>
                     <div class="overinfo">
                         <a href="#">Подробнее...</a>
                     </div>
                 </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="window" id="window_2">
                 {% if newsMain is not empty %}
