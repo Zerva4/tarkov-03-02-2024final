@@ -33,7 +33,7 @@
                     <div class="news__main">
                         {% if articles is not empty %}
                         {% for article in articles %}
-                        <div class="news_content_view  {% if loop.first %}active{% endif %}" id="patch_{{ loop.index }}">
+                        <div class="news_content_view  {% if loop.last %}active{% endif %}" id="patch_{{ loop.index }}">
                             <div class="header_list">
                                 <div class="logo">
                                     <img src="{{ asset('assets/img/bosses.svg') }}" width="102" height="60" alt="">
