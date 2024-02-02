@@ -36,8 +36,7 @@ class ArticleCategoryCrudController extends BaseCrudController
         $type = ChoiceField::new('type', t('Type', [], 'admin.articles'))
             ->setChoices([
                 'Mechanics' => '0',
-                'Update' => '1',
-                'Patch' => '2'
+                'Update' => '1'
             ])
             ->setRequired(true)
         ;
