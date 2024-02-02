@@ -66,7 +66,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult($mode)
         ;
     }
-    public function findNewsArticles(?string $locale = 'ru', int $maxItem = 1, $offset ='null', int $type = ArticleCategory::TYPE_UPDATE, int $mode = AbstractQuery::HYDRATE_OBJECT)
+    public function findNewsArticles(?string $locale = 'ru', int $maxItem = 1, int $type = ArticleCategory::TYPE_UPDATE, int $mode = AbstractQuery::HYDRATE_OBJECT)
     {
         return $this->createQueryBuilder('a')
             ->select('a.id, a.slug,  a.createdAt, a.updatedAt, a.imagePoster, t.title AS title, t.description AS description, t.body AS body, c.slug AS slugCategory')
@@ -75,13 +75,13 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('t.locale = :locale')
             ->andWhere('a.status = :status')
             ->andWhere('c.type = :type')
-            ->orderBy('a.createdAt', 'ASC')
+            ->orderBy('a.createdAt', 'DESC')
             ->setParameters([
                 'status' => Article::STATUS_PUBLISHED,
                 'type' => $type,
                 'locale' => $locale,
             ])
-            ->setFirstResult($offset)
+            ->setFirstResult(0)
             ->setMaxResults($maxItem)
             ->getQuery()
             ->setResultCacheLifetime(0)
